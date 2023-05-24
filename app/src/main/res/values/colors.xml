@@ -3,7 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="textcolor_black">#1E1E1E</color>
-    <color name="edittext_color">#C4C4C4</color>
+    <color name="textcolor_greyblack">#1E1E1E</color>
+    <color name="textcolor_black">#000000</color>
+    <color name="textcolor_white">#FFFFFF</color>
+    <color name="tint_color">#C4C4C4</color>
 
 </resources>
