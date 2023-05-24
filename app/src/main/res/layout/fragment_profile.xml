@@ -1,13 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.profileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.profileFragment"
+    android:background="@drawable/background">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_profile1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_profile2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_profile1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/settings"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="5dp"
+        />
+
+    <ImageButton
+        android:id="@+id/editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/edit_profile"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        style="@style/zagalovok1"
+        android:id="@+id/profileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/settings"
+        app:layout_constraintEnd_toStartOf="@id/editProfile"
+        app:layout_constraintTop_toTopOf="@id/settings"
+        app:layout_constraintBottom_toBottomOf="@id/settings"
+        android:text="@string/profile"
+        android:textColor="@color/textcolor_black"
+        />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/margin_profile1"
+        app:layout_constraintEnd_toStartOf="@id/margin_profile2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/profile_image_big"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/boxName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_profile1"
+        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/medicinies_nutrition_box"
+        />
+
+    <EditText
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/boxName"
+        app:layout_constraintTop_toTopOf="@id/boxName"
+        app:layout_constraintBottom_toBottomOf="@id/boxName"
+        android:hint="@string/name"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        android:paddingStart="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/boxAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_profile1"
+        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
+        app:layout_constraintTop_toBottomOf="@id/boxName"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/medicinies_nutrition_box"
+        />
+
+    <EditText
+        android:id="@+id/ageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/boxAge"
+        app:layout_constraintTop_toTopOf="@id/boxAge"
+        app:layout_constraintBottom_toBottomOf="@id/boxAge"
+        android:hint="@string/age"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        android:paddingStart="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/boxHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/boxAge"
+        app:layout_constraintTop_toBottomOf="@id/boxAge"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/height_weight_box"
+        />
+
+    <EditText
+        android:id="@+id/heightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/boxHeight"
+        app:layout_constraintTop_toTopOf="@id/boxHeight"
+        app:layout_constraintBottom_toBottomOf="@id/boxHeight"
+        android:hint="@string/height"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        android:paddingStart="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/boxWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/boxAge"
+        app:layout_constraintTop_toBottomOf="@id/boxAge"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/height_weight_box"
+        />
+
+    <EditText
+        android:id="@+id/weightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/boxWeight"
+        app:layout_constraintTop_toTopOf="@id/boxWeight"
+        app:layout_constraintBottom_toBottomOf="@id/boxWeight"
+        android:hint="@string/weight"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        android:paddingStart="10dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
