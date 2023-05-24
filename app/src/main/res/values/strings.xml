@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Health Check</string>
+    <string name="input_fields">Введите данные</string>
+    <string name="name">Имя</string>
+    <string name="age">Возраст</string>
+    <string name="gender">Пол</string>
+    <string name="height">Рост</string>
+    <string name="he">Муж</string>
+    <string name="she">Жен</string>
+    
+</resources>

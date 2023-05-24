@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.StartFragment"
+    android:background="@drawable/background"
+    >
+
+    <ImageView
+        android:id="@+id/womanStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/woman_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="45dp"
+        />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text=""
+        />
+
+    <ImageView
+        android:id="@+id/box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/taskbox_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="77dp"
+        />
+
+    <TextView
+        android:id="@+id/inputFields"
+        style="@style/textStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="@string/input_fields"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/box"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/box"
+        app:layout_constraintTop_toTopOf="@id/box"
+        />
+
+    <!-- сделать иконку !-->
+
+    <EditText
+        style="@style/editTextStyle"
+        android:id="@+id/editTextName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="@id/box"
+        app:layout_constraintStart_toStartOf="@id/box"
+        app:layout_constraintTop_toBottomOf="@id/inputFields"
+        android:hint="@string/name"
+        android:paddingStart="30dp"
+        />
+
+    <EditText
+        style="@style/editTextStyle"
+        android:id="@+id/editTextAge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="@id/box"
+        app:layout_constraintStart_toStartOf="@id/box"
+        app:layout_constraintTop_toBottomOf="@id/editTextName"
+        android:hint="@string/age"
+        android:paddingStart="30dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        style="@style/editTextStyle"
+        android:id="@+id/editTextHeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="@id/box"
+        app:layout_constraintStart_toStartOf="@id/box"
+        app:layout_constraintTop_toBottomOf="@id/editTextAge"
+        android:hint="@string/height"
+        android:paddingStart="30dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        style="@style/textStyle"
+        android:id="@+id/genderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/box"
+        app:layout_constraintTop_toBottomOf="@id/editTextHeight"
+        android:layout_marginStart="20dp"
+        android:text="@string/gender"
+        android:textSize="16sp"
+        android:layout_marginTop="22dp"
+        />
+
+    <ImageView
+        android:id="@+id/genderBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/genderText"
+        app:layout_constraintTop_toTopOf="@id/genderText"
+        app:layout_constraintBottom_toBottomOf="@id/genderText"
+        android:src="@drawable/gender_background"
+        android:layout_marginStart="8dp"
+        />
+
+    <TextView
+        android:id="@+id/textHe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/genderBackground"
+        app:layout_constraintEnd_toEndOf="@id/genderBackground"
+        app:layout_constraintTop_toTopOf="@id/genderBackground"
+        app:layout_constraintBottom_toBottomOf="@id/genderBackground"
+        app:layout_constraintHorizontal_bias="0.18"
+        android:textSize="16sp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="@string/he"
+        />
+
+    <TextView
+        android:id="@+id/textShe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/genderBackground"
+        app:layout_constraintEnd_toEndOf="@id/genderBackground"
+        app:layout_constraintTop_toTopOf="@id/genderBackground"
+        app:layout_constraintBottom_toBottomOf="@id/genderBackground"
+        app:layout_constraintHorizontal_bias="0.82"
+        android:textSize="16sp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="@string/she"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
