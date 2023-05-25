@@ -1,25 +1,25 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="40dp"
-    android:height="40dp"
-    android:viewportWidth="40"
-    android:viewportHeight="40">
+    android:width="44dp"
+    android:height="44dp"
+    android:viewportWidth="44"
+    android:viewportHeight="44">
   <path
-      android:pathData="M5,1.5L14,1.5A3.5,3.5 0,0 1,17.5 5L17.5,14A3.5,3.5 0,0 1,14 17.5L5,17.5A3.5,3.5 0,0 1,1.5 14L1.5,5A3.5,3.5 0,0 1,5 1.5z"
+      android:pathData="M5,1.5L15.9,1.5A3.5,3.5 0,0 1,19.4 5L19.4,15.9A3.5,3.5 0,0 1,15.9 19.4L5,19.4A3.5,3.5 0,0 1,1.5 15.9L1.5,5A3.5,3.5 0,0 1,5 1.5z"
       android:strokeWidth="3"
       android:fillColor="#00000000"
       android:strokeColor="#000000"/>
   <path
-      android:pathData="M26,1.5L35,1.5A3.5,3.5 0,0 1,38.5 5L38.5,14A3.5,3.5 0,0 1,35 17.5L26,17.5A3.5,3.5 0,0 1,22.5 14L22.5,5A3.5,3.5 0,0 1,26 1.5z"
+      android:pathData="M28.1,1.5L39,1.5A3.5,3.5 0,0 1,42.5 5L42.5,15.9A3.5,3.5 0,0 1,39 19.4L28.1,19.4A3.5,3.5 0,0 1,24.6 15.9L24.6,5A3.5,3.5 0,0 1,28.1 1.5z"
       android:strokeWidth="3"
       android:fillColor="#00000000"
       android:strokeColor="#000000"/>
   <path
-      android:pathData="M5,22.5L14,22.5A3.5,3.5 0,0 1,17.5 26L17.5,35A3.5,3.5 0,0 1,14 38.5L5,38.5A3.5,3.5 0,0 1,1.5 35L1.5,26A3.5,3.5 0,0 1,5 22.5z"
+      android:pathData="M5,24.6L15.9,24.6A3.5,3.5 0,0 1,19.4 28.1L19.4,39A3.5,3.5 0,0 1,15.9 42.5L5,42.5A3.5,3.5 0,0 1,1.5 39L1.5,28.1A3.5,3.5 0,0 1,5 24.6z"
       android:strokeWidth="3"
       android:fillColor="#00000000"
       android:strokeColor="#000000"/>
   <path
-      android:pathData="M30.5,22.5L30.5,22.5A8,8 0,0 1,38.5 30.5L38.5,30.5A8,8 0,0 1,30.5 38.5L30.5,38.5A8,8 0,0 1,22.5 30.5L22.5,30.5A8,8 0,0 1,30.5 22.5z"
+      android:pathData="M33.55,24.6L33.55,24.6A8.95,8.95 0,0 1,42.5 33.55L42.5,33.55A8.95,8.95 0,0 1,33.55 42.5L33.55,42.5A8.95,8.95 0,0 1,24.6 33.55L24.6,33.55A8.95,8.95 0,0 1,33.55 24.6z"
       android:strokeWidth="3"
       android:fillColor="#00000000"
       android:strokeColor="#000000"/>

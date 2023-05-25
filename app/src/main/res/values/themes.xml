@@ -3,6 +3,9 @@
     <style name="Base.Theme.HealthCheck" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
+       <item name="android:statusBarColor">@color/status_bar_color</item>
+
     </style>
 
     <style name="Theme.HealthCheck" parent="Base.Theme.HealthCheck" />
@@ -22,6 +25,18 @@
     <style name="zagalovok3">
         <item name="fontFamily">@font/inter_medium</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="diagramsDigitsStyle">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/textcolor_purple</item>
+    </style>
+
+    <style name="diagramsTextStyle">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/textcolor_blue</item>
     </style>
 
     <style name="tint1">

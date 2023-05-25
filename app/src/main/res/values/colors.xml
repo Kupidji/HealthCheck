@@ -6,6 +6,10 @@
     <color name="textcolor_greyblack">#1E1E1E</color>
     <color name="textcolor_black">#000000</color>
     <color name="textcolor_white">#FFFFFF</color>
+    <color name="textcolor_purple">#483867</color>
+    <color name="textcolor_blue">#A9B7FF</color>
     <color name="tint_color">#C4C4C4</color>
+    <color name="status_bar_color">#A9B7FF</color>
+    <color name="navigation_bar_color">#83B0FA</color>
 
 </resources>

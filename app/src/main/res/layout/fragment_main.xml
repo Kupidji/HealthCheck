@@ -8,15 +8,30 @@
     android:background="@drawable/background"
     >
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="25dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_main2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="25dp"
+        />
+
     <ImageView
         android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/settings"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="25dp"
         />
 
     <ImageButton
@@ -25,14 +40,345 @@
         android:layout_height="wrap_content"
         android:src="@drawable/icon_profile"
         android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/margin_main2"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="25dp"
+
+        />
+
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/nearestAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toBottomOf="@id/settings"
+        android:layout_marginTop="20dp"
+        android:text="@string/nearest_act"
+        android:textColor="@color/textcolor_greyblack"
+
+        />
+
+    <ImageView
+        android:id="@+id/statusBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toBottomOf="@id/nearestAct"
+        android:src="@drawable/todo_box"
+        android:layout_marginTop="8dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/statusBox"
+        app:layout_constraintTop_toTopOf="@id/statusBox"
+        app:layout_constraintBottom_toBottomOf="@id/statusBox"
+        android:text="Пока нет действий"
+        android:layout_marginStart="15dp"
+        />
+
+    <ImageView
+        android:id="@+id/todayTextBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/todayText"
+        app:layout_constraintEnd_toEndOf="@id/todayText"
+        app:layout_constraintTop_toTopOf="@id/todayText"
+        app:layout_constraintBottom_toBottomOf="@id/todayText"
+        android:src="@drawable/day_btn_background"
+        />
+
+    <TextView
+        style="@style/zagalovok3"
+        android:id="@+id/todayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toBottomOf="@id/statusBox"
+        android:text="@string/_day"
+        android:gravity="center"
+        android:textColor="@color/textcolor_white"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        />
+
+    <ImageView
+        android:id="@+id/weekTextBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weekText"
+        app:layout_constraintEnd_toEndOf="@id/weekText"
+        app:layout_constraintTop_toTopOf="@id/weekText"
+        app:layout_constraintBottom_toBottomOf="@id/weekText"
+        android:src="@drawable/week_btn_background"
+        android:visibility="gone"
+        />
+
+    <TextView
+        style="@style/zagalovok3"
+        android:id="@+id/weekText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/todayText"
+        app:layout_constraintTop_toBottomOf="@id/statusBox"
+        android:text="@string/_week"
+        android:gravity="center"
+        android:textColor="@color/textcolor_greyblack"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="27dp"
+        />
+
+    <ImageView
+        android:id="@+id/monthTextBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/monthText"
+        app:layout_constraintEnd_toEndOf="@id/monthText"
+        app:layout_constraintTop_toTopOf="@id/monthText"
+        app:layout_constraintBottom_toBottomOf="@id/monthText"
+        android:src="@drawable/week_btn_background"
+        android:visibility="gone"
+        />
+
+    <TextView
+        style="@style/zagalovok3"
+        android:id="@+id/monthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/weekText"
+        app:layout_constraintTop_toBottomOf="@id/statusBox"
+        android:text="@string/_month"
+        android:gravity="center"
+        android:textColor="@color/textcolor_greyblack"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="27dp"
+        />
+
+    <ImageButton
+        android:id="@+id/stepsBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toBottomOf="@id/todayText"
+        android:src="@drawable/weight_steps_box"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="35dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsBox"
+        app:layout_constraintTop_toTopOf="@id/stepsBox"
+        android:text="@string/steps"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
+        />
+
+    <ImageView
+        android:id="@+id/stepsDiagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsBox"
+        app:layout_constraintEnd_toEndOf="@id/stepsBox"
+        app:layout_constraintTop_toTopOf="@id/stepsBox"
+        app:layout_constraintBottom_toBottomOf="@id/stepsBox"
+        android:src="@drawable/diagram_cycle"
+        />
+
+    <TextView
+        style="@style/diagramsDigitsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsDiagram"
+        app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
+        app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+        android:text="0"
+        android:layout_marginBottom="15dp"
+        />
+
+    <TextView
+        style="@style/diagramsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsDiagram"
+        app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
+        app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+        android:layout_marginTop="15dp"
+        android:text="@string/of_steps"
+        />
+
+    <ImageButton
+        android:id="@+id/sleepBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/margin_main2"
+        app:layout_constraintTop_toTopOf="@id/stepsBox"
+        android:src="@drawable/sleep_box"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/sleepTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/sleepBox"
+        app:layout_constraintTop_toTopOf="@id/sleepBox"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        android:text="@string/sleep"
+        android:textColor="@color/textcolor_white"
         />
 
 
 
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/sleepTitle"
+        app:layout_constraintTop_toTopOf="@id/sleepTitle"
+        app:layout_constraintBottom_toBottomOf="@id/sleepBox"
+        app:layout_constraintVertical_bias="0.65"
+        android:text="0ч"
+        android:textColor="@color/textcolor_white"
+        />
+
+
+    <ImageView
+        android:id="@+id/heartBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toBottomOf="@id/stepsBox"
+        android:src="@drawable/heart_box"
+        android:layout_marginTop="18dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/heartBox"
+        app:layout_constraintTop_toTopOf="@id/heartBox"
+        android:text="@string/cardio"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        />
+
+
+
+    <ImageButton
+        android:id="@+id/weightBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/margin_main2"
+        app:layout_constraintTop_toBottomOf="@id/sleepBox"
+        android:src="@drawable/weight_steps_box"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="18dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightBox"
+        app:layout_constraintTop_toTopOf="@id/weightBox"
+        android:text="@string/weight"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/weightDiagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightBox"
+        app:layout_constraintEnd_toEndOf="@id/weightBox"
+        app:layout_constraintTop_toTopOf="@id/weightBox"
+        app:layout_constraintBottom_toBottomOf="@id/weightBox"
+        android:src="@drawable/diagram_cycle"
+        app:layout_constraintVertical_bias="0.75"
+        />
+
+    <TextView
+        style="@style/diagramsDigitsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram"
+        android:text="\?"
+        android:layout_marginBottom="15dp"
+        />
+
+    <TextView
+        style="@style/diagramsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram"
+        android:layout_marginTop="15dp"
+        android:text="@string/kg"
+        />
+
+    <ImageButton
+        android:id="@+id/medicineiesBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toBottomOf="@id/heartBox"
+        android:src="@drawable/medicinies_nutrition_box"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="18dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/medicineiesBox"
+        app:layout_constraintTop_toTopOf="@id/medicineiesBox"
+        app:layout_constraintBottom_toBottomOf="@id/medicineiesBox"
+        android:layout_marginStart="20dp"
+        android:text="@string/preparations"
+        />
+
+    <ImageButton
+        android:id="@+id/healtyEatBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toBottomOf="@id/medicineiesBox"
+        android:src="@drawable/medicinies_nutrition_box"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="18dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/healtyEatBox"
+        app:layout_constraintTop_toTopOf="@id/healtyEatBox"
+        app:layout_constraintBottom_toBottomOf="@id/healtyEatBox"
+        android:layout_marginStart="20dp"
+        android:text="@string/healthy_eat"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
