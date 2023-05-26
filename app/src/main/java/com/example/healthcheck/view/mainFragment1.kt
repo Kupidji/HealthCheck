@@ -42,7 +42,7 @@ class mainFragment1 : Fragment() {
             navigation.navigate(R.id.sleepFragment)
         }
 
-        binding.heartBox.setOnClickListener {
+        binding.kardioBox.setOnClickListener {
             navigation.navigate(R.id.heartFragment)
         }
 
