@@ -25,13 +25,13 @@
         />
 
     <ImageButton
-        android:id="@+id/settings"
+        android:id="@+id/wentBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@android:color/transparent"
-        android:src="@drawable/settings"
+        android:src="@drawable/arrow_left"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         />
@@ -45,89 +45,30 @@
         android:background="@android:color/transparent"
         android:src="@drawable/icon_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         style="@style/zagalovok1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/settings"
+        app:layout_constraintStart_toEndOf="@id/wentBack"
         app:layout_constraintEnd_toStartOf="@id/profile"
-        app:layout_constraintTop_toTopOf="@id/settings"
-        app:layout_constraintBottom_toBottomOf="@id/settings"
+        app:layout_constraintTop_toTopOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="@id/wentBack"
         android:text="@string/sleep"
         android:textColor="@color/textcolor_black"
-        />
-
-    <TextView
-        style="@style/zagalovok1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/margin_s"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="99dp"
-        android:text="@string/how_long_sleep"
-        android:textColor="@color/textcolor_black"
-        />
-
-    <ImageButton
-        android:id="@+id/sleep1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/margin_s"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/how_much_sleep"
-        android:background="@android:color/transparent"
-        />
-    
-    <EditText
-        style="@style/tint1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/sleep1"
-        app:layout_constraintEnd_toEndOf="@id/sleep1"
-        app:layout_constraintBottom_toBottomOf="@id/sleep1"
-        app:layout_constraintStart_toStartOf="@id/sleep1"
-        android:paddingStart="10dp"
-        android:hint="@string/start_sleep"
-        android:textColor="@color/tint_color"
-        android:background="@android:color/transparent"
-        />
-
-    <ImageButton
-        android:id="@+id/sleep2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/margin_e"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/how_much_sleep"
-        android:background="@android:color/transparent"
         />
 
     <ImageView
         android:id="@+id/box1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/margin_s"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="244dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wentBack"
+        app:layout_constraintEnd_toStartOf="@id/box2"
+        android:layout_marginTop="20dp"
         android:src="@drawable/sleep_box"
-        />
-
-    <EditText
-        style="@style/tint1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/sleep2"
-        app:layout_constraintEnd_toEndOf="@id/sleep2"
-        app:layout_constraintBottom_toBottomOf="@id/sleep2"
-        app:layout_constraintStart_toStartOf="@id/sleep2"
-        android:paddingStart="10dp"
-        android:hint="@string/wakeup"
-        android:textColor="@color/tint_color"
-        android:background="@android:color/transparent"
         />
 
     <TextView
@@ -140,6 +81,16 @@
         android:layout_marginStart="15dp"
         android:text="@string/sleep"
         android:textColor="@color/textcolor_white"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/box1"
+        app:layout_constraintTop_toTopOf="@id/box1"
+        android:src="@drawable/sleep_icon"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
         />
 
     <TextView
@@ -170,9 +121,10 @@
         android:id="@+id/box2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/margin_e"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="244dp"
+        app:layout_constraintStart_toEndOf="@id/box1"
+        app:layout_constraintTop_toTopOf="@id/box1"
+        app:layout_constraintBottom_toBottomOf="@id/box1"
+        app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/sleep_box"
         />
 
@@ -186,6 +138,16 @@
         android:layout_marginStart="15dp"
         android:text="@string/sleep"
         android:textColor="@color/textcolor_white"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/box2"
+        app:layout_constraintTop_toTopOf="@id/box2"
+        android:src="@drawable/sleep_icon"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
         />
 
     <TextView
@@ -214,11 +176,77 @@
 
     <TextView
         style="@style/zagalovok1"
+        android:id="@+id/howLongSleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/margin_s"
-        android:layout_marginTop="403dp"
+        app:layout_constraintStart_toStartOf="@id/sleep1"
+        app:layout_constraintTop_toBottomOf="@id/box1"
+        android:layout_marginTop="10dp"
+        android:text="@string/how_long_sleep"
+        />
+
+    <ImageView
+        android:id="@+id/sleep1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/box1"
+        app:layout_constraintEnd_toStartOf="@id/sleep2"
+        app:layout_constraintTop_toBottomOf="@id/howLongSleep"
+        android:src="@drawable/how_much_sleep"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:id="@+id/getGoesToBedTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/sleep1"
+        app:layout_constraintEnd_toEndOf="@id/sleep1"
+        app:layout_constraintBottom_toBottomOf="@id/sleep1"
+        app:layout_constraintStart_toStartOf="@id/sleep1"
+        android:paddingStart="10dp"
+        android:hint="@string/start_sleep"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/sleep2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/sleep1"
+        app:layout_constraintTop_toTopOf="@id/sleep1"
+        app:layout_constraintBottom_toBottomOf="@id/sleep1"
+        app:layout_constraintEnd_toEndOf="@id/box2"
+        android:src="@drawable/how_much_sleep"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:id="@+id/getWakeUpTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/sleep2"
+        app:layout_constraintEnd_toEndOf="@id/sleep2"
+        app:layout_constraintBottom_toBottomOf="@id/sleep2"
+        app:layout_constraintStart_toStartOf="@id/sleep2"
+        android:paddingStart="10dp"
+        android:hint="@string/wakeup"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/totalSleeptime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/getGoesToBedTime"
+        app:layout_constraintStart_toStartOf="@id/box1"
+        android:layout_marginTop="10dp"
         android:text="@string/total_sleeptime"
         android:textColor="@color/textcolor_black"
         />
@@ -227,11 +255,11 @@
         android:id="@+id/big_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/margin_s"
-        app:layout_constraintEnd_toStartOf="@id/margin_e"
-        android:layout_marginTop="457dp"
+        app:layout_constraintTop_toBottomOf="@id/totalSleeptime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/sleeplayout_background"
+        android:layout_marginTop="5dp"
         />
 
     <TextView

@@ -7,44 +7,16 @@
     tools:context=".view.profileFragment"
     android:background="@drawable/background">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/margin_profile1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp"
-        />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/margin_profile2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="20dp"
-        />
-
     <ImageButton
-        android:id="@+id/settings"
+        android:id="@+id/wentBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/margin_profile1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/settings"
+        android:src="@drawable/arrow_left"
         android:background="@android:color/transparent"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="5dp"
-        />
-
-    <ImageButton
-        android:id="@+id/editProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/edit_profile"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="25dp"
         />
 
     <TextView
@@ -52,20 +24,32 @@
         android:id="@+id/profileText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/margin_profile1"
-        app:layout_constraintEnd_toStartOf="@id/margin_profile2"
-        app:layout_constraintTop_toTopOf="@id/settings"
-        app:layout_constraintBottom_toBottomOf="@id/settings"
+        app:layout_constraintStart_toEndOf="@id/wentBack"
+        app:layout_constraintEnd_toStartOf="@id/confirm"
+        app:layout_constraintTop_toTopOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="@id/wentBack"
         android:text="@string/profile"
         android:textColor="@color/textcolor_black"
+        />
+
+    <ImageButton
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/confirm"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
         />
 
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/margin_profile1"
-        app:layout_constraintEnd_toStartOf="@id/margin_profile2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="100dp"
         android:src="@drawable/profile_image_big"
@@ -76,8 +60,8 @@
         android:id="@+id/boxName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/margin_profile1"
-        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileImage"
         android:layout_marginTop="26dp"
         android:src="@drawable/medicinies_nutrition_box"
@@ -102,8 +86,8 @@
         android:id="@+id/boxAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/margin_profile1"
-        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/boxName"
         android:layout_marginTop="16dp"
         android:src="@drawable/medicinies_nutrition_box"

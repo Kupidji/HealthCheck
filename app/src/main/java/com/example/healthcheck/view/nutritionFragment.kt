@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
+import com.example.healthcheck.databinding.FragmentNutritionBinding
 import com.example.healthcheck.viewmodel.NutritionViewModel
 
 class nutritionFragment : Fragment() {
@@ -16,18 +18,30 @@ class nutritionFragment : Fragment() {
     }
 
     private lateinit var viewModel: NutritionViewModel
+    private lateinit var binding : FragmentNutritionBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_nutrition, container, false)
+        binding = FragmentNutritionBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navigation = findNavController()
+
+        binding.wentBack.setOnClickListener {
+            navigation.navigate(R.id.mainFragment)
+        }
+
+        binding.profile.setOnClickListener {
+            navigation.navigate(R.id.profileFragment)
+        }
+
     }
 
 }

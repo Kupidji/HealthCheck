@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.weightFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.weightFragment"
+    android:background="@drawable/background">
+
+    <ImageButton
+        android:id="@+id/wentBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/arrow_left"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        />
+
+    <ImageButton
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/icon_profile"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        style="@style/zagalovok1"
+        android:id="@+id/settingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toTopOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="@id/wentBack"
+        android:text="@string/weight"
+        android:textColor="@color/textcolor_black"
+        />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
