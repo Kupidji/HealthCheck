@@ -67,5 +67,20 @@
     <string name="steps5000">5000 шагов</string>
     <string name="steps10000">10000 шагов</string>
     <string name="steps15000">15000 шагов</string>
+
+    <string name="input_weight">Введите ваш вес</string>
+    <string name="cm">см</string>
+    <string name="neck_girth">Обхват шеи</string>
+    <string name="waist_girth">Обхват талии</string>
+    <string name="forearm_girth">Обхват предплечья</string>
+    <string name="wrist_girth">Обхват запястья</string>
+    <string name="hips_girth">Обхват бедер</string>
+    <string name="hip_girth">Обхват бедра</string>
+    <string name="shin_girth">Обхват голени</string>
+    <string name="fat_content">Содержание жира</string>
+    <string name="index_mass_body">Индекс массы тела</string>
+
+
+
     
 </resources>

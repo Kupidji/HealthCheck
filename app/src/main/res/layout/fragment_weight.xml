@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.weightFragment"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    >
 
     <ImageButton
         android:id="@+id/wentBack"
@@ -33,7 +34,7 @@
 
     <TextView
         style="@style/zagalovok1"
-        android:id="@+id/settingsText"
+        android:id="@+id/weightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/wentBack"
@@ -42,6 +43,809 @@
         app:layout_constraintBottom_toBottomOf="@id/wentBack"
         android:text="@string/weight"
         android:textColor="@color/textcolor_black"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/measurementsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/wentBack"
+        android:text="@string/measurements"
+        android:layout_marginTop="22dp"
+        android:textColor="@color/textcolor_black"
+        />
+
+    <ImageView
+        android:id="@+id/weightBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/measurementsText"
+        android:src="@drawable/weight_box"
+        android:layout_marginTop="22dp"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:id="@+id/weightTint"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/weightBox"
+        app:layout_constraintEnd_toEndOf="@id/weightBox"
+        app:layout_constraintTop_toTopOf="@id/weightBox"
+        app:layout_constraintBottom_toBottomOf="@id/weightBox"
+        android:hint="@string/input_weight"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        android:paddingStart="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/weightShortBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/weightBox"
+        android:src="@drawable/weight_steps_box"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="22dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightShortBox"
+        app:layout_constraintTop_toTopOf="@id/weightShortBox"
+        android:text="@string/weight"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/weightShortBox"
+        app:layout_constraintTop_toTopOf="@id/weightShortBox"
+        android:src="@drawable/weight_icon"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="7dp"
+        />
+
+    <ImageView
+        android:id="@+id/weightDiagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightShortBox"
+        app:layout_constraintEnd_toEndOf="@id/weightShortBox"
+        app:layout_constraintTop_toTopOf="@id/weightShortBox"
+        app:layout_constraintBottom_toBottomOf="@id/weightShortBox"
+        android:src="@drawable/diagram_cycle"
+        />
+
+    <TextView
+        style="@style/diagramsDigitsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram"
+        android:text="0"
+        android:layout_marginBottom="15dp"
+        />
+
+    <TextView
+        style="@style/diagramsTextStyle"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram"
+        android:layout_marginTop="38dp"
+        android:gravity="center"
+        android:text="@string/average_kg"
+        />
+
+    <TextView
+        style="@style/zagalovok3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/weightShortBox"
+        app:layout_constraintStart_toStartOf="@id/weightShortBox"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/week"
+        android:textColor="@color/textcolor_black"
+        />
+
+    <ImageButton
+        android:id="@+id/weightShortBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/weightBox"
+        android:src="@drawable/weight_steps_box"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="22dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightShortBox2"
+        app:layout_constraintTop_toTopOf="@id/weightShortBox2"
+        android:text="@string/weight"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/weightShortBox2"
+        app:layout_constraintTop_toTopOf="@id/weightShortBox2"
+        android:src="@drawable/weight_icon"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="7dp"
+        />
+
+    <ImageView
+        android:id="@+id/weightDiagram2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightShortBox2"
+        app:layout_constraintEnd_toEndOf="@id/weightShortBox2"
+        app:layout_constraintTop_toTopOf="@id/weightShortBox2"
+        app:layout_constraintBottom_toBottomOf="@id/weightShortBox2"
+        android:src="@drawable/diagram_cycle"
+        />
+
+    <TextView
+        style="@style/diagramsDigitsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram2"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram2"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram2"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram2"
+        android:text="0"
+        android:layout_marginBottom="15dp"
+        />
+
+    <TextView
+        style="@style/diagramsTextStyle"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram2"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram2"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram2"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram2"
+        android:layout_marginTop="38dp"
+        android:gravity="center"
+        android:text="@string/average_kg"
+        />
+
+    <TextView
+        style="@style/zagalovok3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/weightShortBox2"
+        app:layout_constraintStart_toStartOf="@id/weightShortBox2"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/month"
+        android:textColor="@color/textcolor_black"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/weightTextSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/weightShortBox"
+        android:text="@string/weight"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="22dp"
+        android:textColor="@color/textcolor_black"
+        />
+
+    <ImageView
+        android:id="@+id/weightBoxSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/weightTextSmall"
+        app:layout_constraintTop_toBottomOf="@id/weightShortBox"
+        android:src="@drawable/weight_height_box_small"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="11dp"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/weightBoxSmall"
+        app:layout_constraintTop_toTopOf="@id/weightBoxSmall"
+        app:layout_constraintEnd_toEndOf="@id/weightBoxSmall"
+        app:layout_constraintBottom_toBottomOf="@id/weightBoxSmall"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/weightBoxSmall"
+        app:layout_constraintTop_toBottomOf="@id/weightShortBox"
+        android:text="@string/kg"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="27dp"
+        />
+    
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/heightTextSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightShortBox2"
+        app:layout_constraintTop_toBottomOf="@id/weightShortBox2"
+        android:text="@string/height"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="22dp"
+        android:textColor="@color/textcolor_black"
+        />
+
+    <ImageView
+        android:id="@+id/heightBoxSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/heightTextSmall"
+        app:layout_constraintTop_toBottomOf="@id/weightShortBox2"
+        android:src="@drawable/weight_height_box_small"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="11dp"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/heightBoxSmall"
+        app:layout_constraintTop_toTopOf="@id/heightBoxSmall"
+        app:layout_constraintEnd_toEndOf="@id/heightBoxSmall"
+        app:layout_constraintBottom_toBottomOf="@id/heightBoxSmall"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/heightBoxSmall"
+        app:layout_constraintTop_toBottomOf="@id/weightShortBox2"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="27dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/neckGirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/weightTextSmall"
+        android:layout_marginTop="26dp"
+        android:text="@string/neck_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/neckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/heightTextSmall"
+        app:layout_constraintTop_toBottomOf="@id/heightTextSmall"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/neckBox"
+        app:layout_constraintTop_toTopOf="@id/neckBox"
+        app:layout_constraintEnd_toEndOf="@id/neckBox"
+        app:layout_constraintBottom_toBottomOf="@id/neckBox"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmNeck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/heightTextSmall"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="26dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/waistGirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/neckGirth"
+        android:layout_marginTop="13dp"
+        android:text="@string/waist_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/waistBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/neckBox"
+        app:layout_constraintTop_toBottomOf="@id/neckBox"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/waistBox"
+        app:layout_constraintTop_toTopOf="@id/waistBox"
+        app:layout_constraintEnd_toEndOf="@id/waistBox"
+        app:layout_constraintBottom_toBottomOf="@id/waistBox"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmWaist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/cmNeck"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/forearmGirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/waistGirth"
+        android:layout_marginTop="13dp"
+        android:text="@string/forearm_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/forearmBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/waistBox"
+        app:layout_constraintTop_toBottomOf="@id/waistBox"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/forearmBox"
+        app:layout_constraintTop_toTopOf="@id/forearmBox"
+        app:layout_constraintEnd_toEndOf="@id/forearmBox"
+        app:layout_constraintBottom_toBottomOf="@id/forearmBox"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmForearm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/cmWaist"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/wristGirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/forearmGirth"
+        android:layout_marginTop="13dp"
+        android:text="@string/wrist_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/wristBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/forearmBox"
+        app:layout_constraintTop_toBottomOf="@id/forearmBox"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/wristBox"
+        app:layout_constraintTop_toTopOf="@id/wristBox"
+        app:layout_constraintEnd_toEndOf="@id/wristBox"
+        app:layout_constraintBottom_toBottomOf="@id/wristBox"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmWrist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/cmForearm"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/hipsGirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/wristGirth"
+        android:layout_marginTop="13dp"
+        android:text="@string/hips_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/hipsBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wristBox"
+        app:layout_constraintTop_toBottomOf="@id/wristBox"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/hipsBox"
+        app:layout_constraintTop_toTopOf="@id/hipsBox"
+        app:layout_constraintEnd_toEndOf="@id/hipsBox"
+        app:layout_constraintBottom_toBottomOf="@id/hipsBox"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmHips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/cmWrist"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/hip1Girth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/hipsGirth"
+        android:layout_marginTop="13dp"
+        android:text="@string/hip_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/hipBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/hipsBox"
+        app:layout_constraintTop_toBottomOf="@id/hipsBox"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/hipBox"
+        app:layout_constraintTop_toTopOf="@id/hipBox"
+        app:layout_constraintEnd_toEndOf="@id/hipBox"
+        app:layout_constraintBottom_toBottomOf="@id/hipBox"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmHip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/cmHips"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/hip2Girth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/hip1Girth"
+        android:layout_marginTop="13dp"
+        android:text="@string/hip_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/Hip2Box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/hipBox"
+        app:layout_constraintTop_toBottomOf="@id/hipBox"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/Hip2Box"
+        app:layout_constraintTop_toTopOf="@id/Hip2Box"
+        app:layout_constraintEnd_toEndOf="@id/Hip2Box"
+        app:layout_constraintBottom_toBottomOf="@id/Hip2Box"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmHip2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/cmHip"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/shinGirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/hip2Girth"
+        android:layout_marginTop="13dp"
+        android:text="@string/shin_girth"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/shinBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/Hip2Box"
+        app:layout_constraintTop_toBottomOf="@id/Hip2Box"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/shinBox"
+        app:layout_constraintTop_toTopOf="@id/shinBox"
+        app:layout_constraintEnd_toEndOf="@id/shinBox"
+        app:layout_constraintBottom_toBottomOf="@id/shinBox"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-3dp"
+        android:text="xxx"
+        android:textColor="@color/tint_color"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/cmShin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/neckGirth"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@id/cmHip2"
+        android:text="@string/cm"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/fat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/shinGirth"
+        android:layout_marginTop="23dp"
+        android:text="@string/fat_content"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/fatBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/shinBox"
+        app:layout_constraintTop_toBottomOf="@id/shinBox"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/fatBox"
+        app:layout_constraintEnd_toEndOf="@id/fatBox"
+        app:layout_constraintTop_toTopOf="@id/fatBox"
+        app:layout_constraintBottom_toBottomOf="@id/fatBox"
+        android:background="@android:color/transparent"
+        android:text="XX%"
+        android:layout_marginStart='10dp'
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/tint_color"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:id="@+id/indexMass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/fat"
+        android:layout_marginTop="23dp"
+        android:text="@string/index_mass_body"
+        android:textColor="@color/textcolor_black"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/indexMassBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/fatBox"
+        app:layout_constraintTop_toBottomOf="@id/fatBox"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/girth_box"
+        android:background="@android:color/transparent"
+        />
+
+    <EditText
+        style="@style/tint1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/indexMassBox"
+        app:layout_constraintEnd_toEndOf="@id/indexMassBox"
+        app:layout_constraintTop_toTopOf="@id/indexMassBox"
+        app:layout_constraintBottom_toBottomOf="@id/indexMassBox"
+        android:background="@android:color/transparent"
+        android:text="XXX"
+        android:layout_marginStart='10dp'
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/tint_color"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
