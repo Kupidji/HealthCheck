@@ -62,12 +62,10 @@
     <string name="how_long_sleep">Сколько длился ваш сон</string>
     <string name="start_sleep">Начало сна</string>
     <string name="wakeup">Пробуждение</string>
-
     <string name="input_steps">Введите количество шагов за сегодня</string>
     <string name="steps5000">5000 шагов</string>
     <string name="steps10000">10000 шагов</string>
     <string name="steps15000">15000 шагов</string>
-
     <string name="input_weight">Введите ваш вес</string>
     <string name="cm">см</string>
     <string name="neck_girth">Обхват шеи</string>
