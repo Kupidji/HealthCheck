@@ -33,6 +33,7 @@ class mainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val viewPagerAdapter = ViewPagerAdapter(this, viewModel.fragList)
         binding.viewPager.adapter = viewPagerAdapter
         val navigation = findNavController()
@@ -74,7 +75,7 @@ class mainFragment : Fragment() {
 
     }
 
-    fun movePagesViewPager(position : Int) {
+    private fun movePagesViewPager(position : Int) {
         when(position) {
             1 -> {
                 binding.viewPager.currentItem = 0

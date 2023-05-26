@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_stepsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_stepsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -61,6 +64,9 @@
         <action
             android:id="@+id/action_sleepFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_sleepFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/heartFragment"
@@ -70,6 +76,9 @@
         <action
             android:id="@+id/action_heartFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_heartFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/weightFragment"
@@ -79,6 +88,9 @@
         <action
             android:id="@+id/action_weightFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_weightFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/medicinesFragment"
@@ -91,6 +103,9 @@
         <action
             android:id="@+id/action_medicinesFragment_to_addMedicinesFragment"
             app:destination="@id/addMedicinesFragment" />
+        <action
+            android:id="@+id/action_medicinesFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/nutritionFragment"
@@ -100,6 +115,9 @@
         <action
             android:id="@+id/action_nutritionFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_nutritionFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -121,6 +139,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addMedicinesFragment"
@@ -130,5 +151,8 @@
         <action
             android:id="@+id/action_addMedicinesFragment_to_medicinesFragment"
             app:destination="@id/medicinesFragment" />
+        <action
+            android:id="@+id/action_addMedicinesFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

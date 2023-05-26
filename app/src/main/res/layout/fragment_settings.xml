@@ -8,44 +8,28 @@
     android:background="@drawable/background"
     >
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/margin_profile1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp"
-        />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/margin_profile2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="20dp"
-        />
-
     <ImageButton
-        android:id="@+id/settings"
+        android:id="@+id/wentBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/margin_profile1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/settings"
+        android:src="@drawable/arrow_left"
         android:background="@android:color/transparent"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="25dp"
         />
 
     <ImageButton
-        android:id="@+id/profileMini"
+        android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/icon_profile"
         android:background="@android:color/transparent"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="25dp"
         />
 
     <TextView
@@ -53,10 +37,10 @@
         android:id="@+id/settingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/margin_profile1"
-        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
-        app:layout_constraintTop_toTopOf="@id/settings"
-        app:layout_constraintBottom_toBottomOf="@id/settings"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintTop_toTopOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="@id/wentBack"
         android:text="@string/settings"
         android:textColor="@color/textcolor_black"
         />
@@ -65,11 +49,11 @@
         android:id="@+id/box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/margin_profile1"
-        app:layout_constraintEnd_toEndOf="@id/margin_profile2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/settings_box"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="125dp"
         />
 
     <ImageView
