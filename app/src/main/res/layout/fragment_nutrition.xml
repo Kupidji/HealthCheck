@@ -44,4 +44,161 @@
         android:textColor="@color/textcolor_black"
         />
 
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/articleName"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="@id/wentBack"
+        app:layout_constraintTop_toBottomOf="@id/wentBack"
+        android:text="@string/articles"
+        android:textColor="@color/textcolor_black"
+        android:layout_marginTop="23dp"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:id="@+id/saltArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/articleName"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/nutrition_box"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/imageSalt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/saltArticle"
+        app:layout_constraintTop_toTopOf="@id/saltArticle"
+        android:src="@drawable/nutrition_salt"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="11dp"
+        />
+
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/saltText"
+        android:layout_width="221dp"
+        android:layout_height="47dp"
+        app:layout_constraintStart_toEndOf="@id/imageSalt"
+        app:layout_constraintTop_toTopOf="@id/saltArticle"
+        android:text="Сокращение потребления соли"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="6dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/imageSalt"
+        app:layout_constraintBottom_toBottomOf="@id/saltArticle"
+        android:text="30 июня 2016 г."
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="28dp"
+        android:layout_marginStart="6dp"
+        />
+
+    <ImageButton
+        android:id="@+id/foodArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saltArticle"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/nutrition_box"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/imageFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/foodArticle"
+        app:layout_constraintTop_toTopOf="@id/foodArticle"
+        android:src="@drawable/nutrition_food"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="11dp"
+        />
+
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/foodText"
+        android:layout_width="221dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toEndOf="@id/imageFood"
+        app:layout_constraintTop_toTopOf="@id/foodArticle"
+        android:text="Питайтесь правильно\nСамые вредные продукты"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="6dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/imageFood"
+        app:layout_constraintBottom_toBottomOf="@id/foodArticle"
+        android:text="30 июня 2016 г."
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="28dp"
+        android:layout_marginStart="6dp"
+        />
+
+    <ImageButton
+        android:id="@+id/KalArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/foodArticle"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/nutrition_box"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/imageKal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/KalArticle"
+        app:layout_constraintTop_toTopOf="@id/KalArticle"
+        android:src="@drawable/nutrition_kal"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="11dp"
+        />
+
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/kalText"
+        android:layout_width="221dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toEndOf="@id/imageKal"
+        app:layout_constraintTop_toTopOf="@id/KalArticle"
+        android:text="Сколько каллорий можно потреблять в день"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="28dp"
+        />
+
+    <TextView
+        style="@style/tint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/imageKal"
+        app:layout_constraintBottom_toBottomOf="@id/KalArticle"
+        android:text="30 июня 2016 г."
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="28dp"
+        android:layout_marginStart="6dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
