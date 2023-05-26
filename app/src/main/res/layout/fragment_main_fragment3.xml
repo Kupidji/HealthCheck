@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mainFragment3">
+
+    <ImageButton
+        android:id="@+id/stepsBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/sleepBox"
+        android:src="@drawable/weight_steps_box"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/stepsBox"
+        app:layout_constraintTop_toTopOf="@id/stepsBox"
+        android:src="@drawable/steps_icon"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsBox"
+        app:layout_constraintTop_toTopOf="@id/stepsBox"
+        android:text="@string/steps"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
+        />
+
+    <ImageView
+        android:id="@+id/stepsDiagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsBox"
+        app:layout_constraintEnd_toEndOf="@id/stepsBox"
+        app:layout_constraintTop_toTopOf="@id/stepsBox"
+        app:layout_constraintBottom_toBottomOf="@id/stepsBox"
+        android:src="@drawable/diagram_cycle"
+        />
+
+    <TextView
+        style="@style/diagramsDigitsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsDiagram"
+        app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
+        app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+        android:text="0"
+        android:layout_marginBottom="15dp"
+        />
+
+    <TextView
+        style="@style/diagramsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/stepsDiagram"
+        app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
+        app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+        android:layout_marginTop="15dp"
+        android:text="@string/of_steps"
+        />
+
+    <ImageButton
+        android:id="@+id/sleepBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/stepsBox"
+        app:layout_constraintTop_toTopOf="@id/stepsBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/sleep_box"
+        android:background="@android:color/transparent"
+
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/sleepBox"
+        app:layout_constraintTop_toTopOf="@id/sleepBox"
+        android:src="@drawable/sleep_icon"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/sleepTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/sleepBox"
+        app:layout_constraintTop_toTopOf="@id/sleepBox"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        android:text="@string/sleep"
+        android:textColor="@color/textcolor_white"
+        />
+
+
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/sleepTitle"
+        app:layout_constraintTop_toTopOf="@id/sleepTitle"
+        app:layout_constraintBottom_toBottomOf="@id/sleepBox"
+        app:layout_constraintVertical_bias="0.65"
+        android:text="0ч"
+        android:textColor="@color/textcolor_white"
+        />
+
+
+    <ImageView
+        android:id="@+id/heartBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stepsBox"
+        android:src="@drawable/heart_box"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toStartOf="@id/weightBox"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/heartBox"
+        app:layout_constraintTop_toTopOf="@id/heartBox"
+        android:text="@string/cardio"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/heartBox"
+        app:layout_constraintTop_toTopOf="@id/heartBox"
+        android:src="@drawable/heart_icon"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="7dp"
+        />
+
+    <ImageButton
+        android:id="@+id/weightBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/heartBox"
+        app:layout_constraintTop_toBottomOf="@id/sleepBox"
+        android:src="@drawable/weight_steps_box"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightBox"
+        app:layout_constraintTop_toTopOf="@id/weightBox"
+        android:text="@string/weight"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/weightBox"
+        app:layout_constraintTop_toTopOf="@id/weightBox"
+        android:src="@drawable/weight_icon"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="7dp"
+        />
+
+    <ImageView
+        android:id="@+id/weightDiagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightBox"
+        app:layout_constraintEnd_toEndOf="@id/weightBox"
+        app:layout_constraintTop_toTopOf="@id/weightBox"
+        app:layout_constraintBottom_toBottomOf="@id/weightBox"
+        android:src="@drawable/diagram_cycle"
+        app:layout_constraintVertical_bias="0.75"
+        />
+
+    <TextView
+        style="@style/diagramsDigitsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram"
+        android:text="\?"
+        android:layout_marginBottom="15dp"
+        />
+
+    <TextView
+        style="@style/diagramsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/weightDiagram"
+        app:layout_constraintEnd_toEndOf="@id/weightDiagram"
+        app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
+        app:layout_constraintTop_toTopOf="@id/weightDiagram"
+        android:layout_marginTop="15dp"
+        android:text="@string/kg"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
