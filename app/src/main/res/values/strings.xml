@@ -77,7 +77,7 @@
     <string name="shin_girth">Обхват голени</string>
     <string name="fat_content">Содержание жира</string>
     <string name="index_mass_body">Индекс массы тела</string>
-    
+    <string name="addMedicines">Добавьте препарат</string>
     <string name="articles">Статьи о улучшении качества вашего питания</string>
 
 </resources>
