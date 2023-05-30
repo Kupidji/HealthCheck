@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/wentBack"
         app:layout_constraintTop_toBottomOf="@id/weightBox"
-        android:src="@drawable/weight_steps_box"
+        android:src="@drawable/box"
         android:background="@android:color/transparent"
         android:layout_marginTop="22dp"
         />
@@ -170,7 +170,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/profile"
         app:layout_constraintTop_toBottomOf="@id/weightBox"
-        android:src="@drawable/weight_steps_box"
+        android:src="@drawable/box"
         android:background="@android:color/transparent"
         android:layout_marginTop="22dp"
         />
