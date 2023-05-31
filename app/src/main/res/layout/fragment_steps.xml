@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/icon_profile"
+                android:src="@drawable/profile"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toTopOf="parent"
                 />
