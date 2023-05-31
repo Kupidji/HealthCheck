@@ -12,4 +12,6 @@
     <color name="status_bar_color">#A9B7FF</color>
     <color name="navigation_bar_color">#83B0FA</color>
 
+    <color name="tint_color_night">#EBEBF5</color>
+
 </resources>
