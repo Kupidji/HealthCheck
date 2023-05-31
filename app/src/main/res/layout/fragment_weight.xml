@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/icon_profile"
+                android:src="@drawable/profile"
                 android:background="@android:color/transparent"
                 android:layout_marginTop="30dp"
                 />
@@ -237,7 +237,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:background="@drawable/box"
                     />
 
@@ -333,7 +332,6 @@
                 android:text="@string/weight"
                 android:background="@android:color/transparent"
                 android:layout_marginTop="22dp"
-                android:textColor="@color/textcolor_black"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -345,7 +343,7 @@
                 app:layout_constraintEnd_toStartOf="@id/kg"
                 android:layout_marginTop="25dp"
                 android:layout_marginStart="11dp"
-                android:layout_marginEnd="7dp"
+                android:layout_marginEnd="10dp"
                 >
 
                 <ImageView
@@ -368,16 +366,14 @@
                     app:layout_constraintEnd_toEndOf="@id/weightImageSmall"
                     app:layout_constraintBottom_toBottomOf="@id/weightImageSmall"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/kg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -385,7 +381,6 @@
                 app:layout_constraintTop_toBottomOf="@id/weightLayoutWeek"
                 app:layout_constraintEnd_toEndOf="@id/weightLayoutWeek"
                 android:text="@string/kg"
-                android:textColor="@color/textcolor_black"
                 android:layout_marginStart="94dp"
                 android:layout_marginTop="27dp"
                 />
@@ -401,7 +396,6 @@
                 android:text="@string/height"
                 android:background="@android:color/transparent"
                 android:layout_marginTop="22dp"
-                android:textColor="@color/textcolor_black"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -436,24 +430,20 @@
                     app:layout_constraintEnd_toEndOf="@id/heightBoxImage"
                     app:layout_constraintBottom_toBottomOf="@id/heightBoxImage"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/cm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/heightTextSmall"
                 app:layout_constraintTop_toBottomOf="@id/weightLayoutMonth"
                 app:layout_constraintEnd_toEndOf="@id/weightLayoutMonth"
                 android:text="@string/cm"
-                android:textColor="@color/textcolor_black"
                 android:layout_marginStart="94dp"
                 android:layout_marginTop="27dp"
                 />
@@ -477,7 +467,7 @@
                 app:layout_constraintStart_toStartOf="@id/heightTextSmall"
                 app:layout_constraintTop_toBottomOf="@id/heightTextSmall"
                 app:layout_constraintEnd_toStartOf="@id/cmNeck"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="23dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -487,7 +477,6 @@
                     android:layout_height="28dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:src="@drawable/box"
                     />
@@ -501,29 +490,26 @@
                     app:layout_constraintEnd_toEndOf="@id/neckBox"
                     app:layout_constraintBottom_toBottomOf="@id/neckBox"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/cmNeck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/heightTextSmall"
                 android:text="@string/cm"
-                android:textColor="@color/textcolor_black"
                 android:layout_marginEnd="67dp"
                 android:layout_marginTop="24dp"
                 />
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/waistGirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -531,7 +517,6 @@
                 app:layout_constraintTop_toBottomOf="@id/neckGirth"
                 android:layout_marginTop="13dp"
                 android:text="@string/waist_girth"
-                android:textColor="@color/textcolor_greyblack"
                 android:background="@android:color/transparent"
                 />
 
@@ -542,7 +527,7 @@
                 app:layout_constraintStart_toStartOf="@id/neck"
                 app:layout_constraintTop_toBottomOf="@id/neck"
                 app:layout_constraintEnd_toStartOf="@id/cmWaist"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -552,7 +537,6 @@
                     android:layout_height="28dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:src="@drawable/box"
                     />
@@ -566,29 +550,25 @@
                     app:layout_constraintEnd_toEndOf="@id/waistBox"
                     app:layout_constraintBottom_toBottomOf="@id/waistBox"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/cmWaist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
+                app:layout_constraintStart_toStartOf="@id/cmNeck"
                 app:layout_constraintTop_toBottomOf="@id/cmNeck"
                 android:text="@string/cm"
-                android:textColor="@color/textcolor_black"
                 android:layout_marginTop="13dp"
-                android:layout_marginEnd="67dp"
                 />
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/forearmGirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -596,7 +576,6 @@
                 app:layout_constraintTop_toBottomOf="@id/waistGirth"
                 android:layout_marginTop="14dp"
                 android:text="@string/forearm_girth"
-                android:textColor="@color/textcolor_greyblack"
                 android:background="@android:color/transparent"
                 />
 
@@ -607,7 +586,7 @@
                 app:layout_constraintStart_toStartOf="@id/waist"
                 app:layout_constraintTop_toBottomOf="@id/waist"
                 app:layout_constraintEnd_toStartOf="@id/cmForearm"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -618,7 +597,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -631,29 +609,25 @@
                     app:layout_constraintEnd_toEndOf="@id/forearmBox"
                     app:layout_constraintBottom_toBottomOf="@id/forearmBox"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/cmForearm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
+                app:layout_constraintStart_toStartOf="@id/cmWaist"
                 app:layout_constraintTop_toBottomOf="@id/cmWaist"
                 android:text="@string/cm"
-                android:textColor="@color/textcolor_black"
                 android:layout_marginTop="13dp"
-                android:layout_marginEnd="67dp"
                 />
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/wristGirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -661,7 +635,6 @@
                 app:layout_constraintTop_toBottomOf="@id/forearmGirth"
                 android:layout_marginTop="13dp"
                 android:text="@string/wrist_girth"
-                android:textColor="@color/textcolor_greyblack"
                 android:background="@android:color/transparent"
                 />
 
@@ -671,8 +644,8 @@
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/forearm"
                 app:layout_constraintTop_toBottomOf="@id/forearm"
-                app:layout_constraintEnd_toStartOf="@id/cmForearm"
-                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toStartOf="@id/cmWrist"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -683,7 +656,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -696,29 +668,25 @@
                     app:layout_constraintEnd_toEndOf="@id/wristBox"
                     app:layout_constraintBottom_toBottomOf="@id/wristBox"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/cmWrist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
+                app:layout_constraintStart_toStartOf="@id/cmForearm"
                 app:layout_constraintTop_toBottomOf="@id/cmForearm"
                 android:text="@string/cm"
-                android:textColor="@color/textcolor_greyblack"
                 android:layout_marginTop="13dp"
-                android:layout_marginEnd="67dp"
                 />
 
             <TextView
-                style="@style/tint1"
+                style="@style/zagalovok3"
                 android:id="@+id/hipsGirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -726,7 +694,6 @@
                 app:layout_constraintTop_toBottomOf="@id/wristGirth"
                 android:layout_marginTop="13dp"
                 android:text="@string/hips_girth"
-                android:textColor="@color/textcolor_greyblack"
                 android:background="@android:color/transparent"
                 />
 
@@ -736,8 +703,8 @@
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/wrist"
                 app:layout_constraintTop_toBottomOf="@id/wrist"
-                app:layout_constraintEnd_toStartOf="@id/cmForearm"
-                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toStartOf="@id/cmHips"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -747,7 +714,6 @@
                     android:layout_height="28dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:src="@drawable/box"
                     />
@@ -761,9 +727,7 @@
                     app:layout_constraintEnd_toEndOf="@id/hipsBox"
                     app:layout_constraintBottom_toBottomOf="@id/hipsBox"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
@@ -774,11 +738,10 @@
                 android:id="@+id/cmHips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
+                app:layout_constraintStart_toStartOf="@id/cmWrist"
                 app:layout_constraintTop_toBottomOf="@id/cmWrist"
                 android:text="@string/cm"
                 android:layout_marginTop="13dp"
-                android:layout_marginEnd="67dp"
                 />
 
             <TextView
@@ -799,8 +762,8 @@
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/hips"
                 app:layout_constraintTop_toBottomOf="@id/hips"
-                app:layout_constraintEnd_toStartOf="@id/cmForearm"
-                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toStartOf="@id/cmHip"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -811,7 +774,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -824,7 +786,6 @@
                     app:layout_constraintEnd_toEndOf="@id/hipBox"
                     app:layout_constraintBottom_toBottomOf="@id/hipBox"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
                     android:background="@android:color/transparent"
                     />
@@ -860,8 +821,8 @@
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/hip1"
                 app:layout_constraintTop_toBottomOf="@id/hip1"
-                app:layout_constraintEnd_toStartOf="@id/cmForearm"
-                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toStartOf="@id/cmHip2"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -872,7 +833,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -885,7 +845,6 @@
                     app:layout_constraintEnd_toEndOf="@id/Hip2Box"
                     app:layout_constraintBottom_toBottomOf="@id/Hip2Box"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
                     android:background="@android:color/transparent"
                     />
@@ -922,7 +881,7 @@
                 app:layout_constraintStart_toStartOf="@id/hip2"
                 app:layout_constraintTop_toBottomOf="@id/hip2"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -932,6 +891,7 @@
                     android:layout_height="28dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -944,7 +904,6 @@
                     app:layout_constraintEnd_toEndOf="@id/shinBox"
                     app:layout_constraintBottom_toBottomOf="@id/shinBox"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="-3dp"
                     android:text="xxx"
                     android:background="@android:color/transparent"
                     />
@@ -981,7 +940,7 @@
                 app:layout_constraintStart_toStartOf="@id/shin"
                 app:layout_constraintTop_toBottomOf="@id/shin"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -992,7 +951,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -1031,7 +989,7 @@
                 app:layout_constraintStart_toStartOf="@id/fat"
                 app:layout_constraintTop_toBottomOf="@id/fat"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="7dp"
                 >
 
