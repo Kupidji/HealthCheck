@@ -55,7 +55,6 @@
                 app:layout_constraintTop_toTopOf="@id/wentBack"
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/profile"
-                android:textColor="@color/textcolor_greyblack"
                 />
 
             <ImageButton
@@ -110,7 +109,6 @@
                     app:layout_constraintBottom_toBottomOf="@id/nameImage"
                     app:layout_constraintEnd_toEndOf="@id/nameImage"
                     android:hint="@string/name"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
                     />
@@ -147,7 +145,6 @@
                     app:layout_constraintBottom_toBottomOf="@id/ageImage"
                     app:layout_constraintEnd_toEndOf="@id/ageImage"
                     android:hint="@string/age"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
                     />
@@ -186,7 +183,6 @@
                     app:layout_constraintBottom_toBottomOf="@id/heightImage"
                     app:layout_constraintEnd_toEndOf="@id/heightImage"
                     android:hint="@string/height"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
                     />
@@ -225,7 +221,6 @@
                     app:layout_constraintBottom_toBottomOf="@id/weightImage"
                     app:layout_constraintEnd_toEndOf="@id/weightImage"
                     android:hint="@string/weight"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
                     />
