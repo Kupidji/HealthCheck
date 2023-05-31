@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/icon_profile"
+        android:src="@drawable/profile"
         android:background="@android:color/transparent"
         android:layout_marginTop="30dp"
         />
