@@ -1,8 +1,7 @@
-package com.example.healthcheck
+package com.example.healthcheck.model
 
 import android.content.Context
 import androidx.room.Room
-import com.example.healthcheck.model.AppDatabase
 import com.example.healthcheck.model.medicines.MedicinesRepository
 import com.example.healthcheck.model.medicines.room.RoomMedicinesRepository
 

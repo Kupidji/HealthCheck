@@ -2,8 +2,7 @@ package com.example.healthcheck.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
-import com.example.healthcheck.Repositories
+import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
