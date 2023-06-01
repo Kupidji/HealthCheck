@@ -42,6 +42,11 @@ class addMedicinesFragment : Fragment() {
             navigation.navigate(R.id.profileFragment)
         }
 
+        binding.saveMedicine.setOnClickListener {
+            //TODO сделать сохранение инфы в бд
+            navigation.navigate(R.id.medicinesFragment)
+        }
+
     }
 
 }

@@ -42,6 +42,10 @@ class medicinesFragment : Fragment() {
             navigation.navigate(R.id.profileFragment)
         }
 
+        binding.addNewMedicines.setOnClickListener {
+            navigation.navigate(R.id.addMedicinesFragment)
+        }
+
     }
 
 }

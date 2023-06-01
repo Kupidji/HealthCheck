@@ -6,42 +6,289 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.addMedicinesFragment"
     android:background="@drawable/background">
-
-    <ImageButton
-        android:id="@+id/wentBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/arrow_left"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="25dp"
-        />
-
-    <ImageButton
-        android:id="@+id/profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/profile"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="25dp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        style="@style/zagalovok1"
-        android:id="@+id/settingsText"
-        android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/margin_medicines"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="15dp"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/margin_margin_medicines2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="15dp"
+                />
+
+            <ImageButton
+                android:id="@+id/wentBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/arrow_left"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="30dp"
+                />
+
+            <ImageButton
+                android:id="@+id/profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/profile"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="30dp"
+                />
+
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/settingsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/wentBack"
+                app:layout_constraintEnd_toEndOf="@id/profile"
+                app:layout_constraintTop_toTopOf="@id/wentBack"
+                app:layout_constraintBottom_toBottomOf="@id/wentBack"
+                android:text="@string/preparations"
+                />
+            
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/pillsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/wentBack"
+                android:layout_marginTop="30dp"
+                android:text="@string/pills"
+                />
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/titleBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toBottomOf="@id/pillsText"
+                android:layout_marginTop="5dp">
+                
+                <EditText
+                    android:id="@+id/getTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/hint1"
+                    android:layout_width="match_parent"
+                    android:layout_height="77dp"
+                    android:background="@drawable/box"
+                    android:hint="@string/title"
+                    android:paddingStart="10dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/remindersText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/titleBox"
+                android:layout_marginTop="10dp"
+                android:text="@string/reminders"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/firstTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toBottomOf="@id/remindersText"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    style="@style/hint1"
+                    android:id="@+id/getFirstTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    android:background="@drawable/box"
+                    android:hint="@string/first_rem"
+                    android:paddingStart="10dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/secondTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toBottomOf="@id/firstTimeBox"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    style="@style/hint1"
+                    android:id="@+id/getSecondTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    android:background="@drawable/box"
+                    android:hint="@string/second_rem"
+                    android:paddingStart="10dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/thirdTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toBottomOf="@id/secondTimeBox"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    style="@style/hint1"
+                    android:id="@+id/getThirdTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    android:background="@drawable/box"
+                    android:hint="@string/third_rem"
+                    android:paddingStart="10dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fourthTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toBottomOf="@id/thirdTimeBox"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    style="@style/hint1"
+                    android:id="@+id/getFourthTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    android:background="@drawable/box"
+                    android:hint="@string/fourth_rem"
+                    android:paddingStart="10dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/durationOfCourseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/fourthTimeBox"
+                android:layout_marginTop="10dp"
+                android:text="@string/duraction_of_course"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/countOfDaysBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toBottomOf="@id/durationOfCourseText"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="85dp">
+
+                <EditText
+                    style="@style/hint1"
+                    android:id="@+id/getCountOfDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/box"
+                    android:hint="@string/input_count_of_days"
+                    android:paddingStart="10dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/wentBack"
-        app:layout_constraintEnd_toEndOf="@id/profile"
-        app:layout_constraintTop_toTopOf="@id/wentBack"
-        app:layout_constraintBottom_toBottomOf="@id/wentBack"
-        android:text="@string/pills"
-        android:textColor="@color/textcolor_black"
-        />
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
 
+        <ImageButton
+            android:id="@+id/saveMedicine"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/button"
+            />
+
+        <TextView
+            style="@style/buttonTextStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/saveMedicine"
+            app:layout_constraintEnd_toEndOf="@id/saveMedicine"
+            app:layout_constraintTop_toTopOf="@id/saveMedicine"
+            app:layout_constraintBottom_toBottomOf="@id/saveMedicine"
+            android:text="@string/save"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
