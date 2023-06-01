@@ -1,11 +1,11 @@
 package com.example.healthcheck.model.medicines
 
+import androidx.lifecycle.LiveData
 import com.example.healthcheck.model.medicines.entities.Medicines
-import kotlinx.coroutines.flow.Flow
 
 interface MedicinesRepository {
 
-    fun getAllMedicines() : Flow<List<Medicines>>
+    fun getAllMedicines() : LiveData<List<Medicines>>
 
     suspend fun createMedicine(medicines : Medicines)
 

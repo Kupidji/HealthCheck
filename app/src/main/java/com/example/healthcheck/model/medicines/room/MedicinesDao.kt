@@ -7,7 +7,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.healthcheck.model.medicines.room.entities.MedicinesDbEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MedicinesDao {
@@ -16,7 +15,7 @@ interface MedicinesDao {
     suspend fun createMedicine(medicinesDbEntity: MedicinesDbEntity)
 
     @Query("SELECT * FROM medicines")
-    fun getAllMedicine() : Flow<List<MedicinesDbEntity>>
+    fun getAllMedicine() : LiveData<List<MedicinesDbEntity>>
 
     @Update(entity = MedicinesDbEntity::class)
     suspend fun updateMedicine(medicinesDbEntity: MedicinesDbEntity)

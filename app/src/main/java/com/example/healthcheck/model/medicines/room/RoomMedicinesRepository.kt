@@ -1,5 +1,7 @@
 package com.example.healthcheck.model.medicines.room
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.example.healthcheck.model.medicines.MedicinesRepository
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.model.medicines.room.entities.MedicinesDbEntity.Companion.fromAddMedicines
@@ -10,7 +12,7 @@ class RoomMedicinesRepository (
     val medicinesDao: MedicinesDao
 ) : MedicinesRepository {
 
-    override fun getAllMedicines(): Flow<List<Medicines>> {
+    override fun getAllMedicines(): LiveData<List<Medicines>> {
         return medicinesDao.getAllMedicine().map { list ->
             list.map { medicine ->
                 medicine.toMedicines()
