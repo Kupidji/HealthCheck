@@ -100,7 +100,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:id="@+id/nameText"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -136,7 +136,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:id="@+id/ageText"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -174,7 +174,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:id="@+id/heightText"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -212,7 +212,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:id="@+id/weightText"
                     android:layout_width="0dp"
                     android:layout_height="0dp"

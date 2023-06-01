@@ -101,7 +101,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:id="@+id/weightTint"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -358,7 +358,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/weightImageSmall"
@@ -422,7 +422,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/heightBoxImage"
@@ -482,7 +482,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/neckBox"
@@ -542,7 +542,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/waistBox"
@@ -601,7 +601,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/forearmBox"
@@ -660,7 +660,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/wristBox"
@@ -719,7 +719,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/hipsBox"
@@ -778,7 +778,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/hipBox"
@@ -837,7 +837,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/Hip2Box"
@@ -896,7 +896,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/shinBox"
@@ -955,7 +955,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/fatBox"
@@ -1005,7 +1005,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/indexMassBox"
