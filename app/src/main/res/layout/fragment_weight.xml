@@ -365,7 +365,7 @@
                     app:layout_constraintTop_toTopOf="@id/weightImageSmall"
                     app:layout_constraintEnd_toEndOf="@id/weightImageSmall"
                     app:layout_constraintBottom_toBottomOf="@id/weightImageSmall"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
                     android:text="xxx"
                     android:background="@android:color/transparent"
                     />
@@ -429,7 +429,7 @@
                     app:layout_constraintTop_toTopOf="@id/heightBoxImage"
                     app:layout_constraintEnd_toEndOf="@id/heightBoxImage"
                     app:layout_constraintBottom_toBottomOf="@id/heightBoxImage"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
                     android:text="xxx"
                     android:background="@android:color/transparent"
                     />
@@ -455,7 +455,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/weightTextSmall"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/neck_girth"
                 android:background="@android:color/transparent"
                 />
@@ -465,9 +465,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/heightTextSmall"
-                app:layout_constraintTop_toBottomOf="@id/heightTextSmall"
+                app:layout_constraintTop_toTopOf="@id/neckGirth"
+                app:layout_constraintBottom_toBottomOf="@id/neckGirth"
                 app:layout_constraintEnd_toStartOf="@id/cmNeck"
-                android:layout_marginTop="23dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -478,6 +478,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -502,10 +503,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintTop_toBottomOf="@id/heightTextSmall"
+                app:layout_constraintTop_toTopOf="@id/neck"
+                app:layout_constraintBottom_toBottomOf="@id/neck"
                 android:text="@string/cm"
                 android:layout_marginEnd="67dp"
-                android:layout_marginTop="24dp"
                 />
 
             <TextView
@@ -515,7 +516,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/neckGirth"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/waist_girth"
                 android:background="@android:color/transparent"
                 />
@@ -525,9 +526,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/neck"
-                app:layout_constraintTop_toBottomOf="@id/neck"
+                app:layout_constraintTop_toTopOf="@id/waistGirth"
+                app:layout_constraintBottom_toBottomOf="@id/waistGirth"
                 app:layout_constraintEnd_toStartOf="@id/cmWaist"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -538,6 +539,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -562,9 +564,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/cmNeck"
-                app:layout_constraintTop_toBottomOf="@id/cmNeck"
+                app:layout_constraintTop_toTopOf="@id/waist"
+                app:layout_constraintBottom_toBottomOf="@id/waist"
                 android:text="@string/cm"
-                android:layout_marginTop="13dp"
                 />
 
             <TextView
@@ -574,7 +576,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/waistGirth"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/forearm_girth"
                 android:background="@android:color/transparent"
                 />
@@ -584,9 +586,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/waist"
-                app:layout_constraintTop_toBottomOf="@id/waist"
+                app:layout_constraintTop_toTopOf="@id/forearmGirth"
+                app:layout_constraintBottom_toBottomOf="@id/forearmGirth"
                 app:layout_constraintEnd_toStartOf="@id/cmForearm"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -597,6 +599,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -621,9 +624,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/cmWaist"
-                app:layout_constraintTop_toBottomOf="@id/cmWaist"
+                app:layout_constraintTop_toTopOf="@id/forearm"
+                app:layout_constraintBottom_toBottomOf="@id/forearm"
                 android:text="@string/cm"
-                android:layout_marginTop="13dp"
                 />
 
             <TextView
@@ -633,7 +636,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/forearmGirth"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/wrist_girth"
                 android:background="@android:color/transparent"
                 />
@@ -643,9 +646,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/forearm"
-                app:layout_constraintTop_toBottomOf="@id/forearm"
+                app:layout_constraintTop_toTopOf="@id/wristGirth"
+                app:layout_constraintBottom_toBottomOf="@id/wristGirth"
                 app:layout_constraintEnd_toStartOf="@id/cmWrist"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -656,6 +659,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -680,9 +684,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/cmForearm"
-                app:layout_constraintTop_toBottomOf="@id/cmForearm"
+                app:layout_constraintTop_toTopOf="@id/wrist"
+                app:layout_constraintBottom_toBottomOf="@id/wrist"
                 android:text="@string/cm"
-                android:layout_marginTop="13dp"
                 />
 
             <TextView
@@ -692,7 +696,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/wristGirth"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/hips_girth"
                 android:background="@android:color/transparent"
                 />
@@ -702,9 +706,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/wrist"
-                app:layout_constraintTop_toBottomOf="@id/wrist"
+                app:layout_constraintTop_toTopOf="@id/hipsGirth"
+                app:layout_constraintBottom_toBottomOf="@id/hipsGirth"
                 app:layout_constraintEnd_toStartOf="@id/cmHips"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -715,6 +719,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -739,9 +744,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/cmWrist"
-                app:layout_constraintTop_toBottomOf="@id/cmWrist"
+                app:layout_constraintTop_toTopOf="@id/hips"
+                app:layout_constraintBottom_toBottomOf="@id/hips"
                 android:text="@string/cm"
-                android:layout_marginTop="13dp"
                 />
 
             <TextView
@@ -751,7 +756,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/hipsGirth"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/hip_girth"
                 android:background="@android:color/transparent"
                 />
@@ -761,9 +766,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/hips"
-                app:layout_constraintTop_toBottomOf="@id/hips"
+                app:layout_constraintTop_toTopOf="@id/hip1Girth"
+                app:layout_constraintBottom_toBottomOf="@id/hip1Girth"
                 app:layout_constraintEnd_toStartOf="@id/cmHip"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -774,6 +779,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -798,9 +804,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/cmHips"
-                app:layout_constraintTop_toBottomOf="@id/cmHips"
+                app:layout_constraintTop_toTopOf="@id/hip1"
+                app:layout_constraintBottom_toBottomOf="@id/hip1"
                 android:text="@string/cm"
-                android:layout_marginTop="13dp"
                 />
 
             <TextView
@@ -810,7 +816,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/hip1Girth"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/hip_girth"
                 android:background="@android:color/transparent"
                 />
@@ -820,9 +826,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/hip1"
-                app:layout_constraintTop_toBottomOf="@id/hip1"
+                app:layout_constraintTop_toTopOf="@id/hip2Girth"
+                app:layout_constraintBottom_toBottomOf="@id/hip2Girth"
                 app:layout_constraintEnd_toStartOf="@id/cmHip2"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -833,6 +839,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -857,9 +864,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/cmHip"
-                app:layout_constraintTop_toBottomOf="@id/cmHip"
+                app:layout_constraintTop_toTopOf="@id/hip2"
+                app:layout_constraintBottom_toBottomOf="@id/hip2"
                 android:text="@string/cm"
-                android:layout_marginTop="13dp"
                 />
 
             <TextView
@@ -869,7 +876,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/hip2Girth"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/shin_girth"
                 android:background="@android:color/transparent"
                 />
@@ -879,9 +886,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/hip2"
-                app:layout_constraintTop_toBottomOf="@id/hip2"
+                app:layout_constraintTop_toTopOf="@id/shinGirth"
+                app:layout_constraintBottom_toBottomOf="@id/shinGirth"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -892,6 +899,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -916,9 +924,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/cmHip2"
-                app:layout_constraintTop_toBottomOf="@id/cmHip2"
+                app:layout_constraintTop_toTopOf="@id/shin"
+                app:layout_constraintBottom_toBottomOf="@id/shin"
                 android:text="@string/cm"
-                android:layout_marginTop="13dp"
                 />
 
             <TextView
@@ -938,9 +946,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/shin"
-                app:layout_constraintTop_toBottomOf="@id/shin"
+                app:layout_constraintTop_toTopOf="@id/fatConcentrate"
+                app:layout_constraintBottom_toBottomOf="@id/fatConcentrate"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="9dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -951,6 +959,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -965,7 +974,6 @@
                     android:background="@android:color/transparent"
                     android:text="XX%"
                     android:layout_marginStart='10dp'
-                    android:layout_marginBottom="2dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -987,9 +995,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/fat"
-                app:layout_constraintTop_toBottomOf="@id/fat"
+                app:layout_constraintTop_toTopOf="@id/indexMass"
+                app:layout_constraintBottom_toBottomOf="@id/indexMass"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="9dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -999,8 +1007,8 @@
                     android:layout_height="28dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
                     />
 
@@ -1015,7 +1023,6 @@
                     android:background="@android:color/transparent"
                     android:text="XXX"
                     android:layout_marginStart='10dp'
-                    android:layout_marginBottom="2dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
