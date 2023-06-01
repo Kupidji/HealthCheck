@@ -54,7 +54,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 
     //room
-    implementation 'androidx.room:room-ktx:2.5.1'
+    implementation 'androidx.room:room-ktx:2.5.1' //coroutines and flows support
+    implementation 'androidx.room:room-runtime:2.5.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'androidx.room:room-compiler:2.5.1'
 

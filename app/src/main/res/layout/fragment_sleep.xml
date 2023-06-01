@@ -65,7 +65,6 @@
                 app:layout_constraintTop_toTopOf="@id/wentBack"
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/sleep"
-                android:textColor="@color/textcolor_black"
                 />
 
             <TextView
@@ -102,7 +101,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:id="@+id/getGoesToBedTime"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -112,7 +111,6 @@
                     app:layout_constraintStart_toStartOf="@id/sleep1"
                     android:paddingStart="10dp"
                     android:hint="@string/start_sleep"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     />
 
@@ -141,7 +139,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:id="@+id/getWakeUpTime"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -306,7 +304,6 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 android:layout_marginTop="22dp"
                 android:text="@string/total_sleeptime"
-                android:textColor="@color/textcolor_black"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -339,7 +336,6 @@
                     android:layout_marginTop="22dp"
                     android:layout_marginStart="22dp"
                     android:text="@string/per_week"
-                    android:textColor="@color/textcolor_black"
                     />
 
                 <TextView
@@ -351,7 +347,6 @@
                     android:layout_marginTop="22dp"
                     android:layout_marginStart="22dp"
                     android:text="@string/per_month"
-                    android:textColor="@color/textcolor_black"
                     />
 
                 <TextView
@@ -364,7 +359,6 @@
                     android:layout_marginTop="22dp"
                     android:layout_marginStart="53dp"
                     android:text="xx:xxч"
-                    android:textColor="@color/tint_color"
                     />
 
                 <TextView
@@ -375,7 +369,6 @@
                     app:layout_constraintStart_toStartOf="@id/weekx"
                     android:layout_marginTop="22dp"
                     android:text="xx:xxч"
-                    android:textColor="@color/tint_color"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@
     tools:background="@color/textcolor_black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemBox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,19 +42,19 @@
             />
 
         <TextView
-            style="@style/tint1"
+            style="@style/hint1"
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medicinesTitle"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="5dp"
             android:text="дата"
             />
 
         <TextView
-            style="@style/tint1"
+            style="@style/hint1"
             android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +66,7 @@
             />
 
         <TextView
-            style="@style/tint1"
+            style="@style/hint1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,12 +74,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="5dp"
             android:text="день"
-            android:layout_marginTop="-5dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="10dp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@id/itemBox"
+        app:layout_constraintStart_toEndOf="@id/itemBox"
+        app:layout_constraintEnd_toEndOf="@id/itemBox"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

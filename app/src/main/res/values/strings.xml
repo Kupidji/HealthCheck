@@ -79,5 +79,7 @@
     <string name="index_mass_body">Индекс массы тела</string>
     <string name="addMedicines">Добавьте препарат</string>
     <string name="articles">Статьи о улучшении качества вашего питания</string>
+    <string name="duraction_of_course">Длительность курса</string>
+    <string name="input_count_of_days">Введите количество дней</string>
 
 </resources>

@@ -42,10 +42,28 @@
         <item name="android:textColor">@color/textcolor_blue</item>
     </style>
 
-    <style name="tint1">
+    <style name="buttonTextStyle2">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/textcolor_white</item>
+    </style>
+
+    <style name="buttonTextStyle3">
         <item name="fontFamily">@font/inter_medium</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/tint_color</item>
+        <item name="android:textColor">@color/textcolor_black</item>
+    </style>
+
+    <style name="buttonTextStyleChoosen3">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/textcolor_white</item>
+    </style>
+
+    <style name="hint1">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/tint_color</item>
     </style>
 
 </resources>
