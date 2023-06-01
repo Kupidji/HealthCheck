@@ -76,7 +76,7 @@
                 app:layout_constraintStart_toStartOf="@id/wentBack"
                 app:layout_constraintTop_toBottomOf="@id/wentBack"
                 android:text="@string/measurements"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +86,7 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/measurementsText"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 >
 
                 <ImageView
@@ -123,7 +123,7 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintEnd_toStartOf="@id/weightLayoutMonth"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="13dp"
                 >
 
@@ -226,7 +226,7 @@
                 app:layout_constraintStart_toEndOf="@id/weightLayoutWeek"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="13dp"
                 >
 
@@ -331,7 +331,7 @@
                 app:layout_constraintTop_toBottomOf="@id/weightLayoutWeek"
                 android:text="@string/weight"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="15dp"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -341,7 +341,7 @@
                 app:layout_constraintStart_toEndOf="@id/weightTextSmall"
                 app:layout_constraintTop_toBottomOf="@id/weightLayoutWeek"
                 app:layout_constraintEnd_toStartOf="@id/kg"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="10dp"
                 >
@@ -382,7 +382,7 @@
                 app:layout_constraintEnd_toEndOf="@id/weightLayoutWeek"
                 android:text="@string/kg"
                 android:layout_marginStart="94dp"
-                android:layout_marginTop="27dp"
+                android:layout_marginTop="20dp"
                 />
 
             <TextView
@@ -395,7 +395,7 @@
                 app:layout_constraintEnd_toStartOf="@id/heightSmallBox"
                 android:text="@string/height"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="15dp"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -405,7 +405,7 @@
                 app:layout_constraintStart_toEndOf="@id/heightTextSmall"
                 app:layout_constraintTop_toBottomOf="@id/weightLayoutMonth"
                 app:layout_constraintEnd_toStartOf="@id/cm"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="7dp"
                 >
@@ -445,7 +445,7 @@
                 app:layout_constraintEnd_toEndOf="@id/weightLayoutMonth"
                 android:text="@string/cm"
                 android:layout_marginStart="94dp"
-                android:layout_marginTop="27dp"
+                android:layout_marginTop="20dp"
                 />
 
             <TextView
@@ -455,7 +455,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/weightTextSmall"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/neck_girth"
                 android:background="@android:color/transparent"
                 />
@@ -574,7 +574,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/waistGirth"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="13dp"
                 android:text="@string/forearm_girth"
                 android:background="@android:color/transparent"
                 />
@@ -928,7 +928,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/shinGirth"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/fat_content"
                 android:background="@android:color/transparent"
                 />
@@ -940,7 +940,7 @@
                 app:layout_constraintStart_toStartOf="@id/shin"
                 app:layout_constraintTop_toBottomOf="@id/shin"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="9dp"
                 android:layout_marginEnd="7dp"
                 >
 
@@ -977,7 +977,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/fatConcentrate"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/index_mass_body"
                 android:background="@android:color/transparent"
                 />
@@ -989,7 +989,7 @@
                 app:layout_constraintStart_toStartOf="@id/fat"
                 app:layout_constraintTop_toBottomOf="@id/fat"
                 app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="9dp"
                 android:layout_marginEnd="7dp"
                 >
 
