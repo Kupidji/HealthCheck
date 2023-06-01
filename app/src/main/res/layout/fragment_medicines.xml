@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="@id/profile"
         app:layout_constraintTop_toTopOf="@id/wentBack"
         app:layout_constraintBottom_toBottomOf="@id/wentBack"
-        android:text="@string/pills"
+        android:text="@string/preparations"
         />
 
     <TextView
@@ -115,7 +115,7 @@
             />
 
         <TextView
-            style="@style/zagalovok2"
+            style="@style/buttonTextStyle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/addNewMedicines"
