@@ -60,7 +60,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/editTextName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/editTextAge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/editTextHeight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

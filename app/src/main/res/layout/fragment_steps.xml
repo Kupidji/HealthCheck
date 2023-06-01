@@ -65,7 +65,6 @@
                 app:layout_constraintTop_toTopOf="@id/wentBack"
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/steps"
-                android:textColor="@color/textcolor_black"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -155,7 +154,6 @@
                     android:layout_marginStart="7dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/week"
-                    android:textColor="@color/textcolor_black"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -247,7 +245,6 @@
                     android:layout_marginStart="7dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/month"
-                    android:textColor="@color/textcolor_black"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -261,7 +258,6 @@
                 app:layout_constraintTop_toBottomOf="@id/steppy1"
                 android:layout_marginTop="12dp"
                 android:text="@string/measurements"
-                android:textColor="@color/textcolor_black"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -285,7 +281,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/steps_today"
@@ -309,7 +305,6 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 android:layout_marginTop="19dp"
                 android:text="@string/select_target"
-                android:textColor="@color/textcolor_black"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -343,7 +338,6 @@
                     app:layout_constraintStart_toStartOf="@id/st5000"
                     app:layout_constraintEnd_toEndOf="@id/st5000"
                     android:text="@string/steps5000"
-                    android:textColor="@color/textcolor_black"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -379,7 +373,6 @@
                     app:layout_constraintStart_toStartOf="@id/st15000"
                     app:layout_constraintEnd_toEndOf="@id/st15000"
                     android:text="@string/steps15000"
-                    android:textColor="@color/textcolor_black"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -416,7 +409,6 @@
                     app:layout_constraintStart_toStartOf="@id/st10000"
                     app:layout_constraintEnd_toEndOf="@id/st10000"
                     android:text="@string/steps10000"
-                    android:textColor="@color/textcolor_black"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -442,7 +434,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/target"
@@ -466,7 +458,6 @@
                 app:layout_constraintTop_toBottomOf="@id/target_box"
                 android:layout_marginTop="22dp"
                 android:text="@string/calories_burned"
-                android:textColor="@color/textcolor_black"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -499,7 +490,6 @@
                     android:layout_marginTop="23dp"
                     android:layout_marginStart="22dp"
                     android:text="@string/per_day"
-                    android:textColor="@color/textcolor_black"
                     />
 
                 <TextView
@@ -512,7 +502,6 @@
                     android:layout_marginBottom="23dp"
                     android:layout_marginStart="22dp"
                     android:text="@string/per_month"
-                    android:textColor="@color/textcolor_black"
                     />
 
                 <TextView
@@ -524,7 +513,6 @@
                     app:layout_constraintStart_toStartOf="@id/cal"
                     android:layout_marginStart="22dp"
                     android:text="@string/per_week"
-                    android:textColor="@color/textcolor_black"
                     />
 
                 <TextView

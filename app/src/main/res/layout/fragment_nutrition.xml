@@ -41,7 +41,6 @@
         app:layout_constraintTop_toTopOf="@id/wentBack"
         app:layout_constraintBottom_toBottomOf="@id/wentBack"
         android:text="@string/eating"
-        android:textColor="@color/textcolor_black"
         />
 
     <TextView
@@ -52,7 +51,6 @@
         app:layout_constraintStart_toStartOf="@id/wentBack"
         app:layout_constraintTop_toBottomOf="@id/wentBack"
         android:text="@string/articles"
-        android:textColor="@color/textcolor_black"
         android:layout_marginTop="23dp"
         android:background="@android:color/transparent"
         />
@@ -94,7 +92,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/imageSalt"
@@ -142,7 +140,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/imageFood"
@@ -190,7 +188,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/imageKal"

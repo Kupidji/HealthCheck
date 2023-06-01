@@ -70,7 +70,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/pressure_box"
@@ -95,7 +95,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/up"
@@ -121,7 +121,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/down"
@@ -147,7 +147,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/pulse_box"
@@ -197,7 +197,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/ur"
@@ -222,7 +222,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/norm"
@@ -258,7 +258,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/ur1"
         android:layout_width="108dp"
         android:layout_height="36dp"
@@ -273,7 +273,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/ur2"
         android:layout_width="108dp"
         android:layout_height="36dp"
@@ -288,7 +288,7 @@
         />
 
     <EditText
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/ur3"
         android:layout_width="108dp"
         android:layout_height="36dp"
@@ -302,7 +302,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/norm1"
         android:layout_width="108dp"
         android:layout_height="36dp"
@@ -317,7 +317,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/norm2"
         android:layout_width="108dp"
         android:layout_height="36dp"
@@ -332,7 +332,7 @@
         />
 
     <TextView
-        style="@style/tint1"
+        style="@style/hint1"
         android:id="@+id/norm3"
         android:layout_width="108dp"
         android:layout_height="36dp"
