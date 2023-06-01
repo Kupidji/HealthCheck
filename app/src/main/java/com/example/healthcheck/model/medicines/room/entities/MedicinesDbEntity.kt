@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.healthcheck.model.medicines.entities.Medicines
-import java.time.LocalDate
-import java.util.Calendar
 
 @Entity (
     tableName = "medicines"
@@ -15,9 +13,11 @@ data class MedicinesDbEntity (
     val id : Long,
     val title : String,
     @ColumnInfo(name = "date_start")
-    var dateStart : Int,
+    var dateStart : String,
     @ColumnInfo(name = "duration_of_course")
     var durationOfCourse : Int,
+    @ColumnInfo(name = "current_day_of_course")
+    var currentDayOfCourse : Int,
     @ColumnInfo(name = "time_of_notify1")
     var timeOfNotify1 : Long,
     @ColumnInfo(name = "time_of_notify2")
@@ -31,6 +31,7 @@ data class MedicinesDbEntity (
         title = title,
         dateStart = dateStart,
         durationOfCourse = durationOfCourse,
+        currentDayOfCourse = currentDayOfCourse,
         timeOfNotify1 = timeOfNotify1,
         timeOfNotify2 = timeOfNotify2,
         timeOfNotify3 = timeOfNotify3,
@@ -38,13 +39,12 @@ data class MedicinesDbEntity (
     )
 
     companion object {
-        val calendar = Calendar.getInstance()
-
         fun fromAddMedicines(medicines: Medicines) : MedicinesDbEntity = MedicinesDbEntity(
             id = 0,
             title = medicines.title,
             durationOfCourse = medicines.durationOfCourse,
-            dateStart = calendar.get(Calendar.DAY_OF_MONTH),
+            currentDayOfCourse = medicines.currentDayOfCourse,
+            dateStart = medicines.dateStart,
             timeOfNotify1 = medicines.timeOfNotify1,
             timeOfNotify2 = medicines.timeOfNotify2,
             timeOfNotify3 = medicines.timeOfNotify3,

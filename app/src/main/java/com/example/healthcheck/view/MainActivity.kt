@@ -3,6 +3,7 @@ package com.example.healthcheck.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.healthcheck.Repositories
 import com.example.healthcheck.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        //инициализация бд
+        Repositories.init(applicationContext)
         setContentView(binding.root)
 
         //Устанавливает белую тему
