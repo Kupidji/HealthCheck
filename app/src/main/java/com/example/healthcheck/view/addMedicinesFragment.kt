@@ -50,14 +50,14 @@ class addMedicinesFragment : Fragment() {
         }
 
         binding.saveMedicine.setOnClickListener {
-            if (binding.getTitle.text != null) {
+            if (binding.getTitle.text.isNotEmpty()) {
 
                 lifecycleScope.launch {
                     var currentDate = SimpleDateFormat("dd MMMM", Locale.getDefault()).format(Date())
 
                     var durationOfCourse : Int
                     if (binding.getCountOfDays.text.isNotEmpty()) {
-                        durationOfCourse = binding.getCountOfDays.text as Int
+                        durationOfCourse = binding.getCountOfDays.text.toString().toInt()
                     }
                     else {
                         durationOfCourse = 0
@@ -81,7 +81,7 @@ class addMedicinesFragment : Fragment() {
             }
             else {
                 //TODO доделать message
-                binding.getTitle.error
+                binding.getTitle.error = "Обязательное поле"
             }
 
         }

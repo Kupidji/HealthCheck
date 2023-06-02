@@ -249,6 +249,7 @@
                     android:background="@drawable/box"
                     android:hint="@string/input_count_of_days"
                     android:paddingStart="10dp"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
