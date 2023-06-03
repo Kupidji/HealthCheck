@@ -125,7 +125,7 @@
                 app:layout_constraintTop_toBottomOf="@id/remindersText"
                 android:layout_marginTop="5dp">
 
-                <EditText
+                <TextView
                     style="@style/hint1"
                     android:id="@+id/getFirstTime"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,30 @@
                     android:layout_height="77dp"
                     android:background="@drawable/box"
                     android:hint="@string/first_rem"
-                    android:paddingStart="10dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="26dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/deleteFirstTime"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/delete"
+                    android:visibility="gone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -148,9 +171,10 @@
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintTop_toBottomOf="@id/firstTimeBox"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
 
-                <EditText
+                <TextView
                     style="@style/hint1"
                     android:id="@+id/getSecondTime"
                     app:layout_constraintStart_toStartOf="parent"
@@ -161,7 +185,30 @@
                     android:layout_height="77dp"
                     android:background="@drawable/box"
                     android:hint="@string/second_rem"
-                    android:paddingStart="10dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="26dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/deleteSecondTime"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/delete"
+                    android:visibility="gone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -173,9 +220,10 @@
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintTop_toBottomOf="@id/secondTimeBox"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
 
-                <EditText
+                <TextView
                     style="@style/hint1"
                     android:id="@+id/getThirdTime"
                     app:layout_constraintStart_toStartOf="parent"
@@ -186,7 +234,30 @@
                     android:layout_height="77dp"
                     android:background="@drawable/box"
                     android:hint="@string/third_rem"
-                    android:paddingStart="10dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="26dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/deleteThirdTime"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/delete"
+                    android:visibility="gone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -198,9 +269,10 @@
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintTop_toBottomOf="@id/thirdTimeBox"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
 
-                <EditText
+                <TextView
                     style="@style/hint1"
                     android:id="@+id/getFourthTime"
                     app:layout_constraintStart_toStartOf="parent"
@@ -211,7 +283,30 @@
                     android:layout_height="77dp"
                     android:background="@drawable/box"
                     android:hint="@string/fourth_rem"
-                    android:paddingStart="10dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="26dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/deleteFourthTime"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/delete"
+                    android:visibility="gone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
