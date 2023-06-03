@@ -49,26 +49,31 @@
                 android:layout_marginTop="7dp"
                 />
 
-            <ImageView
-                android:id="@+id/stepsDiagram"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/diagram_cycle"
-                app:layout_constraintVertical_bias="0.6"
-                />
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progressBarSteps"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/circle_background"
+            android:progressDrawable="@drawable/circle_progress"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="1"
+            app:layout_constraintVertical_bias="0.65"
+            />
 
             <TextView
                 style="@style/diagramsDigitsStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/stepsDiagram"
-                app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
-                app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
-                app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+                app:layout_constraintStart_toStartOf="@id/progressBarSteps"
+                app:layout_constraintEnd_toEndOf="@id/progressBarSteps"
+                app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
+                app:layout_constraintTop_toTopOf="@id/progressBarSteps"
                 android:text="\?"
                 app:layout_constraintVertical_bias="0.4"
                 />
@@ -77,10 +82,10 @@
                 style="@style/diagramsTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/stepsDiagram"
-                app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
-                app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
-                app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+                app:layout_constraintStart_toStartOf="@id/progressBarSteps"
+                app:layout_constraintEnd_toEndOf="@id/progressBarSteps"
+                app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
+                app:layout_constraintTop_toTopOf="@id/progressBarSteps"
                 app:layout_constraintVertical_bias="0.65"
                 android:text="@string/of_steps"
                 />
@@ -230,41 +235,47 @@
                 android:layout_marginTop="7dp"
                 />
 
-            <ImageView
-                android:id="@+id/weightDiagram"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/diagram_cycle"
-                app:layout_constraintVertical_bias="0.75"
-                />
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progressBarWeight"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/circle_background"
+            android:progressDrawable="@drawable/circle_progress"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="1"
+            app:layout_constraintVertical_bias="0.7"
+            />
 
-            <TextView
-                style="@style/diagramsDigitsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/weightDiagram"
-                app:layout_constraintEnd_toEndOf="@id/weightDiagram"
-                app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
-                app:layout_constraintTop_toTopOf="@id/weightDiagram"
-                android:text="\?"
-                app:layout_constraintVertical_bias="0.4"
-                />
+        <TextView
+            style="@style/diagramsDigitsStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/progressBarWeight"
+            app:layout_constraintEnd_toEndOf="@id/progressBarWeight"
+            app:layout_constraintBottom_toBottomOf="@id/progressBarWeight"
+            app:layout_constraintTop_toTopOf="@id/progressBarWeight"
+            android:text="\?"
+            app:layout_constraintVertical_bias="0.4"
+            />
 
-            <TextView
-                style="@style/diagramsTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/weightDiagram"
-                app:layout_constraintEnd_toEndOf="@id/weightDiagram"
-                app:layout_constraintBottom_toBottomOf="@id/weightDiagram"
-                app:layout_constraintTop_toTopOf="@id/weightDiagram"
-                app:layout_constraintVertical_bias="0.65"
-                android:text="@string/kg"
-                />
+        <TextView
+            style="@style/diagramsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/progressBarWeight"
+            app:layout_constraintEnd_toEndOf="@id/progressBarWeight"
+            app:layout_constraintBottom_toBottomOf="@id/progressBarWeight"
+            app:layout_constraintTop_toTopOf="@id/progressBarWeight"
+            app:layout_constraintVertical_bias="0.65"
+            android:text="@string/of_steps"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

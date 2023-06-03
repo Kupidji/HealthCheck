@@ -45,7 +45,6 @@ class medicinesFragment : Fragment() {
         val navigation = findNavController()
         val layoutManager = GridLayoutManager(this.context, 2)
 
-
         binding.recyclerViewMedicines.layoutManager = layoutManager
         binding.recyclerViewMedicines.adapter = adapter
         viewModel.getAllMedicines().observe(this.viewLifecycleOwner) {
