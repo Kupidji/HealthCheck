@@ -5,12 +5,17 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.util.Constants
 
 class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        //инициализация бд
+        Repositories.init(applicationContext)
+
         createNotificationChannel()
     }
 

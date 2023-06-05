@@ -29,6 +29,7 @@ class MedicinesNotificationService(private val context: Context) {
             .setContentTitle("Пора выпить")
             .setContentText(message)
             .setContentIntent(fragmentPendingtIntent)
+            .setAutoCancel(true)
 //            .addAction(
 //                 todo добавить фунционал для отметки об подтверждении
 //            )
