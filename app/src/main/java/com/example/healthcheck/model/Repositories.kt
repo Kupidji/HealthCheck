@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.healthcheck.model.medicines.MedicinesRepository
 import com.example.healthcheck.model.medicines.room.RoomMedicinesRepository
+import com.example.healthcheck.model.sleep.SleepRepository
+import com.example.healthcheck.model.sleep.room.RoomSleepRepository
 
 object Repositories {
 
@@ -16,6 +18,10 @@ object Repositories {
 
     val medicinesRepository : MedicinesRepository by lazy {
         RoomMedicinesRepository(database.getMedicinesDao())
+    }
+
+    val sleepRepository : SleepRepository by lazy {
+        RoomSleepRepository(database.getSleepDao())
     }
 
     fun init(context : Context) {

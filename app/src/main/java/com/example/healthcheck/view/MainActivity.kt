@@ -12,8 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        //инициализация бд
-        Repositories.init(applicationContext)
+
         setContentView(binding.root)
 
         //Устанавливает белую тему
