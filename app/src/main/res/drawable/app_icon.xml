@@ -1,0 +1,25 @@
+<vector android:height="24dp" android:viewportHeight="155"
+    android:viewportWidth="155" android:width="24dp"
+    xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:pathData="M15,0L140,0A15,15 0,0 1,155 15L155,140A15,15 0,0 1,140 155L15,155A15,15 0,0 1,0 140L0,15A15,15 0,0 1,15 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:endX="77.5" android:endY="155"
+                android:startX="77.5" android:startY="0" android:type="linear">
+                <item android:color="#FFA9B7FF" android:offset="0"/>
+                <item android:color="#FF83B0FA" android:offset="1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M77.5,77.5m-70.5,0a70.5,70.5 0,1 1,141 0a70.5,70.5 0,1 1,-141 0">
+        <aapt:attr name="android:fillColor">
+            <gradient android:endX="170.53" android:endY="113.36"
+                android:startX="7" android:startY="7" android:type="linear">
+                <item android:color="#FF483867" android:offset="0"/>
+                <item android:color="#FF3D78EA" android:offset="1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:fillColor="#DD1A1A" android:pathData="M94.53,43C87.69,43 81.58,46.32 77.76,51.42C73.95,46.32 67.83,43 61,43C49.4,43 40,52.44 40,64.11C40,68.6 40.72,72.76 41.96,76.61C47.93,95.49 66.32,106.78 75.42,109.88C76.71,110.33 78.82,110.33 80.1,109.88C89.21,106.78 107.6,95.49 113.56,76.61C114.81,72.76 115.53,68.6 115.53,64.11C115.53,52.44 106.12,43 94.53,43Z"/>
+    <path android:fillColor="#ffffff" android:pathData="M94.51,112.02C77.69,112.02 64,98.33 64,81.51C64,64.69 77.69,51 94.51,51C111.33,51 125.02,64.69 125.02,81.51C125.02,98.33 111.33,112.02 94.51,112.02ZM94.51,55.47C80.13,55.47 68.47,67.16 68.47,81.51C68.47,95.86 80.13,107.56 94.51,107.56C108.89,107.56 120.56,95.86 120.56,81.51C120.56,67.16 108.89,55.47 94.51,55.47Z"/>
+    <path android:fillColor="#ffffff" android:pathData="M124.88,115C124.08,115 123.29,114.71 122.67,114.08L114.31,105.73C113.1,104.52 113.1,102.52 114.31,101.31C115.52,100.1 117.53,100.1 118.74,101.31L127.09,109.66C128.3,110.87 128.3,112.87 127.09,114.08C126.47,114.71 125.67,115 124.88,115Z"/>
+</vector>

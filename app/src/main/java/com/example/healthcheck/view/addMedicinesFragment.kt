@@ -14,7 +14,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentAddMedicinesBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
+import com.example.healthcheck.util.RandomUtil
 import com.example.healthcheck.viewmodel.AddMedicinesViewModel
+import com.example.myday.service.AlarmService
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -33,6 +35,7 @@ class addMedicinesFragment : Fragment() {
     private var secondTime : Long = 0L
     private var thirdTime : Long = 0L
     private var fourthTime : Long = 0L
+    private lateinit var alarmService: AlarmService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +50,8 @@ class addMedicinesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
+        //крах тут
+        alarmService = AlarmService(this.requireContext())
 
         binding.wentBack.setOnClickListener {
             navigation.navigate(R.id.medicinesFragment)
@@ -120,10 +125,26 @@ class addMedicinesFragment : Fragment() {
                         durationOfCourse = durationOfCourse,
                         currentDayOfCourse = 1,
                         timeOfNotify1 = firstTime,
+                        channelIDFirstTime = RandomUtil.getRandomInt(),
                         timeOfNotify2 = secondTime,
+                        channelIDSecondTime = RandomUtil.getRandomInt(),
                         timeOfNotify3 = thirdTime,
+                        channelIDThirdTime = RandomUtil.getRandomInt(),
                         timeOfNotify4 = fourthTime,
+                        channelIDFourthTime = RandomUtil.getRandomInt(),
                     )
+                    if (firstTime != 0L) {
+                        alarmService.setExactAlarm(medicines.timeOfNotify1, "Первый приём - " + medicines.title, medicines.channelIDFirstTime)
+                    }
+                    if (secondTime != 0L) {
+                        alarmService.setExactAlarm(medicines.timeOfNotify2, "Второй приём - " + medicines.title, medicines.channelIDSecondTime)
+                    }
+                    if (thirdTime != 0L) {
+                        alarmService.setExactAlarm(medicines.timeOfNotify3, "Третий приём - " + medicines.title, medicines.channelIDThirdTime)
+                    }
+                    if (fourthTime != 0L) {
+                        alarmService.setExactAlarm(medicines.timeOfNotify4, "Четвёртый приём - " + medicines.title, medicines.channelIDFourthTime)
+                    }
                     viewModel.createMedicine(medicines)
                     navigation.navigate(R.id.medicinesFragment)
                 }
@@ -227,10 +248,9 @@ class addMedicinesFragment : Fragment() {
                 binding.getFourthTime.text = ""
                 binding.deleteFourthTime.visibility = View.GONE
 
-                if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
+                if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
                     binding.secondTimeBox.visibility = View.GONE
                     binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
                 }
             }
 
