@@ -7,7 +7,7 @@ import com.example.healthcheck.view.StartFragment3
 
 class StartViewModel : ViewModel() {
 
-    val flagList = listOf(
+    val fragList = listOf(
         StartFragment1.newInstance(),
         StartFragment2.newInstance(),
         StartFragment3.newInstance(),
