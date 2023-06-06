@@ -8,177 +8,115 @@
     android:background="@drawable/background"
     >
 
-    <TextView
-        android:layout_width="181dp"
-        android:layout_height="108dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="116dp"
-        android:fontFamily="@font/inter_semibold"
-        android:text="@string/slogan"
-        android:textColor="@color/textcolor_black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_main1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_main2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp"
+        />
+
+    <Button
+        style="@style/zagalovok1"
+        android:id="@+id/skipStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/margin_main2"
         app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/skip"
+        android:background="@android:color/transparent"
+        android:textColor="@color/textcolor_purple"
+        android:layout_marginTop="30dp"
         />
 
-    <ImageView
-        android:id="@+id/womanStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/woman_start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="-40dp"
-        />
-
-    <ImageView
-        android:id="@+id/box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/taskbox_start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="77dp"
-        />
-
-    <TextView
-        style="@style/zagalovok2"
-        android:id="@+id/inputFields"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/inter_semibold"
-        android:text="@string/input_fields"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/box"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/box"
-        app:layout_constraintTop_toTopOf="@id/box"
-        />
-
-    <EditText
-        style="@style/hint1"
-        android:id="@+id/editTextName"
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="@id/box"
-        app:layout_constraintStart_toStartOf="@id/box"
-        app:layout_constraintTop_toBottomOf="@id/inputFields"
-        android:drawableStart="@drawable/user_start"
-        android:hint="@string/name"
-        />
-
-    <EditText
-        style="@style/hint1"
-        android:id="@+id/editTextAge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="@id/box"
-        app:layout_constraintStart_toStartOf="@id/box"
-        app:layout_constraintTop_toBottomOf="@id/editTextName"
-        android:hint="@string/age"
-        android:drawableStart="@drawable/user_start"
-        android:layout_marginTop="5dp"
-        />
-
-    <EditText
-        style="@style/hint1"
-        android:id="@+id/editTextHeight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="@id/box"
-        app:layout_constraintStart_toStartOf="@id/box"
-        app:layout_constraintTop_toBottomOf="@id/editTextAge"
-        android:hint="@string/height"
-        android:drawableStart="@drawable/user_start"
-        android:layout_marginTop="5dp"
-        />
-
-    <TextView
-        style="@style/zagalovok2"
-        android:id="@+id/genderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/box"
-        app:layout_constraintTop_toBottomOf="@id/editTextHeight"
-        android:layout_marginStart="20dp"
-        android:text="@string/gender"
-        android:textSize="16sp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/margin_main1"
+        app:layout_constraintEnd_toEndOf="@id/margin_main2"
+        app:layout_constraintTop_toBottomOf="@id/skipStart"
+        app:layout_constraintBottom_toTopOf="@id/circle2"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         />
 
     <ImageView
-        android:id="@+id/genderBackground"
+        android:id="@+id/circle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/genderText"
-        app:layout_constraintTop_toTopOf="@id/genderText"
-        app:layout_constraintBottom_toBottomOf="@id/genderText"
-        android:src="@drawable/gender_background"
-        android:layout_marginStart="8dp"
-        />
-
-    <TextView
-        android:id="@+id/textHe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/genderBackground"
-        app:layout_constraintEnd_toEndOf="@id/genderBackground"
-        app:layout_constraintTop_toTopOf="@id/genderBackground"
-        app:layout_constraintBottom_toBottomOf="@id/genderBackground"
-        app:layout_constraintHorizontal_bias="0.18"
-        android:textSize="16sp"
-        android:textColor="@color/textcolor_black"
-        android:fontFamily="@font/inter_semibold"
-        android:text="@string/he"
-        />
-
-    <TextView
-        android:id="@+id/textShe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/genderBackground"
-        app:layout_constraintEnd_toEndOf="@id/genderBackground"
-        app:layout_constraintTop_toTopOf="@id/genderBackground"
-        app:layout_constraintBottom_toBottomOf="@id/genderBackground"
-        app:layout_constraintHorizontal_bias="0.82"
-        android:textSize="16sp"
-        android:fontFamily="@font/inter_medium"
-        android:text="@string/she"
-        />
-
-    <ImageButton
-        android:id="@+id/nextBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/box"
-        app:layout_constraintEnd_toEndOf="@id/box"
-        app:layout_constraintBottom_toBottomOf="@id/box"
-        android:src="@drawable/button_next_start"
+        app:layout_constraintTop_toTopOf="@id/circle2"
+        app:layout_constraintEnd_toStartOf="@id/circle2"
+        android:src="@drawable/grey_circle"
         android:background="@android:color/transparent"
-        android:layout_marginBottom="-24dp"
+        android:layout_marginEnd="15dp"
         />
 
-    <TextView
+    <ImageView
+        android:id="@+id/circle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/nextBtn"
-        app:layout_constraintEnd_toEndOf="@id/nextBtn"
-        app:layout_constraintTop_toTopOf="@id/nextBtn"
-        app:layout_constraintBottom_toBottomOf="@id/nextBtn"
-        android:textColor="@color/textcolor_white"
-        android:text="@string/next"
-        android:fontFamily="@font/inter_semibold"
-        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/next"
+        app:layout_constraintStart_toStartOf="@id/margin_main1"
+        app:layout_constraintEnd_toEndOf="@id/margin_main2"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/white_circle"
+        android:background="@android:color/transparent"
         />
+
+    <ImageView
+        android:id="@+id/circle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/circle2"
+        app:layout_constraintStart_toEndOf="@id/circle2"
+        android:src="@drawable/white_circle"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="15dp"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/margin_main1"
+        app:layout_constraintEnd_toEndOf="@id/margin_main2"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        >
+
+        <ImageView
+            android:id="@+id/nextBox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/button"
+            />
+
+        <TextView
+            style="@style/zagalovok1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/nextBox"
+            app:layout_constraintTop_toTopOf="@id/nextBox"
+            app:layout_constraintStart_toStartOf="@id/nextBox"
+            app:layout_constraintEnd_toEndOf="@id/nextBox"
+            android:text="@string/next"
+            android:textColor="@color/white"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
