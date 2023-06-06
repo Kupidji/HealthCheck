@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.databinding.FragmentStartBinding
 import com.example.healthcheck.viewmodel.StartViewModel
+import com.example.healthcheck.viewmodel.ViewPagerAdapter
 
 class StartFragment : Fragment() {
 
@@ -28,6 +31,16 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val viewPagerAdapter = ViewPagerAdapter(this, viewModel.fragList)
+        binding.viewPagerStart.adapter = viewPagerAdapter
+        val navigation = findNavController()
+
+        binding.viewPagerStart.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                //scrollViewPager(position)
+            }
+        })
     }
 
 }
