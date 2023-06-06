@@ -2,104 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.StartFragment3"
-    android:background="@drawable/background"
+    android:background="@android:color/transparent"
+    tools:background="@color/white"
     >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/photoThird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/start_second"
+        android:background="@android:color/transparent"
+        />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            >
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/margin_main1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="15dp"
-                />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/margin_main2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="15dp"
-                />
-
-            <Button
-                style="@style/zagalovok1"
-                android:id="@+id/skipStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/skip"
-                android:background="@android:color/transparent"
-                android:textColor="@color/textcolor_purple"
-                android:layout_marginTop="30dp"
-                />
-
-            <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/textSecond"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/skipStart"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="500dp"
-                android:text="Отслеживайте статистику, графики и диаграмы ваших показателей"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/next"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/textSecond"
-                app:layout_constraintEnd_toStartOf="@id/margin_main2"
-                android:layout_marginTop="140dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-                <ImageButton
-                    android:id="@+id/nextBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/button"
-                    android:background="@android:color/transparent"
-                    />
-
-                <TextView
-                    style="@style/zagalovok1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/nextBox"
-                    app:layout_constraintBottom_toBottomOf="@id/nextBox"
-                    app:layout_constraintStart_toStartOf="@id/nextBox"
-                    app:layout_constraintEnd_toEndOf="@id/nextBox"
-                    android:text="@string/next"
-                    android:textColor="@color/white"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/textSecond"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/photoThird"
+        app:layout_constraintStart_toStartOf="@id/photoThird"
+        app:layout_constraintEnd_toEndOf="@id/photoThird"
+        android:layout_marginTop="80dp"
+        android:text="Отслеживайте статистику, графики и диаграмы ваших показателей"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
