@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.healthcheck.R
-import com.example.healthcheck.databinding.FragmentStartBinding
 import com.example.healthcheck.viewmodel.StartViewModel
 
 class StartFragment : Fragment() {
@@ -17,20 +16,18 @@ class StartFragment : Fragment() {
     }
 
     private lateinit var viewModel: StartViewModel
-    private lateinit var binding : FragmentStartBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(StartViewModel::class.java)
-        binding = FragmentStartBinding.inflate(inflater)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_start, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(StartViewModel::class.java)
+        // TODO: Use the ViewModel
     }
 
 }

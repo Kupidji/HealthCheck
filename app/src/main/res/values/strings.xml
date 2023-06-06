@@ -81,11 +81,10 @@
     <string name="articles">Статьи о улучшении качества вашего питания</string>
     <string name="duraction_of_course">Длительность курса</string>
     <string name="input_count_of_days">Введите количество дней</string>
-
+    <string name="skip">Пропустить</string>
     <string name="pulse">Пульс</string>
     <string name="xx_per_min">xx ударов в мин</string>
     <string name="tab_60">60</string>
     <string name="tab_80">80</string>
     <string name="tab_120">120</string>
-
 </resources>
