@@ -157,17 +157,17 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment_1"
-        android:name="com.example.healthcheck.view.StartFragment_1"
+        android:name="com.example.healthcheck.view.StartFragment1"
         android:label="fragment_start_1"
         tools:layout="@layout/fragment_start_1" />
     <fragment
         android:id="@+id/startFragment_2"
-        android:name="com.example.healthcheck.view.StartFragment_2"
+        android:name="com.example.healthcheck.view.StartFragment2"
         android:label="fragment_start_2"
         tools:layout="@layout/fragment_start_2" />
     <fragment
         android:id="@+id/startFragment_3"
-        android:name="com.example.healthcheck.view.StartFragment_3"
+        android:name="com.example.healthcheck.view.StartFragment3"
         android:label="fragment_start_3"
         tools:layout="@layout/fragment_start_3" />
     <fragment

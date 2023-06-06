@@ -5,23 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.healthcheck.databinding.FragmentStartBinding
-import com.example.healthcheck.viewmodel.StartViewModel
+import com.example.healthcheck.databinding.FragmentStart3Binding
 
-class StartFragment : Fragment() {
-
+class StartFragment3 : Fragment() {
     companion object {
-        fun newInstance() = StartFragment()
+        fun newInstance() = StartFragment3()
     }
 
-    private lateinit var viewModel: StartViewModel
-    private lateinit var binding : FragmentStartBinding
+    private lateinit var binding : FragmentStart3Binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStartBinding.inflate(inflater)
+        binding = FragmentStart3Binding.inflate(inflater)
         return binding.root
     }
 
