@@ -33,6 +33,14 @@
                 app:layout_constraintGuide_end="15dp"
                 />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/add_margin"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.46"
+                />
+
             <ImageButton
                 android:id="@+id/wentBack"
                 android:layout_width="wrap_content"
@@ -65,7 +73,7 @@
                 app:layout_constraintTop_toTopOf="@id/wentBack"
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/cardio"
-                android:textColor="@color/textcolor_black"
+
                 />
 
             <TextView
@@ -75,61 +83,38 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/wentBack"
-                android:layout_marginTop="29dp"
+                app:layout_constraintEnd_toStartOf="@id/margin_main2"
+                android:layout_marginTop="25dp"
                 android:text="@string/measurements"
-                android:textColor="@color/textcolor_black"
                 />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/input_pressure"
-                android:layout_width="0dp"
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/pressure"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main"
-                app:layout_constraintEnd_toStartOf="@id/input_up"
                 app:layout_constraintTop_toBottomOf="@id/measurements"
-                android:layout_marginTop="22dp"
-                >
-
-                <ImageView
-                    android:id="@+id/pressure_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="66dp"
-                    android:src="@drawable/box"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
-                <EditText
-                    style="@style/tint1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/pressure_box"
-                    app:layout_constraintTop_toTopOf="@id/pressure_box"
-                    app:layout_constraintEnd_toEndOf="@id/pressure_box"
-                    app:layout_constraintBottom_toBottomOf="@id/pressure_box"
-                    android:paddingStart="10dp"
-                    android:background="@android:color/transparent"
-                    android:text="@string/input_pressure"
-                    android:textColor="@color/tint_color"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintStart_toStartOf="@id/margin_main"
+                android:layout_marginTop="36dp"
+                android:text="@string/pressure"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/input_up"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/input_pressure"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintTop_toTopOf="@id/input_pressure"
+                app:layout_constraintStart_toEndOf="@id/add_margin"
+                app:layout_constraintEnd_toStartOf="@id/input_down"
+                app:layout_constraintTop_toTopOf="@id/pressure"
+                app:layout_constraintBottom_toBottomOf="@id/pressure"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
                 >
 
                 <ImageView
                     android:id="@+id/up"
                     android:layout_width="match_parent"
-                    android:layout_height="28dp"
+                    android:layout_height="64dp"
                     android:src="@drawable/box"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +123,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/up"
@@ -157,15 +142,17 @@
                 android:id="@+id/input_down"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/input_pressure"
+                app:layout_constraintStart_toEndOf="@id/input_up"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintBottom_toBottomOf="@id/input_pressure"
+                app:layout_constraintTop_toTopOf="@id/input_up"
+                app:layout_constraintBottom_toBottomOf="@id/input_up"
+                android:layout_marginStart="10dp"
                 >
 
                 <ImageView
                     android:id="@+id/down"
                     android:layout_width="match_parent"
-                    android:layout_height="28dp"
+                    android:layout_height="64dp"
                     android:src="@drawable/box"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -174,7 +161,7 @@
                     />
 
                 <EditText
-                    style="@style/tint1"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/down"
@@ -189,50 +176,25 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/input_pulse"
-                android:layout_width="0dp"
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/pulse"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/input_up"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
-                app:layout_constraintEnd_toStartOf="@id/input_pulse_per_min"
-                app:layout_constraintTop_toBottomOf="@id/input_pressure"
-                android:layout_marginTop="23dp">
-
-                <ImageView
-                    android:id="@+id/pulse_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="66dp"
-                    android:src="@drawable/box"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
-                <EditText
-                    style="@style/tint1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/pulse_box"
-                    app:layout_constraintTop_toTopOf="@id/pulse_box"
-                    app:layout_constraintEnd_toEndOf="@id/pulse_box"
-                    app:layout_constraintBottom_toBottomOf="@id/pulse_box"
-                    android:paddingStart="10dp"
-                    android:background="@android:color/transparent"
-                    android:text="@string/input_pulse"
-                    android:textColor="@color/tint_color"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="34dp"
+                android:text="@string/pulse"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/input_pulse_per_min"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/input_pulse"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintBottom_toBottomOf="@id/input_pulse"
-                app:layout_constraintTop_toTopOf="@id/input_pulse"
+                app:layout_constraintStart_toEndOf="@id/add_margin"
+                app:layout_constraintEnd_toStartOf="@id/margin_main2"
+                app:layout_constraintTop_toTopOf="@id/pulse"
+                app:layout_constraintBottom_toBottomOf="@id/pulse"
                 >
 
                 <ImageView
@@ -245,6 +207,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <EditText
+                    style="@style/hint1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/pulse_per_min"
+                    app:layout_constraintEnd_toEndOf="@id/pulse_per_min"
+                    app:layout_constraintTop_toTopOf="@id/pulse_per_min"
+                    app:layout_constraintBottom_toBottomOf="@id/pulse_per_min"
+                    android:paddingStart="10dp"
+                    android:background="@android:color/transparent"
+                    android:text="@string/xx_per_min"
+                    android:textColor="@color/tint_color"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -253,172 +229,217 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
-                app:layout_constraintTop_toBottomOf="@id/input_pulse"
+                app:layout_constraintTop_toBottomOf="@id/input_pulse_per_min"
                 android:layout_marginTop="22dp"
                 android:text="@string/comp_with_norm"
-                android:textColor="@color/textcolor_black"
                 />
 
-            <ImageView
-                android:id="@+id/ur"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ur_box"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main"
+                app:layout_constraintEnd_toStartOf="@id/norm_box"
                 app:layout_constraintTop_toBottomOf="@id/comp_with_norm"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/norm"
                 android:layout_marginTop="23dp"
-                android:src="@drawable/ur_norm"
-                android:background="@android:color/transparent"
-                />
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="30dp"
+                >
 
-            <TextView
-                style="@style/tint1"
+                <ImageView
+                    android:id="@+id/ur"
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp"
+                    android:src="@drawable/box"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    style="@style/hint1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/ur"
+                    app:layout_constraintEnd_toEndOf="@id/ur"
+                    app:layout_constraintTop_toTopOf="@id/ur"
+                    app:layout_constraintBottom_toBottomOf="@id/ur"
+                    android:text="@string/yours"
+                    android:gravity="center"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/norm_box"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="@id/ur"
-                app:layout_constraintEnd_toEndOf="@id/ur"
-                app:layout_constraintTop_toTopOf="@id/ur"
-                app:layout_constraintBottom_toBottomOf="@id/ur"
-                android:text="@string/yours"
-                android:textColor="@color/textcolor_black"
-                android:gravity="center"
-                />
-
-
-            <ImageView
-                android:id="@+id/norm"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/ur"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ur"
-                android:src="@drawable/ur_norm"
-                android:background="@android:color/transparent"
-                />
+                app:layout_constraintEnd_toEndOf="@id/margin_main2"
+                app:layout_constraintStart_toEndOf="@id/ur_box"
+                app:layout_constraintTop_toBottomOf="@id/comp_with_norm"
+                android:layout_marginTop="23dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="30dp"
+                >
 
-            <TextView
-                style="@style/tint1"
+                <ImageView
+                    android:id="@+id/norm"
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp"
+                    android:src="@drawable/box"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    style="@style/hint1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/norm"
+                    app:layout_constraintEnd_toEndOf="@id/norm"
+                    app:layout_constraintTop_toTopOf="@id/norm"
+                    app:layout_constraintBottom_toBottomOf="@id/norm"
+                    android:text="@string/norm"
+                    android:gravity="center"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ur_data_box"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="@id/norm"
-                app:layout_constraintEnd_toEndOf="@id/norm"
-                app:layout_constraintTop_toTopOf="@id/norm"
-                app:layout_constraintBottom_toBottomOf="@id/norm"
-                android:text="@string/norm"
-                android:textColor="@color/textcolor_black"
-                android:gravity="center"
-                />
-
-            <ImageView
-                android:id="@+id/ur_data"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ur"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/norm_data"
+                app:layout_constraintStart_toStartOf="@id/ur_box"
+                app:layout_constraintTop_toBottomOf="@id/ur_box"
+                app:layout_constraintEnd_toEndOf="@id/ur_box"
                 android:layout_marginTop="19dp"
-                android:src="@drawable/ur_norm_data"
-                android:background="@android:color/transparent"
-                />
+                >
 
-            <ImageView
-                android:id="@+id/norm_data"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/ur_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="143dp"
+                    android:src="@drawable/box"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    style="@style/hint1"
+                    android:id="@+id/ur1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/ur_data"
+                    app:layout_constraintTop_toTopOf="@id/ur_data"
+                    app:layout_constraintEnd_toEndOf="@id/ur_data"
+                    app:layout_constraintBottom_toTopOf="@id/ur2"
+                    android:paddingStart="10dp"
+                    android:text="xxx"
+                    android:textColor="@color/tint_color"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    style="@style/hint1"
+                    android:id="@+id/ur2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/ur_data"
+                    app:layout_constraintTop_toBottomOf="@id/ur1"
+                    app:layout_constraintEnd_toEndOf="@id/ur_data"
+                    app:layout_constraintBottom_toTopOf="@id/ur3"
+                    android:paddingStart="10dp"
+                    android:text="xxx"
+                    android:textColor="@color/tint_color"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    style="@style/hint1"
+                    android:id="@+id/ur3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/ur_data"
+                    app:layout_constraintTop_toBottomOf="@id/ur2"
+                    app:layout_constraintEnd_toEndOf="@id/ur_data"
+                    app:layout_constraintBottom_toBottomOf="@id/ur_data"
+                    android:paddingStart="10dp"
+                    android:text="xxx"
+                    android:textColor="@color/tint_color"
+                    android:gravity="center_vertical"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/norm_data_box"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/ur_data"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ur_data"
-                android:src="@drawable/ur_norm_data"
-                android:background="@android:color/transparent"
-                />
+                app:layout_constraintEnd_toEndOf="@id/norm_box"
+                app:layout_constraintTop_toBottomOf="@id/ur_box"
+                app:layout_constraintStart_toStartOf="@id/norm_box"
+                android:layout_marginTop="19dp"
+                >
 
-            <EditText
-                style="@style/tint1"
-                android:id="@+id/ur1"
-                android:layout_width="108dp"
-                android:layout_height="36dp"
-                app:layout_constraintStart_toStartOf="@id/ur_data"
-                app:layout_constraintTop_toTopOf="@id/ur_data"
-                app:layout_constraintEnd_toEndOf="@id/ur_data"
-                app:layout_constraintBottom_toTopOf="@id/ur2"
-                android:paddingStart="10dp"
-                android:background="@android:color/transparent"
-                android:text="xxx"
-                android:textColor="@color/tint_color"
-                />
+                <ImageView
+                    android:id="@+id/norm_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="143dp"
+                    android:src="@drawable/box"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
-            <EditText
-                style="@style/tint1"
-                android:id="@+id/ur2"
-                android:layout_width="108dp"
-                android:layout_height="36dp"
-                app:layout_constraintStart_toStartOf="@id/ur_data"
-                app:layout_constraintTop_toBottomOf="@id/ur1"
-                app:layout_constraintEnd_toEndOf="@id/ur_data"
-                app:layout_constraintBottom_toTopOf="@id/ur3"
-                android:paddingStart="10dp"
-                android:background="@android:color/transparent"
-                android:text="xxx"
-                android:textColor="@color/tint_color"
-                />
+                <TextView
+                    style="@style/hint1"
+                    android:id="@+id/norm1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/norm_data"
+                    app:layout_constraintTop_toTopOf="@id/norm_data"
+                    app:layout_constraintEnd_toEndOf="@id/norm_data"
+                    app:layout_constraintBottom_toTopOf="@id/norm2"
+                    android:paddingStart="10dp"
+                    android:text="@string/tab_120"
+                    android:gravity="center_vertical"
+                    />
 
-            <EditText
-                style="@style/tint1"
-                android:id="@+id/ur3"
-                android:layout_width="108dp"
-                android:layout_height="36dp"
-                app:layout_constraintStart_toStartOf="@id/ur_data"
-                app:layout_constraintTop_toBottomOf="@id/ur2"
-                app:layout_constraintEnd_toEndOf="@id/ur_data"
-                android:paddingStart="10dp"
-                android:background="@android:color/transparent"
-                android:text="xxx"
-                android:textColor="@color/tint_color"
-                />
+                <TextView
+                    style="@style/hint1"
+                    android:id="@+id/norm2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/norm_data"
+                    app:layout_constraintTop_toBottomOf="@id/norm1"
+                    app:layout_constraintEnd_toEndOf="@id/norm_data"
+                    app:layout_constraintBottom_toTopOf="@id/norm3"
+                    android:paddingStart="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/tab_80"
+                    />
 
-            <TextView
-                style="@style/tint1"
-                android:id="@+id/norm1"
-                android:layout_width="108dp"
-                android:layout_height="36dp"
-                app:layout_constraintStart_toStartOf="@id/norm_data"
-                app:layout_constraintTop_toTopOf="@id/norm_data"
-                app:layout_constraintEnd_toEndOf="@id/norm_data"
-                app:layout_constraintBottom_toTopOf="@id/norm2"
-                android:paddingStart="10dp"
-                android:text="120"
-                android:gravity="center_vertical"
-                android:textColor="@color/textcolor_black"
-                />
+                <TextView
+                    style="@style/hint1"
+                    android:id="@+id/norm3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/norm_data"
+                    app:layout_constraintTop_toBottomOf="@id/norm2"
+                    app:layout_constraintEnd_toEndOf="@id/norm_data"
+                    app:layout_constraintBottom_toBottomOf="@id/norm_data"
+                    android:paddingStart="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/tab_60"
+                    />
 
-            <TextView
-                style="@style/tint1"
-                android:id="@+id/norm2"
-                android:layout_width="108dp"
-                android:layout_height="36dp"
-                app:layout_constraintStart_toStartOf="@id/norm_data"
-                app:layout_constraintTop_toBottomOf="@id/norm1"
-                app:layout_constraintEnd_toEndOf="@id/norm_data"
-                app:layout_constraintBottom_toTopOf="@id/norm3"
-                android:paddingStart="10dp"
-                android:gravity="center_vertical"
-                android:text="80"
-                android:textColor="@color/textcolor_black"
-                />
-
-            <TextView
-                style="@style/tint1"
-                android:id="@+id/norm3"
-                android:layout_width="108dp"
-                android:layout_height="36dp"
-                app:layout_constraintStart_toStartOf="@id/norm_data"
-                app:layout_constraintTop_toBottomOf="@id/norm2"
-                app:layout_constraintEnd_toEndOf="@id/norm_data"
-                android:paddingStart="10dp"
-                android:gravity="center_vertical"
-                android:text="60"
-                android:textColor="@color/textcolor_black"
-                />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
