@@ -9,6 +9,6 @@ interface StepsRepository {
 
     suspend fun getStepsForWeek() : List<Int>
 
-    suspend fun getStepsForMonth() : List<Steps>
+    suspend fun getStepsForMonth() : List<Int>
 
 }
