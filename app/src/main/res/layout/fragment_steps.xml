@@ -270,7 +270,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/steppy1"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/measurements"
                 />
 
@@ -281,7 +281,7 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/measurements"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="14dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/steps_today"
@@ -317,7 +317,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/measurements_box"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/select_target"
                 />
 
@@ -328,7 +328,7 @@
                 app:layout_constraintTop_toBottomOf="@id/selectTarget"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintEnd_toStartOf="@id/st10000_box"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="3dp"
                 >
                 
@@ -363,7 +363,7 @@
                 app:layout_constraintTop_toBottomOf="@id/selectTarget"
                 app:layout_constraintStart_toEndOf="@id/st10000_box"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="3dp"
                 >
 
@@ -398,7 +398,7 @@
                 app:layout_constraintTop_toBottomOf="@id/selectTarget"
                 app:layout_constraintStart_toEndOf="@id/st5000_box"
                 app:layout_constraintEnd_toStartOf="@id/st15000_box"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
                 >
@@ -434,7 +434,7 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/st5000_box"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="22dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/target"
@@ -470,7 +470,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/target_box"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/calories_burned"
                 />
 
@@ -481,7 +481,7 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/caloriesBurned"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="22dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/cal"
