@@ -110,16 +110,23 @@
                     android:layout_marginTop="7dp"
                     />
 
-                <ImageView
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:id="@+id/stepsDiagram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/stepsBox"
-                    app:layout_constraintEnd_toEndOf="@id/stepsBox"
-                    app:layout_constraintTop_toTopOf="@id/stepsBox"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsBox"
-                    android:src="@drawable/diagram_cycle"
+                    android:layout_width="105dp"
+                    android:layout_height="105dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/circle_background"
+                    android:progressDrawable="@drawable/circle_progress"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="1"
+                    app:layout_constraintVertical_bias="0.65"
                     />
+
                 <TextView
                     style="@style/diagramsDigitsStyle"
                     android:layout_width="wrap_content"
@@ -201,16 +208,23 @@
                     android:layout_marginTop="7dp"
                     />
 
-                <ImageView
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:id="@+id/stepsDiagram1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/stepsBox1"
-                    app:layout_constraintEnd_toEndOf="@id/stepsBox1"
-                    app:layout_constraintTop_toTopOf="@id/stepsBox1"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsBox1"
-                    android:src="@drawable/diagram_cycle"
+                    android:layout_width="105dp"
+                    android:layout_height="105dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/circle_background"
+                    android:progressDrawable="@drawable/circle_progress"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="1"
+                    app:layout_constraintVertical_bias="0.65"
                     />
+
                 <TextView
                     style="@style/diagramsDigitsStyle"
                     android:layout_width="wrap_content"
