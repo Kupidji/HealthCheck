@@ -134,6 +134,7 @@
                     android:background="@android:color/transparent"
                     android:text="@string/up_pressure"
                     android:textColor="@color/tint_color"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -172,6 +173,7 @@
                     android:background="@android:color/transparent"
                     android:text="@string/down_pressure"
                     android:textColor="@color/tint_color"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -219,6 +221,7 @@
                     android:background="@android:color/transparent"
                     android:text="@string/xx_per_min"
                     android:textColor="@color/tint_color"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -338,10 +341,9 @@
                     app:layout_constraintTop_toTopOf="@id/ur_data"
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toTopOf="@id/ur2"
-                    android:paddingStart="10dp"
                     android:text="xxx"
                     android:textColor="@color/tint_color"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     />
 
                 <TextView
@@ -353,10 +355,9 @@
                     app:layout_constraintTop_toBottomOf="@id/ur1"
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toTopOf="@id/ur3"
-                    android:paddingStart="10dp"
                     android:text="xxx"
                     android:textColor="@color/tint_color"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     />
 
                 <TextView
@@ -368,10 +369,9 @@
                     app:layout_constraintTop_toBottomOf="@id/ur2"
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toBottomOf="@id/ur_data"
-                    android:paddingStart="10dp"
                     android:text="xxx"
                     android:textColor="@color/tint_color"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -406,9 +406,8 @@
                     app:layout_constraintTop_toTopOf="@id/norm_data"
                     app:layout_constraintEnd_toEndOf="@id/norm_data"
                     app:layout_constraintBottom_toTopOf="@id/norm2"
-                    android:paddingStart="10dp"
                     android:text="@string/tab_120"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     />
 
                 <TextView
@@ -420,8 +419,7 @@
                     app:layout_constraintTop_toBottomOf="@id/norm1"
                     app:layout_constraintEnd_toEndOf="@id/norm_data"
                     app:layout_constraintBottom_toTopOf="@id/norm3"
-                    android:paddingStart="10dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:text="@string/tab_80"
                     />
 
@@ -434,8 +432,7 @@
                     app:layout_constraintTop_toBottomOf="@id/norm2"
                     app:layout_constraintEnd_toEndOf="@id/norm_data"
                     app:layout_constraintBottom_toBottomOf="@id/norm_data"
-                    android:paddingStart="10dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:text="@string/tab_60"
                     />
 

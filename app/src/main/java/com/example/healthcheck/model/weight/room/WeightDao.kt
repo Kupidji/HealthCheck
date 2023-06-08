@@ -12,11 +12,11 @@ interface WeightDao {
     suspend fun insertWeight(weightDbEntity: WeightDbEntity)
 
     //TODO доделать запрос для веса
-    @Query("SELECT * FROM weight")
+    @Query("SELECT * FROM weight ORDER BY id deSC LIMIT 7")
     fun getWeightForWeek() : List<WeightDbEntity>
 
     //TODO доделать запрос для веса
-    @Query("SELECT * FROM weight")
+    @Query("SELECT * FROM weight ORDER BY id deSC LIMIT 30")
     fun getWeightForMonth() : List<WeightDbEntity>
 
 }
