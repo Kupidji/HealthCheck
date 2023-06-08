@@ -7,6 +7,8 @@ interface MedicinesRepository {
 
     fun getAllMedicines() : LiveData<List<Medicines>>
 
+    suspend fun getAllMedicineList() : List<Medicines>
+
     suspend fun createMedicine(medicines : Medicines)
 
     suspend fun updateMedicine(medicines : Medicines)

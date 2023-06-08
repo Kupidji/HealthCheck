@@ -1,4 +1,5 @@
 package com.example.healthcheck.model.steps.room.entities
 
-class StepsTuples {
-}
+data class countOfStepsTupel(
+    var countOfSteps : Int
+)

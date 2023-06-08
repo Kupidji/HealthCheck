@@ -5,16 +5,47 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.healthcheck.R
+import com.example.healthcheck.model.Repositories
+import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.receiver.MedicinesNotificationReceiver
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.view.MainActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.Calendar
 
 
 class MedicinesNotificationService(private val context: Context) {
     private val alarmManager: AlarmManager? =
         context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
+
+    fun repairNotifications() {
+        Log.d("Notification", "trying reboot notifications")
+
+        GlobalScope.launch {
+            var list = Repositories.medicinesRepository.getAllMedicineList()
+            for (medicine in list) {
+                if (medicine.timeOfNotify1 != 0L)
+                    setRepetitiveAlarm(medicine.timeOfNotify1, medicine.title, medicine.channelIDFirstTime)
+
+                if (medicine.timeOfNotify2 != 0L)
+                    setRepetitiveAlarm(medicine.timeOfNotify2, medicine.title, medicine.channelIDSecondTime)
+
+                if (medicine.timeOfNotify3 != 0L)
+                    setRepetitiveAlarm(medicine.timeOfNotify3, medicine.title, medicine.channelIDThirdTime)
+
+                if (medicine.timeOfNotify4 != 0L)
+                    setRepetitiveAlarm(medicine.timeOfNotify4, medicine.title, medicine.channelIDFourthTime)
+
+            }
+        }
+
+
+
+    }
 
     fun showNotification(message: String, channelID : Int) {
         val fragmentIntent = Intent(context, MainActivity::class.java)
@@ -66,6 +97,7 @@ class MedicinesNotificationService(private val context: Context) {
                 }
             )
         )
+        Log.d("Notification", "setRepetitiveAlarm: Notification was created")
     }
 
     fun cancelNotification(timeInMillis: Long, message : String, channelID : Int) {

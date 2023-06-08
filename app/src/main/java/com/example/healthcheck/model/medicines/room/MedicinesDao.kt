@@ -17,6 +17,9 @@ interface MedicinesDao {
     @Query("SELECT * FROM medicines")
     fun getAllMedicine() : LiveData<List<MedicinesDbEntity>>
 
+    @Query("SELECT * FROM medicines")
+    suspend fun getAllMedicineList() : List<MedicinesDbEntity>
+
     @Update(entity = MedicinesDbEntity::class)
     suspend fun updateMedicine(medicinesDbEntity: MedicinesDbEntity)
 
