@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/startFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/startFragment"
@@ -106,6 +106,9 @@
         <action
             android:id="@+id/action_medicinesFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_medicinesFragment_to_medicinesEditFragment"
+            app:destination="@id/medicinesEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/nutritionFragment"
@@ -170,4 +173,13 @@
         android:name="com.example.healthcheck.view.StartFragment3"
         android:label="fragment_start_3"
         tools:layout="@layout/fragment_start_3" />
+    <fragment
+        android:id="@+id/medicinesEditFragment"
+        android:name="com.example.healthcheck.medicinesEditFragment"
+        android:label="fragment_medicines_edit"
+        tools:layout="@layout/fragment_medicines_edit" >
+        <action
+            android:id="@+id/action_medicinesEditFragment_to_medicinesFragment"
+            app:destination="@id/medicinesFragment" />
+    </fragment>
 </navigation>

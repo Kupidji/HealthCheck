@@ -1,13 +1,14 @@
 package com.example.healthcheck.model.steps
 
 import com.example.healthcheck.model.steps.entities.Steps
+import com.example.healthcheck.model.steps.room.entities.countOfStepsTupel
 
 interface StepsRepository {
 
     suspend fun insertCountOfSteps(steps : Steps)
 
-    fun getStepsForWeek() : List<Steps>
+    suspend fun getStepsForWeek() : List<Int>
 
-    fun getStepsForMonth() : List<Steps>
+    suspend fun getStepsForMonth() : List<Steps>
 
 }

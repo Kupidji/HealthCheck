@@ -129,6 +129,7 @@
 
                 <TextView
                     style="@style/diagramsDigitsStyle"
+                    android:id="@+id/countOfStepsForWeekText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/stepsDiagram"
@@ -296,6 +297,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/getCountOfSteps"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/steps_today"
@@ -303,7 +305,6 @@
                     app:layout_constraintBottom_toBottomOf="@id/steps_today"
                     app:layout_constraintEnd_toEndOf="@id/steps_today"
                     android:hint="@string/input_steps"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     android:paddingStart="10dp"
                     />
@@ -345,6 +346,7 @@
 
                 <TextView
                     style="@style/zagalovok3"
+                    android:id="@+id/st5000_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/st5000"
@@ -380,6 +382,7 @@
 
                 <TextView
                     style="@style/zagalovok3"
+                    android:id="@+id/st15000Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/st15000"
@@ -416,6 +419,7 @@
 
                 <TextView
                     style="@style/zagalovok3"
+                    android:id="@+id/st10000Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/st10000"
@@ -423,6 +427,7 @@
                     app:layout_constraintStart_toStartOf="@id/st10000"
                     app:layout_constraintEnd_toEndOf="@id/st10000"
                     android:text="@string/steps10000"
+                    android:textColor="@color/textcolor_white"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,12 @@ class RoomMedicinesRepository (
         }
     }
 
+    override suspend fun getAllMedicineList(): List<Medicines> {
+        return  medicinesDao.getAllMedicineList().map { medicine ->
+            medicine.toMedicines()
+        }
+    }
+
     override suspend fun createMedicine(medicines: Medicines) {
         medicinesDao.createMedicine(fromAddMedicines(medicines))
     }

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".medicinesEditFragment"
+    android:background="@drawable/background">
+
+    <ImageButton
+        android:id="@+id/wentBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/arrow_left"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/medicineTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="@id/wentBack"
+        android:text="название таблетки"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/margin_medicines"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="15dp"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/margin_medicines2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="15dp"
+                />
+            
+            <TextView
+                style="@style/zagalovok2"
+                android:id="@+id/remindersText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="15dp"
+                android:text="@string/reminders"
+                />
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/firstTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toStartOf="@id/secondTimeBox"
+                app:layout_constraintTop_toBottomOf="@id/remindersText"
+                app:layout_constraintBottom_toTopOf="@id/thirdTimeBox"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp">
+                
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/box"
+                    />
+
+                <ImageButton
+                    android:id="@+id/cloakBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:background="@android:color/transparent"
+                    />
+
+                <TextView
+                    style="@style/zagalovok3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/first_rem"
+                    app:layout_constraintBottom_toBottomOf="@id/cloakBtn"
+                    app:layout_constraintStart_toEndOf="@id/cloakBtn"
+                    app:layout_constraintTop_toTopOf="@id/cloakBtn"
+
+                    />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/secondTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/firstTimeBox"
+                app:layout_constraintEnd_toEndOf="@id/margin_medicines2"
+                app:layout_constraintTop_toTopOf="@id/firstTimeBox"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/box"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/thirdTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toStartOf="@id/fourthTimeBox"
+                app:layout_constraintTop_toBottomOf="@id/firstTimeBox"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/box"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fourthTimeBox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/thirdTimeBox"
+                app:layout_constraintEnd_toEndOf="@id/margin_medicines2"
+                app:layout_constraintTop_toTopOf="@id/thirdTimeBox"
+                android:layout_marginStart="5dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/box"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+        <ImageButton
+            android:id="@+id/finishCourse"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/button"
+            android:background="@android:color/transparent"
+            />
+
+        <TextView
+            style="@style/zagalovok2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/finishCourse"
+            app:layout_constraintEnd_toEndOf="@id/finishCourse"
+            app:layout_constraintTop_toTopOf="@id/finishCourse"
+            app:layout_constraintBottom_toBottomOf="@id/finishCourse"
+            android:text="@string/finish_course"
+            android:textColor="@color/textcolor_white"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
