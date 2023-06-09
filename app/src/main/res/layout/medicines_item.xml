@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?android:attr/selectableItemBackground"
     tools:background="@color/textcolor_black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +16,7 @@
         >
 
         <ImageButton
+            android:id="@+id/itemBackgroundBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +77,14 @@
             android:layout_marginStart="5dp"
             android:text="день"
             android:paddingBottom="10dp"
+            />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

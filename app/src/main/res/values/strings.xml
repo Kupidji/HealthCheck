@@ -88,4 +88,8 @@
     <string name="tab_80">80</string>
     <string name="tab_120">120</string>
     <string name="finish_course">Закончить курс</string>
+    <string name="course">Курс</string>
+    <string name="begin">Начало</string>
+    <string name="course_progress">Прогресс курса</string>
+    <string name="course_miss_total">Пропусков всего</string>
 </resources>
