@@ -15,6 +15,7 @@ import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStepsBinding
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.steps.entities.Steps
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.viewmodel.StepsViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -54,7 +55,7 @@ class StepsFragment : Fragment() {
         settings = requireActivity().applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
 
         //Подгрузка значения(5000,10000,150000)
-        var save : Int = settings.getInt("target", 10000)
+        var save : Int = settings.getInt(Constants.TARGET, 10000)
 
         //Изменение кнопки на выбраную
         loadData(save)
@@ -144,7 +145,7 @@ class StepsFragment : Fragment() {
     private fun saveData(res : Int) {
 
         val editor = settings.edit()
-        editor?.putInt("target", res)
+        editor?.putInt(Constants.TARGET, res)
         editor?.apply()
 
     }

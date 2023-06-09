@@ -9,5 +9,6 @@ object Constants {
     const val MEDICINES_CHANNEL = "MEDICINES_CHANNEL"
     const val MESSAGE = "MESSAGE"
     const val MEDICINE = "Medicine"
+    const val TARGET = "TARGET"
 
 }
