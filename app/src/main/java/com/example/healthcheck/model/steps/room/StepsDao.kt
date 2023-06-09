@@ -13,11 +13,11 @@ interface StepsDao {
     suspend fun insertCountOfSteps(stepsDbEntity: StepsDbEntity)
 
     //TODO доделать запрос для вытягивание инфы за неделю
-    @Query("SELECT * FROM steps")
+    @Query("SELECT * FROM steps order by id desc limit 7")
     suspend fun getStepsForWeek() : List<StepsDbEntity>
 
     //TODO доделать запрос для вытягивание инфы за месяц
-    @Query("SELECT * FROM steps")
+    @Query("SELECT * FROM steps order by id desc limit 30")
     suspend fun getStepsForMonth() : List<StepsDbEntity>
 
 }

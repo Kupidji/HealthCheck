@@ -22,10 +22,13 @@ class RoomStepsRepository(
         return list
     }
 
-    override suspend fun getStepsForMonth(): List<Steps> {
-        return stepsDao.getStepsForMonth().map { steps ->
+    override suspend fun getStepsForMonth(): List<Int> {
+        var list = mutableListOf<Int>()
+        var new = stepsDao.getStepsForMonth().map { steps ->
             steps.toSteps()
+            list.add(steps.countOfSteps)
         }
+        return list
     }
 
 }

@@ -28,6 +28,21 @@ class StepsViewModel : ViewModel() {
         }
     }
 
+    suspend fun getStepsFromDataForMonth(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.stepsRepository.getStepsForMonth()
+                var sum = 0
+                for (steps in list) {
+                    sum += steps
+                }
+                return@async sum
+            }
+
+            result.await()
+        }
+    }
+
     fun insertSteps(ourSteps : Steps) {
         viewModelScope.launch {
             Repositories.stepsRepository.insertCountOfSteps(ourSteps)

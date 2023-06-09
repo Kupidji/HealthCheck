@@ -57,6 +57,11 @@ class StepsFragment : Fragment() {
         }
 
 
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.countOfStepsForMonthText.setText("${viewModel.getStepsFromDataForMonth(tripletsPool)}")
+        }
+
+
         binding.wentBack.setOnClickListener {
             if (binding.getCountOfSteps.text.isNotEmpty()) {
                 var currentDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(Date())
