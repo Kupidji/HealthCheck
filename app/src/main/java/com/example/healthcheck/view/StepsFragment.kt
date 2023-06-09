@@ -1,5 +1,7 @@
 package com.example.healthcheck.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -34,6 +36,7 @@ class StepsFragment : Fragment() {
 
     private lateinit var viewModel: StepsViewModel
     private lateinit var binding : FragmentStepsBinding
+    private lateinit var settings : SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +50,14 @@ class StepsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        settings = requireActivity().applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
+
+        //Подгрузка значения(5000,10000,150000)
+        var save : Int = settings.getInt("target", 10000)
+
+        //Изменение кнопки на выбраную
+        loadData(save)
 
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         val navigation = findNavController()
@@ -80,14 +91,17 @@ class StepsFragment : Fragment() {
 
         binding.st5000.setOnClickListener {
             changeButton( binding.st5000)
+            saveData(5000)
         }
 
         binding.st10000.setOnClickListener {
             changeButton(binding.st10000)
+            saveData(10000)
         }
 
         binding.st15000.setOnClickListener {
             changeButton(binding.st15000)
+            saveData(15000)
         }
 
     }
@@ -124,6 +138,30 @@ class StepsFragment : Fragment() {
 
         }
 
+    }
+
+    //Сохранение значения цели
+    private fun saveData(res : Int) {
+
+        val editor = settings.edit()
+        editor?.putInt("target", res)
+        editor?.apply()
+
+    }
+
+    //Изменение кнопки
+    private fun loadData(res : Int) {
+
+        if (res == 5000){
+            changeButton( binding.st5000)
+        }
+        if (res == 10000){
+            changeButton( binding.st10000)
+        }
+        if (res == 15000){
+            changeButton( binding.st15000)
+
+        }
 
     }
 
