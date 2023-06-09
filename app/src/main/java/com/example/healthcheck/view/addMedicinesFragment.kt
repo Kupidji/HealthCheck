@@ -35,7 +35,6 @@ class addMedicinesFragment : Fragment() {
     private var secondTime : Long = 0L
     private var thirdTime : Long = 0L
     private var fourthTime : Long = 0L
-    private lateinit var medicinesNotificationService: MedicinesNotificationService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,8 +49,6 @@ class addMedicinesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
-        //крах тут
-        medicinesNotificationService = MedicinesNotificationService(this.requireContext())
 
         binding.wentBack.setOnClickListener {
             navigation.navigate(R.id.medicinesFragment)
@@ -109,7 +106,7 @@ class addMedicinesFragment : Fragment() {
             if (binding.getTitle.text.isNotEmpty()) {
 
                 lifecycleScope.launch {
-                    var currentDate = SimpleDateFormat("dd MMMM", Locale.getDefault()).format(Date())
+                    var currentDate = SimpleDateFormat("dd MMM", Locale.getDefault()).format(Date())
 
                     var durationOfCourse : Int
                     if (binding.getCountOfDays.text.isNotEmpty()) {
@@ -120,6 +117,7 @@ class addMedicinesFragment : Fragment() {
                     }
 
                     val medicines = Medicines (
+                        id = 0,
                         title = binding.getTitle.text.toString(),
                         dateStart = currentDate,
                         durationOfCourse = durationOfCourse,
@@ -133,22 +131,28 @@ class addMedicinesFragment : Fragment() {
                         timeOfNotify4 = fourthTime,
                         channelIDFourthTime = RandomUtil.getRandomInt(),
                     )
-                    if (firstTime != 0L) {
-                        //alarmService.setExactAlarm(medicines.timeOfNotify1, "Первый приём - " + medicines.title, medicines.channelIDFirstTime)
-                        medicinesNotificationService.setRepetitiveAlarm(medicines.timeOfNotify1, "Первый приём - " + medicines.title, medicines.channelIDFirstTime)
-                    }
-                    if (secondTime != 0L) {
-                        //alarmService.setExactAlarm(medicines.timeOfNotify2, "Второй приём - " + medicines.title, medicines.channelIDSecondTime)
-                        medicinesNotificationService.setRepetitiveAlarm(medicines.timeOfNotify2, "Второй приём - " + medicines.title, medicines.channelIDSecondTime)
-                    }
-                    if (thirdTime != 0L) {
-                        //alarmService.setExactAlarm(medicines.timeOfNotify3, "Третий приём - " + medicines.title, medicines.channelIDThirdTime)
-                        medicinesNotificationService.setRepetitiveAlarm(medicines.timeOfNotify3, "Третий приём - " + medicines.title, medicines.channelIDThirdTime)
-                    }
-                    if (fourthTime != 0L) {
-                        //alarmService.setExactAlarm(medicines.timeOfNotify4, "Четвёртый приём - " + medicines.title, medicines.channelIDFourthTime)
-                        medicinesNotificationService.setRepetitiveAlarm(medicines.timeOfNotify4, "Четвёртый приём - " + medicines.title, medicines.channelIDFourthTime)
-                    }
+                    //создание уведомлений
+                    viewModel.createNotification (
+                        medicines.timeOfNotify1,
+                        "Первый приём - " + medicines.title,
+                        medicines.channelIDFirstTime
+                    )
+                    viewModel.createNotification (
+                        medicines.timeOfNotify2,
+                        "Второй приём - " + medicines.title,
+                        medicines.channelIDSecondTime
+                    )
+                    viewModel.createNotification (
+                        medicines.timeOfNotify3,
+                        "Третий приём - " + medicines.title,
+                        medicines.channelIDThirdTime
+                    )
+                    viewModel.createNotification (
+                        medicines.timeOfNotify4,
+                        "Четвёртый приём - " + medicines.title,
+                        medicines.channelIDFourthTime
+                    )
+
                     viewModel.createMedicine(medicines)
                     navigation.navigate(R.id.medicinesFragment)
                 }

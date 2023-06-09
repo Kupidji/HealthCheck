@@ -10,6 +10,7 @@ import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcheck.databinding.FragmentMedicinesEditBinding
+import com.example.healthcheck.model.medicines.entities.Medicines
 import java.text.SimpleDateFormat
 
 class medicinesEditFragment : Fragment() {
@@ -54,6 +55,27 @@ class medicinesEditFragment : Fragment() {
             binding.totalDays.text = "из ${args.totalDuractionOfCourse}"
 
         binding.wentBack.setOnClickListener {
+            navigation.navigate(R.id.medicinesFragment)
+        }
+
+        binding.finishCourse.setOnClickListener {
+            var medicine = Medicines(
+                args.id,
+                args.title,
+                args.dateOfStart,
+                args.totalDuractionOfCourse,
+                args.totalDuractionOfCourse,
+                args.firstTimeNotification,
+                args.firstTimeChannelID,
+                args.secondTimeNotification,
+                args.secondTimeChannelID,
+                args.thirdTimeNotification,
+                args.thirdTimeChannelID,
+                args.fourthTimeNotification,
+                args.fourthTimeChannelID,
+            )
+            viewModel.deleteMedicine(medicine)
+            viewModel.deleteNotification(medicine)
             navigation.navigate(R.id.medicinesFragment)
         }
 

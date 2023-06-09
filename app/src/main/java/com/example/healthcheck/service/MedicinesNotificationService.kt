@@ -97,7 +97,7 @@ class MedicinesNotificationService(private val context: Context) {
                 }
             )
         )
-        Log.d("Notification", "setRepetitiveAlarm: Notification was created")
+        Log.d("Notification", "createNotification: Repetitive notification ${message} was created")
     }
 
     fun cancelNotification(timeInMillis: Long, message : String, channelID : Int) {
@@ -114,6 +114,23 @@ class MedicinesNotificationService(private val context: Context) {
                 )
             )
         }
+    }
+
+    fun cancelRepetitiveNotification(timeInMillis: Long, message : String, channelID : Int) {
+        if (timeInMillis != 0L) {
+            cancelExactAlarm(
+                getPendingIntent(
+                    channelID,
+                    getIntent().apply {
+                        action = Constants.ACTION_SET_REPETITIVE_EXACT
+                        putExtra(Constants.MESSAGE, message)
+                        putExtra(Constants.CHANNEL_ID, channelID)
+                        putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
+                    }
+                )
+            )
+        }
+        Log.d("Notification", "cancelNotification: Repetitive notification ${message} was canceled")
     }
 
     private fun getPendingIntent(channelID: Int, intent: Intent) =

@@ -213,5 +213,8 @@
             app:argType="integer" />
         <argument android:name="totalDuractionOfCourse"
             app:argType="integer" />
+        <argument
+            android:name="id"
+            app:argType="long" />
     </fragment>
 </navigation>
