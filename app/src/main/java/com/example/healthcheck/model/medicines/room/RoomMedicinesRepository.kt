@@ -5,8 +5,7 @@ import androidx.lifecycle.map
 import com.example.healthcheck.model.medicines.MedicinesRepository
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.model.medicines.room.entities.MedicinesDbEntity.Companion.fromAddMedicines
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import com.example.healthcheck.model.medicines.room.entities.MedicinesDbEntity.Companion.fromEditMedicines
 
 class RoomMedicinesRepository (
     val medicinesDao: MedicinesDao
@@ -36,6 +35,8 @@ class RoomMedicinesRepository (
     }
 
     override suspend fun deleteMedicine(medicines: Medicines) {
-        medicinesDao.deleteMedicine(fromAddMedicines(medicines))
+        medicinesDao.deleteMedicine(fromEditMedicines(medicines))
     }
+
+
 }

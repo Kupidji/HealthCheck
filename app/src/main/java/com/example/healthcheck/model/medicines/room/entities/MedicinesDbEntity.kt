@@ -36,6 +36,7 @@ data class MedicinesDbEntity (
     var channelIDFourthTime : Int,
 ) {
     fun toMedicines() : Medicines = Medicines(
+        id = id,
         title = title,
         dateStart = dateStart,
         durationOfCourse = durationOfCourse,
@@ -53,6 +54,22 @@ data class MedicinesDbEntity (
     companion object {
         fun fromAddMedicines(medicines: Medicines) : MedicinesDbEntity = MedicinesDbEntity(
             id = 0,
+            title = medicines.title,
+            durationOfCourse = medicines.durationOfCourse,
+            currentDayOfCourse = medicines.currentDayOfCourse,
+            dateStart = medicines.dateStart,
+            timeOfNotify1 = medicines.timeOfNotify1,
+            channelIDFirstTime = medicines.channelIDFirstTime,
+            timeOfNotify2 = medicines.timeOfNotify2,
+            channelIDSecondTime = medicines.channelIDSecondTime,
+            timeOfNotify3 = medicines.timeOfNotify3,
+            channelIDThirdTime = medicines.channelIDThirdTime,
+            timeOfNotify4 = medicines.timeOfNotify4,
+            channelIDFourthTime = medicines.channelIDFourthTime,
+        )
+
+        fun fromEditMedicines(medicines: Medicines) : MedicinesDbEntity = MedicinesDbEntity(
+            id = medicines.id,
             title = medicines.title,
             durationOfCourse = medicines.durationOfCourse,
             currentDayOfCourse = medicines.currentDayOfCourse,
