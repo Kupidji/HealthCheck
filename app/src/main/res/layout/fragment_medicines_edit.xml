@@ -93,7 +93,7 @@
                     />
 
                 <ImageButton
-                    android:id="@+id/cloakBtn"
+                    android:id="@+id/cloakBtn1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -105,13 +105,14 @@
 
                 <TextView
                     style="@style/zagalovok3"
+                    android:id="@+id/firstTimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/first_rem"
-                    app:layout_constraintBottom_toBottomOf="@id/cloakBtn"
-                    app:layout_constraintStart_toEndOf="@id/cloakBtn"
-                    app:layout_constraintTop_toTopOf="@id/cloakBtn"
-
+                    android:textColorHint="@color/tint_color"
+                    app:layout_constraintBottom_toBottomOf="@id/cloakBtn1"
+                    app:layout_constraintStart_toEndOf="@id/cloakBtn1"
+                    app:layout_constraintTop_toTopOf="@id/cloakBtn1"
                     />
                 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -133,6 +134,29 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
+                    />
+
+                <ImageButton
+                    android:id="@+id/cloakBtn2"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:background="@android:color/transparent"
+                    />
+
+                <TextView
+                    style="@style/zagalovok3"
+                    android:id="@+id/secondTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/second_rem"
+                    android:textColorHint="@color/tint_color"
+                    app:layout_constraintBottom_toBottomOf="@id/cloakBtn2"
+                    app:layout_constraintStart_toEndOf="@id/cloakBtn2"
+                    app:layout_constraintTop_toTopOf="@id/cloakBtn2"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -157,6 +181,29 @@
                     android:src="@drawable/box"
                     />
 
+                <ImageButton
+                    android:id="@+id/cloakBtn3"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:background="@android:color/transparent"
+                    />
+
+                <TextView
+                    style="@style/zagalovok3"
+                    android:id="@+id/thirdTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/third_rem"
+                    android:textColorHint="@color/tint_color"
+                    app:layout_constraintBottom_toBottomOf="@id/cloakBtn3"
+                    app:layout_constraintStart_toEndOf="@id/cloakBtn3"
+                    app:layout_constraintTop_toTopOf="@id/cloakBtn3"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -176,6 +223,216 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/box"
+                    />
+
+                <ImageButton
+                    android:id="@+id/cloakBtn4"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/cloak"
+                    android:background="@android:color/transparent"
+                    />
+
+                <TextView
+                    style="@style/zagalovok3"
+                    android:id="@+id/fourthTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fourth_rem"
+                    android:textColorHint="@color/tint_color"
+                    app:layout_constraintBottom_toBottomOf="@id/cloakBtn4"
+                    app:layout_constraintStart_toEndOf="@id/cloakBtn4"
+                    app:layout_constraintTop_toTopOf="@id/cloakBtn4"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/zagalovok2"
+                android:id="@+id/courseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/thirdTimeBox"
+                android:text="@string/course"
+                android:layout_marginTop="15dp"
+                />
+            
+            <TextView
+                style="@style/zagalovok3"
+                android:id="@+id/beginText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/courseText"
+                android:layout_marginTop="15dp"
+                android:text="@string/begin"
+                />
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/beginBox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/beginText"
+                app:layout_constraintTop_toTopOf="@id/beginText"
+                app:layout_constraintBottom_toBottomOf="@id/beginText"
+                app:layout_constraintEnd_toEndOf="@id/thirdTimeBox"
+                android:layout_marginStart="30dp"
+                >
+                
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="29dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/box"
+                    />
+                
+                <TextView
+                    style="@style/zagalovok3"
+                    android:id="@+id/dateStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="дата"
+                    android:layout_marginStart="10dp"
+                    />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/courseBox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="@id/fourthTimeBox"
+                app:layout_constraintEnd_toEndOf="@id/margin_medicines2"
+                app:layout_constraintTop_toTopOf="@id/courseText">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="157dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/box"
+                    />
+
+                <TextView
+                    style="@style/zagalovok2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/course_progress"
+                    android:textSize="18sp"
+                    />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:id="@+id/progressBarSteps"
+                    android:layout_width="105dp"
+                    android:layout_height="105dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/circle_background"
+                    android:progressDrawable="@drawable/circle_progress"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="1"
+                    app:layout_constraintVertical_bias="0.65"
+                    />
+
+                <TextView
+                    style="@style/diagramsDigitsStyle"
+                    android:id="@+id/currentDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/progressBarSteps"
+                    app:layout_constraintEnd_toEndOf="@id/progressBarSteps"
+                    app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
+                    app:layout_constraintTop_toTopOf="@id/progressBarSteps"
+                    android:text="1"
+                    app:layout_constraintVertical_bias="0.35"
+                    />
+
+                <TextView
+                    style="@style/diagramsTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/progressBarSteps"
+                    app:layout_constraintEnd_toEndOf="@id/progressBarSteps"
+                    app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
+                    app:layout_constraintTop_toTopOf="@id/progressBarSteps"
+                    app:layout_constraintVertical_bias="0.55"
+                    android:text="@string/_day"
+                    />
+
+                <TextView
+                    style="@style/diagramsTextStyle"
+                    android:id="@+id/totalDays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/progressBarSteps"
+                    app:layout_constraintEnd_toEndOf="@id/progressBarSteps"
+                    app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
+                    app:layout_constraintTop_toTopOf="@id/progressBarSteps"
+                    app:layout_constraintVertical_bias="0.72"
+                    android:text="из ?"
+                    />
+    
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/zagalovok2"
+                android:id="@+id/missTotalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/courseBox"
+                android:layout_marginTop="15dp"
+                android:text="@string/course_miss_total"
+                android:textSize="20sp"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="@id/courseBox"
+                app:layout_constraintTop_toTopOf="@id/missTotalText"
+                app:layout_constraintBottom_toBottomOf="@id/missTotalText"
+                app:layout_constraintEnd_toEndOf="@id/courseBox"
+                android:layout_marginEnd="80dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="29dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/box"
+                    />
+
+                <TextView
+                    style="@style/zagalovok3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="15dp"
+                    android:text="0"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

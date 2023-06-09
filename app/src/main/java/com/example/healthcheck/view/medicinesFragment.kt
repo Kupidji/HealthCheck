@@ -1,23 +1,21 @@
 package com.example.healthcheck.view
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesBinding
+import com.example.healthcheck.model.medicines.entities.Medicines
+import com.example.healthcheck.viewmodel.MedicinesActionListener
 import com.example.healthcheck.viewmodel.MedicinesRecyclerViewAdapter
 import com.example.healthcheck.viewmodel.MedicinesViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class medicinesFragment : Fragment() {
 
@@ -28,6 +26,7 @@ class medicinesFragment : Fragment() {
     private lateinit var viewModel: MedicinesViewModel
     private lateinit var binding : FragmentMedicinesBinding
     private lateinit var adapter : MedicinesRecyclerViewAdapter
+    private lateinit var navigation : NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,15 +34,41 @@ class medicinesFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProvider(this).get(MedicinesViewModel::class.java)
         binding = FragmentMedicinesBinding.inflate(inflater)
-        adapter = MedicinesRecyclerViewAdapter()
+        navigation = findNavController()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navigation = findNavController()
         val layoutManager = GridLayoutManager(this.context, 2)
+
+        adapter = MedicinesRecyclerViewAdapter(object : MedicinesActionListener {
+
+            override fun onClickBox(medicines: Medicines) {
+                val direction = medicinesFragmentDirections.actionMedicinesFragmentToMedicinesEditFragment (
+                    medicines.title,
+                    medicines.timeOfNotify1,
+                    medicines.channelIDFirstTime,
+                    medicines.timeOfNotify2,
+                    medicines.channelIDSecondTime,
+                    medicines.timeOfNotify3,
+                    medicines.channelIDThirdTime,
+                    medicines.timeOfNotify4,
+                    medicines.channelIDFourthTime,
+                    medicines.dateStart,
+                    medicines.currentDayOfCourse,
+                    medicines.durationOfCourse,
+                )
+                navigation.navigate(direction)
+            }
+
+            override fun onClickCheckBox(medicines: Medicines) {
+                //кинуть заполненость
+                Toast.makeText(this@medicinesFragment.context, "Выполнено", Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
         binding.recyclerViewMedicines.layoutManager = layoutManager
         binding.recyclerViewMedicines.adapter = adapter

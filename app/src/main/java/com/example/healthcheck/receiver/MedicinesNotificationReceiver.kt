@@ -28,7 +28,7 @@ class MedicinesNotificationReceiver : BroadcastReceiver() {
 
     private fun setRepetitiveAlarm(medicinesNotificationService: MedicinesNotificationService, message : String, channelID : Int) {
         val cal = Calendar.getInstance().apply {
-            //this.add(Calendar.DATE, 1) день
+            //this.add(Calendar.DATE, 1) день не забыть поменять данные в бд
             this.add(Calendar.MINUTE, 20)
             medicinesNotificationService.showNotification(message, channelID)
         }

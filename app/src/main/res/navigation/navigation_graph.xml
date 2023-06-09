@@ -181,5 +181,37 @@
         <action
             android:id="@+id/action_medicinesEditFragment_to_medicinesFragment"
             app:destination="@id/medicinesFragment" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument android:name="firstTimeNotification"
+            app:argType="long" />
+        <argument
+            android:name="firstTimeChannelID"
+            app:argType="integer" />
+        <argument
+            android:name="secondTimeNotification"
+            app:argType="long" />
+        <argument android:name="secondTimeChannelID"
+            app:argType="integer" />
+        <argument
+            android:name="thirdTimeNotification"
+            app:argType="long" />
+        <argument
+            android:name="thirdTimeChannelID"
+            app:argType="integer" />
+        <argument
+            android:name="fourthTimeNotification"
+            app:argType="long" />
+        <argument
+            android:name="fourthTimeChannelID"
+            app:argType="integer" />
+        <argument
+            android:name="dateOfStart"
+            app:argType="string" />
+        <argument android:name="currentDay"
+            app:argType="integer" />
+        <argument android:name="totalDuractionOfCourse"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -6,6 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.get
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.healthcheck.databinding.FragmentMedicinesEditBinding
+import java.text.SimpleDateFormat
 
 class medicinesEditFragment : Fragment() {
 
@@ -14,18 +19,44 @@ class medicinesEditFragment : Fragment() {
     }
 
     private lateinit var viewModel: MedicinesEditViewModel
+    private lateinit var binding : FragmentMedicinesEditBinding
+    private val args : medicinesEditFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_medicines_edit, container, false)
+        viewModel = ViewModelProvider(this).get(MedicinesEditViewModel::class.java)
+        binding = FragmentMedicinesEditBinding.inflate(inflater)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MedicinesEditViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navigation = findNavController()
+
+        binding.medicineTitle.text = args.title
+
+        if (args.firstTimeNotification != 0L)
+            binding.firstTimeText.text = SimpleDateFormat("HH:mm").format(args.firstTimeNotification)
+        if (args.secondTimeNotification != 0L)
+            binding.secondTimeText.text = SimpleDateFormat("HH:mm").format(args.secondTimeNotification)
+        if (args.thirdTimeNotification != 0L)
+            binding.thirdTimeText.text = SimpleDateFormat("HH:mm").format(args.thirdTimeNotification)
+        if (args.fourthTimeNotification != 0L)
+            binding.fourthTimeText.text = SimpleDateFormat("HH:mm").format(args.fourthTimeNotification)
+
+        binding.dateStart.text = args.dateOfStart
+        binding.currentDay.text = args.currentDay.toString()
+
+        if (args.totalDuractionOfCourse != 0)
+            binding.totalDays.text = "из ${args.totalDuractionOfCourse}"
+
+        binding.wentBack.setOnClickListener {
+            navigation.navigate(R.id.medicinesFragment)
+        }
+
     }
 
 }
