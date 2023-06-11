@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.healthcheck.R
 import com.example.healthcheck.model.Repositories
@@ -85,19 +86,72 @@ class MedicinesNotificationService(private val context: Context) {
     }
 
     fun setRepetitiveAlarm(timeInMillis: Long, message : String, channelID : Int) {
-        setAlarm(
-            timeInMillis,
-            getPendingIntent(
-                channelID,
-                getIntent().apply {
-                    action = Constants.ACTION_SET_REPETITIVE_EXACT
-                    putExtra(Constants.MESSAGE, message)
-                    putExtra(Constants.CHANNEL_ID, channelID)
-                    putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
-                }
+        var currentTime = Calendar.getInstance()
+        if (currentTime.timeInMillis <= timeInMillis) {
+            setAlarm(
+                timeInMillis,
+                getPendingIntent(
+                    channelID,
+                    getIntent().apply {
+                        action = Constants.ACTION_SET_REPETITIVE_EXACT
+                        putExtra(Constants.MESSAGE, message)
+                        putExtra(Constants.CHANNEL_ID, channelID)
+                        putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
+                    }
+                )
             )
-        )
-        Log.d("Notification", "createNotification: Repetitive notification ${message} was created")
+            Log.d("Notification", "createNotification: Repetitive notification ${message} was created")
+        }
+        else {
+            currentTime.timeInMillis = timeInMillis
+            currentTime.add(Calendar.HOUR_OF_DAY, 24)
+            GlobalScope.launch {
+                val list = Repositories.medicinesRepository.getAllMedicineList()
+                for (medicine in list) {
+                    if (medicine.title == message) {
+
+                        when(timeInMillis) {
+
+                            medicine.timeOfNotify1 -> {
+                                    medicine.timeOfNotify1 = currentTime.timeInMillis
+                                    Repositories.medicinesRepository.updateMedicine(medicine)
+                            }
+
+                            medicine.timeOfNotify2 -> {
+                                medicine.timeOfNotify2 = currentTime.timeInMillis
+                                Repositories.medicinesRepository.updateMedicine(medicine)
+                            }
+
+                            medicine.timeOfNotify3 -> {
+                                medicine.timeOfNotify3 = currentTime.timeInMillis
+                                Repositories.medicinesRepository.updateMedicine(medicine)
+                            }
+
+                            medicine.timeOfNotify4 -> {
+                                medicine.timeOfNotify4 = currentTime.timeInMillis
+                                Repositories.medicinesRepository.updateMedicine(medicine)
+                            }
+
+                        }
+
+                    }
+                }
+            }
+
+            setAlarm(
+                currentTime.timeInMillis,
+                getPendingIntent(
+                    channelID,
+                    getIntent().apply {
+                        action = Constants.ACTION_SET_REPETITIVE_EXACT
+                        putExtra(Constants.MESSAGE, message)
+                        putExtra(Constants.CHANNEL_ID, channelID)
+                        putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
+                    }
+                )
+            )
+            Log.d("Notification", "createNotification: Repetitive notification ${message} was created after 24h")
+        }
     }
 
     fun cancelNotification(timeInMillis: Long, message : String, channelID : Int) {

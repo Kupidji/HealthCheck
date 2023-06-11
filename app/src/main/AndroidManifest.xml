@@ -45,8 +45,6 @@
 
         <receiver android:name=".receiver.MedicinesNotificationReceiver"/>
 
-        <service android:name=".service.MedicinesNotificationService" />
-
     </application>
 
 </manifest>
