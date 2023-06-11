@@ -1,12 +1,7 @@
 package com.example.healthcheck
 
-import android.app.AlarmManager
 import android.app.Application
-import android.app.NotificationManager
-import android.content.Context
-import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
