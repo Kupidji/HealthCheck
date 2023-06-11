@@ -15,9 +15,5 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        //Устанавливает белую тему
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-        //TODO прописать логику для темы
     }
 }
