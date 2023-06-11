@@ -96,29 +96,29 @@ class mainFragment : Fragment() {
         when (position) {
             0 -> {
                 binding.todayTextBackground.visibility = View.VISIBLE
-                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_white))
+                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_choosen))
                 binding.weekTextBackground.visibility = View.GONE
-                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
                 binding.monthTextBackground.visibility = View.GONE
-                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
             }
             1 -> {
 
                 binding.weekTextBackground.visibility = View.VISIBLE
-                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_white))
+                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_choosen))
                 binding.todayTextBackground.visibility = View.GONE
-                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
                 binding.monthTextBackground.visibility = View.GONE
-                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
             }
             2 -> {
 
                 binding.monthTextBackground.visibility = View.VISIBLE
-                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_white))
+                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_choosen))
                 binding.todayTextBackground.visibility = View.GONE
-                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
                 binding.weekTextBackground.visibility = View.GONE
-                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
             }
         }
     }

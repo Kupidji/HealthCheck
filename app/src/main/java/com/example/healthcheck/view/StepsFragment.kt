@@ -112,29 +112,29 @@ class StepsFragment : Fragment() {
 
             binding.st5000 -> {
                 binding.st5000.setImageResource(R.drawable.sleep_box)
-                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_white))
+                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_choosen))
                 binding.st10000.setImageResource(R.drawable.box)
-                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
                 binding.st15000.setImageResource(R.drawable.box)
-                binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
             }
 
             binding.st10000 -> {
                 binding.st5000.setImageResource(R.drawable.box)
-                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
                 binding.st10000.setImageResource(R.drawable.sleep_box)
-                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_white))
+                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_choosen))
                 binding.st15000.setImageResource(R.drawable.box)
                 binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_black))
             }
 
             binding.st15000 -> {
                 binding.st5000.setImageResource(R.drawable.box)
-                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
                 binding.st10000.setImageResource(R.drawable.box)
-                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_black))
+                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
                 binding.st15000.setImageResource(R.drawable.sleep_box)
-                binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_white))
+                binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_choosen))
             }
 
         }

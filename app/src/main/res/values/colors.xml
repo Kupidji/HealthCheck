@@ -8,6 +8,8 @@
     <color name="textcolor_white">#FFFFFF</color>
     <color name="textcolor_purple">#483867</color>
     <color name="textcolor_blue">#A9B7FF</color>
+    <color name="textcolor_choosen">#FFFFFF</color>
+    <color name="textcolor_unchoosen">#000000</color>
 
     <color name="status_bar_color">#A9B7FF</color>
     <color name="navigation_bar_color">#83B0FA</color>
