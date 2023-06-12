@@ -308,6 +308,7 @@
                     android:hint="@string/input_steps"
                     android:background="@android:color/transparent"
                     android:paddingStart="10dp"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -455,6 +456,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/customTarget"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/target"
@@ -462,9 +464,10 @@
                     app:layout_constraintBottom_toBottomOf="@id/target"
                     app:layout_constraintEnd_toEndOf="@id/target"
                     android:hint="@string/input_target"
-                    android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
                     android:paddingStart="10dp"
+                    android:inputType="number"
+                    android:text=""
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -536,7 +539,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/day_cal"
+                    android:id="@+id/dayCal"
                     style="@style/zagalovok2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -549,7 +552,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/month_cal"
+                    android:id="@+id/monthCal"
                     style="@style/zagalovok2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -563,10 +566,11 @@
 
                 <TextView
                     style="@style/zagalovok2"
+                    android:id="@+id/weekCal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/day_cal"
-                    app:layout_constraintBottom_toTopOf="@id/month_cal"
+                    app:layout_constraintTop_toBottomOf="@id/dayCal"
+                    app:layout_constraintBottom_toTopOf="@id/monthCal"
                     app:layout_constraintEnd_toEndOf="@id/cal"
                     android:layout_marginEnd="40dp"
                     android:text="xxx калорий"

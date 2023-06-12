@@ -21,6 +21,7 @@ object Constants {
 
     //шаги
     const val TARGET = "TARGET" //цель для шагов
+    const val STEPS_PER_DAY = "STEPS_PER_DAY" //за день
 
     //таблетки
     const val FIRST_TIME = "FIRST_TIME"

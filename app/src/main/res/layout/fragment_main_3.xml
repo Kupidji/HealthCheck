@@ -68,6 +68,7 @@
 
         <TextView
             style="@style/diagramsDigitsStyle"
+            android:id="@+id/main3CountOfStepsMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/progressBarSteps"

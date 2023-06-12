@@ -1,5 +1,7 @@
 package com.example.healthcheck.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.viewmodel.MainFragment1ViewModel
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMain1Binding
+import com.example.healthcheck.util.Constants
 
 class mainFragment1 : Fragment() {
 
@@ -19,7 +22,6 @@ class mainFragment1 : Fragment() {
 
     private lateinit var viewModel: MainFragment1ViewModel
     private lateinit var binding : FragmentMain1Binding
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +35,10 @@ class mainFragment1 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
+
+        binding.main1CountOfStepsDay.text = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0).toString()
+        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+        binding.progressBarSteps.progress = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0)
 
         binding.stepsBox.setOnClickListener {
             navigation.navigate(R.id.stepsFragment)
