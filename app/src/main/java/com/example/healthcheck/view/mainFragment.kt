@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.R
@@ -95,32 +97,31 @@ class mainFragment : Fragment() {
     private fun scrollViewPager(position : Int) {
         when (position) {
             0 -> {
-                binding.todayTextBackground.visibility = View.VISIBLE
-                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_choosen))
-                binding.weekTextBackground.visibility = View.GONE
-                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
-                binding.monthTextBackground.visibility = View.GONE
-                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
+                setChoosenBtn(binding.todayText, binding.todayTextBackground)
+                setUnchoosenBtn(binding.weekText, binding.weekTextBackground)
+                setUnchoosenBtn(binding.monthText, binding.monthTextBackground)
             }
             1 -> {
-
-                binding.weekTextBackground.visibility = View.VISIBLE
-                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_choosen))
-                binding.todayTextBackground.visibility = View.GONE
-                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
-                binding.monthTextBackground.visibility = View.GONE
-                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
+                setUnchoosenBtn(binding.todayText, binding.todayTextBackground)
+                setChoosenBtn(binding.weekText, binding.weekTextBackground)
+                setUnchoosenBtn(binding.monthText, binding.monthTextBackground)
             }
             2 -> {
-
-                binding.monthTextBackground.visibility = View.VISIBLE
-                binding.monthText.setTextColor(resources.getColor(R.color.textcolor_choosen))
-                binding.todayTextBackground.visibility = View.GONE
-                binding.todayText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
-                binding.weekTextBackground.visibility = View.GONE
-                binding.weekText.setTextColor(resources.getColor(R.color.textcolor_unchoosen))
+                setUnchoosenBtn(binding.todayText, binding.todayTextBackground)
+                setUnchoosenBtn(binding.weekText, binding.weekTextBackground)
+                setChoosenBtn(binding.monthText, binding.monthTextBackground)
             }
         }
+    }
+
+    private fun setChoosenBtn(view : TextView, background : View) {
+        background.visibility = View.VISIBLE
+        view.setTextColor(ContextCompat.getColor(requireContext(), R.color.textcolor_choosen))
+    }
+
+    private fun setUnchoosenBtn(view : TextView, background : View) {
+        background.visibility = View.GONE
+        view.setTextColor(ContextCompat.getColor(requireContext(), R.color.textcolor_unchoosen))
     }
 
 }
