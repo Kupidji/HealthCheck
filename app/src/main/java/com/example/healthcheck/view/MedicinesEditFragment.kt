@@ -1,4 +1,4 @@
-package com.example.healthcheck
+package com.example.healthcheck.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.healthcheck.viewmodel.MedicinesEditViewModel
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesEditBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
 import java.text.SimpleDateFormat
 
-class medicinesEditFragment : Fragment() {
+class MedicinesEditFragment : Fragment() {
 
     companion object {
-        fun newInstance() = medicinesEditFragment()
+        fun newInstance() = MedicinesEditFragment()
     }
 
     private lateinit var viewModel: MedicinesEditViewModel
@@ -72,6 +74,7 @@ class medicinesEditFragment : Fragment() {
                 args.thirdTimeChannelID,
                 args.fourthTimeNotification,
                 args.fourthTimeChannelID,
+                args.totalMissed,
             )
             viewModel.deleteMedicine(medicine)
             viewModel.deleteNotification(medicine)

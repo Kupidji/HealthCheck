@@ -1,11 +1,11 @@
-package com.example.healthcheck.receiver
+package com.example.healthcheck.model.medicines.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.util.Constants
-import com.example.healthcheck.service.MedicinesNotificationService
+import com.example.healthcheck.model.medicines.service.MedicinesNotificationService
 import java.util.Calendar
 
 class MedicinesNotificationReceiver : BroadcastReceiver() {

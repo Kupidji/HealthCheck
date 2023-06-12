@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesBinding
-import com.example.healthcheck.medicinesEditFragment
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.viewmodel.MedicinesActionListener
 import com.example.healthcheck.viewmodel.MedicinesRecyclerViewAdapter
@@ -61,6 +60,7 @@ class medicinesFragment : Fragment() {
                     medicines.currentDayOfCourse,
                     medicines.durationOfCourse,
                     medicines.id,
+                    medicines.totalMissed,
                 )
                 navigation.navigate(direction)
             }

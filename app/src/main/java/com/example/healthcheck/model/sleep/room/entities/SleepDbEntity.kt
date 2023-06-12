@@ -16,8 +16,8 @@ data class SleepDbEntity(
     @PrimaryKey(autoGenerate = true)
     val id : Int,
     @ColumnInfo(name = "time_of_sleep")
-    var timeOfSleep : String,
-    var date : String,
+    var timeOfSleep : Long,
+    var date : Long,
 ) {
 
     fun toSleep() : Sleep = Sleep(

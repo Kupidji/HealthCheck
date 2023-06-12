@@ -100,7 +100,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <EditText
+                <TextView
                     style="@style/hint1"
                     android:id="@+id/getGoesToBedTime"
                     android:layout_width="0dp"
@@ -111,6 +111,7 @@
                     app:layout_constraintStart_toStartOf="@id/sleep1"
                     android:paddingStart="10dp"
                     android:hint="@string/start_sleep"
+                    android:gravity="center_vertical"
                     android:background="@android:color/transparent"
                     />
 
@@ -138,7 +139,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <EditText
+                <TextView
                     style="@style/hint1"
                     android:id="@+id/getWakeUpTime"
                     android:layout_width="0dp"
@@ -151,6 +152,7 @@
                     android:hint="@string/wakeup"
                     android:textColor="@color/tint_color"
                     android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -351,7 +353,7 @@
 
                 <TextView
                     style="@style/zagalovok2"
-                    android:id="@+id/weekx"
+                    android:id="@+id/timeForWeek"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/big_box"
@@ -363,10 +365,11 @@
 
                 <TextView
                     style="@style/zagalovok2"
+                    android:id="@+id/timeForMonth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/weekx"
-                    app:layout_constraintStart_toStartOf="@id/weekx"
+                    app:layout_constraintTop_toBottomOf="@id/timeForWeek"
+                    app:layout_constraintStart_toStartOf="@id/timeForWeek"
                     android:layout_marginTop="22dp"
                     android:text="xx:xxч"
                     />
