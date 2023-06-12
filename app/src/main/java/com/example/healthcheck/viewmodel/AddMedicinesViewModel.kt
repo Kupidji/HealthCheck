@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
-import com.example.healthcheck.service.MedicinesNotificationService
+import com.example.healthcheck.model.medicines.service.MedicinesNotificationService
 
 class AddMedicinesViewModel(application: Application) : AndroidViewModel(application) {
 

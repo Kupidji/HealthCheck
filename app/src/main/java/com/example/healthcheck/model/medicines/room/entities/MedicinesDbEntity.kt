@@ -34,6 +34,8 @@ data class MedicinesDbEntity (
     var timeOfNotify4 : Long,
     @ColumnInfo(name = "channel_id_fourth_time")
     var channelIDFourthTime : Int,
+    @ColumnInfo(name = "total_missed")
+    var totalMissed : Int,
 ) {
     fun toMedicines() : Medicines = Medicines(
         id = id,
@@ -49,6 +51,7 @@ data class MedicinesDbEntity (
         channelIDThirdTime = channelIDThirdTime,
         timeOfNotify4 = timeOfNotify4,
         channelIDFourthTime = channelIDFourthTime,
+        totalMissed = totalMissed,
     )
 
     companion object {
@@ -66,6 +69,7 @@ data class MedicinesDbEntity (
             channelIDThirdTime = medicines.channelIDThirdTime,
             timeOfNotify4 = medicines.timeOfNotify4,
             channelIDFourthTime = medicines.channelIDFourthTime,
+            totalMissed = medicines.totalMissed,
         )
 
         fun fromEditMedicines(medicines: Medicines) : MedicinesDbEntity = MedicinesDbEntity(
@@ -82,6 +86,7 @@ data class MedicinesDbEntity (
             channelIDThirdTime = medicines.channelIDThirdTime,
             timeOfNotify4 = medicines.timeOfNotify4,
             channelIDFourthTime = medicines.channelIDFourthTime,
+            totalMissed = medicines.totalMissed,
         )
     }
 

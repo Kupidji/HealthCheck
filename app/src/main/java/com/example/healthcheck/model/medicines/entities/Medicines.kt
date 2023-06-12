@@ -15,4 +15,5 @@ data class Medicines (
     var channelIDThirdTime : Int,
     var timeOfNotify4 : Long,
     var channelIDFourthTime : Int,
+    var totalMissed : Int,
 )

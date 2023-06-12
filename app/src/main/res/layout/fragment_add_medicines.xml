@@ -138,7 +138,7 @@
                     android:background="@drawable/box"
                     android:hint="@string/first_rem"
                     android:paddingStart="30dp"
-                    android:paddingTop="26dp"
+                    android:gravity="center_vertical"
                     />
 
                 <ImageView
@@ -187,7 +187,7 @@
                     android:background="@drawable/box"
                     android:hint="@string/second_rem"
                     android:paddingStart="30dp"
-                    android:paddingTop="26dp"
+                    android:gravity="center_vertical"
                     />
 
                 <ImageView
@@ -236,7 +236,7 @@
                     android:background="@drawable/box"
                     android:hint="@string/third_rem"
                     android:paddingStart="30dp"
-                    android:paddingTop="26dp"
+                    android:gravity="center_vertical"
                     />
 
                 <ImageView
@@ -285,7 +285,7 @@
                     android:background="@drawable/box"
                     android:hint="@string/fourth_rem"
                     android:paddingStart="30dp"
-                    android:paddingTop="26dp"
+                    android:gravity="center_vertical"
                     />
 
                 <ImageView

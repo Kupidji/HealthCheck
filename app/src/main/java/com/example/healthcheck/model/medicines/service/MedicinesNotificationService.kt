@@ -1,4 +1,4 @@
-package com.example.healthcheck.service
+package com.example.healthcheck.model.medicines.service
 
 import android.app.AlarmManager
 import android.app.NotificationManager
@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat
 import com.example.healthcheck.R
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
-import com.example.healthcheck.receiver.MedicinesNotificationReceiver
+import com.example.healthcheck.model.medicines.receiver.MedicinesNotificationReceiver
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.view.MainActivity
 import kotlinx.coroutines.GlobalScope

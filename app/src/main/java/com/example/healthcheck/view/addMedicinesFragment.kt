@@ -129,6 +129,7 @@ class addMedicinesFragment : Fragment() {
                         channelIDThirdTime = RandomUtil.getRandomInt(),
                         timeOfNotify4 = fourthTime,
                         channelIDFourthTime = RandomUtil.getRandomInt(),
+                        totalMissed = 0,
                     )
                     //создание уведомлений
                     viewModel.createNotification (

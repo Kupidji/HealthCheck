@@ -1,4 +1,4 @@
-package com.example.healthcheck.receiver
+package com.example.healthcheck.model.medicines.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,7 +6,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.example.healthcheck.R
-import com.example.healthcheck.service.MedicinesNotificationService
+import com.example.healthcheck.model.medicines.service.MedicinesNotificationService
 import com.example.healthcheck.view.MainActivity
 
 

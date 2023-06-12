@@ -175,7 +175,7 @@
         tools:layout="@layout/fragment_start_3" />
     <fragment
         android:id="@+id/medicinesEditFragment"
-        android:name="com.example.healthcheck.medicinesEditFragment"
+        android:name="com.example.healthcheck.view.medicinesEditFragment"
         android:label="fragment_medicines_edit"
         tools:layout="@layout/fragment_medicines_edit" >
         <action
@@ -216,5 +216,8 @@
         <argument
             android:name="id"
             app:argType="long" />
+        <argument
+            android:name="totalMissed"
+            app:argType="integer" />
     </fragment>
 </navigation>

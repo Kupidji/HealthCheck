@@ -34,7 +34,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name=".receiver.BootReceiver"
+            android:name=".model.medicines.receiver.BootReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -43,7 +43,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receiver.MedicinesNotificationReceiver"/>
+        <receiver android:name=".model.medicines.receiver.MedicinesNotificationReceiver"/>
 
     </application>
 
