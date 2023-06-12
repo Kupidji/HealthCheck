@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
@@ -106,39 +108,41 @@ class StepsFragment : Fragment() {
         }
 
     }
-    fun changeButton(view : View) {
+
+    private fun changeButton(view : View) {
 
         when (view) {
 
             binding.st5000 -> {
-                binding.st5000.setImageResource(R.drawable.sleep_box)
-                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_white))
-                binding.st10000.setImageResource(R.drawable.box)
-                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_black))
-                binding.st15000.setImageResource(R.drawable.box)
-                binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_black))
+                setChoosenBtn(binding.st5000Text, binding.st5000)
+                setUnchoosenBtn(binding.st10000Text, binding.st10000)
+                setUnchoosenBtn(binding.st15000Text, binding.st15000)
             }
 
             binding.st10000 -> {
-                binding.st5000.setImageResource(R.drawable.box)
-                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_black))
-                binding.st10000.setImageResource(R.drawable.sleep_box)
-                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_white))
-                binding.st15000.setImageResource(R.drawable.box)
-                binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_black))
+                setUnchoosenBtn(binding.st5000Text, binding.st5000)
+                setChoosenBtn(binding.st10000Text, binding.st10000)
+                setUnchoosenBtn(binding.st15000Text, binding.st15000)
             }
 
             binding.st15000 -> {
-                binding.st5000.setImageResource(R.drawable.box)
-                binding.st5000Text.setTextColor(resources.getColor(R.color.textcolor_black))
-                binding.st10000.setImageResource(R.drawable.box)
-                binding.st10000Text.setTextColor(resources.getColor(R.color.textcolor_black))
-                binding.st15000.setImageResource(R.drawable.sleep_box)
-                binding.st15000Text.setTextColor(resources.getColor(R.color.textcolor_white))
+                setUnchoosenBtn(binding.st5000Text, binding.st5000)
+                setUnchoosenBtn(binding.st10000Text, binding.st10000)
+                setChoosenBtn(binding.st15000Text, binding.st15000)
             }
 
         }
 
+    }
+
+    private fun setChoosenBtn(view : TextView, background : View) {
+        background.visibility = View.VISIBLE
+        view.setTextColor(ContextCompat.getColor(requireContext(), R.color.textcolor_choosen))
+    }
+
+    private fun setUnchoosenBtn(view : TextView, background : View) {
+        background.visibility = View.GONE
+        view.setTextColor(ContextCompat.getColor(requireContext(), R.color.textcolor_unchoosen))
     }
 
     //Сохранение значения цели
