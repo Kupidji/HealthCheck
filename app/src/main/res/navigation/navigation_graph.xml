@@ -220,4 +220,14 @@
             android:name="totalMissed"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/startFragment4"
+        android:name="com.example.healthcheck.view.StartFragment4"
+        android:label="fragment_start_4"
+        tools:layout="@layout/fragment_start_4" />
+    <fragment
+        android:id="@+id/startFragment5"
+        android:name="com.example.healthcheck.view.StartFragment5"
+        android:label="fragment_start_5"
+        tools:layout="@layout/fragment_start_5" />
 </navigation>
