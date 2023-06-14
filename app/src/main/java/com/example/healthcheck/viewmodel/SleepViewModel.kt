@@ -13,24 +13,46 @@ class SleepViewModel : ViewModel() {
 
 //переписать
 
-//    suspend fun getSleepFromDataForWeek(sheduler : ThreadPoolExecutor) : String = coroutineScope {
-//        withContext(sheduler.asCoroutineDispatcher()) {
-//            var result = async {
-//                var list = Repositories.sleepRepository.getTimeOfSleepForWeek()
-//                var sum = "00:00"
-//                var firstPart = 0
-//                var secondPart = 0
-//                for (sleep in list) {
-//                    var string = SimpleDateFormat("HH:mm").format(sleep.timeOfSleep)
-//                    firstPart = sum.substring(1..2).toInt() + string.substring(1..2).toInt()
-//                    secondPart = sum.substring(4..5).toInt() + string.substring(4..5).toInt()
-//                    sum = "." + firstPart.toString() + ":" + secondPart.toString()
-//                }
-//                return@async sum
-//            }
-//
-//            result.await()
-//        }
-//    }
+    suspend fun getSleepFromDataForWeek(sheduler : ThreadPoolExecutor) : String = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.sleepRepository.getTimeOfSleepForWeek()
+                var sum = "00:00"
+                for (sleep in list) {
+                var listt = sum.split(":")
+                    var firstPart = listt[0].toInt()
+                    var secondPart = listt[1].toInt()
+                    var string = SimpleDateFormat("HH:mm").format(sleep.timeOfSleep)
+                    var stringg = string.split(":")
+                    firstPart = firstPart + stringg[0].toInt() - 5
+                    secondPart = secondPart + stringg[1].toInt()
+                    sum = firstPart.toString() + ":" + secondPart.toString()
+                }
+                return@async sum
+            }
+            result.await()
+        }
+    }
+
+    suspend fun getSleepFromDataForMonth(sheduler : ThreadPoolExecutor) : String = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.sleepRepository.getTimeOfSleepForMonth()
+                var sum = "00:00"
+                for (sleep in list) {
+                    var listt = sum.split(":")
+                    var firstPart = listt[0].toInt()
+                    var secondPart = listt[1].toInt()
+                    var string = SimpleDateFormat("HH:mm").format(sleep.timeOfSleep).toString()
+                    var stringg = string.split(":")
+                    firstPart = firstPart + stringg[0].toInt() - 5
+                    secondPart = secondPart + stringg[1].toInt()
+                    sum = firstPart.toString() + ":" + secondPart.toString()
+                }
+                return@async sum
+            }
+            result.await()
+        }
+    }
 
 }

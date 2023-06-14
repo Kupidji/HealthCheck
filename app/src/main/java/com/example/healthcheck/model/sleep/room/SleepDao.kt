@@ -13,11 +13,11 @@ interface SleepDao {
     suspend fun insertTimeOfSleep(sleepDbEntity: SleepDbEntity)
 
     //TODO доделать запрос для вытягивание инфы за неделю
-    @Query("SELECT * FROM sleep")
+    @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 7")
     fun getTimeOfSleepForWeek() : List<SleepDbEntity>
 
     //TODO доделать запрос для вытягивание инфы за месяц
-    @Query("SELECT * FROM sleep")
+    @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 30")
     fun getTimeOfSleepForMonth() : List<SleepDbEntity>
 
 }
