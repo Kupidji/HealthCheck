@@ -2,6 +2,8 @@ package com.example.healthcheck.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.healthcheck.model.heart.room.HeartDao
+import com.example.healthcheck.model.heart.room.entities.HeartDbEntity
 import com.example.healthcheck.model.medicines.room.MedicinesDao
 import com.example.healthcheck.model.medicines.room.entities.MedicinesDbEntity
 import com.example.healthcheck.model.sleep.room.SleepDao
@@ -18,6 +20,7 @@ import com.example.healthcheck.model.weight.room.entities.WeightDbEntity
         SleepDbEntity::class,
         StepsDbEntity::class,
         WeightDbEntity::class,
+        HeartDbEntity::class,
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -29,5 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getStepsDao() : StepsDao
 
     abstract fun getWeightDao() : WeightDao
+
+    abstract fun getHeartDao() : HeartDao
 
 }
