@@ -61,6 +61,14 @@ class sleepFragment : Fragment() {
             binding.timeForMonth.setText("${viewModel.getSleepFromDataForMonth(tripletsPool) + "ч"}")
         }
 
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.averageSleepWeek.setText("${viewModel.getSleepFromDataForWeekAverage(tripletsPool) + "ч"}")
+        }
+
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.averageSleepMonth.setText("${viewModel.getSleepFromDataForMonthAverage(tripletsPool) + "ч"}")
+        }
+
         binding.wentBack.setOnClickListener {
             if (binding.getGoesToBedTime.text.isNotEmpty() && binding.getWakeUpTime.text.isNotEmpty()) {
                 var currentTime = Calendar.getInstance().timeInMillis
@@ -68,9 +76,7 @@ class sleepFragment : Fragment() {
                     calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime),
                     currentTime,
                 )
-                lifecycleScope.launch {
-                    Repositories.sleepRepository.insertTimeOfSleep(sleep)
-                }
+                viewModel.insertSleep(sleep)
             }
             navigation.navigate(R.id.mainFragment)
         }
