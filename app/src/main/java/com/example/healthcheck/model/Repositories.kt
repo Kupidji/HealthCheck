@@ -2,6 +2,8 @@ package com.example.healthcheck.model
 
 import android.content.Context
 import androidx.room.Room
+import com.example.healthcheck.model.heart.HeartRepository
+import com.example.healthcheck.model.heart.room.RoomHeartRepository
 import com.example.healthcheck.model.medicines.MedicinesRepository
 import com.example.healthcheck.model.medicines.room.RoomMedicinesRepository
 import com.example.healthcheck.model.sleep.SleepRepository
@@ -34,6 +36,10 @@ object Repositories {
 
     val weightRepository : WeightRepository by lazy {
         RoomWeightRepository(database.getWeightDao())
+    }
+
+    val heartRepository : HeartRepository by lazy {
+        RoomHeartRepository(database.getHeartDao())
     }
 
     fun init(context : Context) {

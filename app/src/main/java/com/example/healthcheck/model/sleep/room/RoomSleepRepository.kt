@@ -19,7 +19,7 @@ class RoomSleepRepository(
     }
 
     override fun getTimeOfSleepForMonth(): List<Sleep> {
-        return sleepDao.getTimeOfSleepForWeek().map { sleep ->
+        return sleepDao.getTimeOfSleepForMonth().map { sleep ->
             sleep.toSleep()
         }
     }
