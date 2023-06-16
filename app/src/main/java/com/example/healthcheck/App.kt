@@ -6,12 +6,9 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.util.Log
-import androidx.lifecycle.map
-import com.example.healthcheck.databinding.FragmentStepsBinding
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.healthcheck.model.Repositories
-import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.Constants
-import com.example.healthcheck.view.StepsFragment
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -21,6 +18,12 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        //тема приложения
+        val settingsTheme = applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
+        if (settingsTheme.contains(Constants.CHOOSEN_THEME)) {
+            AppCompatDelegate.setDefaultNightMode(settingsTheme.getInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES))
+        }
 
         //инициализация бд
         Log.d("Database", "Database is init")

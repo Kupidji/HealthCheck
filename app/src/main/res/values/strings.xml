@@ -94,4 +94,5 @@
     <string name="course_miss_total">Пропусков всего</string>
     <string name="save_edit">Сохранить изменения</string>
     <string name="edit">Редактировать</string>
+    <string name="theme_choose">Выбор темы</string>
 </resources>
