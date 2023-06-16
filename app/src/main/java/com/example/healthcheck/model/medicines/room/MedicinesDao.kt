@@ -20,7 +20,7 @@ interface MedicinesDao {
     @Query("SELECT * FROM medicines")
     suspend fun getAllMedicineList() : List<MedicinesDbEntity>
 
-    @Update(entity = MedicinesDbEntity::class)
+    @Update
     suspend fun updateMedicine(medicinesDbEntity: MedicinesDbEntity)
 
     @Delete

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_startFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_startFragment4"
+            app:destination="@id/startFragment4" />
     </fragment>
     <fragment
         android:id="@+id/stepsFragment"
@@ -175,7 +178,7 @@
         tools:layout="@layout/fragment_start_3" />
     <fragment
         android:id="@+id/medicinesEditFragment"
-        android:name="com.example.healthcheck.view.medicinesEditFragment"
+        android:name="com.example.healthcheck.view.MedicinesEditFragment"
         android:label="fragment_medicines_edit"
         tools:layout="@layout/fragment_medicines_edit" >
         <action
@@ -208,7 +211,7 @@
             app:argType="integer" />
         <argument
             android:name="dateOfStart"
-            app:argType="string" />
+            app:argType="long" />
         <argument android:name="currentDay"
             app:argType="integer" />
         <argument android:name="totalDuractionOfCourse"
@@ -219,15 +222,71 @@
         <argument
             android:name="totalMissed"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_medicinesEditFragment_to_editMedicineFragment"
+            app:destination="@id/editMedicineFragment" />
     </fragment>
     <fragment
         android:id="@+id/startFragment4"
         android:name="com.example.healthcheck.view.StartFragment4"
         android:label="fragment_start_4"
-        tools:layout="@layout/fragment_start_4" />
+        tools:layout="@layout/fragment_start_4" >
+        <action
+            android:id="@+id/action_startFragment4_to_startFragment5"
+            app:destination="@id/startFragment5" />
+    </fragment>
     <fragment
         android:id="@+id/startFragment5"
         android:name="com.example.healthcheck.view.StartFragment5"
         android:label="fragment_start_5"
         tools:layout="@layout/fragment_start_5" />
+    <fragment
+        android:id="@+id/editMedicineFragment"
+        android:name="com.example.healthcheck.view.editMedicineFragment"
+        android:label="fragment_edit_medicine"
+        tools:layout="@layout/fragment_edit_medicine" >
+        <argument android:name="id"
+            app:argType="long" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="firstTimeNotification"
+            app:argType="long" />
+        <argument
+            android:name="firstTimeChannelID"
+            app:argType="integer" />
+        <argument
+            android:name="secondTimeNotification"
+            app:argType="long" />
+        <argument
+            android:name="secondTimeChannelID"
+            app:argType="integer" />
+        <argument
+            android:name="thirdTimeNotification"
+            app:argType="long" />
+        <argument
+            android:name="thirdTimeChannelID"
+            app:argType="integer" />
+        <argument android:name="fourthTimeNotification"
+            app:argType="long" />
+        <argument
+            android:name="fourthTimeChannelID"
+            app:argType="integer" />
+        <argument
+            android:name="dateOfStart"
+            app:argType="long" />
+        <argument
+            android:name="currentDay"
+            app:argType="integer" />
+        <argument
+            android:name="totalDuractionOfCourse"
+            app:argType="integer" />
+        <argument
+            android:name="totalMissed"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_editMedicineFragment_to_medicinesFragment"
+            app:destination="@id/medicinesFragment" />
+    </fragment>
 </navigation>

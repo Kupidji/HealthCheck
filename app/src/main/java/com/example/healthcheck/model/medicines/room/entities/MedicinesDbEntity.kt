@@ -13,7 +13,7 @@ data class MedicinesDbEntity (
     val id : Long,
     val title : String,
     @ColumnInfo(name = "date_start")
-    var dateStart : String,
+    var dateStart : Long,
     @ColumnInfo(name = "duration_of_course")
     var durationOfCourse : Int,
     @ColumnInfo(name = "current_day_of_course")

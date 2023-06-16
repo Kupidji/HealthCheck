@@ -4,7 +4,7 @@ package com.example.healthcheck.model.medicines.entities
 data class Medicines (
     val id : Long,
     var title : String,
-    var dateStart : String,
+    var dateStart : Long,
     var durationOfCourse : Int,
     var currentDayOfCourse : Int,
     var timeOfNotify1 : Long,

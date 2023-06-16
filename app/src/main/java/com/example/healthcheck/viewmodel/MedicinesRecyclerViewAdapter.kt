@@ -1,12 +1,16 @@
 package com.example.healthcheck.viewmodel
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.MedicinesItemBinding
+import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -48,7 +52,7 @@ class MedicinesRecyclerViewAdapter(
 
             //все, что ниже в теле этого класса - заполняет шаблон item_medicine
             medicinesTitle.text = medicine.title
-            date.text = medicine.dateStart
+            date.text = SimpleDateFormat("dd MMM").format(medicine.dateStart)
 
             //выставляет ближайшее время пропития таблетки, если оно еще не наступило
             //иначе выставляет следующее (если оно есть)
@@ -66,6 +70,10 @@ class MedicinesRecyclerViewAdapter(
             }
             else
                 day.text = medicine.currentDayOfCourse.toString() + "/" + "∞"
+
+            if (medicine.timeOfNotify1 == 0L && medicine.timeOfNotify2 == 0L && medicine.timeOfNotify3 == 0L && medicine.timeOfNotify4 == 0L) {
+                checkbox.visibility = View.GONE
+            }
         }
 
     }

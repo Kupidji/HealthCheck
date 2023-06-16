@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.medicinesEditFragment"
+    tools:context=".view.MedicinesEditFragment"
     android:background="@drawable/background">
 
     <ImageButton
@@ -29,6 +29,18 @@
         app:layout_constraintTop_toTopOf="@id/wentBack"
         app:layout_constraintBottom_toBottomOf="@id/wentBack"
         android:text="название таблетки"
+        />
+
+    <ImageButton
+        android:id="@+id/editBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/edit_icon"
+        android:background="@android:color/transparent"
         />
 
     <ScrollView
@@ -83,6 +95,7 @@
                 android:layout_marginTop="10dp">
                 
                 <ImageView
+                    android:id="@+id/time1Box"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -426,6 +439,7 @@
 
                 <TextView
                     style="@style/zagalovok3"
+                    android:id="@+id/totalMissedText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -442,6 +456,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/finishCourse"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -452,7 +467,7 @@
         android:layout_marginBottom="15dp">
 
         <ImageButton
-            android:id="@+id/finishCourse"
+            android:id="@+id/finishCourseBtn"
             android:layout_width="0dp"
             android:layout_height="52dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -467,10 +482,10 @@
             style="@style/zagalovok2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/finishCourse"
-            app:layout_constraintEnd_toEndOf="@id/finishCourse"
-            app:layout_constraintTop_toTopOf="@id/finishCourse"
-            app:layout_constraintBottom_toBottomOf="@id/finishCourse"
+            app:layout_constraintStart_toStartOf="@id/finishCourseBtn"
+            app:layout_constraintEnd_toEndOf="@id/finishCourseBtn"
+            app:layout_constraintTop_toTopOf="@id/finishCourseBtn"
+            app:layout_constraintBottom_toBottomOf="@id/finishCourseBtn"
             android:text="@string/finish_course"
             android:textColor="@color/textcolor_white"
             />
