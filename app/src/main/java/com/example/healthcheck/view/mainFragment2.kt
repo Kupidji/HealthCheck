@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.viewmodel.MainFragment2ViewModel
 import com.example.healthcheck.R
@@ -55,6 +57,10 @@ class mainFragment2 : Fragment() {
             if (it != null) {
                 binding.progressBarSteps.progress = it
             }
+        }
+
+        viewModel.averageSleep.observe(this@mainFragment2.viewLifecycleOwner) {
+            binding.sleepHours.text = it
         }
 
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)

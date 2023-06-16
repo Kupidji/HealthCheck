@@ -16,6 +16,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -25,12 +26,16 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
     lateinit var settings : SharedPreferences
 
     var totalStepsForWeek = MutableLiveData<Int?>()
+    var averageSleep = MutableLiveData<String?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
+        }
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            averageSleep.value = getSleepFromDataForWeekAverage(tripletsPool)
         }
     }
     suspend fun getStepsFromDataForWeek(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
@@ -44,6 +49,26 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
                 return@async sum/7
             }
 
+            result.await()
+        }
+    }
+
+    suspend fun getSleepFromDataForWeekAverage(sheduler : ThreadPoolExecutor) : String = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.sleepRepository.getTimeOfSleepForWeek()
+                var sum = 0L
+                for (sleep in list) {
+                    sum += sleep.timeOfSleep
+                }
+                if (list.size != 0){
+                    sum /= list.size
+                }
+                var string = SimpleDateFormat("HH:mm").format(sum).toString()
+                var listt = string.split(":")
+                string = (listt[0].toInt()).toString() + ":" + listt[1]
+                return@async string
+            }
             result.await()
         }
     }

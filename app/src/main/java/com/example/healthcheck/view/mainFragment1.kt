@@ -1,7 +1,5 @@
 package com.example.healthcheck.view
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +11,8 @@ import com.example.healthcheck.viewmodel.MainFragment1ViewModel
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMain1Binding
 import com.example.healthcheck.util.Constants
+import java.text.SimpleDateFormat
+import kotlin.math.abs
 
 class mainFragment1 : Fragment() {
 
@@ -39,6 +39,8 @@ class mainFragment1 : Fragment() {
         binding.main1CountOfStepsDay.text = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0).toString()
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
         binding.progressBarSteps.progress = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0)
+
+        binding.sleepHoursDay.text = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L)) + "ч"
 
         binding.stepsBox.setOnClickListener {
             navigation.navigate(R.id.stepsFragment)
