@@ -55,6 +55,10 @@ class mainFragment3 : Fragment() {
             }
         }
 
+        viewModel.averageSleepMonth.observe(this@mainFragment3.viewLifecycleOwner) {
+            binding.sleepHoursMonth.text = it
+        }
+
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
 
         binding.stepsBox.setOnClickListener {

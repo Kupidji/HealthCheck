@@ -1,5 +1,9 @@
 package com.example.healthcheck.viewmodel
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
@@ -13,7 +17,13 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.concurrent.ThreadPoolExecutor
 
-class SleepViewModel : ViewModel() {
+class SleepViewModel(application: Application) : AndroidViewModel(application) {
+
+    lateinit var settings : SharedPreferences
+
+    init {
+        settings = application.applicationContext.getSharedPreferences("sleep", Context.MODE_PRIVATE)
+    }
 
     suspend fun getSleepFromDataForWeek(sheduler : ThreadPoolExecutor) : String = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {

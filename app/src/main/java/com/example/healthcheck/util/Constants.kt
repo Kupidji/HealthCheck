@@ -28,5 +28,8 @@ object Constants {
     const val SECOND_TIME = "SECOND_TIME"
     const val THIRD_TIME = "THIRD_TIME"
     const val FOURTH_TIME = "FOURTH_TIME"
+
+    //сон
+    const val TIME_SLEEP = "TIME_SLEEP"
     ////////////////////
 }
