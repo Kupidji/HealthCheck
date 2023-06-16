@@ -30,8 +30,7 @@ class RoomMedicinesRepository (
     }
 
     override suspend fun updateMedicine(medicines: Medicines) {
-        //подумать, не изменяется ли startDate
-        medicinesDao.updateMedicine(fromAddMedicines(medicines))
+        medicinesDao.updateMedicine(fromEditMedicines(medicines))
     }
 
     override suspend fun deleteMedicine(medicines: Medicines) {

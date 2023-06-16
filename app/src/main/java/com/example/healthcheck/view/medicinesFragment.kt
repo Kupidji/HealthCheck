@@ -67,6 +67,7 @@ class medicinesFragment : Fragment() {
 
             override fun onClickCheckBox(medicines: Medicines) {
                 //кинуть заполненость
+                //todo сделать on and off состояния
                 Toast.makeText(this@medicinesFragment.context, "Выполнено", Toast.LENGTH_SHORT).show()
             }
 

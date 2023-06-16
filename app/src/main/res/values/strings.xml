@@ -92,4 +92,6 @@
     <string name="begin">Начало</string>
     <string name="course_progress">Прогресс курса</string>
     <string name="course_miss_total">Пропусков всего</string>
+    <string name="save_edit">Сохранить изменения</string>
+    <string name="edit">Редактировать</string>
 </resources>

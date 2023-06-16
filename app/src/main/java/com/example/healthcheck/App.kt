@@ -7,20 +7,61 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.lifecycle.map
+import com.example.healthcheck.databinding.FragmentStepsBinding
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.view.StepsFragment
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         //инициализация бд
         Log.d("Database", "Database is init")
         Repositories.init(applicationContext)
 
+        //создание канала для уведомления
         createNotificationChannel()
+
+        //инкрементация прогресса курса в medicines каждый день
+        val settings = applicationContext.getSharedPreferences(Constants.LAST_UPDATE_DATE, Context.MODE_PRIVATE)
+
+        val lastTime = SimpleDateFormat("dd").format(settings.getLong(Constants.LAST_UPDATE_DATE, Calendar.getInstance().timeInMillis))
+        val today = SimpleDateFormat("dd").format(Calendar.getInstance().timeInMillis)
+        Log.d("Settings", "App: сравнение дат ${lastTime} и ${today}")
+        if (lastTime != today) {
+            GlobalScope.launch {
+                val list = Repositories.medicinesRepository.getAllMedicineList()
+                for (medicine in list) {
+                    medicine.currentDayOfCourse++
+                    Repositories.medicinesRepository.updateMedicine(medicine)
+                }
+            }
+        }
+
+        //занесение текущей даты в settings
+        val editor = settings.edit()
+        if (settings.getLong(Constants.LAST_UPDATE_DATE, 0L) != Calendar.getInstance().timeInMillis) {
+            editor?.putLong(Constants.LAST_UPDATE_DATE, Calendar.getInstance().timeInMillis)
+            Log.d("Settings", "App: значение ${settings.getLong(Constants.LAST_UPDATE_DATE, 0L)} было изменено на ${Calendar.getInstance().timeInMillis}")
+            editor?.apply()
+        }
+
     }
+
+//    var currentDay = Calendar.getInstance().timeInMillis
+//    var time = currentDay - medicine.dateStart
+//    if (time > (medicine.currentDayOfCourse * 86400000L)) {
+//        medicine.currentDayOfCourse++
+//        Repositories.medicinesRepository.updateMedicine(medicine)
+//        Log.d("MedicinesRecyclerView", "onBindViewHolder: обновил текущий день у ${medicine.title}")
+//    }
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -38,3 +79,4 @@ class App: Application() {
     }
 
 }
+

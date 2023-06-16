@@ -18,7 +18,8 @@ class BootReceiver : BroadcastReceiver() {
             Log.d("Notification", "Receiver Working!")
             val toast = Toast.makeText(
                 context.applicationContext,
-                context.resources.getString(R.string.norm), Toast.LENGTH_LONG
+                "bootReceiver",
+                Toast.LENGTH_LONG
             )
             toast.show()
             val service = MedicinesNotificationService(context)

@@ -1,37 +1,38 @@
 package com.example.healthcheck.view
 
 import android.app.TimePickerDialog
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.healthcheck.viewmodel.EditMedicineViewModel
 import com.example.healthcheck.R
-import com.example.healthcheck.databinding.FragmentAddMedicinesBinding
+import com.example.healthcheck.databinding.FragmentEditMedicineBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
-import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.RandomUtil
-import com.example.healthcheck.viewmodel.AddMedicinesViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class addMedicinesFragment : Fragment() {
+class editMedicineFragment : Fragment() {
 
     companion object {
-        fun newInstance() = addMedicinesFragment()
+        fun newInstance() = editMedicineFragment()
     }
 
-    private lateinit var viewModel: AddMedicinesViewModel
-    private lateinit var binding : FragmentAddMedicinesBinding
+    private lateinit var viewModel: EditMedicineViewModel
+    private lateinit var binding : FragmentEditMedicineBinding
+    private val args : editMedicineFragmentArgs by navArgs()
     private var firstTime : Long = 0L
     private var secondTime : Long = 0L
     private var thirdTime : Long = 0L
@@ -41,8 +42,8 @@ class addMedicinesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(AddMedicinesViewModel::class.java)
-        binding = FragmentAddMedicinesBinding.inflate(inflater)
+        binding = FragmentEditMedicineBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this).get(EditMedicineViewModel::class.java)
         return binding.root
     }
 
@@ -51,12 +52,45 @@ class addMedicinesFragment : Fragment() {
 
         val navigation = findNavController()
 
-        binding.wentBack.setOnClickListener {
-            navigation.navigate(R.id.medicinesFragment)
+        firstTime = args.firstTimeNotification
+        secondTime = args.secondTimeNotification
+        thirdTime = args.thirdTimeNotification
+        fourthTime = args.fourthTimeNotification
+
+        binding.getTitle.setText(args.title)
+
+        if (args.firstTimeNotification != 0L) {
+            binding.getFirstTime.setText(SimpleDateFormat("HH:mm").format(args.firstTimeNotification))
+            binding.deleteFirstTime.visibility = View.VISIBLE
+            binding.secondTimeBox.visibility = View.VISIBLE
         }
 
-        binding.profile.setOnClickListener {
-            navigation.navigate(R.id.profileFragment)
+        if (args.secondTimeNotification != 0L) {
+            binding.secondTimeBox.visibility = View.VISIBLE
+            binding.deleteSecondTime.visibility = View.VISIBLE
+            binding.getSecondTime.setText(SimpleDateFormat("HH:mm").format(args.secondTimeNotification))
+            binding.thirdTimeBox.visibility = View.VISIBLE
+        }
+
+        if (args.thirdTimeNotification != 0L) {
+            binding.thirdTimeBox.visibility = View.VISIBLE
+            binding.deleteThirdTime.visibility = View.VISIBLE
+            binding.getThirdTime.setText(SimpleDateFormat("HH:mm").format(args.thirdTimeNotification))
+            binding.fourthTimeBox.visibility = View.VISIBLE
+        }
+
+        if (args.fourthTimeNotification != 0L) {
+            binding.fourthTimeBox.visibility = View.VISIBLE
+            binding.deleteFourthTime.visibility = View.VISIBLE
+            binding.getFourthTime.setText(SimpleDateFormat("HH:mm").format(args.fourthTimeNotification))
+        }
+
+        if (args.totalDuractionOfCourse != 0) {
+            binding.durationOfCourseText.text = args.totalDuractionOfCourse.toString()
+        }
+
+        binding.wentBack.setOnClickListener {
+            navigation.navigate(R.id.medicinesFragment)
         }
 
         binding.getFirstTime.setOnClickListener {
@@ -103,72 +137,132 @@ class addMedicinesFragment : Fragment() {
             onDeleteTime(binding.deleteFourthTime)
         }
 
-        binding.saveMedicine.setOnClickListener {
+        binding.saveChangeMedicine.setOnClickListener {
+
             if (binding.getTitle.text.isNotEmpty()) {
 
-                lifecycleScope.launch {
-                    var currentDate = Calendar.getInstance().timeInMillis
-                    //var currentDate = SimpleDateFormat("dd MMM", Locale.getDefault()).format(Date())
+                var durationOfCourse: Int
+                if (binding.getCountOfDays.text.isNotEmpty()) {
+                    durationOfCourse = binding.getCountOfDays.text.toString().toInt()
+                } else {
+                    durationOfCourse = 0
+                }
 
-                    var durationOfCourse : Int
-                    if (binding.getCountOfDays.text.isNotEmpty()) {
-                        durationOfCourse = binding.getCountOfDays.text.toString().toInt()
-                    }
-                    else {
-                        durationOfCourse = 0
-                    }
+                val medicines = Medicines(
+                    id = args.id,
+                    title = binding.getTitle.text.toString(),
+                    dateStart = args.dateOfStart,
+                    durationOfCourse = durationOfCourse,
+                    currentDayOfCourse = args.currentDay,
+                    timeOfNotify1 = firstTime,
+                    channelIDFirstTime = args.firstTimeChannelID,
+                    timeOfNotify2 = secondTime,
+                    channelIDSecondTime = args.secondTimeChannelID,
+                    timeOfNotify3 = thirdTime,
+                    channelIDThirdTime = args.thirdTimeChannelID,
+                    timeOfNotify4 = fourthTime,
+                    channelIDFourthTime = args.fourthTimeChannelID,
+                    totalMissed = 0,
+                )
 
-                    val medicines = Medicines (
-                        id = 0,
-                        title = binding.getTitle.text.toString(),
-                        dateStart = currentDate,
-                        durationOfCourse = durationOfCourse,
-                        currentDayOfCourse = 1,
-                        timeOfNotify1 = firstTime,
-                        channelIDFirstTime = RandomUtil.getRandomInt(),
-                        timeOfNotify2 = secondTime,
-                        channelIDSecondTime = RandomUtil.getRandomInt(),
-                        timeOfNotify3 = thirdTime,
-                        channelIDThirdTime = RandomUtil.getRandomInt(),
-                        timeOfNotify4 = fourthTime,
-                        channelIDFourthTime = RandomUtil.getRandomInt(),
-                        totalMissed = 0,
+                viewModel.updateMedicine(medicines)
+
+              //если время или название изменено, удаление прежних уведомлений, создание новых
+                if (firstTime != args.firstTimeNotification && firstTime != 0L || args.title != medicines.title && firstTime != 0L) {
+                    viewModel.cancelNotification(
+                        args.firstTimeNotification,
+                        "Первый приём - " + args.title,
+                        args.firstTimeChannelID
                     )
-                    //создание сущности в таблице medicines
-                    viewModel.createMedicine(medicines)
 
-                    //создание уведомлений
-                    viewModel.createNotification (
+                    viewModel.createNotification(
                         medicines.timeOfNotify1,
                         "Первый приём - " + medicines.title,
                         medicines.channelIDFirstTime
                     )
-                    viewModel.createNotification (
-                        medicines.timeOfNotify2,
-                        "Второй приём - " + medicines.title,
-                        medicines.channelIDSecondTime
-                    )
-                    viewModel.createNotification (
-                        medicines.timeOfNotify3,
-                        "Третий приём - " + medicines.title,
-                        medicines.channelIDThirdTime
-                    )
-                    viewModel.createNotification (
-                        medicines.timeOfNotify4,
-                        "Четвёртый приём - " + medicines.title,
-                        medicines.channelIDFourthTime
-                    )
-                    Toast.makeText(this@addMedicinesFragment.requireContext(), "Курс ${medicines.title} был создан", Toast.LENGTH_SHORT).show()
-                    navigation.navigate(R.id.medicinesFragment)
                 }
 
+                if (firstTime == 0L) {
+                    viewModel.cancelNotification(
+                        args.firstTimeNotification,
+                        "Первый приём - " + args.title,
+                        args.firstTimeChannelID
+                    )
+                }
+
+                if (secondTime != args.secondTimeNotification && secondTime != 0L || args.title != medicines.title && secondTime != 0L) {
+                    viewModel.cancelNotification(
+                        args.secondTimeNotification,
+                        "Второй приём - " + args.title,
+                        args.secondTimeChannelID
+                    )
+
+                    viewModel.createNotification(
+                        medicines.timeOfNotify2,
+                        "Второй приём - " + medicines.title,
+                        args.secondTimeChannelID
+                    )
+                }
+
+                if (secondTime == 0L) {
+                    viewModel.cancelNotification(
+                        args.secondTimeNotification,
+                        "Второй приём - " + args.title,
+                        args.secondTimeChannelID
+                    )
+                }
+
+                if (thirdTime != args.thirdTimeNotification && thirdTime != 0L || args.title != medicines.title && thirdTime != 0L) {
+                    viewModel.cancelNotification(
+                        args.thirdTimeNotification,
+                        "Третий приём - " + args.title,
+                        args.thirdTimeChannelID
+                    )
+
+                    viewModel.createNotification(
+                        medicines.timeOfNotify3,
+                        "Третий приём - " + medicines.title,
+                        args.thirdTimeChannelID
+                    )
+                }
+
+                if (thirdTime == 0L) {
+                    viewModel.cancelNotification(
+                        args.thirdTimeNotification,
+                        "Третий приём - " + args.title,
+                        args.thirdTimeChannelID
+                    )
+                }
+
+
+                if (fourthTime != args.fourthTimeNotification && fourthTime != 0L || args.title != medicines.title && fourthTime != 0L ) {
+                    viewModel.cancelNotification(
+                        args.fourthTimeNotification,
+                        "Четвёртый приём - " + args.title,
+                        args.fourthTimeChannelID
+                    )
+
+                    viewModel.createNotification(
+                        medicines.timeOfNotify4,
+                        "Четвёртый приём - " + medicines.title,
+                        args.fourthTimeChannelID
+                    )
+                }
+
+                if (fourthTime == 0L) {
+                    viewModel.cancelNotification(
+                        args.fourthTimeNotification,
+                        "Четвёртый приём - " + args.title,
+                        args.fourthTimeChannelID
+                    )
+                }
+
+                navigation.navigate(R.id.medicinesFragment)
             }
-            else {
+            else
                 binding.getTitle.error = "Обязательное поле"
-            }
 
         }
-
     }
 
     private fun onGetTime(textView: TextView) {
@@ -201,6 +295,7 @@ class addMedicinesFragment : Fragment() {
         when (imageView) {
             binding.deleteFirstTime -> {
                 binding.getFirstTime.text = ""
+                firstTime = 0L
                 binding.deleteFirstTime.visibility = View.GONE
 
                 if (binding.getSecondTime.text.isEmpty()) {
@@ -221,6 +316,7 @@ class addMedicinesFragment : Fragment() {
 
             binding.deleteSecondTime -> {
                 binding.getSecondTime.text = ""
+                secondTime = 0L
                 binding.deleteSecondTime.visibility = View.GONE
 
                 if (binding.getThirdTime.text.isEmpty()) {
@@ -240,6 +336,7 @@ class addMedicinesFragment : Fragment() {
 
             binding.deleteThirdTime -> {
                 binding.getThirdTime.text = ""
+                thirdTime = 0L
                 binding.deleteThirdTime.visibility = View.GONE
 
                 if (binding.getFourthTime.text.isEmpty()) {
@@ -259,6 +356,7 @@ class addMedicinesFragment : Fragment() {
 
             binding.deleteFourthTime -> {
                 binding.getFourthTime.text = ""
+                fourthTime = 0L
                 binding.deleteFourthTime.visibility = View.GONE
 
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
@@ -274,7 +372,7 @@ class addMedicinesFragment : Fragment() {
             this.set(Calendar.SECOND, 0)
             this.set(Calendar.MILLISECOND, 0)
             TimePickerDialog(
-                this@addMedicinesFragment.context,
+                this@editMedicineFragment.context,
                 0,
                 { _, hour, minute ->
                     this.set(Calendar.HOUR_OF_DAY, hour)
