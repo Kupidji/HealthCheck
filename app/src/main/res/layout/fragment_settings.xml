@@ -87,6 +87,42 @@
                     android:src="@drawable/box"
                     />
 
+                <TextView
+                    style="@style/zagalovok2"
+                    android:id="@+id/themeChooseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@+id/settingsBox"
+                    app:layout_constraintStart_toStartOf="@+id/settingsBox"
+                    android:text="@string/theme_choose"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="15dp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/whiteThemeBtn"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:layout_constraintStart_toEndOf="@id/themeChooseText"
+                    app:layout_constraintTop_toTopOf="@id/themeChooseText"
+                    app:layout_constraintBottom_toBottomOf="@id/themeChooseText"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/white_theme"
+                    android:background="@android:color/transparent"
+                    />
+
+                <ImageButton
+                    android:id="@+id/nightThemeBtn"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:layout_constraintStart_toEndOf="@id/whiteThemeBtn"
+                    app:layout_constraintTop_toTopOf="@id/themeChooseText"
+                    app:layout_constraintBottom_toBottomOf="@id/themeChooseText"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/night_theme"
+                    android:background="@android:color/transparent"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

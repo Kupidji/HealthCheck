@@ -1,8 +1,10 @@
 package com.example.healthcheck.view
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.databinding.ActivityMainBinding
 import com.example.healthcheck.util.Constants
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
 
     }
 

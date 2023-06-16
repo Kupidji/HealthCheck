@@ -19,6 +19,9 @@ object Constants {
 
     /////////////sharedPreferences
 
+    //тема приложения
+    const val CHOOSEN_THEME = "CHOOSEN_THEME"
+
     //шаги
     const val TARGET = "TARGET" //цель для шагов
     const val STEPS_PER_DAY = "STEPS_PER_DAY" //за день

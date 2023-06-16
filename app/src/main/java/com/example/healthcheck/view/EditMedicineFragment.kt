@@ -24,10 +24,10 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class editMedicineFragment : Fragment() {
+class EditMedicineFragment : Fragment() {
 
     companion object {
-        fun newInstance() = editMedicineFragment()
+        fun newInstance() = EditMedicineFragment()
     }
 
     private lateinit var viewModel: EditMedicineViewModel
@@ -256,7 +256,7 @@ class editMedicineFragment : Fragment() {
                         args.fourthTimeChannelID
                     )
                 }
-
+                Toast.makeText(this@EditMedicineFragment.requireContext(), "Изменения в ${args.title} были внесены", Toast.LENGTH_SHORT).show()
                 navigation.navigate(R.id.medicinesFragment)
             }
             else
@@ -372,7 +372,7 @@ class editMedicineFragment : Fragment() {
             this.set(Calendar.SECOND, 0)
             this.set(Calendar.MILLISECOND, 0)
             TimePickerDialog(
-                this@editMedicineFragment.context,
+                this@EditMedicineFragment.context,
                 0,
                 { _, hour, minute ->
                     this.set(Calendar.HOUR_OF_DAY, hour)
