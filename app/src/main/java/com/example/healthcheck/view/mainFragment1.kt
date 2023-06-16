@@ -40,7 +40,7 @@ class mainFragment1 : Fragment() {
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
         binding.progressBarSteps.progress = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0)
 
-        binding.sleepHoursDay.text = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L)) + "ч"
+        binding.sleepHoursDay.text = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L) - 18000000) + "ч"
 
         binding.stepsBox.setOnClickListener {
             navigation.navigate(R.id.stepsFragment)

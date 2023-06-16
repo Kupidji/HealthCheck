@@ -16,26 +16,41 @@ import java.util.concurrent.TimeUnit
 class HeartViewModel : ViewModel() {
 
 
-    var list = emptyList<Int>()
-
-    init {
-        viewModelScope.launch {
-            list = getCardioFromData(ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue()))
-        }
-    }
-
-    suspend fun getCardioFromData(sheduler : ThreadPoolExecutor): List<Int> = coroutineScope {
+    suspend fun getCardioFromDataUpPressure(sheduler : ThreadPoolExecutor): Int = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
                 var list = Repositories.heartRepository.getCardioForDay()
-                var sum = mutableListOf<Int>()
+                var sum = 0
                 for (heart in list) {
-                    sum.add(heart.pressureUp)
-                    sum.add(heart.pressureDown)
-                    sum.add(heart.pulse)
+                    sum = heart.pressureUp
                 }
-                if (sum.isEmpty()) {
-                    sum = mutableListOf(0, 0, 0)
+                return@async sum
+            }
+            result.await()
+        }
+    }
+
+    suspend fun getCardioFromDataDownPressure(sheduler : ThreadPoolExecutor): Int = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.heartRepository.getCardioForDay()
+                var sum = 0
+                for (heart in list) {
+                    sum = heart.pressureDown
+                }
+                return@async sum
+            }
+            result.await()
+        }
+    }
+
+    suspend fun getCardioFromDataPulse(sheduler : ThreadPoolExecutor): Int = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.heartRepository.getCardioForDay()
+                var sum = 0
+                for (heart in list) {
+                    sum = heart.pulse
                 }
                 return@async sum
             }

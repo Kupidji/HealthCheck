@@ -50,19 +50,19 @@ class sleepFragment : Fragment() {
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         val navigation = findNavController()
 
-        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.timeForWeek.setText("${viewModel.getSleepFromDataForWeek(tripletsPool) + "ч"}")
         }
 
-        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.timeForMonth.setText("${viewModel.getSleepFromDataForMonth(tripletsPool) + "ч"}")
         }
 
-        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.averageSleepWeek.setText("${viewModel.getSleepFromDataForWeekAverage(tripletsPool) + "ч"}")
         }
 
-        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.averageSleepMonth.setText("${viewModel.getSleepFromDataForMonthAverage(tripletsPool) + "ч"}")
         }
 
@@ -109,7 +109,7 @@ class sleepFragment : Fragment() {
 
     private fun calculateTimeBetweenStartEndSleep(time1 : Long, time2 : Long) : Long {
         if (time1 - time2 <= 0) {
-            return time2 - time1
+            return time1 - time2
         }
         else {
             return 86400000 - abs(time2 - time1)

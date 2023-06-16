@@ -14,8 +14,12 @@ import com.example.healthcheck.model.heart.entities.Heart
 import com.example.healthcheck.viewmodel.HeartViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 class heartFragment : Fragment() {
 
@@ -37,12 +41,19 @@ class heartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         val navigation = findNavController()
 
-        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            binding.ur1.setText(viewModel.list[0].toString())
-            binding.ur2.setText(viewModel.list[1].toString())
-            binding.ur3.setText(viewModel.list[2].toString())
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.ur1.setText(viewModel.getCardioFromDataUpPressure(tripletsPool).toString())
+        }
+
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.ur2.setText(viewModel.getCardioFromDataDownPressure(tripletsPool).toString())
+        }
+
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.ur3.setText(viewModel.getCardioFromDataPulse(tripletsPool).toString())
         }
 
         binding.wentBack.setOnClickListener {
