@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.sleep.entities.Sleep
-import com.example.healthcheck.model.steps.entities.Steps
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -27,7 +26,7 @@ class SleepViewModel : ViewModel() {
                     var string = SimpleDateFormat("HH:mm").format(sleep.timeOfSleep)
                     var stringg = string.split(":")
                     secondPart += stringg[1].toInt()
-                    firstPart = firstPart + stringg[0].toInt() + (secondPart / 60)
+                    firstPart = firstPart + stringg[0].toInt() + (secondPart / 60) - 5
                     secondPart %= 60
                     if (secondPart.toString().length < 2){
                         sum = firstPart.toString() + ":0" + secondPart.toString()
@@ -54,7 +53,7 @@ class SleepViewModel : ViewModel() {
                     var string = SimpleDateFormat("HH:mm").format(sleep.timeOfSleep).toString()
                     var stringg = string.split(":")
                     secondPart += stringg[1].toInt()
-                    firstPart = firstPart + stringg[0].toInt() + (secondPart / 60)
+                    firstPart = firstPart + stringg[0].toInt() + (secondPart / 60) - 5
                     secondPart %= 60
                     if (secondPart.toString().length < 2){
                         sum = firstPart.toString() + ":0" + secondPart.toString()
@@ -82,7 +81,7 @@ class SleepViewModel : ViewModel() {
                 }
                 var string = SimpleDateFormat("HH:mm").format(sum).toString()
                 var listt = string.split(":")
-                string = (listt[0].toInt()).toString() + ":" + listt[1]
+                string = (listt[0].toInt() - 5).toString() + ":" + listt[1]
                 return@async string
             }
             result.await()
@@ -102,7 +101,7 @@ class SleepViewModel : ViewModel() {
                 }
                 var string = SimpleDateFormat("HH:mm").format(sum).toString()
                 var listt = string.split(":")
-                string = (listt[0].toInt()).toString() + ":" + listt[1]
+                string = (listt[0].toInt() - 5).toString() + ":" + listt[1]
                 return@async string
             }
             result.await()

@@ -53,19 +53,19 @@ class sleepFragment : Fragment() {
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         val navigation = findNavController()
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.timeForWeek.setText("${viewModel.getSleepFromDataForWeek(tripletsPool) + "ч"}")
         }
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.timeForMonth.setText("${viewModel.getSleepFromDataForMonth(tripletsPool) + "ч"}")
         }
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.averageSleepWeek.setText("${viewModel.getSleepFromDataForWeekAverage(tripletsPool) + "ч"}")
         }
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.averageSleepMonth.setText("${viewModel.getSleepFromDataForMonthAverage(tripletsPool) + "ч"}")
         }
 
