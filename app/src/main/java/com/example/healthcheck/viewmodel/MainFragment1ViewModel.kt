@@ -9,9 +9,11 @@ import androidx.lifecycle.ViewModel
 class MainFragment1ViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
+    lateinit var settingsForSleep : SharedPreferences
 
     init {
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
+        settingsForSleep = application.applicationContext.getSharedPreferences("sleep", Context.MODE_PRIVATE)
     }
 
 }

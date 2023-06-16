@@ -29,22 +29,34 @@ class StepsViewModel(application: Application) : AndroidViewModel(application)  
     var totalStepsForWeek = MutableLiveData<Int?>()
     var totalStepsForMonth = MutableLiveData<Int?>()
     var totalStepsForDay = MutableLiveData<Int>()
+    var currentGoal = MutableLiveData<Int>()
+    var id = MutableLiveData<Int?>()
+    var day = MutableLiveData<Long?>()
+
+    private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
 
     init {
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
-        val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
+
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
         }
+
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)
         }
-        totalStepsForDay.value = settings.getInt(Constants.STEPS_PER_DAY, 0)
-    }
 
-//    fun setTotalStepsForDay(res : Int) {
-//        totalStepsForDay.value = res
-//    }
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            id.value = getLastIdFromData(tripletsPool)
+        }
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            day.value = getLastDateFromData(tripletsPool)
+        }
+
+        totalStepsForDay.value = settings.getInt(Constants.STEPS_PER_DAY, 0)
+        currentGoal.value = settings.getInt(Constants.TARGET, 10000)
+
+    }
 
     suspend fun getStepsFromDataForWeek(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
@@ -76,11 +88,74 @@ class StepsViewModel(application: Application) : AndroidViewModel(application)  
         }
     }
 
+    suspend fun getLastDateFromData(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var date = 0L
+                if (Repositories.stepsRepository.getLastDate() != null) {
+                    date = Repositories.stepsRepository.getLastDate().date
+                }
+                return@async date
+            }
+            result.await()
+        }
+    }
+
+     suspend fun getLastIdFromData(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
+         withContext(sheduler.asCoroutineDispatcher()) {
+             var result = async {
+                 var id = 0
+                 if (Repositories.stepsRepository.getLastDate() != null) {
+                     id = Repositories.stepsRepository.getLastDate().id
+                 }
+                 return@async id
+             }
+             result.await()
+         }
+    }
+
     fun insertSteps(ourSteps : Steps) {
         viewModelScope.launch {
             Repositories.stepsRepository.insertCountOfSteps(ourSteps)
         }
     }
 
+    fun updateSteps(ourSteps: Steps) {
+        viewModelScope.launch {
+            Repositories.stepsRepository.updateCountOfSteps(ourSteps)
+        }
+    }
+
+    fun setCurrentTarget(res : Int) {
+        currentGoal.value = res
+    }
+
+    fun setCurrentStepsForDay(res : Int) {
+        totalStepsForDay.value = res
+    }
+
+    fun setCurrentStepsForWeek() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
+        }
+    }
+
+    fun setCurrentStepsForMonth() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)
+        }
+    }
+
+    fun setCurrentId() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            id.value = getLastIdFromData(tripletsPool)
+        }
+    }
+
+    fun setCurrentDate() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            day.value = getLastDateFromData(tripletsPool)
+        }
+    }
 
 }

@@ -13,10 +13,11 @@ data class StepsDbEntity (
     val id : Int,
     @ColumnInfo(name = "count_of_steps")
     var countOfSteps : Int,
-    var date : String,
+    var date : Long,
 ) {
 
     fun toSteps() : Steps = Steps(
+        id = id,
         countOfSteps = countOfSteps,
         date = date,
     )
@@ -25,6 +26,12 @@ data class StepsDbEntity (
 
         fun fromSteps(steps: Steps) : StepsDbEntity = StepsDbEntity (
             id = 0,
+            countOfSteps = steps.countOfSteps,
+            date = steps.date
+        )
+
+        fun forUpdate(steps: Steps) : StepsDbEntity = StepsDbEntity(
+            id = steps.id,
             countOfSteps = steps.countOfSteps,
             date = steps.date
         )

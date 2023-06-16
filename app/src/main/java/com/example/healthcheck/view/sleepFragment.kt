@@ -8,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSleepBinding
-import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.sleep.entities.Sleep
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.viewmodel.SleepViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +20,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -72,6 +69,7 @@ class sleepFragment : Fragment() {
         binding.wentBack.setOnClickListener {
             if (binding.getGoesToBedTime.text.isNotEmpty() && binding.getWakeUpTime.text.isNotEmpty()) {
                 var currentTime = Calendar.getInstance().timeInMillis
+                saveSleepSettings(calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime))
                 var sleep = Sleep(
                     calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime),
                     currentTime,
@@ -96,6 +94,16 @@ class sleepFragment : Fragment() {
                 wakeUpTime = callback
             }
         }
+
+    }
+
+    private fun saveSleepSettings(sleep : Long) {
+
+        val editor = viewModel.settings.edit()
+        editor?.putLong(
+            Constants.TIME_SLEEP,
+            sleep
+        )?.apply()
 
     }
 
