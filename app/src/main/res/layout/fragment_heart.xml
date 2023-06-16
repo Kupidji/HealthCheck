@@ -126,14 +126,14 @@
                     style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:id="@+id/getUpPressure"
                     app:layout_constraintStart_toStartOf="@id/up"
                     app:layout_constraintEnd_toEndOf="@id/up"
                     app:layout_constraintTop_toTopOf="@id/up"
                     app:layout_constraintBottom_toBottomOf="@id/up"
                     android:paddingStart="10dp"
                     android:background="@android:color/transparent"
-                    android:text="@string/up_pressure"
-                    android:textColor="@color/tint_color"
+                    android:hint="@string/up_pressure"
                     android:inputType="number"
                     />
 
@@ -165,14 +165,14 @@
                     style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:id="@+id/getDownPressure"
                     app:layout_constraintStart_toStartOf="@id/down"
                     app:layout_constraintEnd_toEndOf="@id/down"
                     app:layout_constraintTop_toTopOf="@id/down"
                     app:layout_constraintBottom_toBottomOf="@id/down"
                     android:paddingStart="10dp"
                     android:background="@android:color/transparent"
-                    android:text="@string/down_pressure"
-                    android:textColor="@color/tint_color"
+                    android:hint="@string/down_pressure"
                     android:inputType="number"
                     />
 
@@ -213,14 +213,14 @@
                     style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:id="@+id/getPulse"
                     app:layout_constraintStart_toStartOf="@id/pulse_per_min"
                     app:layout_constraintEnd_toEndOf="@id/pulse_per_min"
                     app:layout_constraintTop_toTopOf="@id/pulse_per_min"
                     app:layout_constraintBottom_toBottomOf="@id/pulse_per_min"
                     android:paddingStart="10dp"
                     android:background="@android:color/transparent"
-                    android:text="@string/xx_per_min"
-                    android:textColor="@color/tint_color"
+                    android:hint="@string/xx_per_min"
                     android:inputType="number"
                     />
 
@@ -342,7 +342,6 @@
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toTopOf="@id/ur2"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:gravity="center"
                     />
 
@@ -356,7 +355,6 @@
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toTopOf="@id/ur3"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:gravity="center"
                     />
 
@@ -370,7 +368,6 @@
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toBottomOf="@id/ur_data"
                     android:text="xxx"
-                    android:textColor="@color/tint_color"
                     android:gravity="center"
                     />
 

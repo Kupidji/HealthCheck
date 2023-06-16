@@ -65,7 +65,7 @@ class MainFragment3ViewModel(application: Application) : AndroidViewModel(applic
                 }
                 var string = SimpleDateFormat("HH:mm").format(sum).toString()
                 var listt = string.split(":")
-                string = (listt[0].toInt()).toString() + ":" + listt[1]
+                string = (listt[0].toInt()-5).toString() + ":" + listt[1]
                 return@async string
             }
             result.await()
