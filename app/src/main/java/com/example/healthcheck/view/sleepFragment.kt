@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSleepBinding
@@ -48,7 +49,15 @@ class sleepFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
+
         val navigation = findNavController()
+
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
 
         GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             binding.timeForWeek.setText("${viewModel.getSleepFromDataForWeek(tripletsPool) + "ч"}")
@@ -76,11 +85,14 @@ class sleepFragment : Fragment() {
                 )
                 viewModel.insertSleep(sleep)
             }
-            navigation.navigate(R.id.mainFragment)
+
+            val direction = sleepFragmentDirections.actionSleepFragmentToMainFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.profile.setOnClickListener {
-            navigation.navigate(R.id.profileFragment)
+            val direction = sleepFragmentDirections.actionSleepFragmentToProfileFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.sleep1.setOnClickListener {

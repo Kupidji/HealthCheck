@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.viewmodel.MainFragment3ViewModel
 import com.example.healthcheck.R
@@ -46,6 +47,14 @@ class mainFragment3 : Fragment() {
 
         val navigation = findNavController()
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
+
         viewModel.totalStepsForMonth.observe(this@mainFragment3.viewLifecycleOwner) {
             binding.main3CountOfStepsMonth.setText("${it}")
         }
@@ -62,19 +71,23 @@ class mainFragment3 : Fragment() {
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
 
         binding.stepsBox.setOnClickListener {
-            navigation.navigate(R.id.stepsFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.sleepBox.setOnClickListener {
-            navigation.navigate(R.id.sleepFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToSleepFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.kardioBox.setOnClickListener {
-            navigation.navigate(R.id.heartFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToHeartFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.weightBox.setOnClickListener {
-            navigation.navigate(R.id.weightFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToWeightFragment()
+            navigation.navigate(direction, navOptions)
         }
 
     }

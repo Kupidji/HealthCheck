@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentAddMedicinesBinding
@@ -51,13 +52,22 @@ class addMedicinesFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         binding.wentBack.setOnClickListener {
-            navigation.navigate(R.id.medicinesFragment)
+            val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
+            navigation.navigate(direction, navOptions)
         }
 
-        binding.profile.setOnClickListener {
-            navigation.navigate(R.id.profileFragment)
-        }
+//        binding.profile.setOnClickListener {
+//            val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToProfileFragment()
+//            navigation.navigate(direction, navOptions)
+//        }
 
         binding.getFirstTime.setOnClickListener {
             setAlarm(binding.getFirstTime) { callback ->
@@ -159,7 +169,10 @@ class addMedicinesFragment : Fragment() {
                         medicines.channelIDFourthTime
                     )
                     Toast.makeText(this@addMedicinesFragment.requireContext(), "Курс ${medicines.title} был создан", Toast.LENGTH_SHORT).show()
-                    navigation.navigate(R.id.medicinesFragment)
+
+                    val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
+
+                    navigation.navigate(direction, navOptions)
                 }
 
             }

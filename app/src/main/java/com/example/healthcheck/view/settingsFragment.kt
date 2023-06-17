@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSettingsBinding
@@ -37,12 +38,21 @@ class settingsFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         binding.wentBack.setOnClickListener {
-            navigation.navigate(R.id.mainFragment)
+            val direction = settingsFragmentDirections.actionSettingsFragmentToMainFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.profile.setOnClickListener {
-            navigation.navigate(R.id.profileFragment)
+            val direction = settingsFragmentDirections.actionSettingsFragmentToProfileFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.whiteThemeBtn.setOnClickListener {

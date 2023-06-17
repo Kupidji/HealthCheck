@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcheck.viewmodel.EditMedicineViewModel
@@ -24,10 +25,10 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class EditMedicineFragment : Fragment() {
+class editMedicineFragment : Fragment() {
 
     companion object {
-        fun newInstance() = EditMedicineFragment()
+        fun newInstance() = editMedicineFragment()
     }
 
     private lateinit var viewModel: EditMedicineViewModel
@@ -51,6 +52,13 @@ class EditMedicineFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
+
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
 
         firstTime = args.firstTimeNotification
         secondTime = args.secondTimeNotification
@@ -90,7 +98,8 @@ class EditMedicineFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
-            navigation.navigate(R.id.medicinesFragment)
+            val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.getFirstTime.setOnClickListener {
@@ -256,8 +265,10 @@ class EditMedicineFragment : Fragment() {
                         args.fourthTimeChannelID
                     )
                 }
-                Toast.makeText(this@EditMedicineFragment.requireContext(), "Изменения в ${args.title} были внесены", Toast.LENGTH_SHORT).show()
-                navigation.navigate(R.id.medicinesFragment)
+                Toast.makeText(this@editMedicineFragment.requireContext(), "Изменения в ${args.title} были внесены", Toast.LENGTH_SHORT).show()
+
+                val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
+                navigation.navigate(direction, navOptions)
             }
             else
                 binding.getTitle.error = "Обязательное поле"
@@ -372,7 +383,7 @@ class EditMedicineFragment : Fragment() {
             this.set(Calendar.SECOND, 0)
             this.set(Calendar.MILLISECOND, 0)
             TimePickerDialog(
-                this@EditMedicineFragment.context,
+                this@editMedicineFragment.context,
                 0,
                 { _, hour, minute ->
                     this.set(Calendar.HOUR_OF_DAY, hour)

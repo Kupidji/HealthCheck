@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStepsBinding
@@ -44,6 +45,14 @@ class StepsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
+
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         var currentDate = Calendar.getInstance().timeInMillis
 
         //Востанавливает max для progressbar для недели и месяца
@@ -83,7 +92,14 @@ class StepsFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
-            navigation.navigate(R.id.mainFragment)
+            val direction = StepsFragmentDirections.actionStepsFragmentToProfileFragment()
+            navigation.navigate(direction, navOptions)
+        }
+
+        //Переход на профиль
+        binding.profile.setOnClickListener {
+            val direction = StepsFragmentDirections.actionStepsFragmentToProfileFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         //Если клавиатура убрана, а поля были заполнены новыми данными и фокус был на них, то
@@ -143,11 +159,6 @@ class StepsFragment : Fragment() {
 
             }
 
-        }
-
-        //Переход на профиль
-        binding.profile.setOnClickListener {
-            navigation.navigate(R.id.profileFragment)
         }
 
         //По нажатию кнопки делает ее выбранной, меняет текущую цель и Progress на 5000

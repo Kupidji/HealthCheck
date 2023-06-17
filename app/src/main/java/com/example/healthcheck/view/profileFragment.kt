@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentProfileBinding
@@ -34,14 +35,23 @@ class profileFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
-            navigation.navigate(R.id.mainFragment)
+            val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.confirm.setOnClickListener {
             //todo посылать информацию в saveInstanceStateSettings
-            navigation.navigate(R.id.mainFragment)
+            val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
+            navigation.navigate(direction, navOptions)
         }
 
     }

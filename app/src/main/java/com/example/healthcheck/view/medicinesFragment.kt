@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.healthcheck.R
@@ -41,6 +42,14 @@ class medicinesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
+
         val layoutManager = GridLayoutManager(this.context, 2)
 
         adapter = MedicinesRecyclerViewAdapter(object : MedicinesActionListener {
@@ -62,7 +71,7 @@ class medicinesFragment : Fragment() {
                     medicines.id,
                     medicines.totalMissed,
                 )
-                navigation.navigate(direction)
+                navigation.navigate(direction, navOptions)
             }
 
             override fun onClickCheckBox(medicines: Medicines) {
@@ -83,15 +92,18 @@ class medicinesFragment : Fragment() {
         else binding.nothingThere.visibility = View.VISIBLE
 
         binding.wentBack.setOnClickListener {
-            navigation.navigate(R.id.mainFragment)
+            val direction = medicinesFragmentDirections.actionMedicinesFragmentToMainFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.profile.setOnClickListener {
-            navigation.navigate(R.id.profileFragment)
+            val direction = medicinesFragmentDirections.actionMedicinesFragmentToProfileFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.addNewMedicines.setOnClickListener {
-            navigation.navigate(R.id.addMedicinesFragment)
+            val direction = medicinesFragmentDirections.actionMedicinesFragmentToAddMedicinesFragment()
+            navigation.navigate(direction, navOptions)
         }
 
     }
