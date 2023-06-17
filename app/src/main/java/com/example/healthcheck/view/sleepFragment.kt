@@ -121,7 +121,7 @@ class sleepFragment : Fragment() {
 
     private fun calculateTimeBetweenStartEndSleep(time1 : Long, time2 : Long) : Long {
         if (time1 - time2 <= 0) {
-            return time2 - time1
+            return time1 - time2
         }
         else {
             return 86400000 - abs(time2 - time1)
