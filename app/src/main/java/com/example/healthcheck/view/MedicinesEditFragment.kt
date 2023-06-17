@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcheck.R
@@ -38,6 +39,13 @@ class MedicinesEditFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         binding.medicineTitle.text = args.title
 
         if (args.firstTimeNotification != 0L)
@@ -58,7 +66,8 @@ class MedicinesEditFragment : Fragment() {
         binding.totalMissedText.text = args.totalMissed.toString()
 
         binding.wentBack.setOnClickListener {
-            navigation.navigate(R.id.medicinesFragment)
+            val direction = MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.finishCourseBtn.setOnClickListener {
@@ -80,7 +89,9 @@ class MedicinesEditFragment : Fragment() {
             )
             viewModel.deleteMedicine(medicine)
             viewModel.deleteNotification(medicine)
-            navigation.navigate(R.id.medicinesFragment)
+
+            val direction = MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.editBtn.setOnClickListener {
@@ -100,7 +111,7 @@ class MedicinesEditFragment : Fragment() {
                 args.totalDuractionOfCourse,
                 args.totalMissed,
             )
-            navigation.navigate(direction)
+            navigation.navigate(direction, navOptions)
         }
 
     }

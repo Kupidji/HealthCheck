@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.R
@@ -38,7 +39,16 @@ class mainFragment : Fragment() {
 
         val viewPagerAdapter = ViewPagerAdapter(this, viewModel.fragList)
         binding.viewPager.adapter = viewPagerAdapter
+
         val navigation = findNavController()
+
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -60,19 +70,23 @@ class mainFragment : Fragment() {
         }
 
         binding.settings.setOnClickListener {
-            navigation.navigate(R.id.settingsFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToSettingsFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.profile.setOnClickListener {
-            navigation.navigate(R.id.profileFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToProfileFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.medicineiesBox.setOnClickListener {
-            navigation.navigate(R.id.medicinesFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToMedicinesFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         binding.healtyEatBox.setOnClickListener {
-            navigation.navigate(R.id.nutritionFragment)
+            val direction = mainFragmentDirections.actionMainFragmentToNutritionFragment()
+            navigation.navigate(direction, navOptions)
         }
 
     }
