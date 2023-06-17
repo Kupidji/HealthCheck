@@ -342,7 +342,6 @@ class StepsFragment : Fragment() {
 
                 var ourSteps = forStepBd(currentDate, 0)
 
-                // TODO Перенести в workManager
                 viewModel.insertSteps(ourSteps)
 
             }
@@ -353,7 +352,6 @@ class StepsFragment : Fragment() {
 
                 var ourSteps = forStepBd(currentDate, id)
 
-                // TODO Перенести в workManager
                 viewModel.updateSteps(ourSteps)
 
             }

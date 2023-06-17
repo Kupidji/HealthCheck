@@ -256,6 +256,7 @@
 
         <TextView
             style="@style/diagramsDigitsStyle"
+            android:id="@+id/weekWeightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/progressBarWeight"
@@ -275,7 +276,7 @@
             app:layout_constraintBottom_toBottomOf="@id/progressBarWeight"
             app:layout_constraintTop_toTopOf="@id/progressBarWeight"
             app:layout_constraintVertical_bias="0.65"
-            android:text="@string/of_steps"
+            android:text="@string/kg"
             />
 
 

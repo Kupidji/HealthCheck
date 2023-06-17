@@ -10,10 +10,12 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
 
     lateinit var settings : SharedPreferences
     lateinit var settingsForSleep : SharedPreferences
+    lateinit var settingsForWeight : SharedPreferences
 
     init {
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
         settingsForSleep = application.applicationContext.getSharedPreferences("sleep", Context.MODE_PRIVATE)
+        settingsForWeight = application.applicationContext.getSharedPreferences("weight", Context.MODE_PRIVATE)
     }
 
 }

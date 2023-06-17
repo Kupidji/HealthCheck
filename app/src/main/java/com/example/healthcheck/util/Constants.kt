@@ -35,5 +35,16 @@ object Constants {
 
     //сон
     const val TIME_SLEEP = "TIME_SLEEP"
+
+    //Вес
+    const val WEIGHT_FOR_DAY = "WEIGHT_FOR_DAY"
+    const val NECK = "NECK"
+    const val WAIST = "WAIST"
+    const val FOREARM = "FOREARM"
+    const val WRIST = "WRIST"
+    const val HIPS = "HIPS"
+    const val HIP_1 = "HIP_1"
+    const val HIP_2 = "HIP_2"
+    const val SHIN = "SHIN"
     ////////////////////
 }

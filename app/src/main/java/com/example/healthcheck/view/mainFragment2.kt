@@ -68,11 +68,21 @@ class mainFragment2 : Fragment() {
             }
         }
 
+        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+
         viewModel.averageSleep.observe(this@mainFragment2.viewLifecycleOwner) {
             binding.sleepHours.text = it
         }
 
-        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+
+        viewModel.totalWeightForWeight.observe(this@mainFragment2.viewLifecycleOwner) {
+            if (it != null) {
+                binding.progressBarWeight.progress = (it).toInt()
+            }
+            binding.weekWeightText.text = String.format("%.1f",it)
+        }
+
+        binding.progressBarWeight.max = 120
 
         binding.stepsBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
