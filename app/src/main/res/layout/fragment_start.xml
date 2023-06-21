@@ -33,7 +33,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/skip"
         android:background="@android:color/transparent"
-        android:textColor="@color/textcolor_purple"
         android:layout_marginTop="30dp"
         />
 
@@ -41,8 +40,8 @@
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/margin_main1"
-        app:layout_constraintEnd_toEndOf="@id/margin_main2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skipStart"
         app:layout_constraintBottom_toTopOf="@id/circle2"
         android:layout_marginBottom="10dp"

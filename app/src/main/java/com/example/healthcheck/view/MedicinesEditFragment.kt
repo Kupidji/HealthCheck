@@ -60,6 +60,9 @@ class MedicinesEditFragment : Fragment() {
         binding.dateStart.text = SimpleDateFormat("dd MMM").format(args.dateOfStart)
         binding.currentDay.text = args.currentDay.toString()
 
+        binding.progressBarMedicines.max = args.totalDuractionOfCourse
+        binding.progressBarMedicines.progress = args.currentDay
+
         if (args.totalDuractionOfCourse != 0)
             binding.totalDays.text = "из ${args.totalDuractionOfCourse}"
 
