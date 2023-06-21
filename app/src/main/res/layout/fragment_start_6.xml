@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/margin_main1"
                 app:layout_constraintEnd_toStartOf="@id/margin_main2"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="60dp"
                 android:text="Выберите ваш рост"
                 />
 
