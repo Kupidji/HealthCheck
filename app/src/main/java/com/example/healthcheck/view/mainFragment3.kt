@@ -57,18 +57,25 @@ class mainFragment3 : Fragment() {
 
         viewModel.totalStepsForMonth.observe(this@mainFragment3.viewLifecycleOwner) {
             binding.main3CountOfStepsMonth.setText("${it}")
-        }
-        viewModel.totalStepsForMonth.observe(this@mainFragment3.viewLifecycleOwner) {
             if (it != null) {
                 binding.progressBarSteps.progress = it
             }
         }
 
+        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+
         viewModel.averageSleepMonth.observe(this@mainFragment3.viewLifecycleOwner) {
             binding.sleepHoursMonth.text = it
         }
 
-        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+        viewModel.totalWeightForMonth.observe(this@mainFragment3.viewLifecycleOwner) {
+            if (it != null) {
+                binding.progressBarWeight.progress = it.toInt()
+            }
+            binding.textWeightMonth.text = String.format("%.1f", it)
+        }
+
+        binding.progressBarWeight.max = 120
 
         binding.stepsBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()

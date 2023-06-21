@@ -51,6 +51,10 @@ class mainFragment1 : Fragment() {
 
         binding.sleepHoursDay.text = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L) - 18000000) + "ч"
 
+        binding.progressBarWeight.max = 120
+        binding.progressBarWeight.progress = viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toInt()
+        binding.weightCountText.text = String.format("%.1f",viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
+
         binding.stepsBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
             navigation.navigate(direction, navOptions)
