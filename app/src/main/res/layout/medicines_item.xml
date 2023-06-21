@@ -79,24 +79,24 @@
             android:paddingBottom="10dp"
             />
 
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+<!--        <CheckBox-->
+<!--        android:id="@+id/checkbox"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        />-->
 
-        <TextView
-            style="@style/hint1"
-            android:id="@+id/nearestTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/checkbox"
-            app:layout_constraintTop_toTopOf="@id/checkbox"
-            app:layout_constraintBottom_toBottomOf="@id/checkbox"
-            android:text="время"
-            />
+<!--        <TextView-->
+<!--            style="@style/hint1"-->
+<!--            android:id="@+id/nearestTime"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/checkbox"-->
+<!--            app:layout_constraintTop_toTopOf="@id/checkbox"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/checkbox"-->
+<!--            android:text="время"-->
+<!--            />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

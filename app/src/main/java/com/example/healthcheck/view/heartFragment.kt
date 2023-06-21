@@ -51,38 +51,56 @@ class heartFragment : Fragment() {
             .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
-            
-          GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-              binding.ur1.setText(viewModel.getCardioFromDataUpPressure(tripletsPool).toString())
-          }
 
-          GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-              binding.ur2.setText(viewModel.getCardioFromDataDownPressure(tripletsPool).toString())
-          }
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.ur1.setText(viewModel.getCardioFromDataUpPressure(tripletsPool).toString())
+        }
 
-          GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-              binding.ur3.setText(viewModel.getCardioFromDataPulse(tripletsPool).toString())
-          }
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.ur2.setText(viewModel.getCardioFromDataDownPressure(tripletsPool).toString())
+        }
 
-          binding.wentBack.setOnClickListener {
-              if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
-                  var currentTime = Calendar.getInstance().timeInMillis
-                  var heart = Heart(
-                      binding.getUpPressure.text.toString().toInt(),
-                      binding.getDownPressure.text.toString().toInt(),
-                      binding.getPulse.text.toString().toInt(),
-                      currentTime,
-                  )
-                  viewModel.insertHeart(heart)
-              }
-              
+        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            binding.ur3.setText(viewModel.getCardioFromDataPulse(tripletsPool).toString())
+        }
+
+        binding.wentBack.setOnClickListener {
+            if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
+                var currentTime = Calendar.getInstance().timeInMillis
+                var heart = Heart(
+                    binding.getUpPressure.text.toString().toInt(),
+                    binding.getDownPressure.text.toString().toInt(),
+                    binding.getPulse.text.toString().toInt(),
+                    currentTime,
+                )
+                viewModel.insertHeart(heart)
+            }
+
             val direction = heartFragmentDirections.actionHeartFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
         
         binding.profile.setOnClickListener {
             val direction = heartFragmentDirections.actionHeartFragmentToProfileFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.profile.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
     }

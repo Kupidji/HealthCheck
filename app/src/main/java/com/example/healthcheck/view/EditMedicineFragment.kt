@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -99,7 +100,17 @@ class editMedicineFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
+
         }
 
         binding.getFirstTime.setOnClickListener {
@@ -268,11 +279,29 @@ class editMedicineFragment : Fragment() {
                 Toast.makeText(this@editMedicineFragment.requireContext(), "Изменения в ${args.title} были внесены", Toast.LENGTH_SHORT).show()
 
                 val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
-                navigation.navigate(direction, navOptions)
+
+                //анимация
+                binding.saveChangeMedicineLayout.animate()
+                    .setDuration(25)
+                    .scaleX(0.95f)
+                    .scaleY(0.95f)
+                    .withEndAction {
+                        //навигация
+                        navigation.navigate(direction, navOptions)
+                    }
             }
             else
+                binding.saveChangeMedicineLayout.animate()
+                    .setDuration(25)
+                    .scaleX(0.95f)
+                    .scaleY(0.95f)
+                    .withEndAction {
+                        binding.saveChangeMedicineLayout.animate()
+                            .setDuration(25)
+                            .scaleX(1f)
+                            .scaleY(1f)
+                    }
                 binding.getTitle.error = "Обязательное поле"
-
         }
     }
 
@@ -280,17 +309,17 @@ class editMedicineFragment : Fragment() {
         when (textView) {
 
             binding.getFirstTime -> {
-                binding.secondTimeBox.visibility = View.VISIBLE
+                addAnimation(binding.secondTimeBox)
                 binding.deleteFirstTime.visibility = View.VISIBLE
             }
 
             binding.getSecondTime -> {
-                binding.thirdTimeBox.visibility = View.VISIBLE
+                addAnimation(binding.thirdTimeBox)
                 binding.deleteSecondTime.visibility = View.VISIBLE
             }
 
             binding.getThirdTime -> {
-                binding.fourthTimeBox.visibility = View.VISIBLE
+                addAnimation(binding.fourthTimeBox)
                 binding.deleteThirdTime.visibility = View.VISIBLE
             }
 
@@ -310,16 +339,16 @@ class editMedicineFragment : Fragment() {
                 binding.deleteFirstTime.visibility = View.GONE
 
                 if (binding.getSecondTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
                 }
                 if (binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
                 }
-                if(binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                if (binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
 
 
@@ -331,16 +360,16 @@ class editMedicineFragment : Fragment() {
                 binding.deleteSecondTime.visibility = View.GONE
 
                 if (binding.getThirdTime.text.isEmpty()) {
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.thirdTimeBox)
                 }
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
                 }
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
 
             }
@@ -351,16 +380,16 @@ class editMedicineFragment : Fragment() {
                 binding.deleteThirdTime.visibility = View.GONE
 
                 if (binding.getFourthTime.text.isEmpty()) {
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.fourthTimeBox)
                 }
                 if (binding.getSecondTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
 
             }
@@ -371,13 +400,34 @@ class editMedicineFragment : Fragment() {
                 binding.deleteFourthTime.visibility = View.GONE
 
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
                 }
             }
 
         }
     }
+
+
+    private fun addAnimation(view: ConstraintLayout) {
+        view.visibility = View.VISIBLE
+        view.animate()
+            .setDuration(300L)
+            .scaleX(1F)
+            .scaleY(1F)
+            .alpha(1F)
+    }
+    private fun deleteAnimation(view: ConstraintLayout) {
+        view.animate()
+            .setDuration(300L)
+            .scaleX(0.95F)
+            .scaleY(0.95F)
+            .alpha(0F)
+            .withEndAction {
+                view.visibility = View.GONE
+            }
+    }
+
     private fun setAlarm(textView: TextView, callback: (Long) -> Unit) {
         Calendar.getInstance().apply {
             this.set(Calendar.SECOND, 0)

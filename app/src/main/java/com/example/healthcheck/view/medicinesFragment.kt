@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -71,14 +72,15 @@ class medicinesFragment : Fragment() {
                     medicines.id,
                     medicines.totalMissed,
                 )
+
                 navigation.navigate(direction, navOptions)
             }
 
-            override fun onClickCheckBox(medicines: Medicines) {
-                //кинуть заполненость
-                //todo сделать on and off состояния
-                Toast.makeText(this@medicinesFragment.context, "Выполнено", Toast.LENGTH_SHORT).show()
-            }
+//            override fun onClickCheckBox(medicines: Medicines) {
+//                //кинуть заполненость
+//                //todo сделать on and off состояния
+//                Toast.makeText(this@medicinesFragment.context, "Выполнено", Toast.LENGTH_SHORT).show()
+//            }
 
         })
 
@@ -93,17 +95,45 @@ class medicinesFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.profile.setOnClickListener {
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToProfileFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.profile.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.addNewMedicines.setOnClickListener {
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToAddMedicinesFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.addNewMedicines.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
+
         }
 
     }

@@ -45,13 +45,31 @@ class profileFragment : Fragment() {
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.confirm.setOnClickListener {
             //todo посылать информацию в saveInstanceStateSettings
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.confirm.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
     }
