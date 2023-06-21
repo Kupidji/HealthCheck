@@ -92,7 +92,7 @@ class StepsFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
-            val direction = StepsFragmentDirections.actionStepsFragmentToProfileFragment()
+            val direction = StepsFragmentDirections.actionStepsFragmentToMainFragment()
             navigation.navigate(direction, navOptions)
         }
 
