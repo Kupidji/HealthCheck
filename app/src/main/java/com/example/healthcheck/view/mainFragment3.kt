@@ -72,22 +72,59 @@ class mainFragment3 : Fragment() {
 
         binding.stepsBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.stepsLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.sleepBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToSleepFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.sleepLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.kardioBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToHeartFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.kardioLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.weightBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToWeightFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.weightLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
+
         }
 
     }

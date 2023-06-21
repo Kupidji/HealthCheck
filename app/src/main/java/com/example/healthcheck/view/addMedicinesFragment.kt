@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -61,19 +62,24 @@ class addMedicinesFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
-            navigation.navigate(direction, navOptions)
-        }
 
-//        binding.profile.setOnClickListener {
-//            val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToProfileFragment()
-//            navigation.navigate(direction, navOptions)
-//        }
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
+        }
 
         binding.getFirstTime.setOnClickListener {
             setAlarm(binding.getFirstTime) { callback ->
                 firstTime = callback
                 onGetTime(binding.getFirstTime)
             }
+
         }
 
         binding.deleteFirstTime.setOnClickListener {
@@ -85,6 +91,7 @@ class addMedicinesFragment : Fragment() {
                 secondTime = callback
                 onGetTime(binding.getSecondTime)
             }
+
         }
 
         binding.deleteSecondTime.setOnClickListener {
@@ -96,6 +103,7 @@ class addMedicinesFragment : Fragment() {
                 thirdTime = callback
                 onGetTime(binding.getThirdTime)
             }
+
         }
 
         binding.deleteThirdTime.setOnClickListener {
@@ -168,15 +176,34 @@ class addMedicinesFragment : Fragment() {
                         "Четвёртый приём - " + medicines.title,
                         medicines.channelIDFourthTime
                     )
-                    Toast.makeText(this@addMedicinesFragment.requireContext(), "Курс ${medicines.title} был создан", Toast.LENGTH_SHORT).show()
 
                     val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
 
-                    navigation.navigate(direction, navOptions)
+                    //анимация
+                    binding.saveMedicine.animate()
+                        .setDuration(25)
+                        .scaleX(0.95f)
+                        .scaleY(0.95f)
+                        .withEndAction {
+                            //навигация
+                            navigation.navigate(direction, navOptions)
+                            Toast.makeText(this@addMedicinesFragment.requireContext(), "Курс ${medicines.title} был создан", Toast.LENGTH_SHORT).show()
+                        }
                 }
 
             }
             else {
+                binding.saveMedicineLayout.animate()
+                    .setDuration(25)
+                    .scaleX(0.95f)
+                    .scaleY(0.95f)
+                    .withEndAction {
+                        binding.saveMedicineLayout.animate()
+                            .setDuration(25)
+                            .scaleX(1f)
+                            .scaleY(1f)
+                    }
+
                 binding.getTitle.error = "Обязательное поле"
             }
 
@@ -188,17 +215,17 @@ class addMedicinesFragment : Fragment() {
         when (textView) {
 
             binding.getFirstTime -> {
-                binding.secondTimeBox.visibility = View.VISIBLE
+                addAnimation(binding.secondTimeBox)
                 binding.deleteFirstTime.visibility = View.VISIBLE
             }
 
             binding.getSecondTime -> {
-                binding.thirdTimeBox.visibility = View.VISIBLE
+                addAnimation(binding.thirdTimeBox)
                 binding.deleteSecondTime.visibility = View.VISIBLE
             }
 
             binding.getThirdTime -> {
-                binding.fourthTimeBox.visibility = View.VISIBLE
+                addAnimation(binding.fourthTimeBox)
                 binding.deleteThirdTime.visibility = View.VISIBLE
             }
 
@@ -214,19 +241,20 @@ class addMedicinesFragment : Fragment() {
         when (imageView) {
             binding.deleteFirstTime -> {
                 binding.getFirstTime.text = ""
+                firstTime = 0L
                 binding.deleteFirstTime.visibility = View.GONE
 
                 if (binding.getSecondTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
                 }
                 if (binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
                 }
-                if(binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                if (binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
 
 
@@ -234,54 +262,77 @@ class addMedicinesFragment : Fragment() {
 
             binding.deleteSecondTime -> {
                 binding.getSecondTime.text = ""
+                secondTime = 0L
                 binding.deleteSecondTime.visibility = View.GONE
 
                 if (binding.getThirdTime.text.isEmpty()) {
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.thirdTimeBox)
                 }
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
                 }
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
 
             }
 
             binding.deleteThirdTime -> {
                 binding.getThirdTime.text = ""
+                thirdTime = 0L
                 binding.deleteThirdTime.visibility = View.GONE
 
                 if (binding.getFourthTime.text.isEmpty()) {
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.fourthTimeBox)
                 }
                 if (binding.getSecondTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
-                    binding.fourthTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
+                    deleteAnimation(binding.fourthTimeBox)
                 }
 
             }
 
             binding.deleteFourthTime -> {
                 binding.getFourthTime.text = ""
+                fourthTime = 0L
                 binding.deleteFourthTime.visibility = View.GONE
 
                 if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
-                    binding.secondTimeBox.visibility = View.GONE
-                    binding.thirdTimeBox.visibility = View.GONE
+                    deleteAnimation(binding.secondTimeBox)
+                    deleteAnimation(binding.thirdTimeBox)
                 }
             }
 
         }
     }
+
+    private fun addAnimation(view: ConstraintLayout) {
+        view.visibility = View.VISIBLE
+        view.animate()
+            .setDuration(300L)
+            .scaleX(1F)
+            .scaleY(1F)
+            .alpha(1F)
+    }
+    private fun deleteAnimation(view: ConstraintLayout) {
+        view.animate()
+            .setDuration(300L)
+            .scaleX(0.95F)
+            .scaleY(0.95F)
+            .alpha(0F)
+            .withEndAction {
+                view.visibility = View.GONE
+            }
+    }
+
     private fun setAlarm(textView: TextView, callback: (Long) -> Unit) {
         Calendar.getInstance().apply {
             this.set(Calendar.SECOND, 0)

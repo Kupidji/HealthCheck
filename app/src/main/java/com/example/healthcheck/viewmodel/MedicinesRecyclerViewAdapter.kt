@@ -1,16 +1,14 @@
 package com.example.healthcheck.viewmodel
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.MedicinesItemBinding
-import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -18,6 +16,7 @@ class MedicinesRecyclerViewAdapter(
     private val medicinesActionListener: MedicinesActionListener
 ) : RecyclerView.Adapter<MedicinesRecyclerViewAdapter.MedicinesViewHolder>(), View.OnClickListener {
 
+    lateinit var parentBox : View
     var medicinesList : List<Medicines> = emptyList()
         set(newValue) {
             field = newValue
@@ -33,7 +32,7 @@ class MedicinesRecyclerViewAdapter(
         val binding = MedicinesItemBinding.inflate(inflater, parent, false)
 
         binding.root.setOnClickListener(this)
-        binding.checkbox.setOnClickListener(this)
+        //binding.checkbox.setOnClickListener(this)
         binding.itemBackgroundBtn.setOnClickListener(this)
 
         return MedicinesViewHolder(binding)
@@ -46,22 +45,24 @@ class MedicinesRecyclerViewAdapter(
         val medicine = medicinesList[position]
         with(holder.binding) {
             holder.itemView.tag = medicine
-            checkbox.tag = medicine
+            //checkbox.tag = medicine
             root.tag = medicine
             itemBackgroundBtn.tag = medicine
+            parentBox = itemBox
 
             //все, что ниже в теле этого класса - заполняет шаблон item_medicine
             medicinesTitle.text = medicine.title
             date.text = SimpleDateFormat("dd MMM").format(medicine.dateStart)
 
+            // на будущее
             //выставляет ближайшее время пропития таблетки, если оно еще не наступило
             //иначе выставляет следующее (если оно есть)
-            if (getNearestTime(medicine) != 0L) {
-                holder.binding.nearestTime.visibility = View.VISIBLE
-                holder.binding.nearestTime.text = SimpleDateFormat("HH:mm").format(getNearestTime(medicine))
-            }
-            else
-                holder.binding.nearestTime.visibility = View.GONE
+//            if (getNearestTime(medicine) != 0L) {
+//                holder.binding.nearestTime.visibility = View.VISIBLE
+//                holder.binding.nearestTime.text = SimpleDateFormat("HH:mm").format(getNearestTime(medicine))
+//            }
+//            else
+//                holder.binding.nearestTime.visibility = View.GONE
 
             //если у курса задан конец, показываем: текущий день/всего дней
             //иначе: текущий день/беск.
@@ -70,10 +71,6 @@ class MedicinesRecyclerViewAdapter(
             }
             else
                 day.text = medicine.currentDayOfCourse.toString() + "/" + "∞"
-
-            if (medicine.timeOfNotify1 == 0L && medicine.timeOfNotify2 == 0L && medicine.timeOfNotify3 == 0L && medicine.timeOfNotify4 == 0L) {
-                checkbox.visibility = View.GONE
-            }
         }
 
     }
@@ -99,9 +96,9 @@ class MedicinesRecyclerViewAdapter(
         val medicine = view.tag as Medicines
         when(view.id) {
 
-            R.id.checkbox -> {
-                medicinesActionListener.onClickCheckBox(medicine)
-            }
+//            R.id.checkbox -> {
+//                medicinesActionListener.onClickCheckBox(medicine)
+//            }
 
             R.id.itemBackgroundBtn -> {
                 medicinesActionListener.onClickBox(medicine)
@@ -116,6 +113,6 @@ interface MedicinesActionListener {
 
     fun onClickBox(medicines: Medicines)
 
-    fun onClickCheckBox(medicines: Medicines)
+//    fun onClickCheckBox(medicines: Medicines)
 
 }
