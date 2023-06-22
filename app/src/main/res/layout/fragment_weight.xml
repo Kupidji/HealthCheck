@@ -112,6 +112,9 @@
                     android:hint="@string/input_weight"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -381,6 +384,8 @@
                     android:layout_marginStart="10dp"
                     android:text="0000"
                     android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -446,6 +451,8 @@
                     android:layout_marginStart="10dp"
                     android:text="xxx"
                     android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -507,7 +514,10 @@
                     app:layout_constraintBottom_toBottomOf="@id/neckBox"
                     android:layout_marginStart="10dp"
                     android:text=""
+                    android:layout_marginEnd="10dp"
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -569,7 +579,10 @@
                     app:layout_constraintBottom_toBottomOf="@id/waistBox"
                     android:layout_marginStart="10dp"
                     android:text=""
+                    android:layout_marginEnd="10dp"
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -629,8 +642,11 @@
                     app:layout_constraintEnd_toEndOf="@id/forearmBox"
                     app:layout_constraintBottom_toBottomOf="@id/forearmBox"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -690,8 +706,11 @@
                     app:layout_constraintEnd_toEndOf="@id/wristBox"
                     app:layout_constraintBottom_toBottomOf="@id/wristBox"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -751,8 +770,11 @@
                     app:layout_constraintEnd_toEndOf="@id/hipsBox"
                     app:layout_constraintBottom_toBottomOf="@id/hipsBox"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -812,8 +834,11 @@
                     app:layout_constraintEnd_toEndOf="@id/hipBox"
                     app:layout_constraintBottom_toBottomOf="@id/hipBox"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -873,8 +898,11 @@
                     app:layout_constraintEnd_toEndOf="@id/Hip2Box"
                     app:layout_constraintBottom_toBottomOf="@id/Hip2Box"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -934,8 +962,11 @@
                     app:layout_constraintEnd_toEndOf="@id/shinBox"
                     app:layout_constraintBottom_toBottomOf="@id/shinBox"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -997,6 +1028,8 @@
                     android:background="@android:color/transparent"
                     android:text="XX%"
                     android:layout_marginStart='10dp'
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1047,6 +1080,8 @@
                     android:background="@android:color/transparent"
                     android:text="XXX"
                     android:layout_marginStart='10dp'
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
