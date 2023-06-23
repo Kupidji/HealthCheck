@@ -67,7 +67,8 @@ class mainFragment1 : Fragment() {
         }
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
 
-        binding.sleepHoursDay.text = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L) - 18000000) + "ч"
+        var sleepy = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L))
+        binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
 
 //        viewModel.weight.observe(this@mainFragment1.viewLifecycleOwner) {
 //            binding.weightCountText.text = String.format(Locale.US,"%.1f",it)

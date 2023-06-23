@@ -17,6 +17,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.TimeZone
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -65,6 +66,8 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
             var result = async {
                 var list = Repositories.sleepRepository.getTimeOfSleepForWeek()
                 var sum = 0L
+                var GMT = getGMT()
+                var listGMT = GMT.split(":")
                 for (sleep in list) {
                     sum += sleep.timeOfSleep
                 }
@@ -73,7 +76,7 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
                 }
                 var string = SimpleDateFormat("HH:mm").format(sum).toString()
                 var listt = string.split(":")
-                string = (listt[0].toInt()-5).toString() + ":" + listt[1]
+                string = (listt[0].toInt()-listGMT[0].toInt()).toString() + ":" + listt[1]
                 return@async string
             }
             result.await()
@@ -95,6 +98,18 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
             }
             result.await()
         }
+    }
+
+    fun getGMT() : String {
+        val tz = TimeZone.getDefault()
+        val gmt1 = TimeZone.getTimeZone(tz.id).getDisplayName(false, TimeZone.SHORT)
+        if (gmt1.length > 3){
+            return gmt1.slice(4..8)
+        }
+        else{
+            return "00:00"
+        }
+
     }
 
 }
