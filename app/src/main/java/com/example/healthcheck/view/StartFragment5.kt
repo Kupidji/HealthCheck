@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentStart5Binding
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.viewmodel.StartFragment5ViewModel
 
 class StartFragment5 : Fragment() {
@@ -47,10 +49,18 @@ class StartFragment5 : Fragment() {
         numberPicker1.setWrapSelectorWheel(false)
 
         binding.next.setOnClickListener {
+            val editorforname = viewModel.settings.edit()
+            editorforname?.putString(Constants.AGE, binding.numberPicker0.value.toString())?.apply()
+            editorforname?.putString(Constants.WEIGHT_START, binding.numberPicker1.value.toString())?.apply()
             navigation.navigate(com.example.healthcheck.R.id.startFragment6)
         }
 
-        // TODO: Use the ViewModel
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
+
     }
 
 }

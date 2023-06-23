@@ -1,16 +1,16 @@
 package com.example.healthcheck.view
 
 import android.app.TimePickerDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSleepBinding
 import com.example.healthcheck.model.sleep.entities.Sleep
 import com.example.healthcheck.util.Constants
@@ -21,10 +21,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.TimeZone
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
-import kotlin.math.abs
+
 
 class sleepFragment : Fragment() {
 
@@ -121,10 +122,11 @@ class sleepFragment : Fragment() {
 
     private fun calculateTimeBetweenStartEndSleep(time1 : Long, time2 : Long) : Long {
         if (time1 - time2 <= 0) {
-            return time1 - time2
+            return time2 - time1
         }
         else {
-            return 86400000 - abs(time2 - time1)
+            val time2Cur = time2 + 86400000
+            return time2Cur - time1
         }
     }
 

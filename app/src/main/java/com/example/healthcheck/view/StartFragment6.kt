@@ -6,7 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.healthcheck.R
+import android.widget.NumberPicker
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
+import com.example.healthcheck.databinding.FragmentStart6Binding
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.viewmodel.StartFragment6ViewModel
 
 class StartFragment6 : Fragment() {
@@ -16,18 +20,39 @@ class StartFragment6 : Fragment() {
     }
 
     private lateinit var viewModel: StartFragment6ViewModel
+    private lateinit var binding : FragmentStart6Binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_start_6, container, false)
+        viewModel = ViewModelProvider(this).get(StartFragment6ViewModel::class.java)
+        binding = FragmentStart6Binding.inflate(inflater)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(StartFragment6ViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navigation = findNavController()
+
+        val numberPicker2: NumberPicker = binding.numberPicker2
+        numberPicker2.setMaxValue(300)
+        numberPicker2.setMinValue(30)
+        numberPicker2.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        numberPicker2.setWrapSelectorWheel(false)
+
+        binding.next.setOnClickListener {
+            val editorforname = viewModel.settings.edit()
+            editorforname?.putString(Constants.HEIGHT_START, binding.numberPicker2.value.toString())?.apply()
+            navigation.navigate(com.example.healthcheck.R.id.mainFragment)
+        }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
     }
 
 }

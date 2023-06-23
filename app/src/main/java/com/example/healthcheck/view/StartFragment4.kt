@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentStart4Binding
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.viewmodel.StartFragment4ViewModel
 
 
@@ -33,24 +36,38 @@ class StartFragment4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val radioGroup = binding.radioGender
         var gender = ""
 
         val navigation = findNavController()
 
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                -1 -> gender = ""
-                binding.rbMale.id -> gender = "man"
-                binding.rbFemale.id -> gender = "woman"
-            }
+        if (binding.rbMale.isChecked) {
+            gender = "man"
+        }
+
+        if (binding.rbFemale.isChecked) {
+            gender = "woman"
         }
 
         binding.next.setOnClickListener {
-            navigation.navigate(com.example.healthcheck.R.id.startFragment5)
+
+            if (binding.getName.text.isNotEmpty()){
+                val editorforname = viewModel.settings.edit()
+                editorforname?.putString(Constants.FIO, binding.getName.text.toString())?.apply()
+                editorforname?.putString(Constants.GENDER, gender)?.apply()
+                navigation.navigate(com.example.healthcheck.R.id.startFragment5)
+            }
+            else{
+                binding.getName.error = "Поле пустое"
+
+            }
         }
-        
-        // TODO: Use the ViewModel
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
+
     }
 
 }

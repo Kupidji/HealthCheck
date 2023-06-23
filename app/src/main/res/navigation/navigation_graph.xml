@@ -411,5 +411,9 @@
         android:id="@+id/startFragment6"
         android:name="com.example.healthcheck.view.StartFragment6"
         android:label="fragment_start_6"
-        tools:layout="@layout/fragment_start_6" />
+        tools:layout="@layout/fragment_start_6" >
+        <action
+            android:id="@+id/action_startFragment6_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
