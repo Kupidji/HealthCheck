@@ -49,7 +49,7 @@ class mainFragment3 : Fragment() {
         showDigits()
 
         viewModel.averageSleepMonth.observe(this@mainFragment3.viewLifecycleOwner) {
-            binding.sleepHoursMonth.text = it
+            binding.sleepHoursMonth.text = it + "ч"
         }
 
         binding.stepsBox.setOnClickListener {

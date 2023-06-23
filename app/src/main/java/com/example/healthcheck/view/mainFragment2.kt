@@ -51,7 +51,7 @@ class mainFragment2 : Fragment() {
         showDigits()
 
         viewModel.averageSleep.observe(this@mainFragment2.viewLifecycleOwner) {
-            binding.sleepHours.text = it
+            binding.sleepHours.text = it + "ч"
         }
 
         binding.stepsBox.setOnClickListener {
