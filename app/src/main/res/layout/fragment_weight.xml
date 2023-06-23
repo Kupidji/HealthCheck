@@ -102,7 +102,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/weightTint"
+                    android:id="@+id/getWeight"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/weightImage"
@@ -112,6 +112,9 @@
                     android:hint="@string/input_weight"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -177,6 +180,7 @@
 
                 <TextView
                     style="@style/diagramsDigitsStyle"
+                    android:id="@+id/weekDiagramText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/progressBarWeightWeek"
@@ -285,6 +289,7 @@
 
                 <TextView
                     style="@style/diagramsDigitsStyle"
+                    android:id="@+id/monthDiagramText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/progressBarWeightMonth"
@@ -369,6 +374,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/averageWeightForMonth"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/weightImageSmall"
@@ -376,8 +382,10 @@
                     app:layout_constraintEnd_toEndOf="@id/weightImageSmall"
                     app:layout_constraintBottom_toBottomOf="@id/weightImageSmall"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:text="0000"
                     android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -433,6 +441,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/heightInWeight"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/heightBoxImage"
@@ -442,6 +451,8 @@
                     android:layout_marginStart="10dp"
                     android:text="xxx"
                     android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -494,6 +505,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/neckneck"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/neckBox"
@@ -501,8 +513,11 @@
                     app:layout_constraintEnd_toEndOf="@id/neckBox"
                     app:layout_constraintBottom_toBottomOf="@id/neckBox"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:text=""
+                    android:layout_marginEnd="10dp"
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -555,6 +570,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/waistwaist"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/waistBox"
@@ -562,8 +578,11 @@
                     app:layout_constraintEnd_toEndOf="@id/waistBox"
                     app:layout_constraintBottom_toBottomOf="@id/waistBox"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:text=""
+                    android:layout_marginEnd="10dp"
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -615,6 +634,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/forearmforearm"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/forearmBox"
@@ -622,8 +642,11 @@
                     app:layout_constraintEnd_toEndOf="@id/forearmBox"
                     app:layout_constraintBottom_toBottomOf="@id/forearmBox"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:layout_marginEnd="10dp"
+                    android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -675,6 +698,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/wristwrist"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/wristBox"
@@ -682,8 +706,11 @@
                     app:layout_constraintEnd_toEndOf="@id/wristBox"
                     app:layout_constraintBottom_toBottomOf="@id/wristBox"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:layout_marginEnd="10dp"
+                    android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -735,6 +762,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/hipships"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/hipsBox"
@@ -742,8 +770,11 @@
                     app:layout_constraintEnd_toEndOf="@id/hipsBox"
                     app:layout_constraintBottom_toBottomOf="@id/hipsBox"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:layout_marginEnd="10dp"
+                    android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -795,6 +826,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/hiphip1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/hipBox"
@@ -802,8 +834,11 @@
                     app:layout_constraintEnd_toEndOf="@id/hipBox"
                     app:layout_constraintBottom_toBottomOf="@id/hipBox"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:layout_marginEnd="10dp"
+                    android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -855,6 +890,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/hiphip2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/Hip2Box"
@@ -862,8 +898,11 @@
                     app:layout_constraintEnd_toEndOf="@id/Hip2Box"
                     app:layout_constraintBottom_toBottomOf="@id/Hip2Box"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:layout_marginEnd="10dp"
+                    android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -915,6 +954,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/shinshin"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/shinBox"
@@ -922,8 +962,11 @@
                     app:layout_constraintEnd_toEndOf="@id/shinBox"
                     app:layout_constraintBottom_toBottomOf="@id/shinBox"
                     android:layout_marginStart="10dp"
-                    android:text="xxx"
+                    android:layout_marginEnd="10dp"
+                    android:text=""
                     android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -975,6 +1018,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/percentMass"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/fatBox"
@@ -984,6 +1028,8 @@
                     android:background="@android:color/transparent"
                     android:text="XX%"
                     android:layout_marginStart='10dp'
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1024,6 +1070,7 @@
 
                 <EditText
                     style="@style/hint1"
+                    android:id="@+id/massIndex"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/indexMassBox"
@@ -1033,6 +1080,8 @@
                     android:background="@android:color/transparent"
                     android:text="XXX"
                     android:layout_marginStart='10dp'
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

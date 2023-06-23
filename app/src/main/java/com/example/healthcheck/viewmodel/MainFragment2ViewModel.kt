@@ -27,6 +27,7 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
 
     var totalStepsForWeek = MutableLiveData<Int?>()
     var averageSleep = MutableLiveData<String?>()
+    var totalWeightForWeight = MutableLiveData<Float?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
@@ -37,6 +38,9 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             averageSleep.value = getSleepFromDataForWeekAverage(tripletsPool)
         }
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            totalWeightForWeight.value = getWeightFromDataForWeek(tripletsPool)
+        }
     }
     suspend fun getStepsFromDataForWeek(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
@@ -46,7 +50,10 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
                 for (steps in list) {
                     sum += steps
                 }
-                return@async sum/7
+                if (list.size != 0) {
+                    sum /= list.size
+                }
+                return@async sum
             }
 
             result.await()
@@ -68,6 +75,23 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
                 var listt = string.split(":")
                 string = (listt[0].toInt()-5).toString() + ":" + listt[1]
                 return@async string
+            }
+            result.await()
+        }
+    }
+
+    suspend fun getWeightFromDataForWeek(sheduler : ThreadPoolExecutor) : Float = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.weightRepository.getWeightForWeek()
+                var sum = 0F
+                for (steps in list) {
+                    sum += steps
+                }
+                if (list.isNotEmpty()){
+                    sum /= list.size
+                }
+                return@async sum
             }
             result.await()
         }

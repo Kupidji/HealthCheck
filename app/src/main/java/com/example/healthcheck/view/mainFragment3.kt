@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Locale
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -57,18 +58,25 @@ class mainFragment3 : Fragment() {
 
         viewModel.totalStepsForMonth.observe(this@mainFragment3.viewLifecycleOwner) {
             binding.main3CountOfStepsMonth.setText("${it}")
-        }
-        viewModel.totalStepsForMonth.observe(this@mainFragment3.viewLifecycleOwner) {
             if (it != null) {
                 binding.progressBarSteps.progress = it
             }
         }
 
+        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+
         viewModel.averageSleepMonth.observe(this@mainFragment3.viewLifecycleOwner) {
             binding.sleepHoursMonth.text = it
         }
 
-        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+        viewModel.totalWeightForMonth.observe(this@mainFragment3.viewLifecycleOwner) {
+            if (it != null) {
+                binding.progressBarWeight.progress = it.toInt()
+            }
+            binding.textWeightMonth.text = String.format(Locale.US,"%.1f", it)
+        }
+
+        binding.progressBarWeight.max = 120
 
         binding.stepsBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()

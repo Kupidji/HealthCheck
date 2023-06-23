@@ -308,7 +308,9 @@
                     android:hint="@string/input_steps"
                     android:background="@android:color/transparent"
                     android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -466,8 +468,9 @@
                     android:hint="@string/input_target"
                     android:background="@android:color/transparent"
                     android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:inputType="number"
-                    android:text=""
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

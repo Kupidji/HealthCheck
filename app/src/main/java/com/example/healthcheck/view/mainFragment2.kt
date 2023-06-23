@@ -23,6 +23,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Locale
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -57,22 +58,28 @@ class mainFragment2 : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
-        //val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
-
         viewModel.totalStepsForWeek.observe(this@mainFragment2.viewLifecycleOwner) {
             binding.main2CountOfStepsWeek.setText("${it}")
-        }
-        viewModel.totalStepsForWeek.observe(this@mainFragment2.viewLifecycleOwner) {
             if (it != null) {
                 binding.progressBarSteps.progress = it
             }
         }
 
+        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+
         viewModel.averageSleep.observe(this@mainFragment2.viewLifecycleOwner) {
             binding.sleepHours.text = it
         }
 
-        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+
+        viewModel.totalWeightForWeight.observe(this@mainFragment2.viewLifecycleOwner) {
+            if (it != null) {
+                binding.progressBarWeight.progress = (it).toInt()
+            }
+            binding.weekWeightText.text = String.format(Locale.US,"%.1f",it)
+        }
+
+        binding.progressBarWeight.max = 120
 
         binding.stepsBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
