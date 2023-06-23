@@ -10,12 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentWeightBinding
 import com.example.healthcheck.model.weight.entities.Weight
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.WeightViewModel
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -76,13 +79,17 @@ class weightFragment : Fragment() {
         binding.progressBarWeightMonth.max = 120
 
         binding.wentBack.setOnClickListener {
+            //навигация и анимации
             val direction = weightFragmentDirections.actionWeightFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.profile.setOnClickListener {
+            //навигация и анимации
             val direction = weightFragmentDirections.actionWeightFragmentToProfileFragment()
-            navigation.navigate(direction, navOptions)
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         viewModel.totalWeightForMonth.observe(this@weightFragment.viewLifecycleOwner) {

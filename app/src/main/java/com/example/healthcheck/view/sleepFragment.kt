@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentSleepBinding
 import com.example.healthcheck.model.sleep.entities.Sleep
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.SleepViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -87,31 +90,17 @@ class sleepFragment : Fragment() {
                 viewModel.insertSleep(sleep)
             }
 
+            //навигация и анимации
             val direction = sleepFragmentDirections.actionSleepFragmentToMainFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.profile.setOnClickListener {
+            //навигация и анимации
             val direction = sleepFragmentDirections.actionSleepFragmentToProfileFragment()
-
-            //анимация
-            binding.profile.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         binding.sleep1.setOnClickListener {

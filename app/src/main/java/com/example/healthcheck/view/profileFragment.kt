@@ -6,11 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentProfileBinding
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.ProfileViewModel
 
 class profileFragment : Fragment() {
@@ -51,16 +54,8 @@ class profileFragment : Fragment() {
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.confirm.setOnClickListener {
@@ -78,17 +73,10 @@ class profileFragment : Fragment() {
                 editorforname?.putString(Constants.WEIGHT_START, binding.weightText.text.toString())?.apply()
             }
             //todo посылать информацию в saveInstanceStateSettings
+            //навигация анимации
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
-
-            //анимация
-            binding.confirm.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.confirm, navigation, direction, navOptions, navigate)
         }
 
     }

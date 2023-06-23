@@ -10,11 +10,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.MainViewModel
 import com.example.healthcheck.viewmodel.ViewPagerAdapter
 import kotlinx.coroutines.launch
@@ -73,59 +76,30 @@ class mainFragment : Fragment() {
         }
 
         binding.settings.setOnClickListener {
+            //навигация и аниманции
             val direction = mainFragmentDirections.actionMainFragmentToSettingsFragment()
-
-            //аниманция
-            binding.settings.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.settings, navigation, direction, navOptions, navigate)
         }
 
         binding.profile.setOnClickListener {
+            //навигация и анимации
             val direction = mainFragmentDirections.actionMainFragmentToProfileFragment()
-
-            //анимация
-            binding.profile.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         binding.medicineiesBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToMedicinesFragment()
-
-            //анимация
-            binding.medicineiesBox.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.medicineiesBox, navigation, direction, navOptions, navigate)
         }
 
         binding.healthyEat.setOnClickListener {
+            //навигация и анимации
             val direction = mainFragmentDirections.actionMainFragmentToNutritionFragment()
-
-            //анимация
-            binding.healthyEat.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.healthyEat, navigation, direction, navOptions, navigate)
         }
 
     }

@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesEditBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.MedicinesEditViewModel
 import java.text.SimpleDateFormat
 
@@ -69,17 +72,10 @@ class MedicinesEditFragment : Fragment() {
         binding.totalMissedText.text = args.totalMissed.toString()
 
         binding.wentBack.setOnClickListener {
+            //навигация и анимации
             val direction = MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.finishCourseBtn.setOnClickListener {
@@ -102,17 +98,11 @@ class MedicinesEditFragment : Fragment() {
             viewModel.deleteMedicine(medicine)
             viewModel.deleteNotification(medicine)
 
+            //навигация и анимации
             val direction = MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.finishCourseBtn, navigation, direction, navOptions, navigate)
 
-            //анимация
-            binding.finishCourseBtn.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
         }
 
         binding.editBtn.setOnClickListener {
@@ -132,17 +122,9 @@ class MedicinesEditFragment : Fragment() {
                 args.totalDuractionOfCourse,
                 args.totalMissed,
             )
-
-            //анимация
-            binding.editBtn.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
-
+            //анимация и навигация
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.editBtn, navigation, direction, navOptions, navigate)
         }
 
     }

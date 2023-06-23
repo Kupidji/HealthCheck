@@ -9,12 +9,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.MedicinesActionListener
 import com.example.healthcheck.viewmodel.MedicinesRecyclerViewAdapter
 import com.example.healthcheck.viewmodel.MedicinesViewModel
@@ -94,46 +96,24 @@ class medicinesFragment : Fragment() {
         else binding.nothingThere.visibility = View.VISIBLE
 
         binding.wentBack.setOnClickListener {
+            //навигация и анимации
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToMainFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.profile.setOnClickListener {
+            //навигация и анимации
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToProfileFragment()
-
-            //анимация
-            binding.profile.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         binding.addNewMedicines.setOnClickListener {
+            //навигация и анимации
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToAddMedicinesFragment()
-
-            //анимация
-            binding.addNewMedicines.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
-
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.addNewMedicines, navigation, direction, navOptions, navigate)
         }
 
     }

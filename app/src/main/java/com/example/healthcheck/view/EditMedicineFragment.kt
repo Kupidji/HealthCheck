@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,6 +22,7 @@ import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentEditMedicineBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.RandomUtil
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -97,20 +100,11 @@ class editMedicineFragment : Fragment() {
         if (args.totalDuractionOfCourse != 0) {
             binding.durationOfCourseText.text = args.totalDuractionOfCourse.toString()
         }
-
+        //навигация и анимация
         binding.wentBack.setOnClickListener {
             val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
-
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.getFirstTime.setOnClickListener {
@@ -277,22 +271,14 @@ class editMedicineFragment : Fragment() {
                     )
                 }
                 Toast.makeText(this@editMedicineFragment.requireContext(), "Изменения в ${args.title} были внесены", Toast.LENGTH_SHORT).show()
-
+                //навигация и анимации
                 val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
-
-                //анимация
-                binding.saveChangeMedicineLayout.animate()
-                    .setDuration(25)
-                    .scaleX(0.95f)
-                    .scaleY(0.95f)
-                    .withEndAction {
-                        //навигация
-                        navigation.navigate(direction, navOptions)
-                    }
+                val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+                buttonChangeScreenAnimation(binding.saveChangeMedicineLayout, navigation, direction, navOptions, navigate)
             }
             else
                 binding.saveChangeMedicineLayout.animate()
-                    .setDuration(25)
+                    .setDuration(75)
                     .scaleX(0.95f)
                     .scaleY(0.95f)
                     .withEndAction {
