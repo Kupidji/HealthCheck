@@ -6,8 +6,10 @@
         android:innerRadiusRatio="2.4"
         android:shape="ring"
         android:thickness="6dp"
+        android:radius="16dp"
         android:useLevel="true">
 
         <solid android:color="#483867" />
+        <corners android:radius="16dp" />
     </shape>
 </rotate>

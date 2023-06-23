@@ -8,11 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSettingsBinding
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.ButtonPress.buttonPress
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.SettingsViewModel
 
 class settingsFragment : Fragment() {
@@ -46,36 +50,22 @@ class settingsFragment : Fragment() {
             .build()
 
         binding.wentBack.setOnClickListener {
+            //навигация и анимации
             val direction = settingsFragmentDirections.actionSettingsFragmentToMainFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.profile.setOnClickListener {
+            //навигация и анимации
             val direction = settingsFragmentDirections.actionSettingsFragmentToProfileFragment()
-
-            //анимация
-            binding.profile.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         binding.whiteThemeBtn.setOnClickListener {
             binding.whiteThemeBtn.animate()
-                .setDuration(25)
+                .setDuration(75)
                 .scaleX(0.95f)
                 .scaleY(0.95f)
                 .withEndAction {
@@ -91,7 +81,7 @@ class settingsFragment : Fragment() {
 
         binding.nightThemeBtn.setOnClickListener {
             binding.nightThemeBtn.animate()
-                .setDuration(25)
+                .setDuration(75)
                 .scaleX(0.95f)
                 .scaleY(0.95f)
                 .withEndAction {

@@ -10,12 +10,17 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStepsBinding
 import com.example.healthcheck.model.steps.entities.Steps
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.ButtonPress.buttonPress
+import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.StepsViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -94,14 +99,18 @@ class StepsFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
+            //навигация и анимации
             val direction = StepsFragmentDirections.actionStepsFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         //Переход на профиль
         binding.profile.setOnClickListener {
+            //навигация и анимации
             val direction = StepsFragmentDirections.actionStepsFragmentToProfileFragment()
-            navigation.navigate(direction, navOptions)
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         //Если фокус уйдет
@@ -147,6 +156,7 @@ class StepsFragment : Fragment() {
 
         //По нажатию кнопки делает ее выбранной, меняет текущую цель и Progress на 5000
         binding.st5000.setOnClickListener {
+            buttonPress(binding.st5000)
             viewModel.setCurrentTarget(5000)
             loadData(5000)
             changeProgressBar()
@@ -155,6 +165,7 @@ class StepsFragment : Fragment() {
 
         //По нажатию кнопки делает ее выбранной, меняет текущую цель и Progress на 10000
         binding.st10000.setOnClickListener {
+            buttonPress(binding.st10000)
             viewModel.setCurrentTarget(10000)
             loadData(10000)
             changeProgressBar()
@@ -163,6 +174,7 @@ class StepsFragment : Fragment() {
 
         //По нажатию кнопки делает ее выбранной, меняет текущую цель и Progress на 15000
         binding.st15000.setOnClickListener {
+            buttonPress(binding.st15000)
             viewModel.setCurrentTarget(15000)
             loadData(15000)
             changeProgressBar()
@@ -250,7 +262,6 @@ class StepsFragment : Fragment() {
                 setUnchoosenBtn(binding.st10000Text, binding.st10000)
                 setUnchoosenBtn(binding.st15000Text, binding.st15000)
                 binding.customTarget.setText("")
-
             }
 
             binding.st10000 -> {
@@ -322,13 +333,15 @@ class StepsFragment : Fragment() {
         viewModel.totalStepsForWeek.observe(this@StepsFragment.viewLifecycleOwner) {
             binding.countOfStepsForWeekText.setText("${it}")
             if (it != null) {
-                binding.stepsDiagram.progress = it
+                animateProgressBar(binding.stepsDiagram, it)
+                //binding.stepsDiagram.progress = it
             }
         }
         viewModel.totalStepsForMonth.observe(this@StepsFragment.viewLifecycleOwner) {
             binding.countOfStepsForMonthText.setText("${it}")
             if (it != null) {
-                binding.stepsDiagram1.progress = it
+                animateProgressBar(binding.stepsDiagram1, it)
+                //binding.stepsDiagram1.progress = it
             }
         }
 

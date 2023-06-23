@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavOptions
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentHeartBinding
 import com.example.healthcheck.model.heart.entities.Heart
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.HeartViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -75,32 +78,17 @@ class heartFragment : Fragment() {
                 )
                 viewModel.insertHeart(heart)
             }
-
+            //навигация и анимации
             val direction = heartFragmentDirections.actionHeartFragmentToMainFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
-        
+
+        //навигация и анимации
         binding.profile.setOnClickListener {
             val direction = heartFragmentDirections.actionHeartFragmentToProfileFragment()
-
-            //анимация
-            binding.profile.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
     }

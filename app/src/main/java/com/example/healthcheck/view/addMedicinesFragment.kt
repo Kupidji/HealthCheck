@@ -12,19 +12,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentAddMedicinesBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
-import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.RandomUtil
+import com.example.healthcheck.util.animations.ButtonPress.buttonPress
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.AddMedicinesViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class addMedicinesFragment : Fragment() {
 
@@ -61,17 +62,10 @@ class addMedicinesFragment : Fragment() {
             .build()
 
         binding.wentBack.setOnClickListener {
+            //навигация и анимации
             val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
-
-            //анимация
-            binding.wentBack.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
+            val navigate = {nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         binding.getFirstTime.setOnClickListener {
@@ -178,32 +172,14 @@ class addMedicinesFragment : Fragment() {
                     )
 
                     val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
-
-                    //анимация
-                    binding.saveMedicine.animate()
-                        .setDuration(25)
-                        .scaleX(0.95f)
-                        .scaleY(0.95f)
-                        .withEndAction {
-                            //навигация
-                            navigation.navigate(direction, navOptions)
-                            Toast.makeText(this@addMedicinesFragment.requireContext(), "Курс ${medicines.title} был создан", Toast.LENGTH_SHORT).show()
-                        }
+                    val navigate = {nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+                    buttonChangeScreenAnimation(binding.saveMedicine, navigation, direction, navOptions, navigate)
+                    Toast.makeText(this@addMedicinesFragment.requireContext(), "Курс ${medicines.title} был создан", Toast.LENGTH_SHORT).show()
                 }
 
             }
             else {
-                binding.saveMedicineLayout.animate()
-                    .setDuration(25)
-                    .scaleX(0.95f)
-                    .scaleY(0.95f)
-                    .withEndAction {
-                        binding.saveMedicineLayout.animate()
-                            .setDuration(25)
-                            .scaleX(1f)
-                            .scaleY(1f)
-                    }
-
+                buttonPress(binding.saveMedicineLayout)
                 binding.getTitle.error = "Обязательное поле"
             }
 

@@ -6,16 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.viewmodel.MainFragment1ViewModel
-import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMain1Binding
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import kotlin.math.abs
 
 class mainFragment1 : Fragment() {
 
@@ -46,106 +48,85 @@ class mainFragment1 : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
+        showDigits()
+
+        var sleepy = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L))
+        binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
+
+        binding.stepsBox.setOnClickListener {
+            //навигация и анимации
+            val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.stepsLayout, navigation, direction, navOptions, navigate)
+        }
+
+        binding.sleepBox.setOnClickListener {
+            //навигация и анимации
+            val direction = mainFragmentDirections.actionMainFragmentToSleepFragment()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.sleepLayout, navigation, direction, navOptions, navigate)
+        }
+
+        binding.kardioBox.setOnClickListener {
+            //навигация и анимации
+            val direction = mainFragmentDirections.actionMainFragmentToHeartFragment()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.kardioLayout, navigation, direction, navOptions, navigate)
+        }
+
+        binding.weightBox.setOnClickListener {
+            //навигация и анимации
+            val direction = mainFragmentDirections.actionMainFragmentToWeightFragment()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.weightLayout, navigation, direction, navOptions, navigate)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showAndStepsUpdateProgressBar()
+        showAndUpdateWeight()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.progressBarSteps.progress = 0
+        binding.progressBarWeight.progress = 0
+    }
+
+    private fun showAndStepsUpdateProgressBar() {
         var currentDate = Calendar.getInstance().timeInMillis
 
-//        viewModel.steps.observe(this@mainFragment1.viewLifecycleOwner) {
-//            binding.main1CountOfStepsDay.text = it.toString()
-//            if (it != null) {
-//                binding.progressBarSteps.progress = it
-//            }
-//        }
-
+        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
         viewModel.daySteps.observe(this@mainFragment1.viewLifecycleOwner) {
             if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
                 binding.main1CountOfStepsDay.text = "0"
                 binding.progressBarSteps.progress = 0
             }
             else {
-                binding.main1CountOfStepsDay.text = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0).toString()
-                binding.progressBarSteps.progress = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0)
+                animateProgressBar(binding.progressBarSteps, viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0))
             }
         }
-        binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
+    }
 
-        var sleepy = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L))
-        binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
-
-//        viewModel.weight.observe(this@mainFragment1.viewLifecycleOwner) {
-//            binding.weightCountText.text = String.format(Locale.US,"%.1f",it)
-//            if (it != null) {
-//                binding.progressBarWeight.progress = it.toInt()
-//            }
-//        }
-
+    private fun showAndUpdateWeight() {
+        var currentDate = Calendar.getInstance().timeInMillis
         viewModel.dayWeight.observe(this@mainFragment1.viewLifecycleOwner) {
             if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
                 binding.weightCountText.text = 0F.toString()
                 binding.progressBarWeight.progress = 0
             }
             else {
-                binding.weightCountText.text = String.format(Locale.US,"%.1f",viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
-                binding.progressBarWeight.progress = viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toInt()
+                animateProgressBar(binding.progressBarWeight, viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toInt())
             }
         }
         binding.progressBarWeight.max = 120
+    }
 
-        binding.stepsBox.setOnClickListener {
-            val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
-
-            //анимация
-            binding.stepsLayout.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
-        }
-
-        binding.sleepBox.setOnClickListener {
-            val direction = mainFragmentDirections.actionMainFragmentToSleepFragment()
-
-            //анимация
-            binding.sleepLayout.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
-        }
-
-        binding.kardioBox.setOnClickListener {
-            val direction = mainFragmentDirections.actionMainFragmentToHeartFragment()
-
-            //анимация
-            binding.kardioLayout.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
-        }
-
-        binding.weightBox.setOnClickListener {
-            val direction = mainFragmentDirections.actionMainFragmentToWeightFragment()
-
-            //анимация
-            binding.weightLayout.animate()
-                .setDuration(25)
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .withEndAction {
-                    //навигация
-                    navigation.navigate(direction, navOptions)
-                }
-
-        }
-
+    private fun showDigits() {
+        binding.main1CountOfStepsDay.text = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0).toString()
+        binding.weightCountText.text = String.format(Locale.US,"%.1f",viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
     }
 
 }

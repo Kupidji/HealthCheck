@@ -252,6 +252,7 @@
             android:max="100"
             android:progress="1"
             app:layout_constraintVertical_bias="0.7"
+            android:rotation="90"
             />
 
         <TextView
