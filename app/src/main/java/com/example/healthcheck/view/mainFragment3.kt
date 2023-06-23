@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Locale
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -72,7 +73,7 @@ class mainFragment3 : Fragment() {
             if (it != null) {
                 binding.progressBarWeight.progress = it.toInt()
             }
-            binding.textWeightMonth.text = String.format("%.1f", it)
+            binding.textWeightMonth.text = String.format(Locale.US,"%.1f", it)
         }
 
         binding.progressBarWeight.max = 120
