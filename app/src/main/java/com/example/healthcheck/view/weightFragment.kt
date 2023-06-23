@@ -249,10 +249,7 @@ class weightFragment : Fragment() {
                 var weight = binding.getWeight.text.toString().toFloat()
 
                 //Сохраняет вес в SharedPref
-                saveDataForWeight(
-                    binding.getWeight.text.toString().toFloat(),
-                    Constants.WEIGHT_FOR_DAY
-                )
+                saveDataForWeight(binding.getWeight.text.toString().toFloat(), Constants.WEIGHT_FOR_DAY)
 
                 //Обновляет вес в viewModel
                 viewModel.setCurrentWeightForDay(binding.getWeight.text.toString().toFloat())
@@ -269,6 +266,11 @@ class weightFragment : Fragment() {
                 binding.getWeight.setSelection(binding.getWeight.text.toString().length)
 
             }
+            else {
+                saveDataForWeight(binding.getWeight.text.toString().toFloat(), Constants.WEIGHT_FOR_DAY)
+                viewModel.setCurrentWeightForDay(binding.getWeight.text.toString().toFloat())
+                binding.getWeight.setSelection(binding.getWeight.text.toString().length)
+            }
 
             binding.getWeight.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
@@ -282,11 +284,9 @@ class weightFragment : Fragment() {
     private fun forMeasure(editText: EditText, constant : String, humanPart : MutableLiveData<Float?>) {
 
         if (editText.text.toString().toFloat() in 1.0..365.0) {
-            if (editText.text.toString().toFloat() != viewModel.settingsWeight.getFloat(constant, 0F)) {
-                saveDataForWeight(editText.text.toString().toFloat(), constant)
-                viewModel.changeMeasure(humanPart, constant)
-                editText.setSelection(editText.text.toString().length)
-            }
+            saveDataForWeight(editText.text.toString().toFloat(), constant)
+            viewModel.changeMeasure(humanPart, constant)
+            editText.setSelection(editText.text.toString().length)
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,0, 0)
         }
         else {
