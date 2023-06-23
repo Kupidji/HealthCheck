@@ -2,12 +2,14 @@ package com.example.healthcheck.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -15,6 +17,7 @@ import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
 import com.example.healthcheck.viewmodel.MainViewModel
 import com.example.healthcheck.viewmodel.ViewPagerAdapter
+import kotlinx.coroutines.launch
 
 class mainFragment : Fragment() {
 
@@ -71,22 +74,58 @@ class mainFragment : Fragment() {
 
         binding.settings.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToSettingsFragment()
-            navigation.navigate(direction, navOptions)
+
+            //аниманция
+            binding.settings.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.profile.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToProfileFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.profile.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.medicineiesBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToMedicinesFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.medicineiesBox.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
-        binding.healtyEatBox.setOnClickListener {
+        binding.healthyEat.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToNutritionFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.healthyEat.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
     }

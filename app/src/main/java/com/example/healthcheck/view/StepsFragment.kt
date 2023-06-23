@@ -71,24 +71,26 @@ class StepsFragment : Fragment() {
             if (it != 0) {
                 binding.getCountOfSteps.setText(it.toString())
             }
-            binding.dayCal.text = kKAL(85.1, it).toString() + " калорий"
+            binding.dayCal.text = kKAL(viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F), it).toString() + " калорий"
         }
 
+        //Каждый день обновляет поле шагов
         viewModel.day.observe(this@StepsFragment.viewLifecycleOwner) {
             if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
                 binding.getCountOfSteps.setText("")
+                saveDataForCountOfStepsOfDay(0)
+                viewModel.setCurrentStepsForDay(0)
             }
-            saveDataForCountOfStepsOfDay(0)
         }
 
         //Калории за неделю
         viewModel.totalStepsForWeek.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.weekCal.text = it?.let { it1 -> kKAL(85.1, it1).toString() } + " калорий"
+            binding.weekCal.text = it?.let { it1 -> kKAL(viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F), it1).toString() } + " калорий"
         }
 
         //Калории за месяц
         viewModel.totalStepsForMonth.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.monthCal.text = it?.let { it1 -> kKAL(85.1, it1).toString() } + " калорий"
+            binding.monthCal.text = it?.let { it1 -> kKAL(viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F), it1).toString() } + " калорий"
         }
 
         binding.wentBack.setOnClickListener {
@@ -102,6 +104,18 @@ class StepsFragment : Fragment() {
             navigation.navigate(direction, navOptions)
         }
 
+        //Если фокус уйдет
+        binding.getCountOfSteps.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus && binding.getCountOfSteps.text.isNotEmpty()) {
+                saveAfterKeyboardClosedOrLostFocusForSteps()
+            }
+        }
+        binding.customTarget.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus && binding.customTarget.text.isNotEmpty()) {
+                saveAfterKeyboardClosedOrLostFocusForTarget()
+            }
+        }
+
         //Если клавиатура убрана, а поля были заполнены новыми данными и фокус был на них, то
         //Сохраняет цель и количество шагов за день в SharedPref, меняет их во viewModel, загружает
         //В базу данных количество шагов и обновляет max и progress для progressBar
@@ -110,53 +124,23 @@ class StepsFragment : Fragment() {
             view.getWindowVisibleDisplayFrame(r)
             var heightDiff = view.rootView.height - r.height()
 
-            //TODO Когда пишешь цель которая на кнопке, то первый раз стирает, второй раз нет
-            //TODO Если при одной открытой клавиатуре записать и шаги и цель, то обновиться только то что последнее
             //Если клавиатура убрана
             if (heightDiff < 0.2 * view.rootView.height) {
 
-                if (binding.getCountOfSteps.text.isNotEmpty() &&
-                    binding.getCountOfSteps.text.toString().toInt() != viewModel.settings.getInt(Constants.STEPS_PER_DAY,0) &&
-                        binding.getCountOfSteps.isFocused) {
+                binding.getCountOfSteps.isCursorVisible = false
+                binding.customTarget.isCursorVisible = false
 
-                    //Сохраняет количество шагов в SharedPref
-                    saveDataForCountOfStepsOfDay(binding.getCountOfSteps.text.toString().toInt())
-
-                    //Обновляет количесто шагов в viewModel
-                    viewModel.setCurrentStepsForDay(binding.getCountOfSteps.text.toString().toInt())
-
-                    //Сохраняет или обновляет базу данных
-                    saveOrUpdateStepBd()
-
-                    //Обновляет количество шагов за неделю и за месяц и id date последней записи, так как обновилась база данных
-                    viewModel.setCurrentStepsForWeek()
-                    viewModel.setCurrentStepsForMonth()
-                    viewModel.setCurrentDate()
-                    viewModel.setCurrentId()
-
-                    //Убирает фокус
-                    binding.getCountOfSteps.clearFocus()
-
+                if (binding.getCountOfSteps.text.isNotEmpty() && binding.getCountOfSteps.isFocused) {
+                    saveAfterKeyboardClosedOrLostFocusForSteps()
+                }
+                if (binding.customTarget.text.isNotEmpty() && binding.customTarget.isFocused) {
+                    saveAfterKeyboardClosedOrLostFocusForTarget()
                 }
 
-                if (binding.customTarget.text.isNotEmpty() &&
-                    binding.customTarget.text.toString().toInt() != viewModel.settings.getInt(Constants.TARGET,10000) &&
-                        binding.customTarget.isFocused) {
-
-                    //Сохраняет цель в SharedPref
-                    saveDataForTarget(binding.customTarget.text.toString().toInt())
-
-                    //Обновляет цель во ViewModel
-                    viewModel.setCurrentTarget(binding.customTarget.text.toString().toInt())
-
-                    //Меняет progreeBar
-                    changeMaxOfProgressBar()
-                    changeProgressBar()
-
-                    //Убирает фокус
-                    binding.customTarget.clearFocus()
-                }
-
+            }
+            else {
+                binding.getCountOfSteps.isCursorVisible = true
+                binding.customTarget.isCursorVisible = true
             }
 
         }
@@ -166,6 +150,7 @@ class StepsFragment : Fragment() {
             viewModel.setCurrentTarget(5000)
             loadData(5000)
             changeProgressBar()
+            saveDataForTarget(5000)
         }
 
         //По нажатию кнопки делает ее выбранной, меняет текущую цель и Progress на 10000
@@ -173,6 +158,7 @@ class StepsFragment : Fragment() {
             viewModel.setCurrentTarget(10000)
             loadData(10000)
             changeProgressBar()
+            saveDataForTarget(10000)
         }
 
         //По нажатию кнопки делает ее выбранной, меняет текущую цель и Progress на 15000
@@ -180,6 +166,76 @@ class StepsFragment : Fragment() {
             viewModel.setCurrentTarget(15000)
             loadData(15000)
             changeProgressBar()
+            saveDataForTarget(15000)
+        }
+
+    }
+
+    //Сохраняет и изменяет введеную информацию для количества шагов
+    private fun saveAfterKeyboardClosedOrLostFocusForSteps() {
+
+        if (binding.getCountOfSteps.text.toString().toInt() in 1..200000) {
+
+            if (binding.getCountOfSteps.text.toString().toInt() != viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0)) {
+
+                //Сохраняет количество шагов в SharedPref
+                saveDataForCountOfStepsOfDay(binding.getCountOfSteps.text.toString().toInt())
+
+                //Обновляет количесто шагов в viewModel
+                viewModel.setCurrentStepsForDay(binding.getCountOfSteps.text.toString().toInt())
+
+                //Сохраняет или обновляет базу данных
+                saveOrUpdateStepBd()
+
+                //Обновляет количество шагов за неделю и за месяц и id date последней записи, так как обновилась база данных
+                viewModel.setCurrentStepsForWeek()
+                viewModel.setCurrentStepsForMonth()
+                viewModel.setCurrentDate()
+                viewModel.setCurrentId()
+
+                binding.getCountOfSteps.setSelection(binding.getCountOfSteps.text.toString().length)
+
+            }
+
+            binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+
+        } else {
+            binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
+        }
+
+    }
+
+    //Сохраняет и изменяет введеную информацию для цели
+    private fun saveAfterKeyboardClosedOrLostFocusForTarget() {
+
+        if (binding.customTarget.text.toString().toInt() in 1..1000000)
+        {
+            if (binding.customTarget.text.toString().toInt() != viewModel.settings.getInt(Constants.TARGET, 10000)) {
+
+                //Сохраняет цель в SharedPref
+                saveDataForTarget(binding.customTarget.text.toString().toInt())
+
+                //Обновляет цель во ViewModel
+                viewModel.setCurrentTarget(binding.customTarget.text.toString().toInt())
+
+                //Меняет progreeBar
+                changeMaxOfProgressBar()
+                changeProgressBar()
+
+                binding.customTarget.setSelection(binding.customTarget.text.toString().length)
+
+            }
+            else {
+                saveDataForTarget(binding.customTarget.text.toString().toInt())
+                viewModel.setCurrentTarget(binding.customTarget.text.toString().toInt())
+                binding.customTarget.setSelection(binding.customTarget.text.toString().length)
+            }
+
+            binding.customTarget.setCompoundDrawablesWithIntrinsicBounds(0, 0,0, 0)
+
+        }
+        else {
+            binding.customTarget.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.error_ic, 0)
         }
 
     }
@@ -224,8 +280,6 @@ class StepsFragment : Fragment() {
     //Экран закрыт -> сохраняет цель и количество шагов за день
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.currentGoal.value?.let { saveDataForTarget(it) }
-        viewModel.totalStepsForDay.value?.let { saveDataForCountOfStepsOfDay(it) }
     }
 
     //Выбранная кнопка
@@ -310,7 +364,7 @@ class StepsFragment : Fragment() {
     }
 
     //Формула для подсчета калорий
-    private fun kKAL(Mass: Double, Steps: Int): Int {
+    private fun kKAL(Mass: Float, Steps: Int): Int {
         return (1.15 * Mass * Steps * 80 / 100000).toInt()
     }
 
@@ -368,8 +422,6 @@ class StepsFragment : Fragment() {
             countOfSteps = binding.getCountOfSteps.text.toString().toInt(),
             date = currentDate,
         )
-
-        saveDataForCountOfStepsOfDay(binding.getCountOfSteps.text.toString().toInt())
 
         return ourSteps
     }

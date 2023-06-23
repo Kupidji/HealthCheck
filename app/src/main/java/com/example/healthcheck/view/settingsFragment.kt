@@ -47,32 +47,62 @@ class settingsFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             val direction = settingsFragmentDirections.actionSettingsFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.profile.setOnClickListener {
             val direction = settingsFragmentDirections.actionSettingsFragmentToProfileFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.profile.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.whiteThemeBtn.setOnClickListener {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            val settings = this@settingsFragment.requireContext().applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
-            val editor = settings.edit()
-            if (settings.getInt(Constants.CHOOSEN_THEME, 0) != AppCompatDelegate.MODE_NIGHT_NO) {
-                editor.putInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_NO)
-                    .apply()
-            }
+            binding.whiteThemeBtn.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    val settings = this@settingsFragment.requireContext().applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
+                    val editor = settings.edit()
+                    if (settings.getInt(Constants.CHOOSEN_THEME, 0) != AppCompatDelegate.MODE_NIGHT_NO) {
+                        editor.putInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_NO)
+                            .apply()
+                    }
+                }
         }
 
         binding.nightThemeBtn.setOnClickListener {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            val settings = this@settingsFragment.requireContext().applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
-            val editor = settings.edit()
-            if (settings.getInt(Constants.CHOOSEN_THEME, 0) != AppCompatDelegate.MODE_NIGHT_YES) {
-                editor.putInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES)
-                    .apply()
-            }
+            binding.nightThemeBtn.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    val settings = this@settingsFragment.requireContext().applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
+                    val editor = settings.edit()
+                    if (settings.getInt(Constants.CHOOSEN_THEME, 0) != AppCompatDelegate.MODE_NIGHT_YES) {
+                        editor.putInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES)
+                            .apply()
+                    }
+                }
         }
 
     }

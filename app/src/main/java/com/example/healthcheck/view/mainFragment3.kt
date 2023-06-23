@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Locale
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -72,29 +73,66 @@ class mainFragment3 : Fragment() {
             if (it != null) {
                 binding.progressBarWeight.progress = it.toInt()
             }
-            binding.textWeightMonth.text = String.format("%.1f", it)
+            binding.textWeightMonth.text = String.format(Locale.US,"%.1f", it)
         }
 
         binding.progressBarWeight.max = 120
 
         binding.stepsBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.stepsLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.sleepBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToSleepFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.sleepLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.kardioBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToHeartFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.kardioLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.weightBox.setOnClickListener {
             val direction = mainFragmentDirections.actionMainFragmentToWeightFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.weightLayout.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
+
         }
 
     }

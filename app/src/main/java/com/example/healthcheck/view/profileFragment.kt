@@ -51,7 +51,16 @@ class profileFragment : Fragment() {
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.confirm.setOnClickListener {
@@ -68,6 +77,18 @@ class profileFragment : Fragment() {
             if (binding.weightText.text.toString() != viewModel.settings.getString(Constants.WEIGHT_START, "")){
                 editorforname?.putString(Constants.WEIGHT_START, binding.weightText.text.toString())?.apply()
             }
+            //todo посылать информацию в saveInstanceStateSettings
+            val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
+
+            //анимация
+            binding.confirm.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
     }
