@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentProfileBinding
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.viewmodel.ProfileViewModel
 
 class profileFragment : Fragment() {
@@ -42,6 +43,11 @@ class profileFragment : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
+        binding.nameText.setText(viewModel.settings.getString(Constants.FIO, ""))
+        binding.ageText.setText(viewModel.settings.getString(Constants.AGE, ""))
+        binding.weightText.setText(viewModel.settings.getString(Constants.WEIGHT_START, ""))
+        binding.heightText.setText(viewModel.settings.getString(Constants.HEIGHT_START, ""))
+
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
@@ -58,6 +64,19 @@ class profileFragment : Fragment() {
         }
 
         binding.confirm.setOnClickListener {
+            val editorforname = viewModel.settings.edit()
+            if (binding.nameText.text.toString() != viewModel.settings.getString(Constants.FIO, "")){
+                editorforname?.putString(Constants.FIO, binding.nameText.text.toString())?.apply()
+            }
+            if (binding.ageText.text.toString() != viewModel.settings.getString(Constants.AGE, "")){
+                editorforname?.putString(Constants.AGE, binding.ageText.text.toString())?.apply()
+            }
+            if (binding.heightText.text.toString() != viewModel.settings.getString(Constants.HEIGHT_START, "")){
+                editorforname?.putString(Constants.HEIGHT_START, binding.heightText.text.toString())?.apply()
+            }
+            if (binding.weightText.text.toString() != viewModel.settings.getString(Constants.WEIGHT_START, "")){
+                editorforname?.putString(Constants.WEIGHT_START, binding.weightText.text.toString())?.apply()
+            }
             //todo посылать информацию в saveInstanceStateSettings
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
 

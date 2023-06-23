@@ -7,15 +7,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class StartFragment4ViewModel(application: Application) : AndroidViewModel(application) {
+class StartFragment6ViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
 
-    var fio = MutableLiveData<String?>()
-    var gender = MutableLiveData<String?>()
+    var heightStart = MutableLiveData<String?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)
     }
-
 }

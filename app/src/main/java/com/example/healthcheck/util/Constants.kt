@@ -46,5 +46,12 @@ object Constants {
     const val HIP_1 = "HIP_1"
     const val HIP_2 = "HIP_2"
     const val SHIN = "SHIN"
+
+    //Start
+    const val FIO = "FIO"
+    const val GENDER = "GENDER"
+    const val AGE = "AGE"
+    const val WEIGHT_START = "WEIGHT_START"
+    const val HEIGHT_START = "HEIGHT_START"
     ////////////////////
 }
