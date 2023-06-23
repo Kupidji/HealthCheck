@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.StartFragment5"
+    tools:context=".view.StartFragment6"
     android:background="@drawable/background"
     >
 
@@ -36,27 +36,27 @@
 
             <TextView
                 style="@style/zagalovok1"
-                android:id="@+id/quetion_years"
+                android:id="@+id/quetion_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/margin_main1"
                 app:layout_constraintEnd_toStartOf="@id/margin_main2"
                 android:layout_marginTop="60dp"
-                android:text="Выберите ваш возраст"
+                android:text="Выберите ваш рост"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/numPick_years"
+                android:id="@+id/numPick_height"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/quetion_years"
+                app:layout_constraintTop_toBottomOf="@id/quetion_height"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 android:layout_marginTop="20dp">
 
                 <ImageView
-                    android:id="@+id/numPick_box"
+                    android:id="@+id/numPick_box_height"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:src="@drawable/box"
@@ -67,61 +67,15 @@
                     />
 
                 <NumberPicker
-                    android:id="@+id/numberPicker0"
+                    android:id="@+id/numberPicker2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
                     android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="@id/numPick_box"
-                    app:layout_constraintTop_toTopOf="@id/numPick_box"
-                    app:layout_constraintBottom_toBottomOf="@id/numPick_box"
-                    app:layout_constraintEnd_toEndOf="@id/numPick_box"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/quetion_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/numPick_years"
-                app:layout_constraintStart_toEndOf="@id/margin_main1"
-                app:layout_constraintEnd_toStartOf="@id/margin_main2"
-                android:layout_marginTop="30dp"
-                android:text="Выберите ваш вес"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/numPick_weight"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/quetion_weight"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="20dp">
-
-                <ImageView
-                    android:id="@+id/numPick_box_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:src="@drawable/box"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
-                <NumberPicker
-                    android:id="@+id/numberPicker1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="@id/numPick_box_weight"
-                    app:layout_constraintTop_toTopOf="@id/numPick_box_weight"
-                    app:layout_constraintBottom_toBottomOf="@id/numPick_box_weight"
-                    app:layout_constraintEnd_toEndOf="@id/numPick_box_weight"
+                    app:layout_constraintStart_toStartOf="@id/numPick_box_height"
+                    app:layout_constraintTop_toTopOf="@id/numPick_box_height"
+                    app:layout_constraintBottom_toBottomOf="@id/numPick_box_height"
+                    app:layout_constraintEnd_toEndOf="@id/numPick_box_height"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
