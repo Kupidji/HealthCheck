@@ -50,7 +50,10 @@ class MainFragment3ViewModel(application: Application) : AndroidViewModel(applic
                 for (steps in list) {
                     sum += steps
                 }
-                return@async sum / 30
+                if (list.size != 0){
+                    sum /= list.size
+                }
+                return@async sum
             }
 
             result.await()

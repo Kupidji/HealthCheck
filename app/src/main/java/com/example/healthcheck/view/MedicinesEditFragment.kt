@@ -70,7 +70,16 @@ class MedicinesEditFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             val direction = MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.wentBack.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.finishCourseBtn.setOnClickListener {
@@ -94,7 +103,16 @@ class MedicinesEditFragment : Fragment() {
             viewModel.deleteNotification(medicine)
 
             val direction = MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.finishCourseBtn.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
         }
 
         binding.editBtn.setOnClickListener {
@@ -114,7 +132,17 @@ class MedicinesEditFragment : Fragment() {
                 args.totalDuractionOfCourse,
                 args.totalMissed,
             )
-            navigation.navigate(direction, navOptions)
+
+            //анимация
+            binding.editBtn.animate()
+                .setDuration(25)
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .withEndAction {
+                    //навигация
+                    navigation.navigate(direction, navOptions)
+                }
+
         }
 
     }
