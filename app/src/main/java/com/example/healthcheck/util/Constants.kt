@@ -46,6 +46,7 @@ object Constants {
     const val HIP_1 = "HIP_1"
     const val HIP_2 = "HIP_2"
     const val SHIN = "SHIN"
+    const val FAT = "FAT"
 
     //Start
     const val FIO = "FIO"

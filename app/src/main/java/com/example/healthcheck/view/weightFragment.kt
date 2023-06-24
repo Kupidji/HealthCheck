@@ -2,11 +2,11 @@ package com.example.healthcheck.view
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -20,12 +20,11 @@ import com.example.healthcheck.model.weight.entities.Weight
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.WeightViewModel
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.log10
 
 class weightFragment : Fragment() {
 
@@ -51,6 +50,18 @@ class weightFragment : Fragment() {
         val navigation = findNavController()
 
         var currentDate = Calendar.getInstance().timeInMillis
+        var weight = 0F
+        var height = 0F
+        var neck = 0F
+        var waist = 0F
+        var forearm = 0F
+        var wrist = 0F
+        var hips = 0F
+        var hip1 = 0F
+        var shin = 0F
+        var gender = true
+        var age = 0
+
 
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
@@ -92,9 +103,33 @@ class weightFragment : Fragment() {
             buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
-        viewModel.totalWeightForMonth.observe(this@weightFragment.viewLifecycleOwner) {
+        viewModel.heightStart.observe(this@weightFragment.viewLifecycleOwner) {
+            binding.heightInWeight.setText(String.format(Locale.US,"%.1f", it))
             if (it != null) {
-                binding.averageWeightForMonth.setText(String.format(Locale.US,"%.1f", it))
+                height = it
+            }
+        }
+
+        viewModel.weightStart.observe(this@weightFragment.viewLifecycleOwner) {
+            binding.averageWeightForMonth.setText(String.format(Locale.US,"%.1f", it))
+            if (it != null) {
+                binding.massIndex.setText(String.format(
+                    Locale.US,
+                    "%.1f",
+                    imt(it.toFloat(),binding.heightInWeight.text.toString().toFloat()))
+                )
+            }
+        }
+
+        viewModel.gender.observe(this@weightFragment.viewLifecycleOwner) {
+            if (it != null) {
+                gender = it
+            }
+        }
+
+        viewModel.age.observe(this@weightFragment.viewLifecycleOwner) {
+            if (it != null) {
+                age = it
             }
         }
 
@@ -102,30 +137,48 @@ class weightFragment : Fragment() {
             if (it != 0F) {
                 binding.neckneck.setText(String.format(Locale.US,"%.1f", it))
             }
+            if (it != null) {
+                neck = it
+            }
         }
         viewModel.waist.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != 0F) {
                 binding.waistwaist.setText(String.format(Locale.US,"%.1f", it))
+            }
+            if (it != null) {
+                waist = it
             }
         }
         viewModel.forearm.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != 0F) {
                 binding.forearmforearm.setText(String.format(Locale.US,"%.1f", it))
             }
+            if (it != null) {
+                forearm = it
+            }
         }
         viewModel.wrist.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != 0F) {
                 binding.wristwrist.setText(String.format(Locale.US,"%.1f", it))
+            }
+            if (it != null) {
+                wrist = it
             }
         }
         viewModel.hips.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != 0F) {
                 binding.hipships.setText(String.format(Locale.US,"%.1f", it))
             }
+            if (it != null) {
+                hips = it
+            }
         }
         viewModel.hip1.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != 0F) {
                 binding.hiphip1.setText(String.format(Locale.US,"%.1f", it))
+            }
+            if (it != null) {
+                hip1 = it
             }
         }
         viewModel.hip2.observe(this@weightFragment.viewLifecycleOwner) {
@@ -137,7 +190,44 @@ class weightFragment : Fragment() {
             if (it != 0F) {
                 binding.shinshin.setText(String.format(Locale.US,"%.1f", it))
             }
+            if (it != null) {
+                shin = it
+            }
         }
+
+        viewModel.fat.observe(this@weightFragment.viewLifecycleOwner) {
+            if (
+                binding.neckneck.text.isNotEmpty() &&
+                binding.waistwaist.text.isNotEmpty() &&
+                binding.forearmforearm.text.isNotEmpty() &&
+                binding.wristwrist.text.isNotEmpty() &&
+                binding.hipships.text.isNotEmpty() &&
+                binding.hiphip1.text.isNotEmpty() &&
+                binding.hiphip2.text.isNotEmpty() &&
+                binding.shinshin.text.isNotEmpty() &&
+                binding.percentMass.text.toString() != it.toString()
+            ) {
+                binding.percentMass.setText(
+                    String.format(
+                        Locale.US, "%.1f",
+                        fatTotal(
+                            viewModel.gender.value.toString().toBoolean(),
+                            viewModel.age.value.toString().toInt(),
+                            viewModel.weightStart.value.toString().toFloat(),
+                            viewModel.heightStart.value.toString().toFloat(),
+                            binding.waistwaist.text.toString().toFloat(),
+                            binding.wristwrist.text.toString().toFloat(),
+                            binding.hipships.text.toString().toFloat(),
+                            binding.hiphip1.text.toString().toFloat(),
+                            binding.forearmforearm.text.toString().toFloat(),
+                            binding.shinshin.text.toString().toFloat(),
+                            binding.neckneck.text.toString().toFloat()
+                        )
+                    )
+                )
+            }
+        }
+
 
         //Фокус прешел на другой edittext
         binding.getWeight.setOnFocusChangeListener { v, hasFocus ->
@@ -162,21 +252,11 @@ class weightFragment : Fragment() {
             //Если клавиатура убрана
             if (heightDiff < 0.2 * view.rootView.height) {
 
-                binding.getWeight.isCursorVisible = false
-                binding.neckneck.isCursorVisible = false
-                binding.waistwaist.isCursorVisible = false
-                binding.forearmforearm.isCursorVisible = false
-                binding.wristwrist.isCursorVisible = false
-                binding.hipships.isCursorVisible = false
-                binding.hiphip1.isCursorVisible = false
-                binding.hiphip2.isCursorVisible = false
-                binding.shinshin.isCursorVisible = false
+                forFocus(false)
 
                 if (binding.getWeight.text.isNotEmpty() && binding.getWeight.isFocused) {
-
                     //Для сохранения веса
                     forWeight()
-
                 }
 
                 //Для сохранения обхватов
@@ -207,15 +287,7 @@ class weightFragment : Fragment() {
 
             }
             else{
-                binding.getWeight.isCursorVisible = true
-                binding.neckneck.isCursorVisible = true
-                binding.waistwaist.isCursorVisible = true
-                binding.forearmforearm.isCursorVisible = true
-                binding.wristwrist.isCursorVisible = true
-                binding.hipships.isCursorVisible = true
-                binding.hiphip1.isCursorVisible = true
-                binding.hiphip2.isCursorVisible = true
-                binding.shinshin.isCursorVisible = true
+                forFocus(true)
             }
 
         }
@@ -225,6 +297,22 @@ class weightFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.totalWeightForDay.value?.let { saveDataForWeight(it, Constants.WEIGHT_FOR_DAY) }
+    }
+
+    private fun focusChange(editText: EditText, boolean: Boolean) {
+        editText.isCursorVisible = boolean
+    }
+
+    private fun forFocus(boolean: Boolean) {
+        focusChange(binding.getWeight, boolean)
+        focusChange(binding.neckneck, boolean)
+        focusChange(binding.waistwaist, boolean)
+        focusChange(binding.forearmforearm, boolean)
+        focusChange(binding.wristwrist, boolean)
+        focusChange(binding.hipships, boolean)
+        focusChange(binding.hiphip1, boolean)
+        focusChange(binding.hiphip2, boolean)
+        focusChange(binding.shinshin, boolean)
     }
 
     private fun saveDataForWeight(measure : Float, constant : String) {
@@ -237,8 +325,7 @@ class weightFragment : Fragment() {
 
     }
 
-    private fun afterFocusChangeForMeasure(editText: EditText, constant: String, humanPart: MutableLiveData<Float?>) {
-
+    private fun afterFocusChangeForMeasure(editText: EditText, constant: String, humanPart: MutableLiveData<Float>) {
         editText.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus && editText.text.isNotEmpty()) {
                 forMeasure(editText, constant, humanPart)
@@ -288,17 +375,58 @@ class weightFragment : Fragment() {
 
     }
 
-    private fun forMeasure(editText: EditText, constant : String, humanPart : MutableLiveData<Float?>) {
+    private fun forMeasure(editText: EditText, constant : String, humanPart : MutableLiveData<Float>) {
 
         if (editText.text.toString().toFloat() in 1.0..365.0) {
             saveDataForWeight(editText.text.toString().toFloat(), constant)
             viewModel.changeMeasure(humanPart, constant)
             editText.setSelection(editText.text.toString().length)
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,0, 0)
+            if (
+                binding.neckneck.text.isNotEmpty() &&
+                binding.waistwaist.text.isNotEmpty() &&
+                binding.forearmforearm.text.isNotEmpty() &&
+                binding.wristwrist.text.isNotEmpty() &&
+                binding.hipships.text.isNotEmpty() &&
+                binding.hiphip1.text.isNotEmpty() &&
+                binding.hiphip2.text.isNotEmpty() &&
+                binding.shinshin.text.isNotEmpty()
+            ) {
+                saveFat(binding.percentMass.text.toString().toFloat())
+                viewModel.changeFat(binding.percentMass.text.toString().toFloat())
+                if (binding.percentMass.text.toString() != viewModel.settingsWeight.getFloat(Constants.FAT, 0F).toString()) {
+                    binding.percentMass.setText(
+                        String.format(
+                            Locale.US, "%.1f",
+                            fatTotal(
+                                viewModel.gender.value.toString().toBoolean(),
+                                viewModel.age.value.toString().toInt(),
+                                viewModel.weightStart.value.toString().toFloat(),
+                                viewModel.heightStart.value.toString().toFloat(),
+                                binding.neckneck.text.toString().toFloat(),
+                                binding.wristwrist.text.toString().toFloat(),
+                                binding.hipships.text.toString().toFloat(),
+                                binding.hiphip1.text.toString().toFloat(),
+                                binding.forearmforearm.text.toString().toFloat(),
+                                binding.shinshin.text.toString().toFloat(),
+                                binding.neckneck.text.toString().toFloat()
+                            )
+                        )
+                    )
+                }
+            }
+
         }
         else {
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.error_ic, 0)
         }
+
+    }
+
+    private fun saveFat(res : Float) {
+
+        var editorForFat = viewModel.settingsWeight.edit()
+        editorForFat?.putFloat(Constants.FAT, res)?.apply()
 
     }
 
@@ -372,6 +500,43 @@ class weightFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun imt(Mass: Float, Height: Float): Float {
+        Log.d("-inf", "Imt: ${10000 * Mass / (Height * Height)} ")
+        Log.d("iii", "${Mass}")
+        return 10000 * Mass / (Height * Height)
+    }
+
+   private fun fatImt(gender : Boolean, age : Int, mass : Float, height : Float) : Float {
+       Log.d("-inf", "fatImt: ${(1.2 * imt(mass, height) + (0.23 * age) - (10.8 * 1) - 5.4).toFloat()} ")
+       return if (gender) {
+           (1.2 * imt(mass, height) + (0.23 * age) - (10.8 * 1) - 5.4).toFloat()
+       } else {
+           (1.2 * imt(mass, height) + (0.23 * age) - (10.8 * 0) - 5.4).toFloat()
+       }
+    }
+    private fun fatYMSA(gender: Boolean, weight: Float, waist : Float) : Float {
+        Log.d("-inf", "fatYMSA: ${((-98.42+(4.15*waist/2.54)-(0.082*(weight/0.454)))/(weight/0.454)*100).toFloat()} ")
+        return if (gender) {
+            ((-98.42+(4.15*waist/2.54)-(0.082*(weight/0.454)))/(weight/0.454)*100).toFloat()
+        } else {
+            ((-76.76+(4.15*waist/2.54)-(0.082*(weight/0.454)))/(weight/0.454)*100).toFloat()
+        }
+    }
+
+    private fun fatUSA(waist: Float, hips: Float, wrist: Float, hip1 : Float, gender: Boolean, forearm: Float, neck: Float, height: Float) : Float {
+        Log.d("-inf", "fatUSA: ${(495/(1.0324-0.19077* log10(waist-neck)+0.15456* log10(height)) - 450).toFloat()}")
+        return if (!gender) {
+            (495/(1.29579-0.35004* log10(waist+hips-neck)+0.221* log10(height)) - 450).toFloat()
+        } else {
+            (495/(1.0324-0.19077* log10(waist-neck)+0.15456* log10(height)) - 450).toFloat()
+        }
+    }
+
+    private fun fatTotal(gender : Boolean, age : Int, weight: Float, height: Float, waist: Float, wrist: Float, hips: Float, hip1: Float, forearm: Float, shin: Float, neck: Float) : Float {
+        Log.d("-inf", "fatTotal: ${(fatImt(gender, age, weight, height) + fatYMSA(gender, weight, waist) + fatUSA(waist, hips, wrist, hip1, gender, forearm, neck, height)) / 3} ")
+        return (fatImt(gender, age, weight, height) + fatYMSA(gender, weight, waist) + fatUSA(waist, hips, wrist, hip1, gender, forearm, neck, height)) / 3
     }
 
 }

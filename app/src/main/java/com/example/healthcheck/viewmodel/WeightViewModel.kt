@@ -25,25 +25,33 @@ import java.util.concurrent.TimeUnit
 class WeightViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settingsWeight : SharedPreferences
+    lateinit var settingsProfile : SharedPreferences
 
     var totalWeightForWeek = MutableLiveData<Float?>()
     var totalWeightForMonth = MutableLiveData<Float?>()
     var totalWeightForDay = MutableLiveData<Float>()
     var id = MutableLiveData<Int?>()
     var day = MutableLiveData<Long?>()
-    var neck = MutableLiveData<Float?>()
-    var waist = MutableLiveData<Float?>()
-    var forearm = MutableLiveData<Float?>()
-    var wrist = MutableLiveData<Float?>()
-    var hips = MutableLiveData<Float?>()
-    var hip1 = MutableLiveData<Float?>()
-    var hip2 = MutableLiveData<Float?>()
-    var shin = MutableLiveData<Float?>()
+    var neck = MutableLiveData<Float>()
+    var waist = MutableLiveData<Float>()
+    var forearm = MutableLiveData<Float>()
+    var wrist = MutableLiveData<Float>()
+    var hips = MutableLiveData<Float>()
+    var hip1 = MutableLiveData<Float>()
+    var hip2 = MutableLiveData<Float>()
+    var shin = MutableLiveData<Float>()
+    var age = MutableLiveData<Int>()
+    var gender = MutableLiveData<Boolean>()
+    var heightStart = MutableLiveData<Float>()
+    var weightStart = MutableLiveData<Float>()
+    var fat = MutableLiveData<Float>()
 
     private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
 
     init {
         settingsWeight = application.applicationContext.getSharedPreferences("weight", Context.MODE_PRIVATE)
+        settingsProfile = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)
+
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalWeightForWeek.value = getWeightFromDataForWeek(tripletsPool)
         }
@@ -59,6 +67,11 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
             day.value = getLastDateFromDataWeight(tripletsPool)
         }
 
+        age.value = settingsProfile.getInt(Constants.AGE, 0)
+        gender.value = settingsProfile.getBoolean(Constants.GENDER, true)
+        heightStart.value = settingsProfile.getFloat(Constants.HEIGHT_START, 0F)
+        weightStart.value = settingsProfile.getFloat(Constants.WEIGHT_START, 0F)
+
         totalWeightForDay.value = settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F)
         neck.value = settingsWeight.getFloat(Constants.NECK, 0F)
         waist.value = settingsWeight.getFloat(Constants.WAIST, 0F)
@@ -68,6 +81,7 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
         hip1.value = settingsWeight.getFloat(Constants.HIP_1, 0F)
         hip2.value = settingsWeight.getFloat(Constants.HIP_2, 0F)
         shin.value = settingsWeight.getFloat(Constants.SHIN, 0F)
+        fat.value = settingsWeight.getFloat(Constants.FAT, 0F)
     }
 
     suspend fun getWeightFromDataForWeek(sheduler : ThreadPoolExecutor) : Float = coroutineScope {
@@ -172,8 +186,12 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun changeMeasure(humanPart : MutableLiveData<Float?>, costant : String) {
+    fun changeMeasure(humanPart : MutableLiveData<Float>, costant : String) {
         humanPart.value = settingsWeight.getFloat(costant, 0F)
+    }
+
+    fun changeFat(res: Float) {
+        fat.value = res
     }
 
 }
