@@ -23,6 +23,7 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
     lateinit var settings : SharedPreferences
     lateinit var settingsForSleep : SharedPreferences
     lateinit var settingsForWeight : SharedPreferences
+    lateinit var settingsForCardio : SharedPreferences
 
     var daySteps = MutableLiveData<Long?>()
     var dayWeight = MutableLiveData<Long?>()
@@ -34,6 +35,7 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
         settingsForSleep = application.applicationContext.getSharedPreferences("sleep", Context.MODE_PRIVATE)
         settingsForWeight = application.applicationContext.getSharedPreferences("weight", Context.MODE_PRIVATE)
+        settingsForCardio = application.applicationContext.getSharedPreferences("cardio", Context.MODE_PRIVATE)
 
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             daySteps.value = getLastDateFromData(tripletsPool)

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentHeartBinding
 import com.example.healthcheck.model.heart.entities.Heart
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.HeartViewModel
 import kotlinx.coroutines.CoroutineStart
@@ -70,6 +71,7 @@ class heartFragment : Fragment() {
         binding.wentBack.setOnClickListener {
             if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
                 var currentTime = Calendar.getInstance().timeInMillis
+                saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
                 var heart = Heart(
                     binding.getUpPressure.text.toString().toInt(),
                     binding.getDownPressure.text.toString().toInt(),
@@ -90,6 +92,16 @@ class heartFragment : Fragment() {
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
+
+    }
+
+    private fun saveHeartSettings(heart : String) {
+
+        val editor = viewModel.settings.edit()
+        editor?.putString(
+            Constants.PRESSURE,
+            heart
+        )?.apply()
 
     }
 

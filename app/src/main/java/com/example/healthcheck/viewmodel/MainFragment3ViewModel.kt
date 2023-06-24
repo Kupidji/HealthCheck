@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit
 class MainFragment3ViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
+    lateinit var settingsForCardio : SharedPreferences
 
     var totalStepsForMonth = MutableLiveData<Int?>()
     var averageSleepMonth = MutableLiveData<String?>()
@@ -31,6 +32,7 @@ class MainFragment3ViewModel(application: Application) : AndroidViewModel(applic
 
     init {
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
+        settingsForCardio = application.applicationContext.getSharedPreferences("cardio", Context.MODE_PRIVATE)
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)

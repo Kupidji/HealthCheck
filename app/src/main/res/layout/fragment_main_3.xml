@@ -173,6 +173,7 @@
             />
 
         <TextView
+            android:id="@+id/cardioTitle"
             style="@style/zagalovok1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -191,6 +192,18 @@
             android:src="@drawable/heart_icon"
             android:layout_marginEnd="7dp"
             android:layout_marginTop="7dp"
+            />
+
+        <TextView
+            style="@style/zagalovok1"
+            android:id="@+id/daylyCardio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/cardioTitle"
+            app:layout_constraintTop_toTopOf="@id/cardioTitle"
+            app:layout_constraintBottom_toBottomOf="@id/kardioBox"
+            app:layout_constraintVertical_bias="0.65"
+            android:text="0/0"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

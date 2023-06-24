@@ -341,7 +341,7 @@
                     app:layout_constraintTop_toTopOf="@id/ur_data"
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toTopOf="@id/ur2"
-                    android:text="xxx"
+                    android:text="0"
                     android:gravity="center"
                     />
 
@@ -354,7 +354,7 @@
                     app:layout_constraintTop_toBottomOf="@id/ur1"
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toTopOf="@id/ur3"
-                    android:text="xxx"
+                    android:text="0"
                     android:gravity="center"
                     />
 
@@ -367,7 +367,7 @@
                     app:layout_constraintTop_toBottomOf="@id/ur2"
                     app:layout_constraintEnd_toEndOf="@id/ur_data"
                     app:layout_constraintBottom_toBottomOf="@id/ur_data"
-                    android:text="xxx"
+                    android:text="0"
                     android:gravity="center"
                     />
 
