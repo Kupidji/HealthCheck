@@ -179,14 +179,14 @@
                     />
 
                 <TextView
-                    style="@style/zagalovok1"
+                    style="@style/zagalovok2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/box1"
                     app:layout_constraintStart_toStartOf="@id/box1"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginStart="15dp"
-                    android:text="@string/sleep"
+                    android:text="@string/week"
                     android:textColor="@color/textcolor_white"
                     />
 
@@ -208,20 +208,8 @@
                     app:layout_constraintTop_toTopOf="@id/box1"
                     app:layout_constraintStart_toStartOf="@id/box1"
                     android:layout_marginTop="63dp"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="15dp"
                     android:text="0ч"
-                    android:textColor="@color/textcolor_white"
-                    />
-
-                <TextView
-                    style="@style/zagalovok3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/box1"
-                    app:layout_constraintStart_toStartOf="@id/box1"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginStart="11dp"
-                    android:text="@string/week"
                     android:textColor="@color/textcolor_white"
                     />
 
@@ -250,14 +238,14 @@
                     />
 
                 <TextView
-                    style="@style/zagalovok1"
+                    style="@style/zagalovok2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/box2"
                     app:layout_constraintStart_toStartOf="@id/box2"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginStart="15dp"
-                    android:text="@string/sleep"
+                    android:text="@string/month"
                     android:textColor="@color/textcolor_white"
                     />
 
@@ -279,20 +267,8 @@
                     app:layout_constraintTop_toTopOf="@id/box2"
                     app:layout_constraintStart_toStartOf="@id/box2"
                     android:layout_marginTop="63dp"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="15dp"
                     android:text="0ч"
-                    android:textColor="@color/textcolor_white"
-                    />
-
-                <TextView
-                    style="@style/zagalovok3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/box2"
-                    app:layout_constraintStart_toStartOf="@id/box2"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginStart="11dp"
-                    android:text="@string/month"
                     android:textColor="@color/textcolor_white"
                     />
 
