@@ -95,4 +95,5 @@
     <string name="save_edit">Сохранить изменения</string>
     <string name="edit">Редактировать</string>
     <string name="theme_choose">Выбор темы</string>
+    <string name="no_nearest_act">Пока нет действий</string>
 </resources>

@@ -9,10 +9,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStartBinding
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.StartViewModel
 import com.example.healthcheck.viewmodel.ViewPagerAdapter
 
@@ -37,6 +41,13 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         var currentPage = 0
 
         val viewPagerAdapter = ViewPagerAdapter(this, viewModel.fragList)
@@ -45,7 +56,9 @@ class StartFragment : Fragment() {
         val navigation = findNavController()
 
         binding.skipStart.setOnClickListener {
-            navigation.navigate(R.id.startFragment4)
+            val direction = StartFragmentDirections.actionStartFragmentToStartFragment4()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.skipStart, navigation, direction, navOptions, navigate)
         }
 
         binding.next.setOnClickListener {
