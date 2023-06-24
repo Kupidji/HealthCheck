@@ -194,36 +194,45 @@ class StepsFragment : Fragment() {
 
     //Сохраняет и изменяет введеную информацию для количества шагов
     private fun saveAfterKeyboardClosedOrLostFocusForSteps() {
+        if (binding.getCountOfSteps.text.isNotEmpty()) {
+            if (binding.getCountOfSteps.text.toString().toInt() in 1..200000) {
 
-        if (binding.getCountOfSteps.text.toString().toInt() in 1..200000) {
+                if (binding.getCountOfSteps.text.toString().toInt() != viewModel.settings.getInt(
+                        Constants.STEPS_PER_DAY,
+                        0
+                    )
+                ) {
 
-            if (binding.getCountOfSteps.text.toString().toInt() != viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0)) {
+                    //Сохраняет количество шагов в SharedPref
+                    saveDataForCountOfStepsOfDay(binding.getCountOfSteps.text.toString().toInt())
 
-                //Сохраняет количество шагов в SharedPref
-                saveDataForCountOfStepsOfDay(binding.getCountOfSteps.text.toString().toInt())
+                    //Обновляет количесто шагов в viewModel
+                    viewModel.setCurrentStepsForDay(binding.getCountOfSteps.text.toString().toInt())
 
-                //Обновляет количесто шагов в viewModel
-                viewModel.setCurrentStepsForDay(binding.getCountOfSteps.text.toString().toInt())
+                    //Сохраняет или обновляет базу данных
+                    saveOrUpdateStepBd()
 
-                //Сохраняет или обновляет базу данных
-                saveOrUpdateStepBd()
+                    //Обновляет количество шагов за неделю и за месяц и id date последней записи, так как обновилась база данных
+                    viewModel.setCurrentStepsForWeek()
+                    viewModel.setCurrentStepsForMonth()
+                    viewModel.setCurrentDate()
+                    viewModel.setCurrentId()
 
-                //Обновляет количество шагов за неделю и за месяц и id date последней записи, так как обновилась база данных
-                viewModel.setCurrentStepsForWeek()
-                viewModel.setCurrentStepsForMonth()
-                viewModel.setCurrentDate()
-                viewModel.setCurrentId()
+                    binding.getCountOfSteps.setSelection(binding.getCountOfSteps.text.toString().length)
 
-                binding.getCountOfSteps.setSelection(binding.getCountOfSteps.text.toString().length)
+                }
 
+                binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+
+            } else {
+                binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.error_ic,
+                    0
+                )
             }
-
-            binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-
-        } else {
-            binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
         }
-
     }
 
     //Сохраняет и изменяет введеную информацию для цели
