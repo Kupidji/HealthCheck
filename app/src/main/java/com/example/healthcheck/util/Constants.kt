@@ -53,5 +53,7 @@ object Constants {
     const val AGE = "AGE"
     const val WEIGHT_START = "WEIGHT_START"
     const val HEIGHT_START = "HEIGHT_START"
+
+    const val IS_FIRST_TIME = "IS_FIRST_TIME"
     ////////////////////
 }

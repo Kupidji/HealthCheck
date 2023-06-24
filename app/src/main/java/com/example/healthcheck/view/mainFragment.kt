@@ -1,13 +1,16 @@
 package com.example.healthcheck.view
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -17,10 +20,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
+import com.example.healthcheck.model.medicines.entities.Medicines
+import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.MainViewModel
 import com.example.healthcheck.viewmodel.ViewPagerAdapter
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class mainFragment : Fragment() {
 
@@ -55,6 +62,18 @@ class mainFragment : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
+        var settings =this@mainFragment.context?.applicationContext?.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
+        val editor = settings?.edit()
+
+        if (settings != null) {
+            if (settings.getBoolean(Constants.IS_FIRST_TIME, true)) {
+                navigation.navigate(R.id.startFragment)
+                editor?.putBoolean(
+                    Constants.IS_FIRST_TIME,
+                    false
+                )?.apply()
+            }
+        }
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -104,6 +123,11 @@ class mainFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        getNearestAction()
+    }
+
     private fun movePagesViewPager(position : Int) {
         when(position) {
             1 -> {
@@ -151,4 +175,50 @@ class mainFragment : Fragment() {
         view.setTextColor(ContextCompat.getColor(requireContext(), R.color.textcolor_unchoosen))
     }
 
+    fun getNearestAction() {
+        var nearestAction = Medicines(
+            id = 0,
+            title = "title",
+            dateStart = 0,
+            durationOfCourse = 0,
+            currentDayOfCourse = 0,
+            timeOfNotify1 = 0,
+            channelIDFirstTime = 0,
+            timeOfNotify2 = 0,
+            channelIDSecondTime = 0,
+            timeOfNotify3 = 0,
+            channelIDThirdTime = 0,
+            timeOfNotify4 = 0,
+            channelIDFourthTime = 0,
+            totalMissed = 0,
+        )
+        viewModel.getAllMedicines().observe(this.viewLifecycleOwner) { livedataList ->
+            var currentTime = Calendar.getInstance().timeInMillis
+            var tempNearestTime = 0L
+            var list: List<Medicines> = livedataList
+            for (medicine in list) {
+                var listOfNotigications = listOf(
+                    medicine.timeOfNotify1,
+                    medicine.timeOfNotify2,
+                    medicine.timeOfNotify3,
+                    medicine.timeOfNotify4,
+                )
+                for (action in listOfNotigications) {
+                    Log.d("example", "getNearestAction: сравнение ${currentTime} < ${action} > ${tempNearestTime}")
+                    if (currentTime < action && action > tempNearestTime) {
+                        Log.d("example", "зашел")
+                        tempNearestTime = action
+                        nearestAction = medicine
+                    }
+                }
+            }
+            if (tempNearestTime != 0L) {
+                binding.actions.text = nearestAction.title + " - " + SimpleDateFormat("HH:mm").format(tempNearestTime)
+            }
+            else {
+                binding.actions.setText(R.string.no_nearest_act)
+            }
+
+        }
+    }
 }

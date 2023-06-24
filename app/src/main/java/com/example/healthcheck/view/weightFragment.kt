@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -18,10 +17,9 @@ import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentWeightBinding
 import com.example.healthcheck.model.weight.entities.Weight
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.WeightViewModel
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -362,13 +360,13 @@ class weightFragment : Fragment() {
         viewModel.totalWeightForWeek.observe(this@weightFragment.viewLifecycleOwner) {
             binding.weekDiagramText.setText(String.format(Locale.US,"%.1f", it))
             if (it != null) {
-                binding.progressBarWeightWeek.progress = it.toInt()
+                animateProgressBar(binding.progressBarWeightWeek, it.toInt())
             }
         }
         viewModel.totalWeightForMonth.observe(this@weightFragment.viewLifecycleOwner) {
             binding.monthDiagramText.setText(String.format(Locale.US,"%.1f", it))
             if (it != null) {
-                binding.progressBarWeightMonth.progress = it.toInt()
+                animateProgressBar(binding.progressBarWeightMonth, it.toInt())
             }
         }
 

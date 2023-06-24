@@ -1,14 +1,8 @@
 package com.example.healthcheck.view
 
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
-import com.example.healthcheck.model.Repositories
+import androidx.appcompat.app.AppCompatActivity
 import com.example.healthcheck.databinding.ActivityMainBinding
-import com.example.healthcheck.util.Constants
-import java.util.Calendar
 
 ////////██╗░░██╗███████╗░█████╗░██╗░░░░░████████╗██╗░░██╗////////░█████╗░██╗░░██╗███████╗░█████╗░██╗░░██╗
 ////////██║░░██║██╔════╝██╔══██╗██║░░░░░╚══██╔══╝██║░░██║////////██╔══██╗██║░░██║██╔════╝██╔══██╗██║░██╔╝
@@ -18,7 +12,7 @@ import java.util.Calendar
 ////////╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝////////░╚════╝░╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░╚═╝
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +20,5 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-
     }
-
 }

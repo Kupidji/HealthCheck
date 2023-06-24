@@ -88,8 +88,8 @@ class mainFragment1 : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showAndStepsUpdateProgressBar()
-        showAndUpdateWeight()
+        showAndUpdateStepsProgressBar()
+        showAndUpdateWeightProgressBar()
     }
 
     override fun onPause() {
@@ -98,7 +98,7 @@ class mainFragment1 : Fragment() {
         binding.progressBarWeight.progress = 0
     }
 
-    private fun showAndStepsUpdateProgressBar() {
+    private fun showAndUpdateStepsProgressBar() {
         var currentDate = Calendar.getInstance().timeInMillis
 
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
@@ -113,7 +113,7 @@ class mainFragment1 : Fragment() {
         }
     }
 
-    private fun showAndUpdateWeight() {
+    private fun showAndUpdateWeightProgressBar() {
         var currentDate = Calendar.getInstance().timeInMillis
         viewModel.dayWeight.observe(this@mainFragment1.viewLifecycleOwner) {
             if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
