@@ -61,8 +61,9 @@ class StartFragment5 : Fragment() {
 
         binding.next.setOnClickListener {
             val editorforname = viewModel.settings.edit()
-            editorforname?.putString(Constants.AGE, binding.numberPicker0.value.toString())?.apply()
-            editorforname?.putString(Constants.WEIGHT_START, binding.numberPicker1.value.toString())?.apply()
+            editorforname?.putInt(Constants.AGE, binding.numberPicker0.value.toString().toInt())?.apply()
+            editorforname?.putFloat(Constants.WEIGHT_START, binding.numberPicker1.value.toString().toFloat())?.apply()
+
             val direction = StartFragment5Directions.actionStartFragment5ToStartFragment6()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)

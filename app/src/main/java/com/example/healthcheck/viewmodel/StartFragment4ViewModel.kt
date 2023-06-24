@@ -12,7 +12,7 @@ class StartFragment4ViewModel(application: Application) : AndroidViewModel(appli
     lateinit var settings : SharedPreferences
 
     var fio = MutableLiveData<String?>()
-    var gender = MutableLiveData<String?>()
+    var gender = MutableLiveData<Boolean?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)

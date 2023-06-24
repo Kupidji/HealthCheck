@@ -11,8 +11,8 @@ class StartFragment5ViewModel(application: Application) : AndroidViewModel(appli
 
     lateinit var settings : SharedPreferences
 
-    var age = MutableLiveData<String?>()
-    var weightStart = MutableLiveData<String?>()
+    var age = MutableLiveData<Int?>()
+    var weightStart = MutableLiveData<Float?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)

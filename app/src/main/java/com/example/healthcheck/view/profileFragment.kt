@@ -47,9 +47,9 @@ class profileFragment : Fragment() {
             .build()
 
         binding.nameText.setText(viewModel.settings.getString(Constants.FIO, ""))
-        binding.ageText.setText(viewModel.settings.getString(Constants.AGE, ""))
-        binding.weightText.setText(viewModel.settings.getString(Constants.WEIGHT_START, ""))
-        binding.heightText.setText(viewModel.settings.getString(Constants.HEIGHT_START, ""))
+        binding.ageText.setText(viewModel.settings.getInt(Constants.AGE, 0).toString())
+        binding.weightText.setText(viewModel.settings.getFloat(Constants.WEIGHT_START, 0F).toString())
+        binding.heightText.setText(viewModel.settings.getFloat(Constants.HEIGHT_START, 0F).toString())
 
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
@@ -63,14 +63,14 @@ class profileFragment : Fragment() {
             if (binding.nameText.text.toString() != viewModel.settings.getString(Constants.FIO, "")){
                 editorforname?.putString(Constants.FIO, binding.nameText.text.toString())?.apply()
             }
-            if (binding.ageText.text.toString() != viewModel.settings.getString(Constants.AGE, "")){
-                editorforname?.putString(Constants.AGE, binding.ageText.text.toString())?.apply()
+            if (binding.ageText.text.toString() != viewModel.settings.getInt(Constants.AGE, 0).toString()){
+                editorforname?.putInt(Constants.AGE, binding.ageText.text.toString().toInt())?.apply()
             }
-            if (binding.heightText.text.toString() != viewModel.settings.getString(Constants.HEIGHT_START, "")){
-                editorforname?.putString(Constants.HEIGHT_START, binding.heightText.text.toString())?.apply()
+            if (binding.heightText.text.toString() != viewModel.settings.getFloat(Constants.HEIGHT_START, 0F).toString()){
+                editorforname?.putFloat(Constants.HEIGHT_START, binding.heightText.text.toString().toFloat())?.apply()
             }
-            if (binding.weightText.text.toString() != viewModel.settings.getString(Constants.WEIGHT_START, "")){
-                editorforname?.putString(Constants.WEIGHT_START, binding.weightText.text.toString())?.apply()
+            if (binding.weightText.text.toString() != viewModel.settings.getFloat(Constants.WEIGHT_START, 0F).toString()){
+                editorforname?.putFloat(Constants.WEIGHT_START, binding.weightText.text.toString().toFloat())?.apply()
             }
             //todo посылать информацию в saveInstanceStateSettings
             //навигация анимации

@@ -40,6 +40,9 @@ class StartFragment4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        var gender = false
+
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
             .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
@@ -47,28 +50,27 @@ class StartFragment4 : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
-        var gender = ""
-
         val navigation = findNavController()
 
         if (binding.rbMale.isChecked) {
-            gender = "man"
+            gender = true
         }
 
         if (binding.rbFemale.isChecked) {
-            gender = "woman"
+            gender = false
         }
 
         binding.next.setOnClickListener {
-
             if (binding.getName.text.isNotEmpty()){
                 val editorforname = viewModel.settings.edit()
                 editorforname?.putString(Constants.FIO, binding.getName.text.toString())?.apply()
-                editorforname?.putString(Constants.GENDER, gender)?.apply()
+                editorforname?.putBoolean(Constants.GENDER, gender)?.apply()
+
                 val direction = StartFragment4Directions.actionStartFragment4ToStartFragment5()
                 val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
                 buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
             }
+            
             else{
                 binding.getName.error = "Поле пустое"
 
