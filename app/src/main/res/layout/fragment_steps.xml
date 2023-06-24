@@ -100,14 +100,14 @@
                     />
 
                 <TextView
-                    style="@style/zagalovok1"
+                    style="@style/zagalovok2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/stepsBox"
                     app:layout_constraintTop_toTopOf="@id/stepsBox"
-                    android:text="@string/steps"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginTop="7dp"
+                    android:text="@string/week"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     />
 
                 <ProgressBar
@@ -153,17 +153,6 @@
                     android:text="@string/total_steps"
                     />
 
-                <TextView
-                    style="@style/zagalovok3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsBox"
-                    app:layout_constraintStart_toStartOf="@id/stepsBox"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/week"
-                    />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -199,14 +188,14 @@
                     />
 
                 <TextView
-                    style="@style/zagalovok1"
+                    style="@style/zagalovok2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/stepsBox1"
                     app:layout_constraintTop_toTopOf="@id/stepsBox1"
-                    android:text="@string/steps"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginTop="7dp"
+                    android:text="@string/month"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     />
 
                 <ProgressBar
@@ -250,17 +239,6 @@
                     android:layout_marginTop="38dp"
                     android:gravity="center"
                     android:text="@string/total_steps"
-                    />
-
-                <TextView
-                    style="@style/zagalovok3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsBox1"
-                    app:layout_constraintStart_toStartOf="@id/stepsBox1"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/month"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
