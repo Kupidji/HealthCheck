@@ -36,16 +36,16 @@ class StartFragment4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var gender = ""
+        var gender = false
 
         val navigation = findNavController()
 
         if (binding.rbMale.isChecked) {
-            gender = "man"
+            gender = true
         }
 
         if (binding.rbFemale.isChecked) {
-            gender = "woman"
+            gender = false
         }
 
         binding.next.setOnClickListener {
@@ -53,7 +53,7 @@ class StartFragment4 : Fragment() {
             if (binding.getName.text.isNotEmpty()){
                 val editorforname = viewModel.settings.edit()
                 editorforname?.putString(Constants.FIO, binding.getName.text.toString())?.apply()
-                editorforname?.putString(Constants.GENDER, gender)?.apply()
+                editorforname?.putBoolean(Constants.GENDER, gender)?.apply()
                 navigation.navigate(com.example.healthcheck.R.id.startFragment5)
             }
             else{

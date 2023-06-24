@@ -50,8 +50,8 @@ class StartFragment5 : Fragment() {
 
         binding.next.setOnClickListener {
             val editorforname = viewModel.settings.edit()
-            editorforname?.putString(Constants.AGE, binding.numberPicker0.value.toString())?.apply()
-            editorforname?.putString(Constants.WEIGHT_START, binding.numberPicker1.value.toString())?.apply()
+            editorforname?.putInt(Constants.AGE, binding.numberPicker0.value.toString().toInt())?.apply()
+            editorforname?.putFloat(Constants.WEIGHT_START, binding.numberPicker1.value.toString().toFloat())?.apply()
             navigation.navigate(com.example.healthcheck.R.id.startFragment6)
         }
 

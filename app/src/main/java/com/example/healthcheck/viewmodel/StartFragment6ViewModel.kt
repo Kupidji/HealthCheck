@@ -11,7 +11,7 @@ class StartFragment6ViewModel(application: Application) : AndroidViewModel(appli
 
     lateinit var settings : SharedPreferences
 
-    var heightStart = MutableLiveData<String?>()
+    var heightStart = MutableLiveData<Float?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)

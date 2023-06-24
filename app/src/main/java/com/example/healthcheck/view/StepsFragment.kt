@@ -181,7 +181,16 @@ class StepsFragment : Fragment() {
             saveDataForTarget(15000)
         }
 
+//        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                val direction = StepsFragmentDirections.actionStepsFragmentToMainFragment()
+//                navigation.navigate(direction, navOptions)
+//            }
+//        })
+
     }
+
+
 
     //Сохраняет и изменяет введеную информацию для количества шагов
     private fun saveAfterKeyboardClosedOrLostFocusForSteps() {
@@ -291,6 +300,7 @@ class StepsFragment : Fragment() {
     //Экран закрыт -> сохраняет цель и количество шагов за день
     override fun onDestroyView() {
         super.onDestroyView()
+        saveAfterKeyboardClosedOrLostFocusForSteps()
     }
 
     //Выбранная кнопка
