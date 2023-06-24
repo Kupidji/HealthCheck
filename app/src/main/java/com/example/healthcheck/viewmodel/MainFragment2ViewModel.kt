@@ -33,7 +33,7 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
 
     init {
         settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
-        settingsForCardio = application.applicationContext.getSharedPreferences("cardio", Context.MODE_PRIVATE)
+        settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)

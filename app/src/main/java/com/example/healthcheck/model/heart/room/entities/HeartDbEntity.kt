@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.healthcheck.model.heart.entities.Heart
+import com.example.healthcheck.model.steps.entities.Steps
+import com.example.healthcheck.model.steps.room.entities.StepsDbEntity
 
 
 @Entity (
@@ -21,6 +23,7 @@ data class HeartDbEntity(
 ) {
 
     fun toHeart() : Heart = Heart(
+        id = id,
         pressureUp = pressureUp,
         pressureDown = pressureDown,
         pulse = pulse,
@@ -31,6 +34,14 @@ data class HeartDbEntity(
 
         fun fromHeart(heart : Heart) = HeartDbEntity(
             id = 0,
+            pressureUp = heart.pressureUp,
+            pressureDown = heart.pressureDown,
+            pulse = heart.pulse,
+            date = heart.date,
+        )
+
+        fun forUpdate(heart: Heart) : HeartDbEntity = HeartDbEntity(
+            id = heart.id,
             pressureUp = heart.pressureUp,
             pressureDown = heart.pressureDown,
             pulse = heart.pulse,
