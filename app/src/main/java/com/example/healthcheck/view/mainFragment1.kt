@@ -18,6 +18,7 @@ import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.butto
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class mainFragment1 : Fragment() {
 
@@ -50,7 +51,9 @@ class mainFragment1 : Fragment() {
 
         showDigits()
 
-        var sleepy = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L))
+        var GMT = getGMT()
+        var listGMT = GMT.split(":")
+        var sleepy = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L) - listGMT[0].toInt()*3600000)
         binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
 
         binding.stepsBox.setOnClickListener {
@@ -127,6 +130,17 @@ class mainFragment1 : Fragment() {
     private fun showDigits() {
         binding.main1CountOfStepsDay.text = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0).toString()
         binding.weightCountText.text = String.format(Locale.US,"%.1f",viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
+    }
+
+    fun getGMT() : String {
+        val tz = TimeZone.getDefault()
+        val gmt1 = TimeZone.getTimeZone(tz.id).getDisplayName(false, TimeZone.SHORT)
+        if (gmt1.length > 3){
+            return gmt1.slice(4..8)
+        }
+        else{
+            return "00:00"
+        }
     }
 
 }
