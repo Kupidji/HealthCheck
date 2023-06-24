@@ -54,6 +54,8 @@ class mainFragment2 : Fragment() {
             binding.sleepHours.text = it + "ч"
         }
 
+        binding.daylyCardio.text = viewModel.settingsForCardio.getString(Constants.PRESSURE, "0/0")
+
         binding.stepsBox.setOnClickListener {
             //навигация и анимации
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()

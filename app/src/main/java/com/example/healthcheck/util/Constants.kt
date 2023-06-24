@@ -56,5 +56,8 @@ object Constants {
     const val HEIGHT_START = "HEIGHT_START"
 
     const val IS_FIRST_TIME = "IS_FIRST_TIME"
+
+    //Cardio
+    const val PRESSURE = "PRESSURE"
     ////////////////////
 }
