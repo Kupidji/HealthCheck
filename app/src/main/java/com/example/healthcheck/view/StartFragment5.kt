@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
 import androidx.activity.OnBackPressedCallback
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentStart5Binding
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.StartFragment5ViewModel
 
 class StartFragment5 : Fragment() {
@@ -34,6 +38,13 @@ class StartFragment5 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         val navigation = findNavController()
 
         val numberPicker0: NumberPicker = binding.numberPicker0
@@ -52,7 +63,9 @@ class StartFragment5 : Fragment() {
             val editorforname = viewModel.settings.edit()
             editorforname?.putString(Constants.AGE, binding.numberPicker0.value.toString())?.apply()
             editorforname?.putString(Constants.WEIGHT_START, binding.numberPicker1.value.toString())?.apply()
-            navigation.navigate(com.example.healthcheck.R.id.startFragment6)
+            val direction = StartFragment5Directions.actionStartFragment5ToStartFragment6()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
         }
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {

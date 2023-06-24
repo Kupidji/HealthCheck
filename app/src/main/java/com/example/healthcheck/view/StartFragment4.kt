@@ -9,9 +9,13 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentStart4Binding
 import com.example.healthcheck.util.Constants
+import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.StartFragment4ViewModel
 
 
@@ -36,6 +40,13 @@ class StartFragment4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
         var gender = ""
 
         val navigation = findNavController()
@@ -54,7 +65,9 @@ class StartFragment4 : Fragment() {
                 val editorforname = viewModel.settings.edit()
                 editorforname?.putString(Constants.FIO, binding.getName.text.toString())?.apply()
                 editorforname?.putString(Constants.GENDER, gender)?.apply()
-                navigation.navigate(com.example.healthcheck.R.id.startFragment5)
+                val direction = StartFragment4Directions.actionStartFragment4ToStartFragment5()
+                val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+                buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
             }
             else{
                 binding.getName.error = "Поле пустое"
