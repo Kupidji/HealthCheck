@@ -24,8 +24,8 @@ import java.util.concurrent.TimeUnit
 
 class StepsViewModel(application: Application) : AndroidViewModel(application)  {
 
-    lateinit var settings : SharedPreferences
-    lateinit var settingsWeight : SharedPreferences
+    var settings : SharedPreferences
+    var settingsWeight : SharedPreferences
 
     var totalStepsForWeek = MutableLiveData<Int?>()
     var totalStepsForMonth = MutableLiveData<Int?>()

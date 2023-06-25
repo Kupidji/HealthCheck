@@ -59,5 +59,9 @@ object Constants {
 
     //Cardio
     const val PRESSURE = "PRESSURE"
+    const val CARDIO = "CARDIO"
+    const val UPPER = "UPPER"
+    const val LOWER = "LOWER"
+    const val PULSE = "PULSE"
     ////////////////////
 }

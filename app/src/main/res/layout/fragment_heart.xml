@@ -38,7 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.46"
+                app:layout_constraintGuide_percent="0.42"
                 />
 
             <ImageButton
@@ -108,7 +108,7 @@
                 app:layout_constraintTop_toTopOf="@id/pressure"
                 app:layout_constraintBottom_toBottomOf="@id/pressure"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 >
 
                 <ImageView
@@ -135,6 +135,7 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/up_pressure"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -147,7 +148,7 @@
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toTopOf="@id/input_up"
                 app:layout_constraintBottom_toBottomOf="@id/input_up"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 >
 
                 <ImageView
@@ -174,6 +175,7 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/down_pressure"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -222,6 +224,7 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/xx_per_min"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
