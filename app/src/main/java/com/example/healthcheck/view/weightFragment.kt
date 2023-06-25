@@ -112,6 +112,7 @@ class weightFragment : Fragment() {
                 binding.neckneck.setText(String.format(Locale.US,"%.1f", it))
             }
         }
+
         viewModel.waist.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != 0F) {
                 binding.waistwaist.setText(String.format(Locale.US,"%.1f", it))
