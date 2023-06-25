@@ -1,13 +1,18 @@
 package com.example.healthcheck.view
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -41,6 +46,7 @@ class settingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
+        val settings = this@settingsFragment.requireContext().applicationContext.getSharedPreferences(Constants.HEALTHY_EAT_VISIBILITY, Context.MODE_PRIVATE)
 
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
@@ -61,6 +67,21 @@ class settingsFragment : Fragment() {
             val direction = settingsFragmentDirections.actionSettingsFragmentToProfileFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
+        }
+
+        binding.switchHealtyEat.isChecked =
+            settings.getBoolean(Constants.HEALTHY_EAT_VISIBILITY, true)
+
+        binding.switchHealtyEat.setOnCheckedChangeListener { buttonView, isChecked ->
+            val editor = settings.edit()
+            if (isChecked) {
+                editor.putBoolean(Constants.HEALTHY_EAT_VISIBILITY, true)
+                    .apply()
+            }
+            else {
+                editor.putBoolean(Constants.HEALTHY_EAT_VISIBILITY, false)
+                    .apply()
+            }
         }
 
         binding.whiteThemeBtn.setOnClickListener {
@@ -95,6 +116,28 @@ class settingsFragment : Fragment() {
                 }
         }
 
+        binding.notificationProblemText.setOnClickListener {
+            openAppNotificationSettings(this.requireContext())
+        }
+
+    }
+
+    private fun openAppNotificationSettings(context: Context) {
+        val intent = Intent().apply {
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                    putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                }
+                else -> {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    addCategory(Intent.CATEGORY_DEFAULT)
+                    data = Uri.parse("package:" + context.packageName)
+                }
+            }
+        }
+
+        context.startActivity(intent)
     }
 
 }

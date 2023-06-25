@@ -19,6 +19,9 @@ object Constants {
 
     /////////////sharedPreferences
 
+    //Настройки
+    const val HEALTHY_EAT_VISIBILITY = "HEALTHY_EAT_VISIBILITY"
+
     //тема приложения
     const val CHOOSEN_THEME = "CHOOSEN_THEME"
 
