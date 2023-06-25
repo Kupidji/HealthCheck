@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="@id/photoThird"
         app:layout_constraintEnd_toEndOf="@id/photoThird"
         android:layout_marginTop="10dp"
-        android:text="Отслеживайте статистику, в графиках ваших показателей"
+        android:text="Отслеживайте статистику ваших показателей в удобных гафиках"
         />
 
 
