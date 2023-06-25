@@ -1,19 +1,15 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.medicines.viewmodel
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.MedicinesItemBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
 import java.text.SimpleDateFormat
-import java.util.Calendar
 
 class MedicinesRecyclerViewAdapter(
     private val medicinesActionListener: MedicinesActionListener

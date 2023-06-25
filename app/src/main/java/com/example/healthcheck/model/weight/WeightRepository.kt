@@ -1,7 +1,5 @@
 package com.example.healthcheck.model.weight
 
-import com.example.healthcheck.model.steps.entities.Steps
-import com.example.healthcheck.model.steps.room.entities.StepsDbEntity
 import com.example.healthcheck.model.weight.entities.Weight
 import com.example.healthcheck.model.weight.room.entities.WeightDbEntity
 

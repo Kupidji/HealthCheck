@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -13,13 +11,12 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.MedicinesActionListener
-import com.example.healthcheck.viewmodel.MedicinesRecyclerViewAdapter
-import com.example.healthcheck.viewmodel.MedicinesViewModel
+import com.example.healthcheck.model.medicines.viewmodel.MedicinesActionListener
+import com.example.healthcheck.model.medicines.viewmodel.MedicinesRecyclerViewAdapter
+import com.example.healthcheck.model.medicines.viewmodel.MedicinesViewModel
 
 class medicinesFragment : Fragment() {
 

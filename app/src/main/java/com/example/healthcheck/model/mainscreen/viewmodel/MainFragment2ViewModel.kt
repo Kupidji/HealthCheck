@@ -1,11 +1,10 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.mainscreen.viewmodel
 
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.util.Constants
@@ -22,38 +21,38 @@ import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
-class MainFragment3ViewModel(application: Application) : AndroidViewModel(application) {
+class MainFragment2ViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
     lateinit var settingsForCardio : SharedPreferences
 
-    var totalStepsForMonth = MutableLiveData<Int?>()
-    var averageSleepMonth = MutableLiveData<String?>()
-    var totalWeightForMonth = MutableLiveData<Float?>()
+    var totalStepsForWeek = MutableLiveData<Int?>()
+    var averageSleep = MutableLiveData<String?>()
+    var totalWeightForWeight = MutableLiveData<Float?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
         settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)
+            totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
         }
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            averageSleepMonth.value = getSleepFromDataForMonthAverage(tripletsPool)
+            averageSleep.value = getSleepFromDataForWeekAverage(tripletsPool)
         }
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalWeightForMonth.value = getWeightFromDataForMonth(tripletsPool)
+            totalWeightForWeight.value = getWeightFromDataForWeek(tripletsPool)
         }
     }
-    suspend fun getStepsFromDataForMonth(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
+    suspend fun getStepsFromDataForWeek(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
-                var list = Repositories.stepsRepository.getStepsForMonth()
+                var list = Repositories.stepsRepository.getStepsForWeek()
                 var sum = 0
                 for (steps in list) {
                     sum += steps
                 }
-                if (list.size != 0){
+                if (list.size != 0) {
                     sum /= list.size
                 }
                 return@async sum
@@ -63,10 +62,10 @@ class MainFragment3ViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    suspend fun getSleepFromDataForMonthAverage(sheduler : ThreadPoolExecutor) : String = coroutineScope {
+    suspend fun getSleepFromDataForWeekAverage(sheduler : ThreadPoolExecutor) : String = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
-                var list = Repositories.sleepRepository.getTimeOfSleepForMonth()
+                var list = Repositories.sleepRepository.getTimeOfSleepForWeek()
                 var sum = 0L
                 var GMT = getGMT()
                 var listGMT = GMT.split(":")
@@ -85,10 +84,10 @@ class MainFragment3ViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    suspend fun getWeightFromDataForMonth(sheduler : ThreadPoolExecutor) : Float = coroutineScope {
+    suspend fun getWeightFromDataForWeek(sheduler : ThreadPoolExecutor) : Float = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
-                var list = Repositories.weightRepository.getWeightForMonth()
+                var list = Repositories.weightRepository.getWeightForWeek()
                 var sum = 0F
                 for (steps in list) {
                     sum += steps

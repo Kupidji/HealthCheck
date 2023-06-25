@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavOptions
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -20,7 +19,7 @@ import com.example.healthcheck.databinding.FragmentHeartBinding
 import com.example.healthcheck.model.heart.entities.Heart
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.HeartViewModel
+import com.example.healthcheck.model.heart.viewmodel.HeartViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

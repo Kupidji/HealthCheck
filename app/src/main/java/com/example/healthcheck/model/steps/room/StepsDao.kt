@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.healthcheck.model.steps.room.entities.StepsDbEntity
-import com.example.healthcheck.model.steps.room.entities.countOfStepsTupel
 
 @Dao
 interface StepsDao {

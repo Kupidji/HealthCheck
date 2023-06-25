@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.heart.viewmodel
 
 import android.app.Application
 import android.content.Context

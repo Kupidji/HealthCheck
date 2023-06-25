@@ -6,11 +6,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.healthcheck.R
 import com.example.healthcheck.model.Repositories
-import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.model.medicines.receiver.MedicinesNotificationReceiver
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.view.MainActivity

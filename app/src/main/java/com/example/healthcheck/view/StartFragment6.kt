@@ -18,6 +18,7 @@ import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.StartFragment6ViewModel
 
+
 class StartFragment6 : Fragment() {
 
     companion object {

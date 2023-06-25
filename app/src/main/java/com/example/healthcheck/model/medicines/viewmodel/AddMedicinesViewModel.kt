@@ -1,13 +1,10 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.medicines.viewmodel
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.model.medicines.service.MedicinesNotificationService
-import com.example.healthcheck.util.Constants
 
 class AddMedicinesViewModel(application: Application) : AndroidViewModel(application) {
 

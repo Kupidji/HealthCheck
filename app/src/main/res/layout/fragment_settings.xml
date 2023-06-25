@@ -79,7 +79,7 @@
                 <ImageView
                     android:id="@+id/settingsBox"
                     android:layout_width="match_parent"
-                    android:layout_height="650dp"
+                    android:layout_height="500dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -117,10 +117,22 @@
                     android:layout_height="56dp"
                     app:layout_constraintStart_toEndOf="@id/whiteThemeBtn"
                     app:layout_constraintTop_toTopOf="@id/themeChooseText"
+                    app:layout_constraintEnd_toStartOf="@id/mobileBtn"
                     app:layout_constraintBottom_toBottomOf="@id/themeChooseText"
-                    android:layout_marginStart="15dp"
                     android:src="@drawable/night_theme"
                     android:background="@android:color/transparent"
+                    />
+
+                <ImageView
+                    android:id="@+id/mobileBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/nightThemeBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/nightThemeBtn"
+                    app:layout_constraintBottom_toBottomOf="@id/nightThemeBtn"
+                    android:src="@drawable/mobile_theme"
+                    android:layout_marginEnd="15dp"
                     />
 
                 <TextView

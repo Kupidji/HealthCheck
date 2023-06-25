@@ -3,11 +3,7 @@ package com.example.healthcheck.model.sleep.room.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import com.example.healthcheck.model.sleep.entities.Sleep
-import java.sql.Date
-import java.sql.Time
-import java.util.Calendar
 
 @Entity (
     tableName = "sleep"
