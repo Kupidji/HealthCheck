@@ -1,5 +1,6 @@
 package com.example.healthcheck.view
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -60,6 +61,13 @@ class StartFragment6 : Fragment() {
             var direction = StartFragment6Directions.actionStartFragment6ToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
+
+            var settings =this@StartFragment6.context?.applicationContext?.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
+            val editor = settings?.edit()
+            editor?.putBoolean(
+                Constants.IS_FIRST_TIME,
+                false
+            )?.apply()
         }
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {

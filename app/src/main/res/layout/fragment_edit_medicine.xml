@@ -13,7 +13,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -332,7 +333,7 @@
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintTop_toBottomOf="@id/durationOfCourseText"
                 android:layout_marginTop="5dp"
-                android:paddingBottom="85dp">
+                >
 
                 <EditText
                     style="@style/hint1"
@@ -351,43 +352,45 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/saveChangeMedicineLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/countOfDaysBox"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageButton
+                    android:id="@+id/saveChangeMedicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/button"
+                    />
+
+                <TextView
+                    style="@style/buttonTextStyle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/saveChangeMedicine"
+                    app:layout_constraintEnd_toEndOf="@id/saveChangeMedicine"
+                    app:layout_constraintTop_toTopOf="@id/saveChangeMedicine"
+                    app:layout_constraintBottom_toBottomOf="@id/saveChangeMedicine"
+                    android:text="@string/save_edit"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/saveChangeMedicineLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
-
-        <ImageButton
-            android:id="@+id/saveChangeMedicine"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/button"
-            />
-
-        <TextView
-            style="@style/buttonTextStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/saveChangeMedicine"
-            app:layout_constraintEnd_toEndOf="@id/saveChangeMedicine"
-            app:layout_constraintTop_toTopOf="@id/saveChangeMedicine"
-            app:layout_constraintBottom_toBottomOf="@id/saveChangeMedicine"
-            android:text="@string/save_edit"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

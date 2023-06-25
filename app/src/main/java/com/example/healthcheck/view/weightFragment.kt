@@ -307,7 +307,6 @@ class weightFragment : Fragment() {
         }
 
     }
-
     private fun forMeasure(editText: EditText, constant : String, humanPart : MutableLiveData<Float>) {
 
         if (editText.text.toString().toFloat() in 1.0..365.0) {

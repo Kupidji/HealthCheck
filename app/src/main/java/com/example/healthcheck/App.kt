@@ -58,14 +58,6 @@ class App: Application() {
 
     }
 
-//    var currentDay = Calendar.getInstance().timeInMillis
-//    var time = currentDay - medicine.dateStart
-//    if (time > (medicine.currentDayOfCourse * 86400000L)) {
-//        medicine.currentDayOfCourse++
-//        Repositories.medicinesRepository.updateMedicine(medicine)
-//        Log.d("MedicinesRecyclerView", "onBindViewHolder: обновил текущий день у ${medicine.title}")
-//    }
-
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
