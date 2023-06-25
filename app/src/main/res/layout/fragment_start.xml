@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/skip"
         android:background="@android:color/transparent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/skipStart"
         app:layout_constraintBottom_toTopOf="@id/circle2"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         />
 
     <ImageView

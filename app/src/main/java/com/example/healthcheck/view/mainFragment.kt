@@ -63,15 +63,11 @@ class mainFragment : Fragment() {
             .build()
 
         var settings =this@mainFragment.context?.applicationContext?.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
-        val editor = settings?.edit()
 
         if (settings != null) {
             if (settings.getBoolean(Constants.IS_FIRST_TIME, true)) {
                 navigation.navigate(R.id.startFragment)
-                editor?.putBoolean(
-                    Constants.IS_FIRST_TIME,
-                    false
-                )?.apply()
+
             }
         }
 

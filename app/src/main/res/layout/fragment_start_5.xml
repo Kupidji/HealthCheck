@@ -48,7 +48,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/numPick_years"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/quetion_years"
@@ -58,7 +58,7 @@
                 <ImageView
                     android:id="@+id/numPick_box"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="200dp"
                     android:src="@drawable/box"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/numPick_weight"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/quetion_weight"
@@ -104,7 +104,7 @@
                 <ImageView
                     android:id="@+id/numPick_box_weight"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="200dp"
                     android:src="@drawable/box"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

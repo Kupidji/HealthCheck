@@ -393,8 +393,10 @@ class weightFragment : Fragment() {
                 binding.hiphip2.text.isNotEmpty() &&
                 binding.shinshin.text.isNotEmpty()
             ) {
-                saveFat(binding.percentMass.text.toString().toFloat())
-                viewModel.changeFat(binding.percentMass.text.toString().toFloat())
+                if (binding.percentMass.text.isNotEmpty()) {
+                    saveFat(binding.percentMass.text.toString().toFloat())
+                    viewModel.changeFat(binding.percentMass.text.toString().toFloat())
+                }
                 if (binding.percentMass.text.toString() != viewModel.settingsWeight.getFloat(Constants.FAT, 0F).toString()) {
                     binding.percentMass.setText(
                         String.format(
@@ -414,6 +416,8 @@ class weightFragment : Fragment() {
                             )
                         )
                     )
+                    saveFat(binding.percentMass.text.toString().toFloat())
+                    viewModel.changeFat(binding.percentMass.text.toString().toFloat())
                 }
             }
 
