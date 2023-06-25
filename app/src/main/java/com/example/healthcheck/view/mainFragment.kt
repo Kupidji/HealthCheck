@@ -28,6 +28,7 @@ import com.example.healthcheck.viewmodel.ViewPagerAdapter
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import kotlin.math.abs
 
 class mainFragment : Fragment() {
 
@@ -198,24 +199,27 @@ class mainFragment : Fragment() {
         )
         viewModel.getAllMedicines().observe(this.viewLifecycleOwner) { livedataList ->
             var currentTime = Calendar.getInstance().timeInMillis
+            var tempMin = currentTime
             var tempNearestTime = 0L
             var list: List<Medicines> = livedataList
-            for (medicine in list) {
-                var listOfNotigications = listOf(
-                    medicine.timeOfNotify1,
-                    medicine.timeOfNotify2,
-                    medicine.timeOfNotify3,
-                    medicine.timeOfNotify4,
-                )
-                for (action in listOfNotigications) {
-                    Log.d("example", "getNearestAction: сравнение ${currentTime} < ${action} > ${tempNearestTime}")
-                    if (currentTime < action && action > tempNearestTime) {
-                        Log.d("example", "зашел")
-                        tempNearestTime = action
-                        nearestAction = medicine
-                    }
-                }
-            }
+               for (medicine in list) {
+                   var listOfNotigications = listOf(
+                       medicine.timeOfNotify1,
+                       medicine.timeOfNotify2,
+                       medicine.timeOfNotify3,
+                       medicine.timeOfNotify4,
+                   )
+
+                   for (action in listOfNotigications) {
+                       var tempTime = abs(currentTime - action)
+                       if (tempTime < tempMin) {
+                           tempMin = tempTime
+                           tempNearestTime = action
+                           nearestAction.title = medicine.title
+                       }
+                   }
+               }
+
             if (tempNearestTime != 0L) {
                 binding.actions.text = nearestAction.title + " - " + SimpleDateFormat("HH:mm").format(tempNearestTime)
             }

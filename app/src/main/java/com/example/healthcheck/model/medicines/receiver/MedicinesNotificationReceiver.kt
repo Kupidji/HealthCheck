@@ -5,11 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.healthcheck.model.Repositories
-import com.example.healthcheck.util.Constants
 import com.example.healthcheck.model.medicines.service.MedicinesNotificationService
+import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.Calendar
 
 class MedicinesNotificationReceiver : BroadcastReceiver() {
 
