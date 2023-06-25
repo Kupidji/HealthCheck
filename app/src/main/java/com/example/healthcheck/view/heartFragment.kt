@@ -72,41 +72,23 @@ class heartFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
-
-            if ((binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) ||
-                (binding.getUpPressure.text.isEmpty() && binding.getDownPressure.text.isEmpty() && binding.getPulse.text.isEmpty())) {
-
-                //навигация и анимации
-                val direction = heartFragmentDirections.actionHeartFragmentToMainFragment()
-                val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
-                buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
-                saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
-
-            }
-            else {
-                exit(binding.getUpPressure)
-                exit(binding.getDownPressure)
-                exit(binding.getPulse)
-            }
-
+            //Для главного экрана
+            saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+            //навигация и анимации
+            val direction = heartFragmentDirections.actionHeartFragmentToMainFragment()
+            val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
+            buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
         //навигация и анимации
         binding.profile.setOnClickListener {
-            if ((binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) ||
-                (binding.getUpPressure.text.isEmpty() && binding.getDownPressure.text.isEmpty() && binding.getPulse.text.isEmpty())) {
-
-                    val direction = heartFragmentDirections.actionHeartFragmentToProfileFragment()
-                    val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
-                    buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
-            } else {
-                exit(binding.getUpPressure)
-                exit(binding.getDownPressure)
-                exit(binding.getPulse)
-            }
+            //для главного экрана
+            saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+            //навигация и анимации
+            val direction = heartFragmentDirections.actionHeartFragmentToProfileFragment()
+            val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
+            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
-
-
 
         view.viewTreeObserver.addOnGlobalLayoutListener {
             val r = Rect()
@@ -115,53 +97,48 @@ class heartFragment : Fragment() {
 
             //Если клавиатура убрана
             if (heightDiff < 0.2 * view.rootView.height) {
-                binding.getPulse.hasFocus()
-                binding.getUpPressure.hasFocus()
-                binding.getDownPressure.hasFocus()
+
+                //Скрыть фокус
                 forFocus(false)
 
-
-                //
+                //сохранение в бд, когда все 3 заполнены
                 afterKeyboardIsDown(binding.getUpPressure, Constants.UPPER)
                 afterKeyboardIsDown(binding.getDownPressure, Constants.LOWER)
                 afterKeyboardIsDown(binding.getPulse, Constants.PULSE)
 
             } else {
+                //Показать фокус
                 forFocus(true)
             }
-
         }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        //Для глвного экрана
         saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
     }
 
+    //Клавиатура убрана
     private fun afterKeyboardIsDown(editText: EditText, key: String, ) {
 
         if (editText.text.isNotEmpty() && editText.isFocused) {
+            //Сохранение
             afterKeyboardClosedOrLostFocusForHeart(editText, key)
 
         }
         else if (editText.text.isEmpty() && editText.isFocused){
             saveSharedPref(key, 0)
-            allClear()
         }
         else {
+            //После изменения фокуса
             afterFocusChange(editText,key)
         }
 
     }
 
-    private fun allClear() {
-        if (binding.getUpPressure.text.isEmpty() && binding.getDownPressure.text.isEmpty() && binding.getPulse.text.isEmpty()) {
-            forClear(binding.getUpPressure)
-            forClear(binding.getDownPressure)
-            forClear(binding.getPulse)
-        }
-    }
-
+    //После изменения фокуса
     private fun afterFocusChange(editText: EditText, key: String) {
         editText.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus && editText.text.isNotEmpty()) {
@@ -170,21 +147,7 @@ class heartFragment : Fragment() {
         }
     }
 
-    private fun exit(editText: EditText) {
-
-        if (editText.text.isEmpty()) {
-            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
-        }
-
-    }
-
-    private fun forClear(editText: EditText) {
-
-        if (editText.text.isEmpty()) {
-            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        }
-    }
-
+    //Сохранение для главного экрана
     private fun saveHeartSettings(heart : String) {
 
         val editor = viewModel.settingsForHeart.edit()
@@ -192,6 +155,7 @@ class heartFragment : Fragment() {
 
     }
 
+    //Сохранение для sharedpref
     private fun saveSharedPref(key : String, value : Int) {
 
         val editor = viewModel.settingsForHeart.edit()
@@ -199,43 +163,48 @@ class heartFragment : Fragment() {
 
     }
 
+    //Клавиатура закрыта ил потерян фокус
     private fun afterKeyboardClosedOrLostFocusForHeart(editText: EditText, key: String) {
 
         if (editText.text.toString().toInt() in 30..220) {
 
             if (editText.text.toString().toInt() != viewModel.settingsForHeart.getInt(key, 0)) {
 
-                if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
+                //Если все 3 не пусты и значения в соответвющих пределах, то сохранение в бд
+                if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
+                    binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
+
+                    //Сохранение в бд
                     saveOrUpdateHeartBd()
+
+                    //Изменения показателей
                     viewModel.setCurrentPulse()
                     viewModel.setCurrentId()
                     viewModel.setCurrentDate()
                     viewModel.setCurrentLowerPressure()
                     viewModel.setCurrentUpperPressure()
+
+                    //Для главного экрана
                     saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
 
                 }
             }
 
-            //
             editText.setSelection(editText.text.toString().length)
 
-            //
+            //Сохранение соответствующего поля
             saveSharedPref(key, editText.text.toString().toInt())
 
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            binding.wentBack.isClickable = true
-            binding.profile.isClickable = true
 
         } else {
-            //
+            //Ошибка
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
-            binding.wentBack.isClickable = false
-            binding.profile.isClickable = false
         }
 
     }
 
+    //Дляя фокуса
     private fun forFocus(boolean: Boolean) {
         focusChange(binding.getUpPressure, boolean)
         focusChange(binding.getDownPressure, boolean)
