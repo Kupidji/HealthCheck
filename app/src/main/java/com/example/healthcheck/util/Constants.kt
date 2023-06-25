@@ -25,7 +25,11 @@ object Constants {
     //тема приложения
     const val CHOOSEN_THEME = "CHOOSEN_THEME"
 
+    //Первый раз
+    const val IS_FIRST_TIME = "IS_FIRST_TIME"
+
     //шаги
+    const val STEPS = "STEPS"
     const val TARGET = "TARGET" //цель для шагов
     const val STEPS_PER_DAY = "STEPS_PER_DAY" //за день
 
@@ -37,9 +41,11 @@ object Constants {
     const val LAST_UPDATE_DATE = "LAST_UPDATE_DATE"
 
     //сон
+    const val SLEEP = "SLEEP"
     const val TIME_SLEEP = "TIME_SLEEP"
 
     //Вес
+    const val WEIGHT = "WEIGHT"
     const val WEIGHT_FOR_DAY = "WEIGHT_FOR_DAY"
     const val NECK = "NECK"
     const val WAIST = "WAIST"
@@ -52,19 +58,19 @@ object Constants {
     const val FAT = "FAT"
 
     //Start
+    const val START = "START"
     const val FIO = "FIO"
     const val GENDER = "GENDER"
     const val AGE = "AGE"
     const val WEIGHT_START = "WEIGHT_START"
     const val HEIGHT_START = "HEIGHT_START"
 
-    const val IS_FIRST_TIME = "IS_FIRST_TIME"
-
     //Cardio
-    const val PRESSURE = "PRESSURE"
     const val CARDIO = "CARDIO"
+    const val PRESSURE = "PRESSURE"
     const val UPPER = "UPPER"
     const val LOWER = "LOWER"
     const val PULSE = "PULSE"
+
     ////////////////////
 }

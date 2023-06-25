@@ -32,9 +32,9 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
 
     private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
     init {
-        settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
-        settingsForSleep = application.applicationContext.getSharedPreferences("sleep", Context.MODE_PRIVATE)
-        settingsForWeight = application.applicationContext.getSharedPreferences("weight", Context.MODE_PRIVATE)
+        settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
+        settingsForSleep = application.applicationContext.getSharedPreferences(Constants.SLEEP, Context.MODE_PRIVATE)
+        settingsForWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
         settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
 
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {

@@ -4,10 +4,14 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.sleep.entities.Sleep
+import com.example.healthcheck.util.Constants
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -15,14 +19,32 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.TimeZone
+import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 class SleepViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
 
+    var lastId = MutableLiveData<Int?>()
+    var lastDate = MutableLiveData<Long?>()
+    var sleepForWeek = MutableLiveData<String?>()
+    var sleepForMonth = MutableLiveData<String?>()
+    var averageSleepForMonth = MutableLiveData<String?>()
+    var averageSleepForWeek = MutableLiveData<String?>()
+
+    private val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
+
     init {
-        settings = application.applicationContext.getSharedPreferences("sleep", Context.MODE_PRIVATE)
+        settings = application.applicationContext.getSharedPreferences(Constants.SLEEP, Context.MODE_PRIVATE)
+
+        setCurrentId()
+        setCurrentDate()
+        setCurrentSleepMonth()
+        setCurrentAverageSleepMonth()
+        setCurrentSleepWeek()
+        setCurrentAverageSleepWeek()
     }
 
     suspend fun getSleepFromDataForWeek(sheduler : ThreadPoolExecutor) : String = coroutineScope {
@@ -83,6 +105,34 @@ class SleepViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    suspend fun getLastIdFromData(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.sleepRepository.getTimeOfSleepForDay()
+                var lastId = 0
+                for (sleep in list) {
+                    lastId = sleep.id
+                }
+                return@async lastId
+            }
+            result.await()
+        }
+    }
+
+    suspend fun getLastDateFromData(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
+        withContext(sheduler.asCoroutineDispatcher()) {
+            var result = async {
+                var list = Repositories.sleepRepository.getTimeOfSleepForDay()
+                var lastDate = 0L
+                for (sleep in list) {
+                    lastDate = sleep.date
+                }
+                return@async lastDate
+            }
+            result.await()
+        }
+    }
+
     suspend fun getSleepFromDataForWeekAverage(sheduler : ThreadPoolExecutor) : String = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
@@ -133,6 +183,12 @@ class SleepViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateSleep(sleep: Sleep) {
+        viewModelScope.launch {
+            Repositories.sleepRepository.updateTimeOfSleep(sleep)
+        }
+    }
+
     fun getGMT() : String {
         val tz = TimeZone.getDefault()
         val gmt1 = TimeZone.getTimeZone(tz.id).getDisplayName(false, TimeZone.SHORT)
@@ -143,6 +199,42 @@ class SleepViewModel(application: Application) : AndroidViewModel(application) {
             return "00:00"
         }
 
+    }
+
+    fun setCurrentId() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            lastId.value = getLastIdFromData(tripletsPool)
+        }
+    }
+
+    fun setCurrentDate() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            lastDate.value = getLastDateFromData(tripletsPool)
+        }
+    }
+
+    fun setCurrentSleepWeek() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            sleepForWeek.value = getSleepFromDataForWeek(tripletsPool)
+        }
+    }
+
+    fun setCurrentSleepMonth() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            sleepForMonth.value = getSleepFromDataForMonth(tripletsPool)
+        }
+    }
+
+    fun setCurrentAverageSleepMonth() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            averageSleepForMonth.value = getSleepFromDataForMonthAverage(tripletsPool)
+        }
+    }
+
+    fun setCurrentAverageSleepWeek() {
+        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
+            averageSleepForWeek.value = getSleepFromDataForWeekAverage(tripletsPool)
+        }
     }
 
 }
