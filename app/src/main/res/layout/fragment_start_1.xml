@@ -10,13 +10,17 @@
 
     <ImageView
         android:id="@+id/photoFirst"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/start_first"
+        android:src="@drawable/screen1"
         android:background="@android:color/transparent"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:adjustViewBounds="true"
         />
 
     <TextView
@@ -27,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/photoFirst"
         app:layout_constraintStart_toStartOf="@id/photoFirst"
         app:layout_constraintEnd_toEndOf="@id/photoFirst"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="10dp"
         android:text="Следите за самыми важными показателями вашего здоровья"
         />
 

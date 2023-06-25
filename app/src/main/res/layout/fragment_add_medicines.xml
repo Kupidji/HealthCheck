@@ -6,14 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.addMedicinesFragment"
     android:background="@drawable/background">
-    
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:fillViewport="true">
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,145 +26,135 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="15dp"
-                />
+                app:layout_constraintGuide_begin="15dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/margin_margin_medicines2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="15dp"
-                />
+                app:layout_constraintGuide_end="15dp" />
 
             <ImageButton
                 android:id="@+id/wentBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/arrow_left"
-                android:background="@android:color/transparent"
                 android:layout_marginTop="30dp"
-                />
+                android:background="@android:color/transparent"
+                android:src="@drawable/arrow_left"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/profile"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:src="@drawable/profile"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                />-->
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/profile"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                android:src="@drawable/profile"-->
+            <!--                android:background="@android:color/transparent"-->
+            <!--                android:layout_marginTop="30dp"-->
+            <!--                />-->
 
             <TextView
-                style="@style/zagalovok1"
                 android:id="@+id/settingsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintTop_toTopOf="@id/wentBack"
-                app:layout_constraintBottom_toBottomOf="@id/wentBack"
-                android:text="@string/preparations"
-                />
-            
-            <TextView
                 style="@style/zagalovok1"
-                android:id="@+id/pillsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/preparations"
+                app:layout_constraintBottom_toBottomOf="@id/wentBack"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintTop_toBottomOf="@id/wentBack"
+                app:layout_constraintTop_toTopOf="@id/wentBack" />
+
+            <TextView
+                android:id="@+id/pillsText"
+                style="@style/zagalovok1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="@string/pills"
-                />
-            
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/wentBack" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/titleBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintTop_toBottomOf="@id/pillsText"
-                android:layout_marginTop="5dp">
-                
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/pillsText">
+
                 <EditText
-                    style="@style/hint1"
                     android:id="@+id/getTitle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/hint1"
                     android:layout_width="match_parent"
                     android:layout_height="77dp"
                     android:background="@drawable/box"
                     android:hint="@string/title"
-                    android:paddingStart="10dp"
                     android:inputType="textCapSentences"
+                    android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/zagalovok1"
                 android:id="@+id/remindersText"
+                style="@style/zagalovok1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintTop_toBottomOf="@id/titleBox"
                 android:layout_marginTop="10dp"
                 android:text="@string/reminders"
-                />
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/titleBox" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/firstTimeBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintTop_toBottomOf="@id/remindersText"
-                android:layout_marginTop="5dp">
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/remindersText">
 
                 <TextView
-                    style="@style/hint1"
                     android:id="@+id/getFirstTime"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
                     android:background="@drawable/box"
+                    android:gravity="center_vertical"
                     android:hint="@string/first_rem"
                     android:paddingStart="30dp"
-                    android:gravity="center_vertical"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/cloak"
                     android:layout_marginStart="10dp"
-                    />
+                    android:src="@drawable/cloak"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/deleteFirstTime"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/delete"
                     android:visibility="gone"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,48 +162,45 @@
                 android:id="@+id/secondTimeBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintTop_toBottomOf="@id/firstTimeBox"
                 android:layout_marginTop="10dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/firstTimeBox">
 
                 <TextView
-                    style="@style/hint1"
                     android:id="@+id/getSecondTime"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
                     android:background="@drawable/box"
+                    android:gravity="center_vertical"
                     android:hint="@string/second_rem"
                     android:paddingStart="30dp"
-                    android:gravity="center_vertical"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/cloak"
                     android:layout_marginStart="10dp"
-                    />
+                    android:src="@drawable/cloak"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/deleteSecondTime"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/delete"
                     android:visibility="gone"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -219,48 +208,45 @@
                 android:id="@+id/thirdTimeBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintTop_toBottomOf="@id/secondTimeBox"
                 android:layout_marginTop="10dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/secondTimeBox">
 
                 <TextView
-                    style="@style/hint1"
                     android:id="@+id/getThirdTime"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
                     android:background="@drawable/box"
+                    android:gravity="center_vertical"
                     android:hint="@string/third_rem"
                     android:paddingStart="30dp"
-                    android:gravity="center_vertical"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/cloak"
                     android:layout_marginStart="10dp"
-                    />
+                    android:src="@drawable/cloak"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/deleteThirdTime"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/delete"
                     android:visibility="gone"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -268,126 +254,123 @@
                 android:id="@+id/fourthTimeBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintTop_toBottomOf="@id/thirdTimeBox"
                 android:layout_marginTop="10dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/thirdTimeBox">
 
                 <TextView
-                    style="@style/hint1"
                     android:id="@+id/getFourthTime"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    style="@style/hint1"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
                     android:background="@drawable/box"
+                    android:gravity="center_vertical"
                     android:hint="@string/fourth_rem"
                     android:paddingStart="30dp"
-                    android:gravity="center_vertical"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/cloak"
                     android:layout_marginStart="10dp"
-                    />
+                    android:src="@drawable/cloak"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/deleteFourthTime"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/delete"
                     android:visibility="gone"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/zagalovok1"
                 android:id="@+id/durationOfCourseText"
+                style="@style/zagalovok1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintTop_toBottomOf="@id/fourthTimeBox"
                 android:layout_marginTop="10dp"
                 android:text="@string/duraction_of_course"
-                />
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/fourthTimeBox" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/countOfDaysBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintTop_toBottomOf="@id/durationOfCourseText"
                 android:layout_marginTop="5dp"
-                android:paddingBottom="85dp">
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/durationOfCourseText">
 
                 <EditText
-                    style="@style/hint1"
                     android:id="@+id/getCountOfDays"
+                    style="@style/hint1"
                     android:layout_width="match_parent"
                     android:layout_height="77dp"
+                    android:background="@drawable/box"
+                    android:hint="@string/input_count_of_days"
+                    android:inputType="number"
+                    android:paddingStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/saveMedicineLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/countOfDaysBox"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                >
+
+                <ImageButton
+                    android:id="@+id/saveMedicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:background="@drawable/box"
-                    android:hint="@string/input_count_of_days"
-                    android:paddingStart="10dp"
-                    android:inputType="number"
+                    android:background="@drawable/button"
+                    />
+
+                <TextView
+                    style="@style/buttonTextStyle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/saveMedicine"
+                    app:layout_constraintEnd_toEndOf="@id/saveMedicine"
+                    app:layout_constraintTop_toTopOf="@id/saveMedicine"
+                    app:layout_constraintBottom_toBottomOf="@id/saveMedicine"
+                    android:text="@string/save"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        
+
     </ScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/saveMedicineLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
-
-        <ImageButton
-            android:id="@+id/saveMedicine"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/button"
-            />
-
-        <TextView
-            style="@style/buttonTextStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/saveMedicine"
-            app:layout_constraintEnd_toEndOf="@id/saveMedicine"
-            app:layout_constraintTop_toTopOf="@id/saveMedicine"
-            app:layout_constraintBottom_toBottomOf="@id/saveMedicine"
-            android:text="@string/save"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    
 </androidx.constraintlayout.widget.ConstraintLayout>
