@@ -11,11 +11,10 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesEditBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.MedicinesEditViewModel
+import com.example.healthcheck.model.medicines.viewmodel.MedicinesEditViewModel
 import java.text.SimpleDateFormat
 
 class MedicinesEditFragment : Fragment() {

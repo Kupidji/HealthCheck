@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.example.healthcheck.viewmodel.MainFragment3ViewModel
+import com.example.healthcheck.model.mainscreen.viewmodel.MainFragment3ViewModel
 import com.example.healthcheck.databinding.FragmentMain3Binding
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar

@@ -1,13 +1,11 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.medicines.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.model.medicines.service.MedicinesNotificationService
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class EditMedicineViewModel(application: Application) : AndroidViewModel(application) {

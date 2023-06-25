@@ -2,7 +2,6 @@ package com.example.healthcheck.view
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,14 +16,13 @@ import com.example.healthcheck.databinding.FragmentSleepBinding
 import com.example.healthcheck.model.sleep.entities.Sleep
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.SleepViewModel
+import com.example.healthcheck.model.sleep.viewmodel.SleepViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.TimeZone
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit

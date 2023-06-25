@@ -2,7 +2,6 @@ package com.example.healthcheck.model.steps
 
 import com.example.healthcheck.model.steps.entities.Steps
 import com.example.healthcheck.model.steps.room.entities.StepsDbEntity
-import com.example.healthcheck.model.steps.room.entities.countOfStepsTupel
 
 interface StepsRepository {
 

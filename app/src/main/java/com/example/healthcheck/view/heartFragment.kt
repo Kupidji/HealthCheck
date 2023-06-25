@@ -7,15 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavOptions
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentHeartBinding
 import com.example.healthcheck.model.heart.entities.Heart
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.HeartViewModel
+import com.example.healthcheck.model.heart.viewmodel.HeartViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

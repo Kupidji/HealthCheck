@@ -11,23 +11,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.healthcheck.viewmodel.EditMedicineViewModel
-import com.example.healthcheck.R
+import com.example.healthcheck.model.medicines.viewmodel.EditMedicineViewModel
 import com.example.healthcheck.databinding.FragmentEditMedicineBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
-import com.example.healthcheck.util.RandomUtil
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class editMedicineFragment : Fragment() {
 

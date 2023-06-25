@@ -1,17 +1,12 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.mainscreen.viewmodel
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.view.mainFragment1
 import com.example.healthcheck.view.mainFragment2
 import com.example.healthcheck.view.mainFragment3
-import kotlinx.coroutines.launch
-import java.util.Calendar
 
 class MainViewModel() : ViewModel() {
 

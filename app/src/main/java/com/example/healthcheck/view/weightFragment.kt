@@ -20,7 +20,7 @@ import com.example.healthcheck.model.weight.entities.Weight
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.WeightViewModel
+import com.example.healthcheck.model.weight.viewmodel.WeightViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

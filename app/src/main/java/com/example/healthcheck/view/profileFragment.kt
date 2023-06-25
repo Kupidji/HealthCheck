@@ -10,11 +10,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentProfileBinding
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.ProfileViewModel
+import com.example.healthcheck.model.profile.viewmodel.ProfileViewModel
 
 class profileFragment : Fragment() {
 

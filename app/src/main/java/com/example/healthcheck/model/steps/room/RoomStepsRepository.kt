@@ -1,12 +1,10 @@
 package com.example.healthcheck.model.steps.room
 
-import androidx.lifecycle.MutableLiveData
 import com.example.healthcheck.model.steps.StepsRepository
 import com.example.healthcheck.model.steps.entities.Steps
 import com.example.healthcheck.model.steps.room.entities.StepsDbEntity
 import com.example.healthcheck.model.steps.room.entities.StepsDbEntity.Companion.forUpdate
 import com.example.healthcheck.model.steps.room.entities.StepsDbEntity.Companion.fromSteps
-import com.example.healthcheck.model.steps.room.entities.countOfStepsTupel
 
 class RoomStepsRepository(
     val stepsDao : StepsDao

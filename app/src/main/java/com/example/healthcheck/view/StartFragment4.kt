@@ -1,11 +1,9 @@
 package com.example.healthcheck.view
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentStart4Binding
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodel.StartFragment4ViewModel
+import com.example.healthcheck.model.start.viewmodel.StartFragment4ViewModel
 
 
 class StartFragment4 : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.nutrition.viewmodel
 
 import androidx.lifecycle.ViewModel
 

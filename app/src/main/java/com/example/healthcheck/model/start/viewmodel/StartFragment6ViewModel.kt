@@ -1,21 +1,18 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.start.viewmodel
 
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 
-class StartFragment4ViewModel(application: Application) : AndroidViewModel(application) {
+class StartFragment6ViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
 
-    var fio = MutableLiveData<String?>()
-    var gender = MutableLiveData<Boolean?>()
+    var heightStart = MutableLiveData<Float?>()
 
     init {
         settings = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)
     }
-
 }

@@ -1,9 +1,9 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.start.viewmodel
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdapter(fragment : Fragment, val list : List<Fragment>) : FragmentStateAdapter(fragment) {
+class StartViewPagerAdapter (fragment : Fragment, val list : List<Fragment>) : FragmentStateAdapter(fragment)  {
 
     override fun getItemCount(): Int {
         return list.size
@@ -12,6 +12,5 @@ class ViewPagerAdapter(fragment : Fragment, val list : List<Fragment>) : Fragmen
     override fun createFragment(position: Int): Fragment {
         return list[position]
     }
-
 
 }

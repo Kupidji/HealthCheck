@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodel
+package com.example.healthcheck.model.medicines.viewmodel
 
 import android.app.Application
 import android.widget.Toast
