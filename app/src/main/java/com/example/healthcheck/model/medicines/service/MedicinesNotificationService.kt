@@ -35,12 +35,9 @@ class MedicinesNotificationService(private val context: Context) {
         val notification = NotificationCompat.Builder(context, Constants.MEDICINES_CHANNEL)
             .setSmallIcon(R.drawable.app_icon_small)
             .setContentTitle(message)
-            .setContentText("Не забудьте сделать отметку о приёме")
+            .setContentText("Напоминание")
             .setContentIntent(fragmentPendingtIntent)
             .setAutoCancel(true)
-//            .addAction(
-//                 todo добавить фунционал для отметки об подтверждении
-//            )
             .build()
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(channelID, notification)
