@@ -123,6 +123,50 @@
                     android:background="@android:color/transparent"
                     />
 
+                <TextView
+                    style="@style/zagalovok2"
+                    android:id="@+id/healthyEatText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/themeChooseText"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"
+                    android:text="Здоровое питание"
+                    />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchHealtyEat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/healthyEatText"
+                    app:layout_constraintTop_toTopOf="@id/healthyEatText"
+                    app:layout_constraintBottom_toBottomOf="@id/healthyEatText"
+                    android:checked="true"
+                    />
+
+                <TextView
+                    style="@style/zagalovok2"
+                    android:id="@+id/notificationProblemText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="Не работают уведомления?"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="15dp"
+                    />
+
+<!--                <ImageView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/notificationProblemText"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/notificationProblemText"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/notificationProblemText"-->
+<!--                    android:src="@drawable/version_icon"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    />-->
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

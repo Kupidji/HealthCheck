@@ -63,11 +63,19 @@ class mainFragment : Fragment() {
             .build()
 
         var settings =this@mainFragment.context?.applicationContext?.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
+        var settingsHealthyEat = this@mainFragment.context?.applicationContext?.getSharedPreferences(Constants.HEALTHY_EAT_VISIBILITY, Context.MODE_PRIVATE)
+
+        if (settingsHealthyEat != null) {
+            if (settingsHealthyEat.getBoolean(Constants.HEALTHY_EAT_VISIBILITY, true)) {
+                binding.healthyEat.visibility = View.VISIBLE
+            } else {
+                binding.healthyEat.visibility = View.GONE
+            }
+        }
 
         if (settings != null) {
             if (settings.getBoolean(Constants.IS_FIRST_TIME, true)) {
                 navigation.navigate(R.id.startFragment)
-
             }
         }
 

@@ -7,6 +7,18 @@
     tools:context=".view.nutritionFragment"
     android:background="@drawable/background">
 
+    <TextView
+        style="@style/zagalovok2"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Здесь пока ничего нет"
+        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -79,183 +91,183 @@
                 android:layout_marginTop="23dp"
                 />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/article1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/articleName"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="30dp"
-                >
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/article1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toStartOf="@id/margin_main1"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/articleName"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/margin_main2"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                >-->
 
-                <ImageButton
-                    android:id="@+id/saltArticle"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/box"
-                    android:background="@android:color/transparent"
-                    />
+<!--                <ImageButton-->
+<!--                    android:id="@+id/saltArticle"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="170dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:src="@drawable/box"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    />-->
 
-                <ImageView
-                    android:id="@+id/imageSalt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/article1"
-                    app:layout_constraintTop_toTopOf="@id/article1"
-                    android:src="@drawable/nutrition_salt"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginStart="11dp"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageSalt"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toStartOf="@id/article1"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/article1"-->
+<!--                    android:src="@drawable/nutrition_salt"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:layout_marginStart="11dp"-->
+<!--                    />-->
 
-                <TextView
-                    style="@style/zagalovok2"
-                    android:id="@+id/saltText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/imageSalt"
-                    app:layout_constraintTop_toTopOf="@id/article1"
-                    app:layout_constraintEnd_toEndOf="@id/article1"
-                    android:text="Сокращение потребления соли"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginStart="6dp"
-                    />
+<!--                <TextView-->
+<!--                    style="@style/zagalovok2"-->
+<!--                    android:id="@+id/saltText"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/imageSalt"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/article1"-->
+<!--                    app:layout_constraintEnd_toEndOf="@id/article1"-->
+<!--                    android:text="Сокращение потребления соли"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    />-->
 
-                <TextView
-                    style="@style/hint1"
-                    android:layout_width="0dp"
-                    android:layout_height="19dp"
-                    app:layout_constraintStart_toEndOf="@id/imageSalt"
-                    app:layout_constraintBottom_toBottomOf="@id/saltArticle"
-                    android:text="30 июня 2016 г."
-                    android:background="@android:color/transparent"
-                    android:layout_marginBottom="28dp"
-                    android:layout_marginStart="6dp"
-                    />
+<!--                <TextView-->
+<!--                    style="@style/hint1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="19dp"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/imageSalt"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/saltArticle"-->
+<!--                    android:text="30 июня 2016 г."-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:layout_marginBottom="28dp"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/article2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/article1"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="22dp"
-                >
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/article2"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toStartOf="@id/margin_main1"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/article1"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/margin_main2"-->
+<!--                android:layout_marginTop="22dp"-->
+<!--                >-->
 
-                <ImageButton
-                    android:id="@+id/foodArticle"
-                    android:layout_width="0dp"
-                    android:layout_height="170dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/box"
-                    android:background="@android:color/transparent"
-                    />
+<!--                <ImageButton-->
+<!--                    android:id="@+id/foodArticle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="170dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    android:src="@drawable/box"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    />-->
 
-                <ImageView
-                    android:id="@+id/imageFood"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/foodArticle"
-                    app:layout_constraintTop_toTopOf="@id/foodArticle"
-                    android:src="@drawable/nutrition_food"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginStart="11dp"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageFood"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toStartOf="@id/foodArticle"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/foodArticle"-->
+<!--                    android:src="@drawable/nutrition_food"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:layout_marginStart="11dp"-->
+<!--                    />-->
 
-                <TextView
-                    style="@style/zagalovok2"
-                    android:id="@+id/foodText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/imageFood"
-                    app:layout_constraintTop_toTopOf="@id/foodArticle"
-                    app:layout_constraintEnd_toEndOf="@id/article2"
-                    android:text="Питайтесь правильно\nСамые вредные продукты"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginStart="6dp"
-                    />
+<!--                <TextView-->
+<!--                    style="@style/zagalovok2"-->
+<!--                    android:id="@+id/foodText"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/imageFood"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/foodArticle"-->
+<!--                    app:layout_constraintEnd_toEndOf="@id/article2"-->
+<!--                    android:text="Питайтесь правильно\nСамые вредные продукты"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    />-->
 
-                <TextView
-                    style="@style/hint1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/imageFood"
-                    app:layout_constraintBottom_toBottomOf="@id/foodArticle"
-                    android:text="30 июня 2016 г."
-                    android:layout_marginBottom="28dp"
-                    android:layout_marginStart="6dp"
-                    />
+<!--                <TextView-->
+<!--                    style="@style/hint1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/imageFood"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/foodArticle"-->
+<!--                    android:text="30 июня 2016 г."-->
+<!--                    android:layout_marginBottom="28dp"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/article3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/article2"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="22dp"
-                >
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/article3"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toStartOf="@id/margin_main1"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/article2"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/margin_main2"-->
+<!--                android:layout_marginTop="22dp"-->
+<!--                >-->
 
-                <ImageButton
-                    android:id="@+id/KalArticle"
-                    android:layout_width="0dp"
-                    android:layout_height="170dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/box"
-                    android:background="@android:color/transparent"
-                    />
+<!--                <ImageButton-->
+<!--                    android:id="@+id/KalArticle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="170dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    android:src="@drawable/box"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    />-->
 
-                <ImageView
-                    android:id="@+id/imageKal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/KalArticle"
-                    app:layout_constraintTop_toTopOf="@id/KalArticle"
-                    android:src="@drawable/nutrition_kal"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginStart="11dp"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageKal"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toStartOf="@id/KalArticle"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/KalArticle"-->
+<!--                    android:src="@drawable/nutrition_kal"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:layout_marginStart="11dp"-->
+<!--                    />-->
 
-                <TextView
-                    style="@style/zagalovok2"
-                    android:id="@+id/kalText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/imageKal"
-                    app:layout_constraintTop_toTopOf="@id/KalArticle"
-                    app:layout_constraintEnd_toEndOf="@id/article3"
-                    android:text="Сколько каллорий можно потреблять в день"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="28dp"
-                    />
+<!--                <TextView-->
+<!--                    style="@style/zagalovok2"-->
+<!--                    android:id="@+id/kalText"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/imageKal"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/KalArticle"-->
+<!--                    app:layout_constraintEnd_toEndOf="@id/article3"-->
+<!--                    android:text="Сколько каллорий можно потреблять в день"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    />-->
 
-                <TextView
-                    style="@style/hint1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/imageKal"
-                    app:layout_constraintBottom_toBottomOf="@id/KalArticle"
-                    android:text="30 июня 2016 г."
-                    android:layout_marginBottom="28dp"
-                    android:layout_marginStart="6dp"
-                    />
+<!--                <TextView-->
+<!--                    style="@style/hint1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/imageKal"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/KalArticle"-->
+<!--                    android:text="30 июня 2016 г."-->
+<!--                    android:layout_marginBottom="28dp"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
