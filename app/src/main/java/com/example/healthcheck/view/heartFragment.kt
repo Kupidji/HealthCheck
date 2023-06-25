@@ -61,6 +61,8 @@ class heartFragment : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
+        var currentDate = Calendar.getInstance().timeInMillis
+
         viewModel.upperPressure.observe(this@heartFragment.viewLifecycleOwner) {
             binding.ur1.text = it.toString()
         }
@@ -131,10 +133,8 @@ class heartFragment : Fragment() {
         else if (editText.text.isEmpty() && editText.isFocused){
             saveSharedPref(key, 0)
         }
-        else {
-            //После изменения фокуса
-            afterFocusChange(editText,key)
-        }
+
+        afterFocusChange(editText,key)
 
     }
 
@@ -170,30 +170,29 @@ class heartFragment : Fragment() {
 
             if (editText.text.toString().toInt() != viewModel.settingsForHeart.getInt(key, 0)) {
 
-                //Если все 3 не пусты и значения в соответвющих пределах, то сохранение в бд
-                if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
-                    binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
+                //Для главного экрана
+                saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
 
-                    //Сохранение в бд
-                    saveOrUpdateHeartBd()
+                //Сохранение соответствующего поля
+                saveSharedPref(key, editText.text.toString().toInt())
 
-                    //Изменения показателей
-                    viewModel.setCurrentPulse()
-                    viewModel.setCurrentId()
-                    viewModel.setCurrentDate()
-                    viewModel.setCurrentLowerPressure()
-                    viewModel.setCurrentUpperPressure()
+            }
 
-                    //Для главного экрана
-                    saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+            //Если все 3 не пусты и значения в соответвющих пределах, то сохранение в бд
+            if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
+                binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
 
-                }
+                //Сохранение в бд
+                saveOrUpdateHeartBd()
+                viewModel.setCurrentPulse()
+                viewModel.setCurrentId()
+                viewModel.setCurrentDate()
+                viewModel.setCurrentLowerPressure()
+                viewModel.setCurrentUpperPressure()
+
             }
 
             editText.setSelection(editText.text.toString().length)
-
-            //Сохранение соответствующего поля
-            saveSharedPref(key, editText.text.toString().toInt())
 
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 

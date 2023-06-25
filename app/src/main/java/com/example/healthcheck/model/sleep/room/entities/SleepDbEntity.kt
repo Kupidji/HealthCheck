@@ -21,6 +21,7 @@ data class SleepDbEntity(
 ) {
 
     fun toSleep() : Sleep = Sleep(
+        id = id,
         timeOfSleep = timeOfSleep,
         date = date,
     )
@@ -33,5 +34,10 @@ data class SleepDbEntity(
             date = sleep.date,
         )
 
+        fun updateSleep(sleep : Sleep) = SleepDbEntity(
+            id = sleep.id,
+            timeOfSleep = sleep.timeOfSleep,
+            date = sleep.date,
+        )
     }
 }

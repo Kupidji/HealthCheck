@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.healthcheck.util.Constants
 
 class StartFragment6ViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -14,6 +15,6 @@ class StartFragment6ViewModel(application: Application) : AndroidViewModel(appli
     var heightStart = MutableLiveData<Float?>()
 
     init {
-        settings = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)
+        settings = application.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
     }
 }
