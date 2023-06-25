@@ -8,4 +8,6 @@ interface HeartRepository {
 
     fun getCardioForDay() : List<Heart>
 
+    suspend fun updateCardio(heart: Heart)
+
 }

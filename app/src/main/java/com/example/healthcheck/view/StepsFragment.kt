@@ -181,16 +181,7 @@ class StepsFragment : Fragment() {
             saveDataForTarget(15000)
         }
 
-//        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                val direction = StepsFragmentDirections.actionStepsFragmentToMainFragment()
-//                navigation.navigate(direction, navOptions)
-//            }
-//        })
-
     }
-
-
 
     //Сохраняет и изменяет введеную информацию для количества шагов
     private fun saveAfterKeyboardClosedOrLostFocusForSteps() {
@@ -447,15 +438,13 @@ class StepsFragment : Fragment() {
     }
 
     //Заполняет поле для обнвление или вставки в базу данных
-    private fun forStepBd(currentDate : Long, id : Int) : Steps {
+    private fun forStepBd(currentDate: Long, id: Int): Steps {
 
-        var ourSteps = Steps(
+        return Steps(
             id = id,
             countOfSteps = binding.getCountOfSteps.text.toString().toInt(),
             date = currentDate,
         )
-
-        return ourSteps
     }
 
 }

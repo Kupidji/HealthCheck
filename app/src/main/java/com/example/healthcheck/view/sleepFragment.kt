@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -13,6 +14,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentSleepBinding
+import com.example.healthcheck.model.heart.entities.Heart
 import com.example.healthcheck.model.sleep.entities.Sleep
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
@@ -50,7 +52,6 @@ class sleepFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
 
         val navigation = findNavController()
 
@@ -61,33 +62,26 @@ class sleepFragment : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            binding.timeForWeek.setText("${viewModel.getSleepFromDataForWeek(tripletsPool) + "ч"}")
+        viewModel.sleepForWeek.observe(this@sleepFragment.viewLifecycleOwner) {
+            binding.timeForWeek.setText("${it + "ч"}")
         }
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            binding.timeForMonth.setText("${viewModel.getSleepFromDataForMonth(tripletsPool) + "ч"}")
+        viewModel.sleepForMonth.observe(this@sleepFragment.viewLifecycleOwner) {
+            binding.timeForMonth.setText("${it + "ч"}")
         }
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            binding.averageSleepWeek.setText("${viewModel.getSleepFromDataForWeekAverage(tripletsPool) + "ч"}")
+        viewModel.averageSleepForWeek.observe(this@sleepFragment.viewLifecycleOwner) {
+            binding.averageSleepWeek.setText("${it + "ч"}")
         }
 
-        GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            binding.averageSleepMonth.setText("${viewModel.getSleepFromDataForMonthAverage(tripletsPool) + "ч"}")
+        viewModel.averageSleepForMonth.observe(this@sleepFragment.viewLifecycleOwner) {
+            binding.averageSleepMonth.setText("${it + "ч"}")
         }
 
         binding.wentBack.setOnClickListener {
             if (binding.getGoesToBedTime.text.isNotEmpty() && binding.getWakeUpTime.text.isNotEmpty()) {
-                var currentTime = Calendar.getInstance().timeInMillis
                 saveSleepSettings(calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime))
-                var sleep = Sleep(
-                    calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime),
-                    currentTime,
-                )
-                viewModel.insertSleep(sleep)
             }
-
             //навигация и анимации
             val direction = sleepFragmentDirections.actionSleepFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
@@ -104,15 +98,32 @@ class sleepFragment : Fragment() {
         binding.sleep1.setOnClickListener {
             setAlarm(binding.getGoesToBedTime) { callback ->
                 goesToBedTime = callback
+                saveSleep()
             }
+
         }
 
         binding.sleep2.setOnClickListener {
             setAlarm(binding.getWakeUpTime) { callback ->
                 wakeUpTime = callback
+                saveSleep()
             }
+
         }
 
+    }
+
+    private fun saveSleep() {
+        if (goesToBedTime != 0L && wakeUpTime != 0L) {
+            saveOrUpdateSleepBd()
+            viewModel.setCurrentAverageSleepWeek()
+            viewModel.setCurrentSleepWeek()
+            viewModel.setCurrentSleepMonth()
+            viewModel.setCurrentAverageSleepMonth()
+            viewModel.setCurrentId()
+            viewModel.setCurrentDate()
+            saveSleepSettings(calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime))
+        }
     }
 
     private fun saveSleepSettings(sleep : Long) {
@@ -153,6 +164,46 @@ class sleepFragment : Fragment() {
                 true
             ).show()
         }
+    }
+
+    private fun saveOrUpdateSleepBd() {
+
+        var date = 0L
+        var id = 0
+        val currentDate = Calendar.getInstance().timeInMillis
+
+        viewModel.lastDate.observe(this@sleepFragment.viewLifecycleOwner) {
+            if (it != null) {
+                date = it
+            }
+        }
+        viewModel.lastId.observe(this@sleepFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
+        }
+
+        //Если новая дата не совпадает со старой -> insert
+        if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(date)) {
+
+            val ourSleep = forSleepBd(currentDate, 0)
+            viewModel.insertSleep(ourSleep)
+
+        } else { //Если новая дата совпадает со старой -> update
+
+            val ourSleep = forSleepBd(currentDate, id)
+            viewModel.updateSleep(ourSleep)
+
+        }
+
+    }
+
+    private fun forSleepBd(currentDate: Long, id: Int): Sleep {
+        return Sleep(
+            id = id,
+            timeOfSleep = calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime),
+            date = currentDate,
+        )
     }
 
 }
