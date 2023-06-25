@@ -47,8 +47,8 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
     private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
 
     init {
-        settingsWeight = application.applicationContext.getSharedPreferences("weight", Context.MODE_PRIVATE)
-        settingsProfile = application.applicationContext.getSharedPreferences("start_info", Context.MODE_PRIVATE)
+        settingsWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
+        settingsProfile = application.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
 
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalWeightForWeek.value = getWeightFromDataForWeek(tripletsPool)

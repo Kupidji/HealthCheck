@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
+import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -23,17 +24,18 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
     lateinit var settings : SharedPreferences
     lateinit var settingsForSleep : SharedPreferences
     lateinit var settingsForWeight : SharedPreferences
+    lateinit var settingsForCardio : SharedPreferences
 
     var daySteps = MutableLiveData<Long?>()
     var dayWeight = MutableLiveData<Long?>()
-//    var steps = MutableLiveData<Int?>()
-//    var weight = MutableLiveData<Float?>()
+
 
     private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
     init {
-        settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
-        settingsForSleep = application.applicationContext.getSharedPreferences("sleep", Context.MODE_PRIVATE)
-        settingsForWeight = application.applicationContext.getSharedPreferences("weight", Context.MODE_PRIVATE)
+        settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
+        settingsForSleep = application.applicationContext.getSharedPreferences(Constants.SLEEP, Context.MODE_PRIVATE)
+        settingsForWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
+        settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
 
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             daySteps.value = getLastDateFromData(tripletsPool)
@@ -41,12 +43,6 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             dayWeight.value = getLastDateFromDataWeight(tripletsPool)
         }
-//        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-//            steps.value = getLastStepsFromData(tripletsPool)
-//        }
-//        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-//            weight.value = getLastWeightFromDataWeight(tripletsPool)
-//        }
     }
 
     suspend fun getLastDateFromData(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
@@ -62,18 +58,6 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-//    suspend fun getLastStepsFromData(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
-//        withContext(sheduler.asCoroutineDispatcher()) {
-//            var result = async {
-//                var steps = 0
-//                if (Repositories.stepsRepository.getLastDate() != null) {
-//                    steps = Repositories.stepsRepository.getLastDate().countOfSteps
-//                }
-//                return@async steps
-//            }
-//            result.await()
-//        }
-//    }
 
     suspend fun getLastDateFromDataWeight(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
@@ -88,17 +72,5 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-//    suspend fun getLastWeightFromDataWeight(sheduler : ThreadPoolExecutor) : Float = coroutineScope {
-//        withContext(sheduler.asCoroutineDispatcher()) {
-//            var result = async {
-//                var weight = 0F
-//                if (Repositories.weightRepository.getLastWeight() != null) {
-//                    weight = Repositories.weightRepository.getLastWeight().weight
-//                }
-//                return@async weight
-//            }
-//            result.await()
-//        }
-//    }
 
 }

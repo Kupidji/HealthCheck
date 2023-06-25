@@ -56,6 +56,8 @@ class mainFragment1 : Fragment() {
         var sleepy = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L) - listGMT[0].toInt()*3600000)
         binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
 
+        binding.daylyCardio.text = viewModel.settingsForCardio.getString(Constants.PRESSURE, "0/0")
+
         binding.stepsBox.setOnClickListener {
             //навигация и анимации
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()

@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit
 
 class StepsViewModel(application: Application) : AndroidViewModel(application)  {
 
-    lateinit var settings : SharedPreferences
-    lateinit var settingsWeight : SharedPreferences
+    var settings : SharedPreferences
+    var settingsWeight : SharedPreferences
 
     var totalStepsForWeek = MutableLiveData<Int?>()
     var totalStepsForMonth = MutableLiveData<Int?>()
@@ -35,8 +35,8 @@ class StepsViewModel(application: Application) : AndroidViewModel(application)  
     private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
 
     init {
-        settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
-        settingsWeight = application.applicationContext.getSharedPreferences("weight", Context.MODE_PRIVATE)
+        settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
+        settingsWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
 
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)

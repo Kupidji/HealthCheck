@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
+import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -23,13 +24,15 @@ import java.util.concurrent.TimeUnit
 class MainFragment3ViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
+    lateinit var settingsForCardio : SharedPreferences
 
     var totalStepsForMonth = MutableLiveData<Int?>()
     var averageSleepMonth = MutableLiveData<String?>()
     var totalWeightForMonth = MutableLiveData<Float?>()
 
     init {
-        settings = application.applicationContext.getSharedPreferences("targetPref", Context.MODE_PRIVATE)
+        settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
+        settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
         val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)
