@@ -16,6 +16,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.healthcheck.R
 import com.example.healthcheck.model.medicines.viewmodel.EditMedicineViewModel
 import com.example.healthcheck.databinding.FragmentEditMedicineBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
@@ -51,13 +52,6 @@ class editMedicineFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         firstTime = args.firstTimeNotification
         secondTime = args.secondTimeNotification
         thirdTime = args.thirdTimeNotification
@@ -92,10 +86,17 @@ class editMedicineFragment : Fragment() {
         }
 
         if (args.totalDuractionOfCourse != 0) {
-            binding.durationOfCourseText.text = args.totalDuractionOfCourse.toString()
+            binding.getCountOfDays.setText(args.totalDuractionOfCourse.toString())
         }
         //навигация и анимация
         binding.wentBack.setOnClickListener {
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.medicinesFragment, true)
+                .build()
             val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
@@ -266,11 +267,18 @@ class editMedicineFragment : Fragment() {
                 }
                 Toast.makeText(this@editMedicineFragment.requireContext(), "Изменения в ${args.title} были внесены", Toast.LENGTH_SHORT).show()
                 //навигация и анимации
+                var navOptions = NavOptions.Builder()
+                    .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                    .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                    .setPopUpTo(R.id.medicinesFragment, true)
+                    .build()
                 val direction = editMedicineFragmentDirections.actionEditMedicineFragmentToMedicinesFragment()
                 val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
                 buttonChangeScreenAnimation(binding.saveChangeMedicineLayout, navigation, direction, navOptions, navigate)
             }
-            else
+            else {
                 binding.saveChangeMedicineLayout.animate()
                     .setDuration(75)
                     .scaleX(0.95f)
@@ -282,6 +290,7 @@ class editMedicineFragment : Fragment() {
                             .scaleY(1f)
                     }
                 binding.getTitle.error = "Обязательное поле"
+            }
         }
     }
 

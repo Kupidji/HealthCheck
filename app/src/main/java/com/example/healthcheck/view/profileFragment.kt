@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentProfileBinding
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
@@ -38,13 +39,6 @@ class profileFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         binding.nameText.setText(viewModel.settings.getString(Constants.FIO, ""))
         binding.ageText.setText(viewModel.settings.getInt(Constants.AGE, 0).toString())
         binding.weightText.setText(viewModel.settings.getFloat(Constants.WEIGHT_START, 0F).toString())
@@ -52,6 +46,13 @@ class profileFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.mainFragment, true)
+                .build()
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
@@ -73,6 +74,13 @@ class profileFragment : Fragment() {
             }
             //todo посылать информацию в saveInstanceStateSettings
             //навигация анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.medicinesFragment, true)
+                .build()
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.confirm, navigation, direction, navOptions, navigate)

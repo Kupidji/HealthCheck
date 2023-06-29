@@ -11,6 +11,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
@@ -48,7 +49,6 @@ class medicinesFragment : Fragment() {
             .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
-
 
         val layoutManager = GridLayoutManager(this.context, 2)
 
@@ -94,6 +94,13 @@ class medicinesFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.mainFragment, true)
+                .build()
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)

@@ -80,6 +80,13 @@ class weightFragment : Fragment() {
 
         binding.wentBack.setOnClickListener {
             //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.mainFragment, true)
+                .build()
             val direction = weightFragmentDirections.actionWeightFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
