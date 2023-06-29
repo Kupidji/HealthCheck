@@ -76,7 +76,7 @@ class StepsFragment : Fragment() {
             if (it != 0) {
                 binding.getCountOfSteps.setText(it.toString())
             }
-            binding.dayCal.text = kKAL(viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F), it).toString() + " калорий"
+            binding.dayCal.text = kKAL(it).toString() + " калорий"
         }
 
         //Каждый день обновляет поле шагов
@@ -90,12 +90,12 @@ class StepsFragment : Fragment() {
 
         //Калории за неделю
         viewModel.totalStepsForWeek.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.weekCal.text = it?.let { it1 -> kKAL(viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F), it1).toString() } + " калорий"
+            binding.weekCal.text = it?.let { it1 -> kKAL(it1).toString() } + " калорий"
         }
 
         //Калории за месяц
         viewModel.totalStepsForMonth.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.monthCal.text = it?.let { it1 -> kKAL(viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F), it1).toString() } + " калорий"
+            binding.monthCal.text = it?.let { it1 -> kKAL(it1).toString() } + " калорий"
         }
 
         binding.wentBack.setOnClickListener {
@@ -394,8 +394,8 @@ class StepsFragment : Fragment() {
     }
 
     //Формула для подсчета калорий
-    private fun kKAL(Mass: Float, Steps: Int): Int {
-        return (1.15 * Mass * Steps * 80 / 100000).toInt()
+    private fun kKAL(Steps: Int): Int {
+        return ((Steps.toFloat()/1300) * 0.52 * viewModel.settingsStart.getFloat(Constants.WEIGHT_START, 0F)).toInt()
     }
 
     //Сохраняет или обновляет базу данных
