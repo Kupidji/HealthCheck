@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 class StepsViewModel(application: Application) : AndroidViewModel(application)  {
 
     var settings : SharedPreferences
-    var settingsWeight : SharedPreferences
+    var settingsStart : SharedPreferences
 
     var totalStepsForWeek = MutableLiveData<Int?>()
     var totalStepsForMonth = MutableLiveData<Int?>()
@@ -36,7 +36,7 @@ class StepsViewModel(application: Application) : AndroidViewModel(application)  
 
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
-        settingsWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
+        settingsStart = application.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
 
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
