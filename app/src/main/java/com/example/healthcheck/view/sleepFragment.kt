@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSleepBinding
 import com.example.healthcheck.model.sleep.entities.Sleep
 import com.example.healthcheck.util.Constants
@@ -74,6 +75,13 @@ class sleepFragment : Fragment() {
                 saveSleepSettings(calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime))
             }
             //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.mainFragment, true)
+                .build()
             val direction = sleepFragmentDirections.actionSleepFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)

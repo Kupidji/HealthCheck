@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSettingsBinding
 import com.example.healthcheck.model.settings.viewmodel.SettingsViewModel
 import com.example.healthcheck.util.Constants
@@ -45,14 +46,14 @@ class settingsFragment : Fragment() {
         val navigation = findNavController()
         val settings = this@settingsFragment.requireContext().applicationContext.getSharedPreferences(Constants.HEALTHY_EAT_VISIBILITY, Context.MODE_PRIVATE)
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         binding.wentBack.setOnClickListener {
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.mainFragment, true)
+                .build()
             //навигация и анимации
             val direction = settingsFragmentDirections.actionSettingsFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
@@ -60,6 +61,12 @@ class settingsFragment : Fragment() {
         }
 
         binding.profile.setOnClickListener {
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .build()
             //навигация и анимации
             val direction = settingsFragmentDirections.actionSettingsFragmentToProfileFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}

@@ -53,13 +53,6 @@ class heartFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         var currentDate = Calendar.getInstance().timeInMillis
 
         viewModel.upperPressure.observe(this@heartFragment.viewLifecycleOwner) {
@@ -75,6 +68,14 @@ class heartFragment : Fragment() {
         binding.wentBack.setOnClickListener {
             //Для главного экрана
             saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.mainFragment, true)
+                .build()
             //навигация и анимации
             val direction = heartFragmentDirections.actionHeartFragmentToMainFragment()
             val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
@@ -85,6 +86,12 @@ class heartFragment : Fragment() {
         binding.profile.setOnClickListener {
             //для главного экрана
             saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .build()
             //навигация и анимации
             val direction = heartFragmentDirections.actionHeartFragmentToProfileFragment()
             val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }

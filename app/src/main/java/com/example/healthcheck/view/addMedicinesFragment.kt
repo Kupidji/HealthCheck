@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentAddMedicinesBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.RandomUtil
@@ -53,14 +54,14 @@ class addMedicinesFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         binding.wentBack.setOnClickListener {
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.medicinesFragment, true)
+                .build()
             //навигация и анимации
             val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
             val navigate = {nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
@@ -171,6 +172,13 @@ class addMedicinesFragment : Fragment() {
                     )
 
                     val direction = addMedicinesFragmentDirections.actionAddMedicinesFragmentToMedicinesFragment()
+                    var navOptions = NavOptions.Builder()
+                        .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                        .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                        .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                        .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                        .setPopUpTo(R.id.medicinesFragment, true)
+                        .build()
                     val navigate = {nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
                     buttonChangeScreenAnimation(binding.saveMedicine, navigation, direction, navOptions, navigate)
                     Toast.makeText(this@addMedicinesFragment.requireContext(), "Курс ${medicines.title} был создан", Toast.LENGTH_SHORT).show()
