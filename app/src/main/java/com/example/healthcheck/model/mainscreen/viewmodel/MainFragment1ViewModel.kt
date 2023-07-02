@@ -15,6 +15,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -27,9 +28,9 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
     lateinit var settingsForCardio : SharedPreferences
 
     var daySteps = MutableLiveData<Long?>()
-    var dayWeight = MutableLiveData<Long?>()
+    var daySleep = MutableLiveData<Long?>()
 
-
+    var currentDate = Calendar.getInstance().timeInMillis
     private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
@@ -38,17 +39,17 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
         settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
 
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            daySteps.value = getLastDateFromData(tripletsPool)
+            daySteps.value = getLastDateFromDataSteps(tripletsPool)
         }
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            dayWeight.value = getLastDateFromDataWeight(tripletsPool)
+            daySleep.value = getLastDateFromDataSleep(tripletsPool)
         }
     }
 
-    suspend fun getLastDateFromData(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
+    suspend fun getLastDateFromDataSteps(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
-                var date = 0L
+                var date = currentDate
                 if (Repositories.stepsRepository.getLastDate() != null) {
                     date = Repositories.stepsRepository.getLastDate().date
                 }
@@ -58,19 +59,18 @@ class MainFragment1ViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-
-    suspend fun getLastDateFromDataWeight(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
+    suspend fun getLastDateFromDataSleep(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
-                var date = 0L
-                if (Repositories.weightRepository.getLastWeight() != null) {
-                    date = Repositories.weightRepository.getLastWeight().date
+                var list = Repositories.sleepRepository.getTimeOfSleepForDay()
+                var lastDate = currentDate
+                for (sleep in list) {
+                    lastDate = sleep.date
                 }
-                return@async date
+                return@async lastDate
             }
             result.await()
         }
     }
-
 
 }

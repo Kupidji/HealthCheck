@@ -40,6 +40,8 @@ class mainFragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentDate = Calendar.getInstance().timeInMillis
+
         val navigation = findNavController()
 
         var navOptions = NavOptions.Builder()
@@ -50,13 +52,6 @@ class mainFragment1 : Fragment() {
             .build()
 
         showDigits()
-
-        var GMT = getGMT()
-        var listGMT = GMT.split(":")
-        var sleepy = SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L) - listGMT[0].toInt()*3600000)
-        binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
-
-        binding.daylyCardio.text = viewModel.settingsForCardio.getString(Constants.PRESSURE, "0/0")
 
         binding.stepsBox.setOnClickListener {
             //навигация и анимации
@@ -92,6 +87,8 @@ class mainFragment1 : Fragment() {
         super.onResume()
         showAndUpdateStepsProgressBar()
         showAndUpdateWeightProgressBar()
+        showAndUpdateSleep()
+
     }
 
     override fun onPause() {
@@ -115,23 +112,38 @@ class mainFragment1 : Fragment() {
         }
     }
 
-    private fun showAndUpdateWeightProgressBar() {
+    private fun showAndUpdateSleep() {
         var currentDate = Calendar.getInstance().timeInMillis
-        viewModel.dayWeight.observe(this@mainFragment1.viewLifecycleOwner) {
+
+        viewModel.daySleep.observe(this@mainFragment1.viewLifecycleOwner) {
+
             if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
-                binding.weightCountText.text = 0F.toString()
-                binding.progressBarWeight.progress = 0
+                binding.sleepHoursDay.setText("0:00")
+                val editorForSleep = viewModel.settingsForSleep.edit()
+                editorForSleep?.putLong(Constants.TIME_SLEEP, 0L)?.apply()
             }
-            else {
-                animateProgressBar(binding.progressBarWeight, viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toInt())
-            }
+            val sleepy = forGmt()
+            binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
         }
+    }
+
+    private fun forGmt() : String {
+        var GMT = getGMT()
+        var listGMT = GMT.split(":")
+        return SimpleDateFormat("HH:mm").format(viewModel.settingsForSleep.getLong(Constants.TIME_SLEEP, 0L) - listGMT[0].toInt() * 3600000)
+    }
+
+    private fun showAndUpdateWeightProgressBar() {
+        animateProgressBar(binding.progressBarWeight, viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toInt())
         binding.progressBarWeight.max = 120
     }
 
     private fun showDigits() {
         binding.main1CountOfStepsDay.text = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0).toString()
         binding.weightCountText.text = String.format(Locale.US,"%.1f",viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
+        val sleepy = forGmt()
+        binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
+        binding.daylyCardio.text = viewModel.settingsForCardio.getString(Constants.PRESSURE, "0/0")
     }
 
     fun getGMT() : String {

@@ -16,6 +16,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -41,10 +42,10 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
     var age = MutableLiveData<Int>()
     var gender = MutableLiveData<Boolean>()
     var heightStart = MutableLiveData<Float>()
-    var weightStart = MutableLiveData<Float>()
     var fat = MutableLiveData<Float>()
 
     private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
+    private var currentDate = Calendar.getInstance().timeInMillis
 
     init {
         settingsWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
@@ -68,7 +69,6 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
         age.value = settingsProfile.getInt(Constants.AGE, 0)
         gender.value = settingsProfile.getBoolean(Constants.GENDER, true)
         heightStart.value = settingsProfile.getFloat(Constants.HEIGHT_START, 0F)
-        weightStart.value = settingsProfile.getFloat(Constants.WEIGHT_START, 0F)
 
         totalWeightForDay.value = settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F)
         neck.value = settingsWeight.getFloat(Constants.NECK, 0F)
@@ -121,7 +121,7 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
     suspend fun getLastDateFromDataWeight(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
         withContext(sheduler.asCoroutineDispatcher()) {
             var result = async {
-                var date = 0L
+                var date = currentDate
                 if (Repositories.weightRepository.getLastWeight() != null) {
                     date = Repositories.weightRepository.getLastWeight().date
                 }
@@ -184,12 +184,8 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun changeMeasure(humanPart : MutableLiveData<Float>, costant : String) {
-        humanPart.value = settingsWeight.getFloat(costant, 0F)
-    }
-
-    fun changeFat(res: Float) {
-        fat.value = res
+    fun changeMeasure(humanPart : MutableLiveData<Float>, constant : String) {
+        humanPart.value = settingsWeight.getFloat(constant, 0F)
     }
 
 }

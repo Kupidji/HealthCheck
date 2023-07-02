@@ -66,8 +66,12 @@ class heartFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
-            //Для главного экрана
-            saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+            if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
+                saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
+            }
+           else {
+                saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+            }
 
             var navOptions = NavOptions.Builder()
                 .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
@@ -125,7 +129,12 @@ class heartFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         //Для глвного экрана
-        saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+        if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
+            saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
+        }
+        else {
+            saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
+        }
     }
 
     //Клавиатура убрана
@@ -176,9 +185,6 @@ class heartFragment : Fragment() {
 
             if (editText.text.toString().toInt() != viewModel.settingsForHeart.getInt(key, 0)) {
 
-                //Для главного экрана
-                saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
-
                 //Сохранение соответствующего поля
                 saveSharedPref(key, editText.text.toString().toInt())
 
@@ -195,6 +201,8 @@ class heartFragment : Fragment() {
                 viewModel.setCurrentDate()
                 viewModel.setCurrentLowerPressure()
                 viewModel.setCurrentUpperPressure()
+
+                saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
 
             }
 

@@ -13,9 +13,12 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentStart5Binding
+import com.example.healthcheck.model.weight.entities.Weight
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.StartFragment5ViewModel
+import java.util.Calendar
+import kotlin.coroutines.cancellation.CancellationException
 
 
 class StartFragment5 : Fragment() {
@@ -61,9 +64,13 @@ class StartFragment5 : Fragment() {
         numberPicker1.setWrapSelectorWheel(false)
 
         binding.next.setOnClickListener {
-            val editorforname = viewModel.settings.edit()
-            editorforname?.putInt(Constants.AGE, binding.numberPicker0.value.toString().toInt())?.apply()
-            editorforname?.putFloat(Constants.WEIGHT_START, binding.numberPicker1.value.toString().toFloat())?.apply()
+            val editorForName = viewModel.settings.edit()
+            editorForName?.putInt(Constants.AGE, binding.numberPicker0.value.toString().toInt())?.apply()
+
+            val editorForWeight = viewModel.settingsForWeight.edit()
+            editorForWeight?.putFloat(Constants.WEIGHT_FOR_DAY, binding.numberPicker1.value.toString().toFloat())?.apply()
+
+            insertWeight()
 
             val direction = StartFragment5Directions.actionStartFragment5ToStartFragment6()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
@@ -76,6 +83,17 @@ class StartFragment5 : Fragment() {
             }
         })
 
+    }
+
+    private fun insertWeight() {
+
+        val currentDate = Calendar.getInstance().timeInMillis
+        val weight = Weight(
+            id = 0,
+            weight = binding.numberPicker1.value.toString().toFloat(),
+            date = currentDate,
+        )
+        viewModel.insertWeight(weight)
     }
 
 }
