@@ -50,8 +50,6 @@ class weightFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var currentDate = Calendar.getInstance().timeInMillis
-
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
             .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
@@ -64,14 +62,6 @@ class weightFragment : Fragment() {
         viewModel.totalWeightForDay.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != 0F) {
                 binding.getWeight.setText(String.format(Locale.US,"%.1f", it))
-            }
-        }
-
-        viewModel.day.observe(this@weightFragment.viewLifecycleOwner) {
-            if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
-                binding.getWeight.setText("")
-                saveDataForWeight(0F, Constants.WEIGHT_FOR_DAY)
-                viewModel.setCurrentWeightForDay(0F)
             }
         }
 
@@ -103,7 +93,8 @@ class weightFragment : Fragment() {
             binding.heightInWeight.setText(String.format(Locale.US,"%.1f", it))
         }
 
-        viewModel.weightStart.observe(this@weightFragment.viewLifecycleOwner) {
+        viewModel.totalWeightForDay.observe(this@weightFragment.viewLifecycleOwner) {
+
             binding.averageWeightForMonth.setText(String.format(Locale.US,"%.1f", it))
             if (it != null) {
                 binding.massIndex.setText(String.format(
@@ -112,6 +103,22 @@ class weightFragment : Fragment() {
                     imt(it.toFloat(),binding.heightInWeight.text.toString().toFloat()))
                 )
             }
+
+            val fat = String.format(
+                Locale.US, "%.1f",
+                fatTotal(
+                    viewModel.settingsProfile.getBoolean(Constants.GENDER, true),
+                    viewModel.settingsProfile.getInt(Constants.AGE, 0),
+                    it,
+                    binding.heightInWeight.text.toString().toFloat(),
+                )
+            )
+            binding.percentMass.setText(fat)
+            if (fat.toFloat() != viewModel.settingsWeight.getFloat(Constants.FAT, 0F)) {
+                saveDataForWeight(fat.toFloat(), Constants.FAT)
+                viewModel.changeMeasure(viewModel.fat, Constants.FAT)
+            }
+
         }
 
         viewModel.neck.observe(this@weightFragment.viewLifecycleOwner) {
@@ -154,20 +161,6 @@ class weightFragment : Fragment() {
             if (it != 0F) {
                 binding.shinshin.setText(String.format(Locale.US,"%.1f", it))
             }
-        }
-
-        viewModel.fat.observe(this@weightFragment.viewLifecycleOwner) {
-            binding.percentMass.setText(
-                String.format(
-                    Locale.US, "%.1f",
-                    fatTotal(
-                        viewModel.settingsProfile.getBoolean(Constants.GENDER, true),
-                        viewModel.settingsProfile.getInt(Constants.AGE, 0),
-                        binding.averageWeightForMonth.text.toString().toFloat(),
-                        binding.heightInWeight.text.toString().toFloat(),
-                    )
-                )
-            )
         }
 
         //Фокус прешел на другой edittext
@@ -329,13 +322,6 @@ class weightFragment : Fragment() {
         else {
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.error_ic, 0)
         }
-
-    }
-
-    private fun saveFat(res : Float) {
-
-        var editorForFat = viewModel.settingsWeight.edit()
-        editorForFat?.putFloat(Constants.FAT, res)?.apply()
 
     }
 

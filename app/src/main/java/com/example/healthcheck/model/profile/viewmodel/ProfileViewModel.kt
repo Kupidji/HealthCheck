@@ -11,6 +11,7 @@ import com.example.healthcheck.util.Constants
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var settings : SharedPreferences
+    lateinit var settingsForWeight : SharedPreferences
 
     var fio = MutableLiveData<String?>()
     var age = MutableLiveData<String?>()
@@ -19,5 +20,6 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
+        settingsForWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
     }
 }

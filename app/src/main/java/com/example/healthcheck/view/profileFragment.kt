@@ -41,7 +41,7 @@ class profileFragment : Fragment() {
 
         binding.nameText.setText(viewModel.settings.getString(Constants.FIO, ""))
         binding.ageText.setText(viewModel.settings.getInt(Constants.AGE, 0).toString())
-        binding.weightText.setText(viewModel.settings.getFloat(Constants.WEIGHT_START, 0F).toString())
+        binding.weightText.setText(viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toString())
         binding.heightText.setText(viewModel.settings.getFloat(Constants.HEIGHT_START, 0F).toString())
 
         binding.wentBack.setOnClickListener {
@@ -59,18 +59,19 @@ class profileFragment : Fragment() {
         }
 
         binding.confirm.setOnClickListener {
-            val editorforname = viewModel.settings.edit()
+            val editorForName = viewModel.settings.edit()
+            val editorForWeight = viewModel.settingsForWeight.edit()
             if (binding.nameText.text.toString() != viewModel.settings.getString(Constants.FIO, "")){
-                editorforname?.putString(Constants.FIO, binding.nameText.text.toString())?.apply()
+                editorForName?.putString(Constants.FIO, binding.nameText.text.toString())?.apply()
             }
             if (binding.ageText.text.toString() != viewModel.settings.getInt(Constants.AGE, 0).toString()){
-                editorforname?.putInt(Constants.AGE, binding.ageText.text.toString().toInt())?.apply()
+                editorForName?.putInt(Constants.AGE, binding.ageText.text.toString().toInt())?.apply()
             }
             if (binding.heightText.text.toString() != viewModel.settings.getFloat(Constants.HEIGHT_START, 0F).toString()){
-                editorforname?.putFloat(Constants.HEIGHT_START, binding.heightText.text.toString().toFloat())?.apply()
+                editorForName?.putFloat(Constants.HEIGHT_START, binding.heightText.text.toString().toFloat())?.apply()
             }
-            if (binding.weightText.text.toString() != viewModel.settings.getFloat(Constants.WEIGHT_START, 0F).toString()){
-                editorforname?.putFloat(Constants.WEIGHT_START, binding.weightText.text.toString().toFloat())?.apply()
+            if (binding.weightText.text.toString() != viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toString()){
+                editorForWeight?.putFloat(Constants.WEIGHT_FOR_DAY, binding.weightText.text.toString().toFloat())?.apply()
             }
             //todo посылать информацию в saveInstanceStateSettings
             //навигация анимации
