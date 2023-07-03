@@ -51,20 +51,10 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
         settingsWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
         settingsProfile = application.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
 
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalWeightForWeek.value = getWeightFromDataForWeek(tripletsPool)
-        }
-
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalWeightForMonth.value = getWeightFromDataForMonth(tripletsPool)
-        }
-
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            id.value = getLastIdFromDataWeight(tripletsPool)
-        }
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            day.value = getLastDateFromDataWeight(tripletsPool)
-        }
+        setCurrentWeightForWeek()
+        setCurrentWeightForMonth()
+        setCurrentIdWeight()
+        setCurrentDateWeight()
 
         age.value = settingsProfile.getInt(Constants.AGE, 0)
         gender.value = settingsProfile.getBoolean(Constants.GENDER, true)
@@ -163,6 +153,8 @@ class WeightViewModel(application: Application) : AndroidViewModel(application) 
     fun setCurrentWeightForWeek() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
             totalWeightForWeek.value = getWeightFromDataForWeek(tripletsPool)
+            val editor = settingsWeight.edit()
+            totalWeightForWeek.value?.let { editor?.putFloat(Constants.WEIGHT_FOR_WEEK, it)?.apply() }
         }
     }
 

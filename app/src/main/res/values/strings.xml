@@ -3,7 +3,7 @@
     <string name="input_fields">Введите данные</string>
     <string name="name">Имя</string>
     <string name="age">Возраст</string>
-    <string name="gender">Пол: </string>
+    <string name="gender">Пол</string>
     <string name="height">Рост</string>
     <string name="he">Муж</string>
     <string name="she">Жен</string>
@@ -75,8 +75,8 @@
     <string name="hips_girth">Обхват бедер</string>
     <string name="hip_girth">Обхват бедра</string>
     <string name="shin_girth">Обхват голени</string>
-    <string name="fat_content">Содержание жира</string>
-    <string name="index_mass_body">Индекс массы тела</string>
+    <string name="fat_content">Содержание жира:</string>
+    <string name="index_mass_body">Индекс массы тела:</string>
     <string name="addMedicines">Добавьте препарат</string>
     <string name="articles">Статьи о улучшении качества вашего питания</string>
     <string name="duraction_of_course">Длительность курса</string>
@@ -96,4 +96,7 @@
     <string name="edit">Редактировать</string>
     <string name="theme_choose">Выбор темы</string>
     <string name="no_nearest_act">Пока нет действий</string>
+    <string name="input_name">Введите имя</string>
+    <string name="input_age">Введите возраст</string>
+    <string name="input_height">Введите рост</string>
 </resources>

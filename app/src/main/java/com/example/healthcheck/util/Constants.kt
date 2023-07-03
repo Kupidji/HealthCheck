@@ -56,6 +56,7 @@ object Constants {
     const val HIP_2 = "HIP_2"
     const val SHIN = "SHIN"
     const val FAT = "FAT"
+    const val WEIGHT_FOR_WEEK = "WEIGHT_FOR_WEEK"
 
     //Start
     const val START = "START"

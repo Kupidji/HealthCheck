@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 class StepsViewModel(application: Application) : AndroidViewModel(application)  {
 
     var settings : SharedPreferences
-    var settingsStart : SharedPreferences
+    var settingsWeight : SharedPreferences
 
     var totalStepsForWeek = MutableLiveData<Int?>()
     var totalStepsForMonth = MutableLiveData<Int?>()
@@ -36,25 +36,14 @@ class StepsViewModel(application: Application) : AndroidViewModel(application)  
 
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
-        settingsStart = application.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
+        settingsWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
 
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
-        }
-
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)
-        }
-
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            id.value = getLastIdFromData(tripletsPool)
-        }
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            day.value = getLastDateFromData(tripletsPool)
-        }
-
-        totalStepsForDay.value = settings.getInt(Constants.STEPS_PER_DAY, 0)
-        currentGoal.value = settings.getInt(Constants.TARGET, 10000)
+        setCurrentStepsForWeek()
+        setCurrentStepsForMonth()
+        setCurrentId()
+        setCurrentDate()
+        setCurrentStepsForDay(settings.getInt(Constants.STEPS_PER_DAY, 0))
+        setCurrentTarget(settings.getInt(Constants.TARGET, 10000))
 
     }
 

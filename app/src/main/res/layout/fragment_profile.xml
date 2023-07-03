@@ -34,6 +34,13 @@
                 app:layout_constraintGuide_end="15dp"
                 />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/margin_main3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.34" />
+
             <ImageButton
                 android:id="@+id/wentBack"
                 android:layout_width="wrap_content"
@@ -56,12 +63,23 @@
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/profile"
                 />
+            
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintTop_toTopOf="@id/nameBox"
+                app:layout_constraintBottom_toBottomOf="@id/nameBox"
+                android:text="@string/name"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nameBox"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintStart_toEndOf="@id/margin_main3"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/profileText"
                 android:layout_marginTop="40dp">
@@ -86,7 +104,7 @@
                     app:layout_constraintTop_toTopOf="@id/nameImage"
                     app:layout_constraintBottom_toBottomOf="@id/nameImage"
                     app:layout_constraintEnd_toEndOf="@id/nameImage"
-                    android:hint="@string/name"
+                    android:hint="@string/input_name"
                     android:background="@android:color/transparent"
                     android:inputType="textCapSentences"
                     android:paddingStart="15dp"
@@ -94,14 +112,25 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintTop_toTopOf="@id/ageBox"
+                app:layout_constraintBottom_toBottomOf="@id/ageBox"
+                android:text="@string/age"
+                />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ageBox"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintStart_toStartOf="@id/margin_main3"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/nameBox"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/ageImage"
@@ -123,7 +152,7 @@
                     app:layout_constraintTop_toTopOf="@id/ageImage"
                     app:layout_constraintBottom_toBottomOf="@id/ageImage"
                     app:layout_constraintEnd_toEndOf="@id/ageImage"
-                    android:hint="@string/age"
+                    android:hint="@string/input_age"
                     android:inputType="number"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
@@ -131,15 +160,25 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintTop_toTopOf="@id/heightBox"
+                app:layout_constraintBottom_toBottomOf="@id/heightBox"
+                android:text="@string/height"
+                />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/heightBox"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintEnd_toStartOf="@id/weightBox"
+                app:layout_constraintStart_toStartOf="@id/margin_main3"
+                app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/ageBox"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
                 >
 
                 <ImageView
@@ -162,7 +201,7 @@
                     app:layout_constraintTop_toTopOf="@id/heightImage"
                     app:layout_constraintBottom_toBottomOf="@id/heightImage"
                     app:layout_constraintEnd_toEndOf="@id/heightImage"
-                    android:hint="@string/height"
+                    android:hint="@string/input_height"
                     android:inputType="number"
                     android:background="@android:color/transparent"
                     android:paddingStart="15dp"
@@ -170,44 +209,43 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/weightBox"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toEndOf="@id/heightBox"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintTop_toBottomOf="@id/ageBox"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="15dp"
-                >
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintTop_toTopOf="@id/radioGender"
+                app:layout_constraintBottom_toBottomOf="@id/radioGender"
+                android:text="@string/gender"
+                />
 
-                <ImageView
-                    android:id="@+id/weightImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="77dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/box"
-                    />
+            <RadioGroup
+                android:id="@+id/radioGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main3"
+                app:layout_constraintTop_toBottomOf="@id/heightBox"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/weightText"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/weightImage"
-                    app:layout_constraintTop_toTopOf="@id/weightImage"
-                    app:layout_constraintBottom_toBottomOf="@id/weightImage"
-                    app:layout_constraintEnd_toEndOf="@id/weightImage"
-                    android:hint="@string/weight"
-                    android:inputType="number"
-                    android:background="@android:color/transparent"
-                    android:paddingStart="15dp"
-                    />
+                <RadioButton
+                    style="@style/zagalovok1"
+                    android:id="@+id/rb_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:text="@string/he" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <RadioButton
+                    style="@style/zagalovok1"
+                    android:id="@+id/rb_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:text="@string/she"/>
+
+            </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

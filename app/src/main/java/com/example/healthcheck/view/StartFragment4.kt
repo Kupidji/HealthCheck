@@ -1,6 +1,7 @@
 package com.example.healthcheck.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +40,7 @@ class StartFragment4 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        var gender = false
+        var gender = true
 
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
@@ -50,28 +51,23 @@ class StartFragment4 : Fragment() {
 
         val navigation = findNavController()
 
-        if (binding.rbMale.isChecked) {
-            gender = true
-        }
-
-        if (binding.rbFemale.isChecked) {
-            gender = false
+        binding.radioGender.setOnCheckedChangeListener { group, checkedId ->
+            gender = binding.rbMale.isChecked
         }
 
         binding.next.setOnClickListener {
-            if (binding.getName.text.isNotEmpty()){
-                val editorforname = viewModel.settings.edit()
-                editorforname?.putString(Constants.FIO, binding.getName.text.toString())?.apply()
-                editorforname?.putBoolean(Constants.GENDER, gender)?.apply()
+            if (binding.getName.text.isNotEmpty() && binding.radioGender.checkedRadioButtonId != -1) {
+
+                val editorForStart = viewModel.settings.edit()
+                editorForStart?.putString(Constants.FIO, binding.getName.text.toString())?.apply()
+                editorForStart?.putBoolean(Constants.GENDER, gender)?.apply()
 
                 val direction = StartFragment4Directions.actionStartFragment4ToStartFragment5()
-                val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+                val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
                 buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
-            }
-            
-            else{
-                binding.getName.error = "Поле пустое"
 
+            } else {
+                binding.getName.error = "Поле пустое"
             }
         }
 
