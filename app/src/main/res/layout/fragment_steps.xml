@@ -46,23 +46,12 @@
                 android:layout_marginTop="30dp"
                 />
 
-            <ImageButton
-                android:id="@+id/profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/profile"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
             <TextView
                 style="@style/zagalovok1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/wentBack"
-                app:layout_constraintEnd_toStartOf="@id/profile"
+                app:layout_constraintStart_toEndOf="@id/margin_main"
+                app:layout_constraintEnd_toStartOf="@id/margin_main2"
                 app:layout_constraintTop_toTopOf="@id/wentBack"
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/steps"

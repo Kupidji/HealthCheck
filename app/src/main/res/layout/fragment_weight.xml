@@ -45,24 +45,13 @@
                 android:layout_marginTop="30dp"
                 />
 
-            <ImageButton
-                android:id="@+id/profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/profile"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="30dp"
-                />
-
             <TextView
                 style="@style/zagalovok1"
                 android:id="@+id/weightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/wentBack"
-                app:layout_constraintEnd_toEndOf="@id/profile"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toTopOf="@id/wentBack"
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/weight"
@@ -318,135 +307,51 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/weightTextSmall"
+                style="@style/zagalovok3"
+                android:id="@+id/fatConcentrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/wentBack"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintTop_toBottomOf="@id/weightLayoutWeek"
-                android:text="@string/weight"
-                android:background="@android:color/transparent"
                 android:layout_marginTop="15dp"
+                android:text="@string/fat_content"
+                android:background="@android:color/transparent"
                 />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/weightSmallBox"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toEndOf="@id/weightTextSmall"
-                app:layout_constraintTop_toBottomOf="@id/weightLayoutWeek"
-                app:layout_constraintEnd_toStartOf="@id/kg"
-                android:layout_marginTop="18dp"
-                android:layout_marginStart="11dp"
-                android:layout_marginEnd="10dp"
-                >
-
-                <ImageView
-                    android:id="@+id/weightImageSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/averageWeightForMonth"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/weightImageSmall"
-                    app:layout_constraintTop_toTopOf="@id/weightImageSmall"
-                    app:layout_constraintEnd_toEndOf="@id/weightImageSmall"
-                    app:layout_constraintBottom_toBottomOf="@id/weightImageSmall"
-                    android:layout_marginStart="10dp"
-                    android:text=""
-                    android:background="@android:color/transparent"
-                    android:clickable="false"
-                    android:focusable="false"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 style="@style/zagalovok3"
-                android:id="@+id/kg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/weightTextSmall"
-                app:layout_constraintTop_toBottomOf="@id/weightLayoutWeek"
-                app:layout_constraintEnd_toEndOf="@id/weightLayoutWeek"
-                android:text="@string/kg"
-                android:layout_marginStart="94dp"
-                android:layout_marginTop="20dp"
-                />
-
-            <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/heightTextSmall"
+                android:id="@+id/percentMass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/weightLayoutMonth"
-                app:layout_constraintTop_toBottomOf="@id/weightLayoutMonth"
-                app:layout_constraintEnd_toStartOf="@id/heightSmallBox"
-                android:text="@string/height"
+                app:layout_constraintTop_toTopOf="@id/fatConcentrate"
+                app:layout_constraintBottom_toBottomOf="@id/fatConcentrate"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="15dp"
+                android:text="xx%"
                 />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/heightSmallBox"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toEndOf="@id/heightTextSmall"
-                app:layout_constraintTop_toBottomOf="@id/weightLayoutMonth"
-                app:layout_constraintEnd_toStartOf="@id/cm"
-                android:layout_marginTop="18dp"
-                android:layout_marginStart="11dp"
-                android:layout_marginEnd="7dp"
-                >
-
-                <ImageView
-                    android:id="@+id/heightBoxImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/heightInWeight"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/heightBoxImage"
-                    app:layout_constraintTop_toTopOf="@id/heightBoxImage"
-                    app:layout_constraintEnd_toEndOf="@id/heightBoxImage"
-                    app:layout_constraintBottom_toBottomOf="@id/heightBoxImage"
-                    android:layout_marginStart="10dp"
-                    android:text=""
-                    android:background="@android:color/transparent"
-                    android:clickable="false"
-                    android:focusable="false"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 style="@style/zagalovok3"
-                android:id="@+id/cm"
+                android:id="@+id/indexMass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/weightLayoutMonth"
-                app:layout_constraintEnd_toEndOf="@id/weightLayoutMonth"
-                android:text="@string/cm"
-                android:layout_marginStart="94dp"
-                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
+                app:layout_constraintTop_toBottomOf="@id/fatConcentrate"
+                android:layout_marginTop="15dp"
+                android:text="@string/index_mass_body"
+                android:background="@android:color/transparent"
+                />
+
+            <TextView
+                style="@style/zagalovok3"
+                android:id="@+id/massIndex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/percentMass"
+                app:layout_constraintTop_toTopOf="@id/indexMass"
+                app:layout_constraintBottom_toBottomOf="@id/indexMass"
+                android:background="@android:color/transparent"
+                android:text="xx"
                 />
 
             <TextView
@@ -455,7 +360,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/weightTextSmall"
+                app:layout_constraintTop_toBottomOf="@id/indexMass"
                 android:layout_marginTop="15dp"
                 android:text="@string/neck_girth"
                 android:background="@android:color/transparent"
@@ -465,7 +370,7 @@
                 android:id="@+id/neck"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/heightTextSmall"
+                app:layout_constraintStart_toStartOf="@id/weightLayoutMonth"
                 app:layout_constraintTop_toTopOf="@id/neckGirth"
                 app:layout_constraintBottom_toBottomOf="@id/neckGirth"
                 app:layout_constraintEnd_toStartOf="@id/cmNeck"
@@ -961,110 +866,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/shin"
                 android:text="@string/cm"
                 />
-
-            <TextView
-                style="@style/zagalovok3"
-                android:id="@+id/fatConcentrate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/shinGirth"
-                android:layout_marginTop="15dp"
-                android:text="@string/fat_content"
-                android:background="@android:color/transparent"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fat"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/shin"
-                app:layout_constraintTop_toTopOf="@id/fatConcentrate"
-                app:layout_constraintBottom_toBottomOf="@id/fatConcentrate"
-                app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginEnd="7dp"
-                >
-
-                <ImageView
-                    android:id="@+id/fatBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/percentMass"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/fatBox"
-                    app:layout_constraintEnd_toEndOf="@id/fatBox"
-                    app:layout_constraintTop_toTopOf="@id/fatBox"
-                    app:layout_constraintBottom_toBottomOf="@id/fatBox"
-                    android:background="@android:color/transparent"
-                    android:text=""
-                    android:layout_marginStart='10dp'
-                    android:clickable="false"
-                    android:focusable="false"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                style="@style/zagalovok3"
-                android:id="@+id/indexMass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/fatConcentrate"
-                android:layout_marginTop="15dp"
-                android:text="@string/index_mass_body"
-                android:background="@android:color/transparent"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mass"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/fat"
-                app:layout_constraintTop_toTopOf="@id/indexMass"
-                app:layout_constraintBottom_toBottomOf="@id/indexMass"
-                app:layout_constraintEnd_toStartOf="@id/cmShin"
-                android:layout_marginEnd="7dp"
-                >
-
-                <ImageView
-                    android:id="@+id/indexMassBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/massIndex"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/indexMassBox"
-                    app:layout_constraintEnd_toEndOf="@id/indexMassBox"
-                    app:layout_constraintTop_toTopOf="@id/indexMassBox"
-                    app:layout_constraintBottom_toBottomOf="@id/indexMassBox"
-                    android:background="@android:color/transparent"
-                    android:text=""
-                    android:layout_marginStart='10dp'
-                    android:clickable="false"
-                    android:focusable="false"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

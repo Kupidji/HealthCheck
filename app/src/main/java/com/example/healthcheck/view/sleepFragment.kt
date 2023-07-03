@@ -47,13 +47,6 @@ class sleepFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         viewModel.sleepForWeek.observe(this@sleepFragment.viewLifecycleOwner) {
             binding.timeForWeek.setText("${it + "ч"}")
         }
@@ -85,13 +78,6 @@ class sleepFragment : Fragment() {
             val direction = sleepFragmentDirections.actionSleepFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
-        }
-
-        binding.profile.setOnClickListener {
-            //навигация и анимации
-            val direction = sleepFragmentDirections.actionSleepFragmentToProfileFragment()
-            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
-            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         binding.sleep1.setOnClickListener {

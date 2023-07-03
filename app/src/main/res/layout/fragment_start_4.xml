@@ -121,8 +121,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
-                    android:text="Муж"
-                    android:checked="true"/>
+                    android:text="@string/he"
+                    android:checked="true"
+                    />
 
                 <RadioButton
                     style="@style/zagalovok1"
@@ -130,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:text="Жен" />
+                    android:text="@string/she" />
 
             </RadioGroup>
 

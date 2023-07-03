@@ -13,11 +13,6 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     lateinit var settings : SharedPreferences
     lateinit var settingsForWeight : SharedPreferences
 
-    var fio = MutableLiveData<String?>()
-    var age = MutableLiveData<String?>()
-    var weightStart = MutableLiveData<String?>()
-    var heightStart = MutableLiveData<String?>()
-
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
         settingsForWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)

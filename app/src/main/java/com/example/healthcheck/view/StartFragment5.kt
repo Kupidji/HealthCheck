@@ -69,6 +69,7 @@ class StartFragment5 : Fragment() {
 
             val editorForWeight = viewModel.settingsForWeight.edit()
             editorForWeight?.putFloat(Constants.WEIGHT_FOR_DAY, binding.numberPicker1.value.toString().toFloat())?.apply()
+            editorForWeight?.putFloat(Constants.WEIGHT_FOR_WEEK, binding.numberPicker1.value.toString().toFloat())?.apply()
 
             insertWeight()
 

@@ -38,13 +38,6 @@ class nutritionFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         binding.wentBack.setOnClickListener {
             //навигация и анимации
             var navOptions = NavOptions.Builder()
@@ -57,13 +50,6 @@ class nutritionFragment : Fragment() {
             val direction = nutritionFragmentDirections.actionNutritionFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
-        }
-
-        binding.profile.setOnClickListener {
-            //навигация и анимации
-            val direction = nutritionFragmentDirections.actionNutritionFragmentToProfileFragment()
-            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
-            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
     }

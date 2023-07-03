@@ -2,6 +2,7 @@ package com.example.healthcheck.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,10 +40,21 @@ class profileFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var gender = viewModel.settings.getBoolean(Constants.GENDER, true)
+
         binding.nameText.setText(viewModel.settings.getString(Constants.FIO, ""))
         binding.ageText.setText(viewModel.settings.getInt(Constants.AGE, 0).toString())
-        binding.weightText.setText(viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toString())
         binding.heightText.setText(viewModel.settings.getFloat(Constants.HEIGHT_START, 0F).toString())
+        if (gender) {
+            binding.rbMale.toggle()
+        }
+        else {
+            binding.rbFemale.toggle()
+        }
+
+        binding.radioGender.setOnCheckedChangeListener { group, checkedId ->
+            gender = binding.rbMale.isChecked
+        }
 
         binding.wentBack.setOnClickListener {
             //подумать над навигацией
@@ -59,20 +71,17 @@ class profileFragment : Fragment() {
         }
 
         binding.confirm.setOnClickListener {
-            val editorForName = viewModel.settings.edit()
-            val editorForWeight = viewModel.settingsForWeight.edit()
+            val editorForProfile = viewModel.settings.edit()
             if (binding.nameText.text.toString() != viewModel.settings.getString(Constants.FIO, "")){
-                editorForName?.putString(Constants.FIO, binding.nameText.text.toString())?.apply()
+                editorForProfile?.putString(Constants.FIO, binding.nameText.text.toString())?.apply()
             }
             if (binding.ageText.text.toString() != viewModel.settings.getInt(Constants.AGE, 0).toString()){
-                editorForName?.putInt(Constants.AGE, binding.ageText.text.toString().toInt())?.apply()
+                editorForProfile?.putInt(Constants.AGE, binding.ageText.text.toString().toInt())?.apply()
             }
             if (binding.heightText.text.toString() != viewModel.settings.getFloat(Constants.HEIGHT_START, 0F).toString()){
-                editorForName?.putFloat(Constants.HEIGHT_START, binding.heightText.text.toString().toFloat())?.apply()
+                editorForProfile?.putFloat(Constants.HEIGHT_START, binding.heightText.text.toString().toFloat())?.apply()
             }
-            if (binding.weightText.text.toString() != viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toString()){
-                editorForWeight?.putFloat(Constants.WEIGHT_FOR_DAY, binding.weightText.text.toString().toFloat())?.apply()
-            }
+            editorForProfile?.putBoolean(Constants.GENDER, gender)?.apply()
             //todo посылать информацию в saveInstanceStateSettings
             //навигация анимации
             var navOptions = NavOptions.Builder()

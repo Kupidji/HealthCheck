@@ -53,8 +53,6 @@ class heartFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var currentDate = Calendar.getInstance().timeInMillis
-
         viewModel.upperPressure.observe(this@heartFragment.viewLifecycleOwner) {
             binding.ur1.text = it.toString()
         }
@@ -84,22 +82,6 @@ class heartFragment : Fragment() {
             val direction = heartFragmentDirections.actionHeartFragmentToMainFragment()
             val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
-        }
-
-        //навигация и анимации
-        binding.profile.setOnClickListener {
-            //для главного экрана
-            saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
-            var navOptions = NavOptions.Builder()
-                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-                .build()
-            //навигация и анимации
-            val direction = heartFragmentDirections.actionHeartFragmentToProfileFragment()
-            val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
-            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         view.viewTreeObserver.addOnGlobalLayoutListener {

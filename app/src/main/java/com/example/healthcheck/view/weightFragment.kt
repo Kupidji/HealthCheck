@@ -82,38 +82,26 @@ class weightFragment : Fragment() {
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
-        binding.profile.setOnClickListener {
-            //навигация и анимации
-            val direction = weightFragmentDirections.actionWeightFragmentToProfileFragment()
-            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
-            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
-        }
-
-        viewModel.heightStart.observe(this@weightFragment.viewLifecycleOwner) {
-            binding.heightInWeight.setText(String.format(Locale.US,"%.1f", it))
-        }
-
-        viewModel.totalWeightForDay.observe(this@weightFragment.viewLifecycleOwner) {
-
-            binding.averageWeightForMonth.setText(String.format(Locale.US,"%.1f", it))
+        viewModel.totalWeightForWeek.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != null) {
-                binding.massIndex.setText(String.format(
+                binding.massIndex.text = String.format(
                     Locale.US,
                     "%.1f",
-                    imt(it.toFloat(),binding.heightInWeight.text.toString().toFloat()))
-                )
+                    imt(it.toFloat(), viewModel.settingsProfile.getFloat(Constants.HEIGHT_START, 0F).toString().toFloat()))
             }
 
             val fat = String.format(
                 Locale.US, "%.1f",
-                fatTotal(
-                    viewModel.settingsProfile.getBoolean(Constants.GENDER, true),
-                    viewModel.settingsProfile.getInt(Constants.AGE, 0),
-                    it,
-                    binding.heightInWeight.text.toString().toFloat(),
-                )
+                it?.let { it1 ->
+                    fatTotal(
+                        viewModel.settingsProfile.getBoolean(Constants.GENDER, true),
+                        viewModel.settingsProfile.getInt(Constants.AGE, 0),
+                        it1,
+                        viewModel.settingsProfile.getFloat(Constants.HEIGHT_START, 0F).toString().toFloat(),
+                    )
+                }
             )
-            binding.percentMass.setText(fat)
+            binding.percentMass.text = fat + "%"
             if (fat.toFloat() != viewModel.settingsWeight.getFloat(Constants.FAT, 0F)) {
                 saveDataForWeight(fat.toFloat(), Constants.FAT)
                 viewModel.changeMeasure(viewModel.fat, Constants.FAT)
@@ -329,7 +317,7 @@ class weightFragment : Fragment() {
 
         var day = 0L
         var id = 0
-        var currentDate = Date().time
+        var currentDate = Calendar.getInstance().timeInMillis
 
         viewModel.day.observe(this@weightFragment.viewLifecycleOwner) {
             if (it != null) {

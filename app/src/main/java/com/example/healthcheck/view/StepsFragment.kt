@@ -51,13 +51,6 @@ class StepsFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var navOptions = NavOptions.Builder()
-            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-            .build()
-
         var currentDate = Calendar.getInstance().timeInMillis
 
         //Востанавливает max для progressbar для недели и месяца
@@ -110,14 +103,6 @@ class StepsFragment : Fragment() {
             val direction = StepsFragmentDirections.actionStepsFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
-        }
-
-        //Переход на профиль
-        binding.profile.setOnClickListener {
-            //навигация и анимации
-            val direction = StepsFragmentDirections.actionStepsFragmentToProfileFragment()
-            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
-            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
         }
 
         //Если фокус уйдет
@@ -395,7 +380,7 @@ class StepsFragment : Fragment() {
 
     //Формула для подсчета калорий
     private fun kKAL(Steps: Int): Int {
-        return ((Steps.toFloat()/1300) * 0.52 * viewModel.settingsStart.getFloat(Constants.WEIGHT_START, 0F)).toInt()
+        return ((Steps.toFloat()/1300) * 0.52 * viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_WEEK, 0F)).toInt()
     }
 
     //Сохраняет или обновляет базу данных

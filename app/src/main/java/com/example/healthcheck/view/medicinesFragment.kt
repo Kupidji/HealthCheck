@@ -106,13 +106,6 @@ class medicinesFragment : Fragment() {
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
-        binding.profile.setOnClickListener {
-            //навигация и анимации
-            val direction = medicinesFragmentDirections.actionMedicinesFragmentToProfileFragment()
-            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
-            buttonChangeScreenAnimation(binding.profile, navigation, direction, navOptions, navigate)
-        }
-
         binding.addNewMedicines.setOnClickListener {
             //навигация и анимации
             val direction = medicinesFragmentDirections.actionMedicinesFragmentToAddMedicinesFragment()
