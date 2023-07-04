@@ -26,7 +26,7 @@ class App: Application() {
         }
 
         //инициализация бд
-        Log.d("Database", "Database is init")
+        Log.d("Database", "База данных инициализирована")
         Repositories.init(applicationContext)
 
         //создание канала для уведомления
@@ -70,6 +70,17 @@ class App: Application() {
 
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
+
+            val channel2 = NotificationChannel(
+                Constants.REGULAR_CHANNEL,
+                Constants.REGULAR,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.description = "Напоминание о вводе данных за день"
+
+            val manager2 = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager2.createNotificationChannel(channel2)
+
         }
     }
 

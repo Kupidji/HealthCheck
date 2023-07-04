@@ -87,16 +87,15 @@
                     />
 
                 <TextView
-                    style="@style/hint1"
                     android:id="@+id/actions"
+                    style="@style/hint1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/statusBox"
-                    app:layout_constraintTop_toTopOf="@id/statusBox"
-                    app:layout_constraintBottom_toBottomOf="@id/statusBox"
+                    android:layout_marginStart="10dp"
                     android:text="@string/no_nearest_act"
-                    android:layout_marginStart="15dp"
-                    />
+                    app:layout_constraintBottom_toBottomOf="@id/statusBox"
+                    app:layout_constraintStart_toStartOf="@id/statusBox"
+                    app:layout_constraintTop_toTopOf="@id/statusBox" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -215,12 +214,11 @@
                     style="@style/zagalovok1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/medicineiesBox2"
-                    app:layout_constraintTop_toTopOf="@id/medicineiesBox2"
-                    app:layout_constraintBottom_toBottomOf="@id/medicineiesBox2"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/preparations"
-                    />
+                    app:layout_constraintBottom_toBottomOf="@id/medicineiesBox2"
+                    app:layout_constraintStart_toStartOf="@id/medicineiesBox2"
+                    app:layout_constraintTop_toTopOf="@id/medicineiesBox2" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -261,12 +259,11 @@
                     style="@style/zagalovok1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/healtyEatBox"
-                    app:layout_constraintTop_toTopOf="@id/healtyEatBox"
-                    app:layout_constraintBottom_toBottomOf="@id/healtyEatBox"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/healthy_eat"
-                    />
+                    app:layout_constraintBottom_toBottomOf="@id/healtyEatBox"
+                    app:layout_constraintStart_toStartOf="@id/healtyEatBox"
+                    app:layout_constraintTop_toTopOf="@id/healtyEatBox" />
 
                 <ImageView
                     android:layout_width="wrap_content"

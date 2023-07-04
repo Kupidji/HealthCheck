@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -13,11 +15,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesBinding
+import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.model.medicines.viewmodel.MedicinesActionListener
 import com.example.healthcheck.model.medicines.viewmodel.MedicinesRecyclerViewAdapter
 import com.example.healthcheck.model.medicines.viewmodel.MedicinesViewModel
+import kotlinx.coroutines.launch
 
 class medicinesFragment : Fragment() {
 
@@ -89,8 +93,7 @@ class medicinesFragment : Fragment() {
             adapter.medicinesList = it
         }
 
-        if (checkCountOfMedicines()) binding.nothingThere.visibility = View.GONE
-        else binding.nothingThere.visibility = View.VISIBLE
+        checkCountOfMedicines()
 
         binding.wentBack.setOnClickListener {
             //навигация и анимации
@@ -113,10 +116,34 @@ class medicinesFragment : Fragment() {
             buttonChangeScreenAnimation(binding.addNewMedicines, navigation, direction, navOptions, navigate)
         }
 
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                var navOptions = NavOptions.Builder()
+                    .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                    .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                    .setPopUpTo(R.id.mainFragment, true)
+                    .build()
+                val direction = medicinesFragmentDirections.actionMedicinesFragmentToMainFragment()
+
+                navigation.navigate(direction, navOptions)
+            }
+        })
+
     }
 
-    fun checkCountOfMedicines() : Boolean {
-        return (adapter.medicinesList.isEmpty())
+    fun checkCountOfMedicines() {
+
+        viewModel.getAllMedicines().observe(this@medicinesFragment.viewLifecycleOwner) { list ->
+            if (list.isEmpty()) {
+                binding.nothingThere.visibility = View.VISIBLE
+            }
+            else {
+                binding.nothingThere.visibility = View.GONE
+            }
+        }
+
     }
 
 }

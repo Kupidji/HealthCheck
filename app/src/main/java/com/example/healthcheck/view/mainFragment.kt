@@ -1,14 +1,15 @@
 package com.example.healthcheck.view
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -16,11 +17,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
+import com.example.healthcheck.model.global_notifications.service.NotificationService
+import com.example.healthcheck.model.mainscreen.viewmodel.MainViewModel
+import com.example.healthcheck.model.mainscreen.viewmodel.ViewPagerAdapter
 import com.example.healthcheck.model.medicines.entities.Medicines
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.model.mainscreen.viewmodel.MainViewModel
-import com.example.healthcheck.model.mainscreen.viewmodel.ViewPagerAdapter
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import kotlin.math.abs
@@ -33,6 +35,8 @@ class mainFragment : Fragment() {
 
     private lateinit var binding : FragmentMainBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var nearestActMedicine : Medicines
+    private var isClickable = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +62,7 @@ class mainFragment : Fragment() {
             .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
             .build()
 
-        var settings =this@mainFragment.context?.applicationContext?.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
+        var settings = this@mainFragment.context?.applicationContext?.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
         var settingsHealthyEat = this@mainFragment.context?.applicationContext?.getSharedPreferences(Constants.HEALTHY_EAT_VISIBILITY, Context.MODE_PRIVATE)
 
         if (settingsHealthyEat != null) {
@@ -71,7 +75,20 @@ class mainFragment : Fragment() {
 
         if (settings != null) {
             if (settings.getBoolean(Constants.IS_FIRST_TIME, true)) {
+                //переход в знакомство
                 navigation.navigate(R.id.startFragment)
+                //Уведомления для напоминаний о вводе данных
+                var service = NotificationService(this.requireContext())
+                var time = Calendar.getInstance()
+                time.set(Calendar.HOUR_OF_DAY, 18)
+                time.set(Calendar.MINUTE, 0)
+//                var tempTime = time.toString().substring(0..4) + "64800000"
+//                time = tempTime.toLong()
+                val settings = context?.applicationContext?.getSharedPreferences(Constants.TIME_OF_NOTIFICATION, Context.MODE_PRIVATE)
+                val editor = settings?.edit()
+                editor?.putLong(Constants.TIME_OF_NOTIFICATION, time.timeInMillis)
+                settings?.getLong(Constants.TIME_OF_NOTIFICATION, time.timeInMillis)
+                    ?.let { service.setRepetitiveAlarm(it, Constants.REGULAR_MESSAGE, Constants.REGULAR_CHANNEL_ID) }
             }
         }
 
@@ -119,6 +136,40 @@ class mainFragment : Fragment() {
             val direction = mainFragmentDirections.actionMainFragmentToNutritionFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.healthyEat, navigation, direction, navOptions, navigate)
+        }
+
+        binding.nearestActBox.setOnClickListener {
+            if (isClickable) {
+                var navOptions2 = NavOptions.Builder()
+                    .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                    .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                    .setPopUpTo(R.id.medicinesEditFragment, true)
+                    
+                    .build()
+
+                val direction = mainFragmentDirections.actionMainFragmentToMedicinesEditFragment (
+                    nearestActMedicine.title,
+                    nearestActMedicine.timeOfNotify1,
+                    nearestActMedicine.channelIDFirstTime,
+                    nearestActMedicine.timeOfNotify2,
+                    nearestActMedicine.channelIDSecondTime,
+                    nearestActMedicine.timeOfNotify3,
+                    nearestActMedicine.channelIDThirdTime,
+                    nearestActMedicine.timeOfNotify4,
+                    nearestActMedicine.channelIDFourthTime,
+                    nearestActMedicine.dateStart,
+                    nearestActMedicine.currentDayOfCourse,
+                    nearestActMedicine.durationOfCourse,
+                    nearestActMedicine.id,
+                    nearestActMedicine.totalMissed,
+                )
+                navigation.navigate(direction, navOptions2)
+            }
+            else {
+                Toast.makeText(this.requireContext(), "Добавьте действие", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -210,6 +261,7 @@ class mainFragment : Fragment() {
                        if (tempTime < tempMin) {
                            tempMin = tempTime
                            tempNearestTime = action
+                           nearestAction = medicine
                            nearestAction.title = medicine.title
                        }
                    }
@@ -217,9 +269,12 @@ class mainFragment : Fragment() {
 
             if (tempNearestTime != 0L) {
                 binding.actions.text = nearestAction.title + " - " + SimpleDateFormat("HH:mm").format(tempNearestTime)
+                nearestActMedicine = nearestAction
+                isClickable = true
             }
             else {
                 binding.actions.setText(R.string.no_nearest_act)
+                isClickable = false
             }
 
         }

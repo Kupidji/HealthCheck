@@ -1,5 +1,7 @@
 package com.example.healthcheck.util
 
+import java.util.Calendar
+
 object Constants {
 
     /////////////Уведомления
@@ -8,6 +10,7 @@ object Constants {
     const val EXTRA_EXACT_ALARM_TIME = "EXTRA_EXACT_ALARM_TIME"
     const val ACTION_SET_EXACT = "ACTION_SET_EXTRA"
     const val ACTION_SET_REPETITIVE_EXACT = "ACTION_SET_REPETITIVE_EXACT"
+    const val ACTION_SET_REPETITIVE_EXACT_REGULAR = "ACTION_SET_REPETITIVE_EXACT_REGULAR"
     const val CHANNEL_ID = "CHANNEL_ID"
 
     //medicines
@@ -15,9 +18,19 @@ object Constants {
     const val MESSAGE = "MESSAGE"
     const val MEDICINE = "Medicine"
 
+    //Напоминание о ежедневных действиях
+    const val REGULAR_CHANNEL = "REGULAR_CHANNEL"
+    const val REGULAR = "Reminder"
+    const val REGULAR_MESSAGE = "Напоминание"
+    const val REGULAR_CHANNEL_ID = 1232149812
+
+
     ///////////////////////
 
     /////////////sharedPreferences
+
+    //Уведомления
+    const val TIME_OF_NOTIFICATION = "TIME_OF_NOTIFICATION"
 
     //Настройки
     const val HEALTHY_EAT_VISIBILITY = "HEALTHY_EAT_VISIBILITY"
