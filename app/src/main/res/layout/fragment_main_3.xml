@@ -160,7 +160,7 @@
         app:layout_constraintTop_toBottomOf="@id/stepsLayout"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="16dp">
 
         <ImageButton
             android:id="@+id/kardioBox"
@@ -217,7 +217,7 @@
         app:layout_constraintTop_toBottomOf="@id/sleepLayout"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="16dp">
 
         <ImageButton
             android:id="@+id/weightBox"

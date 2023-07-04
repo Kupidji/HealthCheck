@@ -116,7 +116,7 @@
                 app:layout_constraintEnd_toStartOf="@id/weightLayoutMonth"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="13dp"
+                android:layout_marginEnd="5dp"
                 >
 
                 <ImageButton
@@ -215,7 +215,7 @@
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
                 android:layout_marginTop="15dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginStart="5dp"
                 >
 
                 <ImageButton
@@ -398,8 +398,8 @@
                     app:layout_constraintEnd_toEndOf="@id/neckBox"
                     app:layout_constraintBottom_toBottomOf="@id/neckBox"
                     android:layout_marginStart="10dp"
-                    android:text=""
                     android:layout_marginEnd="10dp"
+                    android:hint=""
                     android:background="@android:color/transparent"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"

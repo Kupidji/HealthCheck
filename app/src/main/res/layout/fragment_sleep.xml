@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/wentBack"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/how_long_sleep"
                 />
 
@@ -74,8 +74,8 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintEnd_toStartOf="@id/sleep2_box"
                 app:layout_constraintTop_toBottomOf="@id/howLongSleep"
-                android:layout_marginTop="22dp"
-                android:layout_marginEnd="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 >
 
                 <ImageView
@@ -113,8 +113,8 @@
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintStart_toEndOf="@id/sleep1_box"
                 app:layout_constraintTop_toBottomOf="@id/howLongSleep"
-                android:layout_marginTop="22dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
                 >
 
                 <ImageView
@@ -152,8 +152,8 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintEnd_toStartOf="@id/boxxe2"
                 app:layout_constraintTop_toBottomOf="@id/sleep1_box"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 >
 
                 <ImageView
@@ -211,8 +211,8 @@
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintStart_toEndOf="@id/boxxe1"
                 app:layout_constraintTop_toBottomOf="@id/sleep2_box"
-                android:layout_marginTop="28dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
                 >
 
                 <ImageView
@@ -270,7 +270,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/boxxe1"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/total_sleeptime"
                 />
 
@@ -281,12 +281,12 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/totalSleeptime"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="21dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/big_box"
                     android:layout_width="match_parent"
-                    android:layout_height="192dp"
+                    android:layout_height="182dp"
                     android:src="@drawable/box"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

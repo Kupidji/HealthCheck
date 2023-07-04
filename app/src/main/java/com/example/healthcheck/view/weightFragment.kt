@@ -50,6 +50,21 @@ class weightFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var id = 0
+        var date = 0L
+
+        viewModel.day.observe(this@weightFragment.viewLifecycleOwner) {
+            if (it != null) {
+                date = it
+            }
+        }
+
+        viewModel.id.observe(this@weightFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
+        }
+
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
             .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
@@ -154,7 +169,7 @@ class weightFragment : Fragment() {
         //Фокус прешел на другой edittext
         binding.getWeight.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus && binding.getWeight.text.isNotEmpty()) {
-                forWeight()
+                forWeight(id, date)
             }
         }
         afterFocusChangeForMeasure(binding.neckneck, Constants.NECK, viewModel.neck)
@@ -176,36 +191,22 @@ class weightFragment : Fragment() {
 
                 forFocus(false)
 
+
                 if (binding.getWeight.text.isNotEmpty() && binding.getWeight.isFocused) {
                     //Для сохранения веса
-                    forWeight()
+                    forWeight(id, date)
                 }
 
                 //Для сохранения обхватов
-                if (binding.neckneck.text.isNotEmpty() && binding.neckneck.isFocused) {
-                    forMeasure(binding.neckneck, Constants.NECK, viewModel.neck)
-                }
-                if (binding.waistwaist.text.isNotEmpty() && binding.waistwaist.isFocused) {
-                    forMeasure(binding.waistwaist, Constants.WAIST,viewModel.waist)
-                }
-                if (binding.forearmforearm.text.isNotEmpty() && binding.forearmforearm.isFocused) {
-                    forMeasure(binding.forearmforearm, Constants.FOREARM,viewModel.forearm)
-                }
-                if (binding.wristwrist.text.isNotEmpty() && binding.wristwrist.isFocused) {
-                    forMeasure(binding.wristwrist, Constants.WRIST,viewModel.wrist)
-                }
-                if (binding.hipships.text.isNotEmpty() && binding.hipships.isFocused) {
-                    forMeasure(binding.hipships, Constants.HIPS, viewModel.hips)
-                }
-                if (binding.hiphip1.text.isNotEmpty() && binding.hiphip1.isFocused) {
-                    forMeasure(binding.hiphip1, Constants.HIP_1, viewModel.hip1)
-                }
-                if (binding.hiphip2.text.isNotEmpty() && binding.hiphip2.isFocused) {
-                    forMeasure(binding.hiphip2, Constants.HIP_2, viewModel.hip2)
-                }
-                if (binding.shinshin.text.isNotEmpty() && binding.shinshin.isFocused) {
-                    forMeasure(binding.shinshin, Constants.SHIN, viewModel.shin)
-                }
+                changeMeasure(binding.neckneck, Constants.NECK, viewModel.neck)
+                changeMeasure(binding.waistwaist, Constants.WAIST,viewModel.waist)
+                changeMeasure(binding.forearmforearm, Constants.FOREARM,viewModel.forearm)
+                changeMeasure(binding.wristwrist, Constants.WRIST,viewModel.wrist)
+                changeMeasure(binding.hipships, Constants.HIPS, viewModel.hips)
+                changeMeasure(binding.hiphip1, Constants.HIP_1, viewModel.hip1)
+                changeMeasure(binding.hiphip2, Constants.HIP_2, viewModel.hip2)
+                changeMeasure(binding.shinshin, Constants.SHIN, viewModel.shin)
+
 
             }
             else{
@@ -219,6 +220,20 @@ class weightFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.totalWeightForDay.value?.let { saveDataForWeight(it, Constants.WEIGHT_FOR_DAY) }
+    }
+
+    private fun changeMeasure(editText: EditText, constant: String, humanPart: MutableLiveData<Float>) {
+        if (editText.text.isNotEmpty() && editText.isFocused) {
+            forMeasure(editText, constant, humanPart)
+        }
+        else if (editText.text.isEmpty() && editText.isFocused) {
+            deleteMeasure(constant, humanPart)
+        }
+    }
+
+    private fun deleteMeasure(constant: String, humanPart: MutableLiveData<Float>) {
+        saveDataForWeight(0F, constant)
+        viewModel.changeMeasure(humanPart, constant)
     }
 
     private fun focusChange(editText: EditText, boolean: Boolean) {
@@ -252,11 +267,14 @@ class weightFragment : Fragment() {
             if (!hasFocus && editText.text.isNotEmpty()) {
                 forMeasure(editText, constant, humanPart)
             }
+            else if (!hasFocus && editText.text.isEmpty()) {
+                deleteMeasure(constant, humanPart)
+            }
         }
 
     }
 
-    private fun forWeight() {
+    private fun forWeight(id: Int, date : Long) {
 
         if (binding.getWeight.text.toString().toFloat() in 1.0..635.0) {
 
@@ -271,7 +289,7 @@ class weightFragment : Fragment() {
                 viewModel.setCurrentWeightForDay(binding.getWeight.text.toString().toFloat())
 
                 //Сохраняет или обновляет базу данных
-                saveOrUpdateWeightBd(weight)
+                saveOrUpdateWeightBd(weight, id, date)
 
                 //Обновляет вес за неделю и за месяц и id date последней записи, так как обновилась база данных
                 viewModel.setCurrentWeightForWeek()
@@ -279,14 +297,9 @@ class weightFragment : Fragment() {
                 viewModel.setCurrentDateWeight()
                 viewModel.setCurrentIdWeight()
 
-                binding.getWeight.setSelection(binding.getWeight.text.toString().length)
+            }
 
-            }
-            else {
-                saveDataForWeight(binding.getWeight.text.toString().toFloat(), Constants.WEIGHT_FOR_DAY)
-                viewModel.setCurrentWeightForDay(binding.getWeight.text.toString().toFloat())
-                binding.getWeight.setSelection(binding.getWeight.text.toString().length)
-            }
+            binding.getWeight.setSelection(binding.getWeight.text.toString().length)
 
             binding.getWeight.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
@@ -300,39 +313,29 @@ class weightFragment : Fragment() {
 
         if (editText.text.toString().toFloat() in 1.0..365.0) {
 
+            if (editText.text.toString().toFloat() != viewModel.settingsWeight.getFloat(constant, 0F)) {
+
             saveDataForWeight(editText.text.toString().toFloat(), constant)
             viewModel.changeMeasure(humanPart, constant)
             editText.setSelection(editText.text.toString().length)
 
+            }
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
         }
         else {
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.error_ic, 0)
         }
-
     }
 
-    private fun saveOrUpdateWeightBd(weight : Float) {
+    private fun saveOrUpdateWeightBd(weight : Float, id: Int, date: Long) {
 
-        var day = 0L
-        var id = 0
-        var currentDate = Calendar.getInstance().timeInMillis
+        val currentDate = Calendar.getInstance().timeInMillis
 
-        viewModel.day.observe(this@weightFragment.viewLifecycleOwner) {
-            if (it != null) {
-                day = it
-            }
-        }
-
-        viewModel.id.observe(this@weightFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
-            }
-        }
+        Log.d("date", "current date: $currentDate day: $date id : $id ")
 
         //Если новая дата не совпадает со старой -> insert
-        if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(day)) {
+        if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(date)) {
 
             if (binding.getWeight.text.isNotEmpty()) {
 

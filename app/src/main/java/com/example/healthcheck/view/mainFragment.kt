@@ -25,6 +25,7 @@ import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.TimeZone
 import kotlin.math.abs
 
 class mainFragment : Fragment() {
@@ -243,20 +244,20 @@ class mainFragment : Fragment() {
             channelIDFourthTime = 0,
             totalMissed = 0,
         )
-        viewModel.getAllMedicines().observe(this.viewLifecycleOwner) { livedataList ->
+        viewModel.getAllMedicines().observe(this@mainFragment.viewLifecycleOwner) { livedataList ->
             var currentTime = Calendar.getInstance().timeInMillis
             var tempMin = currentTime
             var tempNearestTime = 0L
             var list: List<Medicines> = livedataList
                for (medicine in list) {
-                   var listOfNotigications = listOf(
+                   var listOfNotifications = listOf(
                        medicine.timeOfNotify1,
                        medicine.timeOfNotify2,
                        medicine.timeOfNotify3,
                        medicine.timeOfNotify4,
                    )
 
-                   for (action in listOfNotigications) {
+                   for (action in listOfNotifications) {
                        var tempTime = abs(currentTime - action)
                        if (tempTime < tempMin) {
                            tempMin = tempTime
@@ -268,7 +269,7 @@ class mainFragment : Fragment() {
                }
 
             if (tempNearestTime != 0L) {
-                binding.actions.text = nearestAction.title + " - " + SimpleDateFormat("HH:mm").format(tempNearestTime)
+                binding.actions.text = nearestAction.title + " - " + SimpleDateFormat("HH:mm").format(tempNearestTime)+", через "+ forGmt(calculateTime(currentTime, tempNearestTime))
                 nearestActMedicine = nearestAction
                 isClickable = true
             }
@@ -277,6 +278,29 @@ class mainFragment : Fragment() {
                 isClickable = false
             }
 
+        }
+    }
+    private fun getGMT() : String {
+        val tz = TimeZone.getDefault()
+        val gmt1 = TimeZone.getTimeZone(tz.id).getDisplayName(false, TimeZone.SHORT)
+        return if (gmt1.length > 3){
+            gmt1.slice(4..8)
+        } else{
+            "00:00"
+        }
+    }
+
+    private fun forGmt(long: Long) : String {
+        val GMT = getGMT()
+        val listGMT = GMT.split(":")
+        return SimpleDateFormat("HH:mm").format(long - listGMT[0].toInt() * 3600000)
+    }
+
+    private fun calculateTime(time1 : Long, time2 : Long) : Long {
+        return if (time1 - time2 <= 0) {
+            time2 - time1
+        } else {
+            time2 + 86400000 - time1
         }
     }
 }
