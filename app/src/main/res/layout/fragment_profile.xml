@@ -230,7 +230,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    style="@style/zagalovok1"
+                    style="@style/zagalovok2"
                     android:id="@+id/rb_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -238,7 +238,7 @@
                     android:text="@string/he" />
 
                 <RadioButton
-                    style="@style/zagalovok1"
+                    style="@style/zagalovok2"
                     android:id="@+id/rb_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

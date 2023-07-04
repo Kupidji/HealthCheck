@@ -89,8 +89,9 @@ class profileFragment : Fragment() {
                 .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
                 .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
                 .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-                .setPopUpTo(R.id.medicinesFragment, true)
+                .setPopUpTo(R.id.mainFragment, true)
                 .build()
+
             val direction = profileFragmentDirections.actionProfileFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.confirm, navigation, direction, navOptions, navigate)

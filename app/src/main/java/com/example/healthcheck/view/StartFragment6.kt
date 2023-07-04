@@ -45,7 +45,7 @@ class StartFragment6 : Fragment() {
 
         val numberPicker2: NumberPicker = binding.numberPicker2
         numberPicker2.setMaxValue(300)
-        numberPicker2.setMinValue(30)
+        numberPicker2.setMinValue(100)
         numberPicker2.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         numberPicker2.setWrapSelectorWheel(false)
 

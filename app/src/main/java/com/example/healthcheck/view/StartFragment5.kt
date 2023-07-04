@@ -53,13 +53,13 @@ class StartFragment5 : Fragment() {
 
         val numberPicker0: NumberPicker = binding.numberPicker0
         numberPicker0.setMaxValue(99)
-        numberPicker0.setMinValue(1)
+        numberPicker0.setMinValue(10)
         numberPicker0.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         numberPicker0.setWrapSelectorWheel(false)
 
         val numberPicker1: NumberPicker = binding.numberPicker1
         numberPicker1.setMaxValue(200)
-        numberPicker1.setMinValue(5)
+        numberPicker1.setMinValue(20)
         numberPicker1.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         numberPicker1.setWrapSelectorWheel(false)
 

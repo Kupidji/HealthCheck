@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.healthcheck.R
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.medicines.receiver.MedicinesNotificationReceiver
@@ -17,24 +18,22 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-
 class MedicinesNotificationService(private val context: Context) {
     private val alarmManager: AlarmManager? =
         context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
     fun showNotification(message: String, channelID : Int) {
-        val fragmentIntent = Intent(context, MainActivity::class.java)
-        val fragmentPendingtIntent = PendingIntent.getActivity(
-            context,
-            channelID,
-            fragmentIntent,
-            PendingIntent.FLAG_MUTABLE
-        )
+        val pendingIntent = NavDeepLinkBuilder(context)
+            .setComponentName(MainActivity::class.java)
+            .setGraph(R.navigation.navigation_graph)
+            .setDestination(R.id.medicinesFragment)
+            .createPendingIntent()
+
         val notification = NotificationCompat.Builder(context, Constants.MEDICINES_CHANNEL)
             .setSmallIcon(R.drawable.app_icon_small)
             .setContentTitle(message)
             .setContentText("Напоминание")
-            .setContentIntent(fragmentPendingtIntent)
+            .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -186,7 +185,7 @@ class MedicinesNotificationService(private val context: Context) {
             context,
             channelID,
             intent,
-            PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
 
