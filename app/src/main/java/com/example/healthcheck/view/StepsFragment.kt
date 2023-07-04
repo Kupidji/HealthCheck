@@ -2,6 +2,7 @@ package com.example.healthcheck.view
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +52,9 @@ class StepsFragment : Fragment() {
 
         val navigation = findNavController()
 
-        var currentDate = Calendar.getInstance().timeInMillis
+        val currentDate = Calendar.getInstance().timeInMillis
+        var id = 0
+        var day = 0L
 
         //Востанавливает max для progressbar для недели и месяца
         changeMaxOfProgressBar()
@@ -70,6 +73,18 @@ class StepsFragment : Fragment() {
                 binding.getCountOfSteps.setText(it.toString())
             }
             binding.dayCal.text = kKAL(it).toString() + " калорий"
+        }
+
+        viewModel.day.observe(this@StepsFragment.viewLifecycleOwner) {
+            if (it != null) {
+                day = it
+            }
+        }
+
+        viewModel.id.observe(this@StepsFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
         }
 
         //Каждый день обновляет поле шагов
@@ -108,12 +123,19 @@ class StepsFragment : Fragment() {
         //Если фокус уйдет
         binding.getCountOfSteps.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus && binding.getCountOfSteps.text.isNotEmpty()) {
-                saveAfterKeyboardClosedOrLostFocusForSteps()
+                saveAfterKeyboardClosedOrLostFocusForSteps(id, day)
             }
         }
         binding.customTarget.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus && binding.customTarget.text.isNotEmpty()) {
                 saveAfterKeyboardClosedOrLostFocusForTarget()
+            }
+            else if(!hasFocus && binding.customTarget.text.isEmpty() && viewModel.currentGoal.value != 5000 && viewModel.currentGoal.value != 10000 && viewModel.currentGoal.value != 15000) {
+                viewModel.setCurrentTarget(10000)
+                saveDataForTarget(10000)
+                loadData(10000)
+                changeProgressBar()
+                changeMaxOfProgressBar()
             }
         }
 
@@ -132,10 +154,17 @@ class StepsFragment : Fragment() {
                 binding.customTarget.isCursorVisible = false
 
                 if (binding.getCountOfSteps.text.isNotEmpty() && binding.getCountOfSteps.isFocused) {
-                    saveAfterKeyboardClosedOrLostFocusForSteps()
+                    saveAfterKeyboardClosedOrLostFocusForSteps(id, day)
                 }
                 if (binding.customTarget.text.isNotEmpty() && binding.customTarget.isFocused) {
                     saveAfterKeyboardClosedOrLostFocusForTarget()
+                }
+                else if(binding.customTarget.isFocused && binding.customTarget.text.isEmpty() && viewModel.currentGoal.value != 5000 && viewModel.currentGoal.value != 10000 && viewModel.currentGoal.value != 15000) {
+                    viewModel.setCurrentTarget(10000)
+                    saveDataForTarget(10000)
+                    loadData(10000)
+                    changeProgressBar()
+                    changeMaxOfProgressBar()
                 }
 
             }
@@ -176,7 +205,7 @@ class StepsFragment : Fragment() {
     }
 
     //Сохраняет и изменяет введеную информацию для количества шагов
-    private fun saveAfterKeyboardClosedOrLostFocusForSteps() {
+    private fun saveAfterKeyboardClosedOrLostFocusForSteps(id: Int, day: Long) {
         if (binding.getCountOfSteps.text.isNotEmpty()) {
             if (binding.getCountOfSteps.text.toString().toInt() in 1..200000) {
 
@@ -193,7 +222,7 @@ class StepsFragment : Fragment() {
                     viewModel.setCurrentStepsForDay(binding.getCountOfSteps.text.toString().toInt())
 
                     //Сохраняет или обновляет базу данных
-                    saveOrUpdateStepBd()
+                    saveOrUpdateStepBd(id, day)
 
                     //Обновляет количество шагов за неделю и за месяц и id date последней записи, так как обновилась база данных
                     viewModel.setCurrentStepsForWeek()
@@ -237,11 +266,6 @@ class StepsFragment : Fragment() {
 
                 binding.customTarget.setSelection(binding.customTarget.text.toString().length)
 
-            }
-            else {
-                saveDataForTarget(binding.customTarget.text.toString().toInt())
-                viewModel.setCurrentTarget(binding.customTarget.text.toString().toInt())
-                binding.customTarget.setSelection(binding.customTarget.text.toString().length)
             }
 
             binding.customTarget.setCompoundDrawablesWithIntrinsicBounds(0, 0,0, 0)
@@ -292,7 +316,6 @@ class StepsFragment : Fragment() {
     //Экран закрыт -> сохраняет цель и количество шагов за день
     override fun onDestroyView() {
         super.onDestroyView()
-        saveAfterKeyboardClosedOrLostFocusForSteps()
     }
 
     //Выбранная кнопка
@@ -386,31 +409,17 @@ class StepsFragment : Fragment() {
     //Сохраняет или обновляет базу данных
     //Если текущая дата есть в таблице -> обновляет количество шагов
     //Если нет -> вставляет
-    private fun saveOrUpdateStepBd() {
+    private fun saveOrUpdateStepBd(id : Int, day : Long) {
 
-        var day = 0L
-        var id = 0
-        var currentDate = Date().time
+        var currentDate = Calendar.getInstance().timeInMillis
 
-        viewModel.day.observe(this@StepsFragment.viewLifecycleOwner) {
-            if (it != null) {
-                day = it
-            }
-        }
-
-        viewModel.id.observe(this@StepsFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
-            }
-        }
-
+        Log.d("date", "current date: $currentDate day: $day id : $id ")
         //Если новая дата не совпадает со старой -> insert
         if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(day)) {
 
             if (binding.getCountOfSteps.text.isNotEmpty()) {
 
                 var ourSteps = forStepBd(currentDate, 0)
-
                 viewModel.insertSteps(ourSteps)
 
             }
@@ -420,7 +429,6 @@ class StepsFragment : Fragment() {
             if (binding.getCountOfSteps.text.isNotEmpty()) {
 
                 var ourSteps = forStepBd(currentDate, id)
-
                 viewModel.updateSteps(ourSteps)
 
             }

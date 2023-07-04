@@ -3,6 +3,7 @@ package com.example.healthcheck.view
 import android.graphics.Rect
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +54,20 @@ class heartFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var id = 0
+        var date = 0L
+
+        viewModel.lastDate.observe(this@heartFragment.viewLifecycleOwner) {
+            if (it != null) {
+                date = it
+            }
+        }
+        viewModel.lastId.observe(this@heartFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
+        }
+
         viewModel.upperPressure.observe(this@heartFragment.viewLifecycleOwner) {
             binding.ur1.text = it.toString()
         }
@@ -64,7 +79,8 @@ class heartFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
-            if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
+            if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
+                binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
                 saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
             }
            else {
@@ -96,9 +112,9 @@ class heartFragment : Fragment() {
                 forFocus(false)
 
                 //сохранение в бд, когда все 3 заполнены
-                afterKeyboardIsDown(binding.getUpPressure, Constants.UPPER)
-                afterKeyboardIsDown(binding.getDownPressure, Constants.LOWER)
-                afterKeyboardIsDown(binding.getPulse, Constants.PULSE)
+                afterKeyboardIsDown(binding.getUpPressure, Constants.UPPER, id, date)
+                afterKeyboardIsDown(binding.getDownPressure, Constants.LOWER, id, date)
+                afterKeyboardIsDown(binding.getPulse, Constants.PULSE, id, date)
 
             } else {
                 //Показать фокус
@@ -110,36 +126,30 @@ class heartFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //Для глвного экрана
-        if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
-            saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
-        }
-        else {
-            saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
-        }
     }
 
     //Клавиатура убрана
-    private fun afterKeyboardIsDown(editText: EditText, key: String, ) {
+    private fun afterKeyboardIsDown(editText: EditText, key: String, id: Int, date : Long) {
 
         if (editText.text.isNotEmpty() && editText.isFocused) {
             //Сохранение
-            afterKeyboardClosedOrLostFocusForHeart(editText, key)
+            afterKeyboardClosedOrLostFocusForHeart(editText, key, id, date)
 
         }
         else if (editText.text.isEmpty() && editText.isFocused){
             saveSharedPref(key, 0)
+            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         }
 
-        afterFocusChange(editText,key)
+        afterFocusChange(editText,key, id, date)
 
     }
 
     //После изменения фокуса
-    private fun afterFocusChange(editText: EditText, key: String) {
+    private fun afterFocusChange(editText: EditText, key: String, id: Int, date: Long) {
         editText.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus && editText.text.isNotEmpty()) {
-                afterKeyboardClosedOrLostFocusForHeart(editText, key)
+                afterKeyboardClosedOrLostFocusForHeart(editText, key, id, date)
             }
         }
     }
@@ -161,7 +171,7 @@ class heartFragment : Fragment() {
     }
 
     //Клавиатура закрыта ил потерян фокус
-    private fun afterKeyboardClosedOrLostFocusForHeart(editText: EditText, key: String) {
+    private fun afterKeyboardClosedOrLostFocusForHeart(editText: EditText, key: String, id: Int, date: Long) {
 
         if (editText.text.toString().toInt() in 30..220) {
 
@@ -170,14 +180,15 @@ class heartFragment : Fragment() {
                 //Сохранение соответствующего поля
                 saveSharedPref(key, editText.text.toString().toInt())
 
+                //Если все 3 не пусты и значения в соответвющих пределах, то сохранение в бд
+
             }
 
-            //Если все 3 не пусты и значения в соответвющих пределах, то сохранение в бд
             if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
                 binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
 
                 //Сохранение в бд
-                saveOrUpdateHeartBd()
+                saveOrUpdateHeartBd(id, date)
                 viewModel.setCurrentPulse()
                 viewModel.setCurrentId()
                 viewModel.setCurrentDate()
@@ -210,33 +221,27 @@ class heartFragment : Fragment() {
         editText.isCursorVisible = boolean
     }
 
-    private fun saveOrUpdateHeartBd() {
+    private fun saveOrUpdateHeartBd(id: Int, date: Long) {
 
-        var date = 0L
-        var id = 0
         val currentDate = Calendar.getInstance().timeInMillis
-
-        viewModel.lastDate.observe(this@heartFragment.viewLifecycleOwner) {
-            if (it != null) {
-                date = it
-            }
-        }
-        viewModel.lastId.observe(this@heartFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
-            }
-        }
+        Log.d("date", "current date: $currentDate day: $date id : $id ")
 
         //Если новая дата не совпадает со старой -> insert
         if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(date)) {
 
-            val ourHeart = forHeartBd(currentDate, 0)
-            viewModel.insertHeart(ourHeart)
+            if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
+
+                val ourHeart = forHeartBd(currentDate, 0)
+                viewModel.insertHeart(ourHeart)
+            }
 
         } else { //Если новая дата совпадает со старой -> update
 
-            val ourHeart = forHeartBd(currentDate, id)
-            viewModel.updateHeart(ourHeart)
+            if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
+
+                val ourHeart = forHeartBd(currentDate, id)
+                viewModel.updateHeart(ourHeart)
+            }
 
         }
 

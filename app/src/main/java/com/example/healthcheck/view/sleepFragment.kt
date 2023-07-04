@@ -2,6 +2,7 @@ package com.example.healthcheck.view
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,20 @@ class sleepFragment : Fragment() {
 
         val navigation = findNavController()
 
+        var id = 0
+        var date = 0L
+
+        viewModel.lastDate.observe(this@sleepFragment.viewLifecycleOwner) {
+            if (it != null) {
+                date = it
+            }
+        }
+        viewModel.lastId.observe(this@sleepFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
+        }
+
         viewModel.sleepForWeek.observe(this@sleepFragment.viewLifecycleOwner) {
             binding.timeForWeek.setText("${it + "ч"}")
         }
@@ -83,7 +98,7 @@ class sleepFragment : Fragment() {
         binding.sleep1.setOnClickListener {
             setAlarm(binding.getGoesToBedTime) { callback ->
                 goesToBedTime = callback
-                saveSleep()
+                saveSleep(id, date)
             }
 
         }
@@ -91,16 +106,16 @@ class sleepFragment : Fragment() {
         binding.sleep2.setOnClickListener {
             setAlarm(binding.getWakeUpTime) { callback ->
                 wakeUpTime = callback
-                saveSleep()
+                saveSleep(id, date)
             }
 
         }
 
     }
 
-    private fun saveSleep() {
+    private fun saveSleep(id: Int, date : Long) {
         if (goesToBedTime != 0L && wakeUpTime != 0L) {
-            saveOrUpdateSleepBd()
+            saveOrUpdateSleepBd(id, date)
             viewModel.setCurrentAverageSleepWeek()
             viewModel.setCurrentSleepWeek()
             viewModel.setCurrentSleepMonth()
@@ -151,22 +166,11 @@ class sleepFragment : Fragment() {
         }
     }
 
-    private fun saveOrUpdateSleepBd() {
+    private fun saveOrUpdateSleepBd(id: Int, date: Long) {
 
-        var date = 0L
-        var id = 0
         val currentDate = Calendar.getInstance().timeInMillis
 
-        viewModel.lastDate.observe(this@sleepFragment.viewLifecycleOwner) {
-            if (it != null) {
-                date = it
-            }
-        }
-        viewModel.lastId.observe(this@sleepFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
-            }
-        }
+        Log.d("date", "current date: $currentDate day: $date id : $id ")
 
         //Если новая дата не совпадает со старой -> insert
         if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(date)) {

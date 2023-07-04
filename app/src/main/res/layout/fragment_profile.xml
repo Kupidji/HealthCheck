@@ -107,7 +107,8 @@
                     android:hint="@string/input_name"
                     android:background="@android:color/transparent"
                     android:inputType="textCapSentences"
-                    android:paddingStart="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -155,7 +156,8 @@
                     android:hint="@string/input_age"
                     android:inputType="number"
                     android:background="@android:color/transparent"
-                    android:paddingStart="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -204,7 +206,8 @@
                     android:hint="@string/input_height"
                     android:inputType="number"
                     android:background="@android:color/transparent"
-                    android:paddingStart="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
