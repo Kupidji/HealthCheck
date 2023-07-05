@@ -1,6 +1,7 @@
 package com.example.healthcheck.view
 
 import android.app.TimePickerDialog
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -143,68 +144,83 @@ class addMedicinesFragment : Fragment() {
 
         //бэк
 
-        binding.getTitle.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        view.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            view.getWindowVisibleDisplayFrame(r)
+            val heightDiff = view.rootView.height - r.height()
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length >= 3) {
-                    binding.recyclerViewSearchLayout.visibility = View.VISIBLE
-                    binding.progressBarRecyclerViewSearch.visibility = View.VISIBLE
-                    binding.nothingSearhed.visibility = View.GONE
-                    adapter.medicinesSearchList = emptyList()
-                    try {
-                        val medicines : Call<MedicinesEntityRetrofit> = viewModel.MedicineRetrofitApi.getMedicinesRetrofit (
-                            MedicineSendRequestRetrofit(
-                                binding.getTitle.text.toString()
-                            )
-                        )
-
-                        medicines.enqueue(object : Callback<MedicinesEntityRetrofit> {
-
-                            override fun onResponse(call: Call<MedicinesEntityRetrofit>, response: Response<MedicinesEntityRetrofit>) {
-                                if (response.isSuccessful) {
-                                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
-                                    adapter.medicinesSearchList = response.body()?.title!!
-                                    if (response.body()?.title!!.isEmpty()) {
-                                        binding.nothingSearhed.visibility = View.VISIBLE
-                                    }
-                                    else {
-                                        binding.nothingSearhed.visibility = View.GONE
-                                    }
-                                    Log.d("Notification","response code successful " + response.code())
-                                } else {
-                                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
-                                    Log.d("Notification","response code not successful " + response.code())
-                                }
-                            }
-
-                            override fun onFailure(call: Call<MedicinesEntityRetrofit>, t: Throwable) {
-                                Log.d("Notification", "onResponse: ${t.message}")
-                                Toast.makeText(this@addMedicinesFragment.requireContext(), "Ошибка в поиске таблеток", Toast.LENGTH_LONG).show()
-                            }
-
-                        })
-                        //binding.pillsText.text = medicines.listOfMedicinesRetrofit.get(0).listOfMedicinesRetrofit.get(0).title
+            //Если клавиатура появилась
+            if (heightDiff > 0.2 * view.rootView.height) {
+                binding.getTitle.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
                     }
-                    catch (exep : Exception) {
-                        binding.pillsText.text = exep.localizedMessage?.toString() ?: exep.message
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        if (s.toString().length >= 3) {
+                            binding.recyclerViewSearchLayout.visibility = View.VISIBLE
+                            binding.progressBarRecyclerViewSearch.visibility = View.VISIBLE
+                            binding.nothingSearhed.visibility = View.GONE
+                            adapter.medicinesSearchList = emptyList()
+                            try {
+                                val medicines : Call<MedicinesEntityRetrofit> = viewModel.MedicineRetrofitApi.getMedicinesRetrofit (
+                                    MedicineSendRequestRetrofit(
+                                        binding.getTitle.text.toString()
+                                    )
+                                )
+
+                                medicines.enqueue(object : Callback<MedicinesEntityRetrofit> {
+
+                                    override fun onResponse(call: Call<MedicinesEntityRetrofit>, response: Response<MedicinesEntityRetrofit>) {
+                                        if (response.isSuccessful) {
+                                            binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                                            adapter.medicinesSearchList = response.body()?.title!!
+                                            if (response.body()?.title!!.isEmpty()) {
+                                                binding.nothingSearhed.visibility = View.VISIBLE
+                                            }
+                                            else {
+                                                binding.nothingSearhed.visibility = View.GONE
+                                            }
+                                            Log.d("Notification","response code successful " + response.code())
+                                        } else {
+                                            binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                                            Log.d("Notification","response code not successful " + response.code())
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<MedicinesEntityRetrofit>, t: Throwable) {
+                                        Log.d("Notification", "onResponse: ${t.message}")
+                                        Toast.makeText(this@addMedicinesFragment.requireContext(), "Ошибка в поиске таблеток", Toast.LENGTH_LONG).show()
+                                    }
+
+                                })
+                                //binding.pillsText.text = medicines.listOfMedicinesRetrofit.get(0).listOfMedicinesRetrofit.get(0).title
+
+                            }
+                            catch (exep : Exception) {
+                                binding.pillsText.text = exep.localizedMessage?.toString() ?: exep.message
+                            }
+                        }
+                        else {
+                            binding.recyclerViewSearchLayout.visibility = View.GONE
+                            binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                            adapter.medicinesSearchList = emptyList()
+                        }
                     }
-                }
-                else {
-                    binding.recyclerViewSearchLayout.visibility = View.GONE
-                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
-                    adapter.medicinesSearchList = emptyList()
-                }
+
+                    override fun afterTextChanged(s: Editable?) {
+
+                    }
+
+                })
             }
-
-            override fun afterTextChanged(s: Editable?) {
-
+            else { //убрана
+                binding.recyclerViewSearchLayout.visibility = View.GONE
+                adapter.medicinesSearchList = emptyList()
             }
+        }
 
-        })
+
 
         binding.saveMedicine.setOnClickListener {
             if (binding.getTitle.text.isNotEmpty()) {
