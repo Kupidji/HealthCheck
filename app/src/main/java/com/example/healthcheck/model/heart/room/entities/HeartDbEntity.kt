@@ -32,7 +32,7 @@ data class HeartDbEntity(
 
     companion object {
 
-        fun fromHeart(heart : Heart) = HeartDbEntity(
+        fun fromHeart(heart : Heart) : HeartDbEntity = HeartDbEntity(
             id = 0,
             pressureUp = heart.pressureUp,
             pressureDown = heart.pressureDown,

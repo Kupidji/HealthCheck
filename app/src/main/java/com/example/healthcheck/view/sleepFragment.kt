@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -79,7 +80,8 @@ class sleepFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
-            if (binding.getGoesToBedTime.text.isNotEmpty() && binding.getWakeUpTime.text.isNotEmpty()) {
+            if (goesToBedTime != 0L && wakeUpTime != 0L) {
+                saveOrUpdateSleepBd(id, date)
                 saveSleepSettings(calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime))
             }
             //навигация и анимации
@@ -110,6 +112,24 @@ class sleepFragment : Fragment() {
             }
 
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (goesToBedTime != 0L && wakeUpTime != 0L) {
+                    saveOrUpdateSleepBd(id, date)
+                    saveSleepSettings(calculateTimeBetweenStartEndSleep(goesToBedTime, wakeUpTime))
+                }
+                var navOptions = NavOptions.Builder()
+                    .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                    .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                    .setPopUpTo(R.id.mainFragment, true)
+                    .build()
+                val direction = sleepFragmentDirections.actionSleepFragmentToMainFragment()
+                navigation.navigate(direction, navOptions)
+            }
+        })
 
     }
 

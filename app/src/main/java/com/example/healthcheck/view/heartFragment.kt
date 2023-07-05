@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavOptions
 import androidx.navigation.NavController
@@ -79,6 +80,11 @@ class heartFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
+            if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
+                if (binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
+                    saveOrUpdateHeartBd()
+                }
+            }
             if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
                 binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
                 saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
@@ -100,6 +106,10 @@ class heartFragment : Fragment() {
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
 
+//        afterFocusChange(binding.getUpPressure)
+//        afterFocusChange(binding.getDownPressure)
+//        afterFocusChange(binding.getPulse)
+
         view.viewTreeObserver.addOnGlobalLayoutListener {
             val r = Rect()
             view.getWindowVisibleDisplayFrame(r)
@@ -116,11 +126,33 @@ class heartFragment : Fragment() {
                 afterKeyboardIsDown(binding.getDownPressure, Constants.LOWER, id, date)
                 afterKeyboardIsDown(binding.getPulse, Constants.PULSE, id, date)
 
+
             } else {
                 //Показать фокус
                 forFocus(true)
             }
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
+                    if (binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
+                        saveOrUpdateHeartBd()
+                    }
+                }
+                var navOptions = NavOptions.Builder()
+                    .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                    .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                    .setPopUpTo(R.id.mainFragment, true)
+                    .build()
+                //навигация и анимации
+                val direction = heartFragmentDirections.actionHeartFragmentToMainFragment()
+                navigation.navigate(direction, navOptions)
+            }
+        })
 
     }
 
@@ -136,23 +168,22 @@ class heartFragment : Fragment() {
             afterKeyboardClosedOrLostFocusForHeart(editText, key, id, date)
 
         }
-        else if (editText.text.isEmpty() && editText.isFocused){
-            saveSharedPref(key, 0)
-            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        }
-
-        afterFocusChange(editText,key, id, date)
 
     }
 
     //После изменения фокуса
-    private fun afterFocusChange(editText: EditText, key: String, id: Int, date: Long) {
-        editText.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus && editText.text.isNotEmpty()) {
-                afterKeyboardClosedOrLostFocusForHeart(editText, key, id, date)
-            }
-        }
-    }
+//    private fun afterFocusChange(editText: EditText) {
+//        editText.setOnFocusChangeListener { v, hasFocus ->
+//            if (!hasFocus && editText.text.isNotEmpty()) {
+//                if (editText.text.toString().toInt() !in 30..220) {
+//                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
+//                }
+//                else {
+//                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+//                }
+//            }
+//        }
+//    }
 
     //Сохранение для главного экрана
     private fun saveHeartSettings(heart : String) {
@@ -173,29 +204,31 @@ class heartFragment : Fragment() {
     //Клавиатура закрыта ил потерян фокус
     private fun afterKeyboardClosedOrLostFocusForHeart(editText: EditText, key: String, id: Int, date: Long) {
 
-        if (editText.text.toString().toInt() in 30..220) {
+        if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
 
-            if (editText.text.toString().toInt() != viewModel.settingsForHeart.getInt(key, 0)) {
+        if (binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
 
-                //Сохранение соответствующего поля
-                saveSharedPref(key, editText.text.toString().toInt())
+            if (binding.getUpPressure.text.toString().toInt() != viewModel.settingsForHeart.getInt(Constants.UPPER, 0) ||
+                binding.getDownPressure.text.toString().toInt() != viewModel.settingsForHeart.getInt(Constants.LOWER, 0) ||
+                binding.getPulse.text.toString().toInt() != viewModel.settingsForHeart.getInt(Constants.PULSE, 0)) {
 
-                //Если все 3 не пусты и значения в соответвющих пределах, то сохранение в бд
+                if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
+                    binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
 
-            }
+                    //Сохранение в бд
+                    saveOrUpdateHeartBdKeyBoard(id, date)
 
-            if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
-                binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
+                    viewModel.setCurrentId()
+                    viewModel.setCurrentDate()
+                    viewModel.setCurrentLowerPressure()
+                    viewModel.setCurrentUpperPressure()
+                    viewModel.setCurrentPulse()
 
-                //Сохранение в бд
-                saveOrUpdateHeartBd(id, date)
-                viewModel.setCurrentPulse()
-                viewModel.setCurrentId()
-                viewModel.setCurrentDate()
-                viewModel.setCurrentLowerPressure()
-                viewModel.setCurrentUpperPressure()
-
-                saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
+                    saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
+                    saveSharedPref(Constants.PULSE, binding.getPulse.text.toString().toInt())
+                    saveSharedPref(Constants.LOWER, binding.getDownPressure.text.toString().toInt())
+                    saveSharedPref(Constants.UPPER, binding.getUpPressure.text.toString().toInt())
+                }
 
             }
 
@@ -204,8 +237,25 @@ class heartFragment : Fragment() {
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
         } else {
-            //Ошибка
-            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
+            if (binding.getUpPressure.text.toString().toInt() !in 30..220) {
+                binding.getUpPressure.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
+            }
+            else {
+                binding.getUpPressure.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
+            if (binding.getDownPressure.text.toString().toInt() !in 30..220) {
+                binding.getDownPressure.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
+            }
+            else {
+                binding.getDownPressure.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
+            if (binding.getPulse.text.toString().toInt() !in 30..220) {
+                binding.getPulse.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
+            }
+            else {
+                binding.getPulse.setCompoundDrawablesWithIntrinsicBounds(0, 0,0, 0)
+            }
+        }
         }
 
     }
@@ -221,7 +271,27 @@ class heartFragment : Fragment() {
         editText.isCursorVisible = boolean
     }
 
-    private fun saveOrUpdateHeartBd(id: Int, date: Long) {
+    private fun saveOrUpdateHeartBd() {
+
+        var id = 0
+        var date = 0L
+
+        viewModel.lastDate.observe(this@heartFragment.viewLifecycleOwner) {
+            if (it != null) {
+                date = it
+            }
+        }
+        viewModel.lastId.observe(this@heartFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
+        }
+
+        saveOrUpdateHeartBdKeyBoard(id, date)
+
+    }
+
+    private fun saveOrUpdateHeartBdKeyBoard(id: Int, date : Long) {
 
         val currentDate = Calendar.getInstance().timeInMillis
         Log.d("date", "current date: $currentDate day: $date id : $id ")
@@ -232,6 +302,7 @@ class heartFragment : Fragment() {
             if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
 
                 val ourHeart = forHeartBd(currentDate, 0)
+                Log.d("update", "saveOrUpdateHeartBdKeyBoard: insert $ourHeart")
                 viewModel.insertHeart(ourHeart)
             }
 
@@ -240,7 +311,9 @@ class heartFragment : Fragment() {
             if (binding.getPulse.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getUpPressure.text.isNotEmpty()) {
 
                 val ourHeart = forHeartBd(currentDate, id)
+                Log.d("update", "saveOrUpdateHeartBdKeyBoard: update $ourHeart")
                 viewModel.updateHeart(ourHeart)
+
             }
 
         }
