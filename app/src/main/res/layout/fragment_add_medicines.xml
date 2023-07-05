@@ -73,35 +73,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="@string/pills"
+                android:text="@string/title"
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toBottomOf="@id/wentBack" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/titleBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
-                app:layout_constraintStart_toStartOf="@id/margin_medicines"
-                app:layout_constraintTop_toBottomOf="@id/pillsText">
-
-                <EditText
-                    android:id="@+id/getTitle"
-                    style="@style/hint1"
-                    android:layout_width="match_parent"
-                    android:layout_height="77dp"
-                    android:background="@drawable/box"
-                    android:hint="@string/title"
-                    android:inputType="textCapSentences"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/remindersText"
@@ -328,6 +302,101 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recyclerViewSearchLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintTop_toBottomOf="@id/titleBox"
+                app:layout_constraintBottom_toTopOf="@id/saveMedicineLayout"
+                app:layout_constraintVertical_bias="0"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginTop="5dp"
+                app:layout_constraintCircleRadius="25dp"
+                >
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/search_box"
+                    >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/recyclerViewSearch"
+                        app:layout_constraintStart_toStartOf="@id/materialCard"
+                        app:layout_constraintEnd_toEndOf="@id/materialCard"
+                        app:layout_constraintTop_toTopOf="@id/materialCard"
+                        android:clipToPadding="false"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <ProgressBar
+                    android:id="@+id/progressBarRecyclerViewSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/materialCard"
+                    app:layout_constraintEnd_toEndOf="@id/materialCard"
+                    app:layout_constraintTop_toTopOf="@id/materialCard"
+                    app:layout_constraintBottom_toBottomOf="@id/materialCard"
+                    android:indeterminate="true"
+                    android:progressDrawable="@drawable/circle_progress"
+                    />
+
+                <TextView
+                    style="@style/hint1"
+                    android:id="@+id/nothingSearhed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="Ничего не найдено"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/titleBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
+                app:layout_constraintStart_toStartOf="@id/margin_medicines"
+                app:layout_constraintTop_toBottomOf="@id/pillsText">
+
+                <EditText
+                    android:id="@+id/getTitle"
+                    style="@style/hint1"
+                    android:layout_width="match_parent"
+                    android:layout_height="77dp"
+                    android:background="@drawable/box"
+                    android:hint="@string/title_of_pills"
+                    android:inputType="textCapSentences"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

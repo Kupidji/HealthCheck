@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
@@ -19,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthCheck"
         android:installLocation="internalOnly"
+        android:usesCleartextTraffic="true"
         tools:targetApi="33"
         >
         <activity
