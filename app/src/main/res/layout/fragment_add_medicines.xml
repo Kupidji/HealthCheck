@@ -318,6 +318,7 @@
                 tools:visibility="visible"
                 android:layout_marginTop="5dp"
                 app:layout_constraintCircleRadius="25dp"
+                android:alpha="0"
                 >
 
                 <com.google.android.material.card.MaterialCardView

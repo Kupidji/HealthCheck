@@ -23,7 +23,7 @@ class AddMedicinesViewModel(application: Application) : AndroidViewModel(applica
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://176.57.218.21")
+        .baseUrl("http://176.57.218.21:81")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
