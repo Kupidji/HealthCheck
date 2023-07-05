@@ -9,6 +9,8 @@ import com.example.healthcheck.model.medicines.service.MedicinesNotificationServ
 import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class MedicinesNotificationReceiver : BroadcastReceiver() {
 
@@ -40,35 +42,46 @@ class MedicinesNotificationReceiver : BroadcastReceiver() {
             var list = Repositories.medicinesRepository.getAllMedicineList()
             for (medicine in list) {
                 if (medicine.title == message.substring((message.indexOf("-") + 2)..(message.length - 1))) {
-                    Log.d("Database", "setRepetitive: сравнивает ${timeInMillis} с ${medicine.timeOfNotify1}")
-                    when (timeInMillis) {
+                    when (SimpleDateFormat("HH:mm").format(timeInMillis)) {
 
-                        medicine.timeOfNotify1 -> {
-                            medicine.timeOfNotify1 = medicine.timeOfNotify1 + 86400000L
-                            Repositories.medicinesRepository.updateMedicine(medicine)
-                            Log.d("Database", "setRepetitive: timeOfNotify1 был обновлен до ${medicine.timeOfNotify1}")
-                            medicinesNotificationService.setRepetitiveNotification(medicine.timeOfNotify1, message, medicine.channelIDFirstTime)
+                        SimpleDateFormat("HH:mm").format(medicine.timeOfNotify1) -> {
+                            var timeString = SimpleDateFormat("HHmm").format(medicine.timeOfNotify1)
+                            var newTime = Calendar.getInstance()
+                            newTime.timeInMillis = System.currentTimeMillis()
+                            newTime[Calendar.HOUR_OF_DAY] = timeString.substring(0..1).toInt()
+                            newTime[Calendar.MINUTE] = timeString.substring(2..3).toInt()
+                            newTime[Calendar.SECOND] = 1
+                            medicinesNotificationService.setRepetitiveNotification(newTime.timeInMillis + 86400000L, message, medicine.channelIDFirstTime)
                         }
 
-                        medicine.timeOfNotify2 -> {
-                            medicine.timeOfNotify2 = medicine.timeOfNotify2 + 86400000L
-                            Repositories.medicinesRepository.updateMedicine(medicine)
-                            Log.d("Database", "setRepetitive: timeOfNotify2 был обновлен до ${medicine.timeOfNotify1}")
-                            medicinesNotificationService.setRepetitiveNotification(medicine.timeOfNotify2, message, medicine.channelIDSecondTime)
+                        SimpleDateFormat("HH:mm").format(medicine.timeOfNotify2) -> {
+                            var timeString = SimpleDateFormat("HHmm").format(medicine.timeOfNotify2)
+                            var newTime = Calendar.getInstance()
+                            newTime.timeInMillis = System.currentTimeMillis()
+                            newTime[Calendar.HOUR_OF_DAY] = timeString.substring(0..1).toInt()
+                            newTime[Calendar.MINUTE] = timeString.substring(2..3).toInt()
+                            newTime[Calendar.SECOND] = 1
+                            medicinesNotificationService.setRepetitiveNotification(newTime.timeInMillis + 86400000L, message, medicine.channelIDSecondTime)
                         }
 
-                        medicine.timeOfNotify3 -> {
-                            medicine.timeOfNotify3 = medicine.timeOfNotify3 + 86400000L
-                            Repositories.medicinesRepository.updateMedicine(medicine)
-                            Log.d("Database", "setRepetitive: timeOfNotify3 был обновлен до ${medicine.timeOfNotify3}")
-                            medicinesNotificationService.setRepetitiveNotification(medicine.timeOfNotify3, message, medicine.channelIDThirdTime)
+                        SimpleDateFormat("HH:mm").format(medicine.timeOfNotify3) -> {
+                            var timeString = SimpleDateFormat("HHmm").format(medicine.timeOfNotify3)
+                            var newTime = Calendar.getInstance()
+                            newTime.timeInMillis = System.currentTimeMillis()
+                            newTime[Calendar.HOUR_OF_DAY] = timeString.substring(0..1).toInt()
+                            newTime[Calendar.MINUTE] = timeString.substring(2..3).toInt()
+                            newTime[Calendar.SECOND] = 1
+                            medicinesNotificationService.setRepetitiveNotification(newTime.timeInMillis + 86400000L, message, medicine.channelIDThirdTime)
                         }
 
-                        medicine.timeOfNotify4 -> {
-                            medicine.timeOfNotify4 = medicine.timeOfNotify4 + 86400000L
-                            Repositories.medicinesRepository.updateMedicine(medicine)
-                            Log.d("Database", "setRepetitive: timeOfNotify4 был обновлен до ${medicine.timeOfNotify4}")
-                            medicinesNotificationService.setRepetitiveNotification(medicine.timeOfNotify4, message, medicine.channelIDFourthTime)
+                        SimpleDateFormat("HH:mm").format(medicine.timeOfNotify4) -> {
+                            var timeString = SimpleDateFormat("HHmm").format(medicine.timeOfNotify4)
+                            var newTime = Calendar.getInstance()
+                            newTime.timeInMillis = System.currentTimeMillis()
+                            newTime[Calendar.HOUR_OF_DAY] = timeString.substring(0..1).toInt()
+                            newTime[Calendar.MINUTE] = timeString.substring(2..3).toInt()
+                            newTime[Calendar.SECOND] = 1
+                            medicinesNotificationService.setRepetitiveNotification(newTime.timeInMillis + 86400000L, message, medicine.channelIDFourthTime)
                         }
                     }
                 }

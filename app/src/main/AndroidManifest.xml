@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -39,8 +38,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name="com.example.healthcheck.model.medicines.receiver.MedicinesBootReceiver"
-            android:enabled="false"
+            android:name=".model.medicines.receiver.MedicinesBootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -50,8 +48,7 @@
         </receiver>
 
         <receiver
-            android:name="com.example.healthcheck.model.global_notifications.receiver.NotificationBootReceiver"
-            android:enabled="false"
+            android:name=".model.global_notifications.receiver.NotificationBootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

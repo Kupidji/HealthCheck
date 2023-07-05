@@ -1,23 +1,27 @@
 package com.example.healthcheck.view
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStart6Binding
+import com.example.healthcheck.model.global_notifications.service.NotificationService
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.StartFragment6ViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 
 class StartFragment6 : Fragment() {
@@ -71,6 +75,22 @@ class StartFragment6 : Fragment() {
                 Constants.IS_FIRST_TIME,
                 false
             )?.apply()
+
+            //Уведомления для напоминаний о вводе данных
+            var service = NotificationService(this.requireContext())
+
+            val time = Calendar.getInstance()
+            time.timeInMillis = System.currentTimeMillis()
+            time[Calendar.HOUR_OF_DAY] = 18
+            time[Calendar.MINUTE] = 0
+            time[Calendar.SECOND] = 1
+
+            Log.d("Notification", "onViewCreated: ${SimpleDateFormat("HH:mm").format(time.timeInMillis)}")
+            val settingsNotification = context?.applicationContext?.getSharedPreferences(Constants.TIME_OF_NOTIFICATION, Context.MODE_PRIVATE)
+            val editorNotification = settingsNotification?.edit()
+            service.setRepetitiveAlarm(time.timeInMillis, Constants.REGULAR_MESSAGE, Constants.REGULAR_CHANNEL_ID)
+            editorNotification?.putLong(Constants.TIME_OF_NOTIFICATION, time.timeInMillis)?.apply()
+            Log.d("Notification", "onViewCreated: ${SimpleDateFormat("HH:mm").format(settingsNotification?.getLong(Constants.TIME_OF_NOTIFICATION, 0))}")
         }
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {

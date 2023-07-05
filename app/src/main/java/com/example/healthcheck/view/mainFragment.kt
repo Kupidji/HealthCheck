@@ -78,18 +78,6 @@ class mainFragment : Fragment() {
             if (settings.getBoolean(Constants.IS_FIRST_TIME, true)) {
                 //переход в знакомство
                 navigation.navigate(R.id.startFragment)
-                //Уведомления для напоминаний о вводе данных
-                var service = NotificationService(this.requireContext())
-                var time = Calendar.getInstance()
-                time.set(Calendar.HOUR_OF_DAY, 18)
-                time.set(Calendar.MINUTE, 0)
-//                var tempTime = time.toString().substring(0..4) + "64800000"
-//                time = tempTime.toLong()
-                val settings = context?.applicationContext?.getSharedPreferences(Constants.TIME_OF_NOTIFICATION, Context.MODE_PRIVATE)
-                val editor = settings?.edit()
-                editor?.putLong(Constants.TIME_OF_NOTIFICATION, time.timeInMillis)
-                settings?.getLong(Constants.TIME_OF_NOTIFICATION, time.timeInMillis)
-                    ?.let { service.setRepetitiveAlarm(it, Constants.REGULAR_MESSAGE, Constants.REGULAR_CHANNEL_ID) }
             }
         }
 
