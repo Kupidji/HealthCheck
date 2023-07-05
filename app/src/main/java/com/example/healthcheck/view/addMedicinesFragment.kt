@@ -151,6 +151,7 @@ class addMedicinesFragment : Fragment() {
 
             //Если клавиатура появилась
             if (heightDiff > 0.2 * view.rootView.height) {
+                var countOfToast = 0
                 binding.getTitle.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -158,10 +159,16 @@ class addMedicinesFragment : Fragment() {
 
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                         if (s.toString().length >= 3) {
-                            binding.recyclerViewSearchLayout.visibility = View.VISIBLE
-                            binding.progressBarRecyclerViewSearch.visibility = View.VISIBLE
-                            binding.nothingSearhed.visibility = View.GONE
                             adapter.medicinesSearchList = emptyList()
+                            binding.recyclerViewSearchLayout.visibility = View.VISIBLE
+                            binding.recyclerViewSearchLayout.animate()
+                                .setDuration(50L)
+                                .alpha(1F)
+                                .withEndAction {
+                                    binding.progressBarRecyclerViewSearch.visibility = View.VISIBLE
+                                    binding.nothingSearhed.visibility = View.GONE
+                                }
+
                             try {
                                 val medicines : Call<MedicinesEntityRetrofit> = viewModel.MedicineRetrofitApi.getMedicinesRetrofit (
                                     MedicineSendRequestRetrofit(
@@ -173,7 +180,13 @@ class addMedicinesFragment : Fragment() {
 
                                     override fun onResponse(call: Call<MedicinesEntityRetrofit>, response: Response<MedicinesEntityRetrofit>) {
                                         if (response.isSuccessful) {
-                                            binding.progressBarRecyclerViewSearch.visibility = View.GONE
+
+                                            binding.progressBarRecyclerViewSearch.animate()
+                                                .setDuration(25L)
+                                                .alpha(0F)
+                                                .withEndAction {
+                                                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                                                }
                                             adapter.medicinesSearchList = response.body()?.title!!
                                             if (response.body()?.title!!.isEmpty()) {
                                                 binding.nothingSearhed.visibility = View.VISIBLE
@@ -183,16 +196,24 @@ class addMedicinesFragment : Fragment() {
                                             }
                                             Log.d("Notification","response code successful " + response.code())
                                         } else {
-                                            binding.progressBarRecyclerViewSearch.visibility = View.GONE
+
+                                            binding.progressBarRecyclerViewSearch.animate()
+                                                .setDuration(25L)
+                                                .alpha(0F)
+                                                .withEndAction {
+                                                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                                                }
                                             Log.d("Notification","response code not successful " + response.code())
                                         }
                                     }
 
                                     override fun onFailure(call: Call<MedicinesEntityRetrofit>, t: Throwable) {
                                         Log.d("Notification", "onResponse: ${t.message}")
-                                        Toast.makeText(this@addMedicinesFragment.requireContext(), "Ошибка в поиске таблеток", Toast.LENGTH_LONG).show()
+                                        if (countOfToast <= 2) {
+                                            Toast.makeText(this@addMedicinesFragment.requireContext(), "Ошибка в поиске таблеток", Toast.LENGTH_LONG).show()
+                                            countOfToast++
+                                        }
                                     }
-
                                 })
                                 //binding.pillsText.text = medicines.listOfMedicinesRetrofit.get(0).listOfMedicinesRetrofit.get(0).title
 
@@ -202,9 +223,14 @@ class addMedicinesFragment : Fragment() {
                             }
                         }
                         else {
-                            binding.recyclerViewSearchLayout.visibility = View.GONE
-                            binding.progressBarRecyclerViewSearch.visibility = View.GONE
-                            adapter.medicinesSearchList = emptyList()
+                            binding.recyclerViewSearchLayout.animate()
+                                .setDuration(50L)
+                                .alpha(0F)
+                                .withEndAction {
+                                    binding.recyclerViewSearchLayout.visibility = View.GONE
+                                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                                    adapter.medicinesSearchList = emptyList()
+                                }
                         }
                     }
 
