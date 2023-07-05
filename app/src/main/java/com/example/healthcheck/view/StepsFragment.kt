@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -107,6 +108,11 @@ class StepsFragment : Fragment() {
         }
 
         binding.wentBack.setOnClickListener {
+            if (binding.getCountOfSteps.text.isNotEmpty()) {
+                if (binding.getCountOfSteps.text.toString().toInt() in 1..200000) {
+                    saveOrUpdateStepBd()
+                }
+            }
             //навигация и анимации
             var navOptions = NavOptions.Builder()
                 .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
@@ -202,6 +208,25 @@ class StepsFragment : Fragment() {
             saveDataForTarget(15000)
         }
 
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.getCountOfSteps.text.isNotEmpty()) {
+                    if (binding.getCountOfSteps.text.toString().toInt() in 1..200000) {
+                        saveOrUpdateStepBd()
+                    }
+                }
+                var navOptions = NavOptions.Builder()
+                    .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                    .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                    .setPopUpTo(R.id.mainFragment, true)
+                    .build()
+                val direction = StepsFragmentDirections.actionStepsFragmentToMainFragment()
+                navigation.navigate(direction, navOptions)
+            }
+        })
+
     }
 
     //Сохраняет и изменяет введеную информацию для количества шагов
@@ -222,7 +247,7 @@ class StepsFragment : Fragment() {
                     viewModel.setCurrentStepsForDay(binding.getCountOfSteps.text.toString().toInt())
 
                     //Сохраняет или обновляет базу данных
-                    saveOrUpdateStepBd(id, day)
+                    saveOrUpdateStepBdKeyBoard(id, day)
 
                     //Обновляет количество шагов за неделю и за месяц и id date последней записи, так как обновилась база данных
                     viewModel.setCurrentStepsForWeek()
@@ -409,7 +434,28 @@ class StepsFragment : Fragment() {
     //Сохраняет или обновляет базу данных
     //Если текущая дата есть в таблице -> обновляет количество шагов
     //Если нет -> вставляет
-    private fun saveOrUpdateStepBd(id : Int, day : Long) {
+    private fun saveOrUpdateStepBd() {
+
+        var id = 0
+        var day = 0L
+
+        viewModel.day.observe(this@StepsFragment.viewLifecycleOwner) {
+            if (it != null) {
+                day = it
+            }
+        }
+
+        viewModel.id.observe(this@StepsFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
+        }
+
+        saveOrUpdateStepBdKeyBoard(id, day)
+
+    }
+
+    private fun saveOrUpdateStepBdKeyBoard(id: Int,day: Long) {
 
         var currentDate = Calendar.getInstance().timeInMillis
 
@@ -419,7 +465,7 @@ class StepsFragment : Fragment() {
 
             if (binding.getCountOfSteps.text.isNotEmpty()) {
 
-                var ourSteps = forStepBd(currentDate, 0)
+                var ourSteps = forStepBdValue(currentDate, 0)
                 viewModel.insertSteps(ourSteps)
 
             }
@@ -428,7 +474,7 @@ class StepsFragment : Fragment() {
 
             if (binding.getCountOfSteps.text.isNotEmpty()) {
 
-                var ourSteps = forStepBd(currentDate, id)
+                var ourSteps = forStepBdValue(currentDate, id)
                 viewModel.updateSteps(ourSteps)
 
             }
@@ -438,7 +484,7 @@ class StepsFragment : Fragment() {
     }
 
     //Заполняет поле для обнвление или вставки в базу данных
-    private fun forStepBd(currentDate: Long, id: Int): Steps {
+    private fun forStepBdValue(currentDate: Long, id: Int): Steps {
 
         return Steps(
             id = id,

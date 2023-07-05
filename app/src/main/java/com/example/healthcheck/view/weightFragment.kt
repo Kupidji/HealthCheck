@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -84,6 +85,12 @@ class weightFragment : Fragment() {
         binding.progressBarWeightMonth.max = 120
 
         binding.wentBack.setOnClickListener {
+
+            if (binding.getWeight.text.isNotEmpty()) {
+                if (binding.getWeight.text.toString().toFloat() in 1.0..635.0) {
+                    saveOrUpdateWeightBd()
+                }
+            }
             //навигация и анимации
             var navOptions = NavOptions.Builder()
                 .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
@@ -215,6 +222,25 @@ class weightFragment : Fragment() {
 
         }
 
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.getWeight.text.isNotEmpty()) {
+                    if (binding.getWeight.text.toString().toFloat() in 1.0..635.0) {
+                        saveOrUpdateWeightBd()
+                    }
+                }
+                var navOptions = NavOptions.Builder()
+                    .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                    .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                    .setPopUpTo(R.id.mainFragment, true)
+                    .build()
+                val direction = weightFragmentDirections.actionWeightFragmentToMainFragment()
+                navigation.navigate(direction, navOptions)
+            }
+        })
+
     }
 
     override fun onDestroyView() {
@@ -280,8 +306,6 @@ class weightFragment : Fragment() {
 
             if (binding.getWeight.text.toString().toFloat() != viewModel.settingsWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F)) {
 
-                var weight = binding.getWeight.text.toString().toFloat()
-
                 //Сохраняет вес в SharedPref
                 saveDataForWeight(binding.getWeight.text.toString().toFloat(), Constants.WEIGHT_FOR_DAY)
 
@@ -289,7 +313,7 @@ class weightFragment : Fragment() {
                 viewModel.setCurrentWeightForDay(binding.getWeight.text.toString().toFloat())
 
                 //Сохраняет или обновляет базу данных
-                saveOrUpdateWeightBd(weight, id, date)
+                saveOrUpdateWeightBdKeyBoard(id, date)
 
                 //Обновляет вес за неделю и за месяц и id date последней записи, так как обновилась база данных
                 viewModel.setCurrentWeightForWeek()
@@ -328,7 +352,28 @@ class weightFragment : Fragment() {
         }
     }
 
-    private fun saveOrUpdateWeightBd(weight : Float, id: Int, date: Long) {
+    private fun saveOrUpdateWeightBd() {
+
+        var id = 0
+        var day = 0L
+
+        viewModel.day.observe(this@weightFragment.viewLifecycleOwner) {
+            if (it != null) {
+                day = it
+            }
+        }
+
+        viewModel.id.observe(this@weightFragment.viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+            }
+        }
+
+        saveOrUpdateWeightBdKeyBoard(id, day)
+
+    }
+
+    private fun saveOrUpdateWeightBdKeyBoard(id: Int, date: Long) {
 
         val currentDate = Calendar.getInstance().timeInMillis
 
@@ -339,7 +384,7 @@ class weightFragment : Fragment() {
 
             if (binding.getWeight.text.isNotEmpty()) {
 
-                var ourWeight = forWeightBd(currentDate, 0, weight)
+                var ourWeight = forWeightBd(currentDate, 0)
 
                 viewModel.insertWeight(ourWeight)
 
@@ -349,7 +394,7 @@ class weightFragment : Fragment() {
 
             if (binding.getWeight.text.isNotEmpty()) {
 
-                var ourWeight = forWeightBd(currentDate, id, weight)
+                var ourWeight = forWeightBd(currentDate, id)
 
                 viewModel.updateWeight(ourWeight)
 
@@ -360,11 +405,11 @@ class weightFragment : Fragment() {
     }
 
     //Заполняет поле для обнвление или вставки в базу данных
-    private fun forWeightBd(currentDate: Long, id: Int, weight: Float): Weight {
+    private fun forWeightBd(currentDate: Long, id: Int): Weight {
 
         return Weight(
             id = id,
-            weight = weight,
+            weight = binding.getWeight.text.toString().toFloat(),
             date = currentDate,
         )
     }
