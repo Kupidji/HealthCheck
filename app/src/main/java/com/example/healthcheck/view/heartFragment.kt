@@ -235,6 +235,9 @@ class heartFragment : Fragment() {
             editText.setSelection(editText.text.toString().length)
 
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            binding.getPulse.setCompoundDrawablesWithIntrinsicBounds(0, 0,0, 0)
+            binding.getUpPressure.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            binding.getDownPressure.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
         } else {
             if (binding.getUpPressure.text.toString().toInt() !in 30..220) {
