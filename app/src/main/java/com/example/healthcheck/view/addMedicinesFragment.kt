@@ -2,6 +2,9 @@ package com.example.healthcheck.view
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,14 +19,22 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentAddMedicinesBinding
 import com.example.healthcheck.model.medicines.entities.Medicines
+import com.example.healthcheck.model.medicines.retrofit.MedicineSendRequestRetrofit
+import com.example.healthcheck.model.medicines.retrofit.MedicinesEntityRetrofit
+import com.example.healthcheck.model.medicines.viewmodel.AddMedicinesActionListener
+import com.example.healthcheck.model.medicines.viewmodel.AddMedicinesViewModel
+import com.example.healthcheck.model.medicines.viewmodel.MedicinesSearchRecyclerViewAdapter
 import com.example.healthcheck.util.RandomUtil
 import com.example.healthcheck.util.animations.ButtonPress.buttonPress
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.model.medicines.viewmodel.AddMedicinesViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -39,6 +50,7 @@ class addMedicinesFragment : Fragment() {
     private var secondTime : Long = 0L
     private var thirdTime : Long = 0L
     private var fourthTime : Long = 0L
+    private lateinit var adapter : MedicinesSearchRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +65,20 @@ class addMedicinesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
+
+        adapter = MedicinesSearchRecyclerViewAdapter(object : AddMedicinesActionListener {
+
+            override fun onClickBox(title: String) {
+                binding.getTitle.setText(title)
+                binding.recyclerViewSearchLayout.visibility = View.GONE
+                adapter.medicinesSearchList = emptyList()
+            }
+
+        })
+
+        val layoutManager = LinearLayoutManager(this.requireContext())
+        binding.recyclerViewSearch.layoutManager = layoutManager
+        binding.recyclerViewSearch.adapter = adapter
 
         binding.wentBack.setOnClickListener {
             var navOptions = NavOptions.Builder()
@@ -114,6 +140,71 @@ class addMedicinesFragment : Fragment() {
         binding.deleteFourthTime.setOnClickListener {
             onDeleteTime(binding.deleteFourthTime)
         }
+
+        //бэк
+
+        binding.getTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().length >= 3) {
+                    binding.recyclerViewSearchLayout.visibility = View.VISIBLE
+                    binding.progressBarRecyclerViewSearch.visibility = View.VISIBLE
+                    binding.nothingSearhed.visibility = View.GONE
+                    adapter.medicinesSearchList = emptyList()
+                    try {
+                        val medicines : Call<MedicinesEntityRetrofit> = viewModel.MedicineRetrofitApi.getMedicinesRetrofit (
+                            MedicineSendRequestRetrofit(
+                                binding.getTitle.text.toString()
+                            )
+                        )
+
+                        medicines.enqueue(object : Callback<MedicinesEntityRetrofit> {
+
+                            override fun onResponse(call: Call<MedicinesEntityRetrofit>, response: Response<MedicinesEntityRetrofit>) {
+                                if (response.isSuccessful) {
+                                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                                    adapter.medicinesSearchList = response.body()?.title!!
+                                    if (response.body()?.title!!.isEmpty()) {
+                                        binding.nothingSearhed.visibility = View.VISIBLE
+                                    }
+                                    else {
+                                        binding.nothingSearhed.visibility = View.GONE
+                                    }
+                                    Log.d("Notification","response code successful " + response.code())
+                                } else {
+                                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                                    Log.d("Notification","response code not successful " + response.code())
+                                }
+                            }
+
+                            override fun onFailure(call: Call<MedicinesEntityRetrofit>, t: Throwable) {
+                                Log.d("Notification", "onResponse: ${t.message}")
+                                Toast.makeText(this@addMedicinesFragment.requireContext(), "Ошибка в поиске таблеток", Toast.LENGTH_LONG).show()
+                            }
+
+                        })
+                        //binding.pillsText.text = medicines.listOfMedicinesRetrofit.get(0).listOfMedicinesRetrofit.get(0).title
+
+                    }
+                    catch (exep : Exception) {
+                        binding.pillsText.text = exep.localizedMessage?.toString() ?: exep.message
+                    }
+                }
+                else {
+                    binding.recyclerViewSearchLayout.visibility = View.GONE
+                    binding.progressBarRecyclerViewSearch.visibility = View.GONE
+                    adapter.medicinesSearchList = emptyList()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
 
         binding.saveMedicine.setOnClickListener {
             if (binding.getTitle.text.isNotEmpty()) {
