@@ -42,7 +42,7 @@ class MedicinesEditFragment : Fragment() {
 
         val navigation = findNavController()
 
-        binding.medicineTitle.text = args.title
+        binding.title.text = args.title
 
         if (args.firstTimeNotification != 0L)
             binding.firstTimeText.text = SimpleDateFormat("HH:mm").format(args.firstTimeNotification)
@@ -53,7 +53,7 @@ class MedicinesEditFragment : Fragment() {
         if (args.fourthTimeNotification != 0L)
             binding.fourthTimeText.text = SimpleDateFormat("HH:mm").format(args.fourthTimeNotification)
 
-        binding.dateStart.text = SimpleDateFormat("dd MMM").format(args.dateOfStart)
+        binding.dateOfStart.text = SimpleDateFormat("dd MMM").format(args.dateOfStart)
         binding.currentDay.text = args.currentDay.toString()
 
         binding.progressBarMedicines.max = args.totalDuractionOfCourse
@@ -62,7 +62,7 @@ class MedicinesEditFragment : Fragment() {
         if (args.totalDuractionOfCourse != 0)
             binding.totalDays.text = "из ${args.totalDuractionOfCourse}"
 
-        binding.totalMissedText.text = args.totalMissed.toString()
+        //binding.totalMissedText.text = args.totalMissed.toString()
 
         binding.wentBack.setOnClickListener {
             //навигация и анимации

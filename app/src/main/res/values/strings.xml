@@ -54,11 +54,16 @@
     <string name="pills">Таблетки</string>
     <string name="title_of_pills">Введите название таблетки</string>
     <string name="title">Название</string>
+    <string name="title_">Название:</string>
     <string name="reminders">Напоминания</string>
     <string name="first_rem">Первый приём</string>
     <string name="second_rem">Второй приём</string>
     <string name="third_rem">Третий приём</string>
     <string name="fourth_rem">Четвёртый приём</string>
+    <string name="first_rem_">Первый приём - </string>
+    <string name="second_rem_">Второй приём - </string>
+    <string name="third_rem_">Третий приём - </string>
+    <string name="fourth_rem_">Четвёртый приём - </string>
     <string name="save">Сохранить</string>
     <string name="how_long_sleep">Сколько длился ваш сон</string>
     <string name="start_sleep">Начало сна</string>

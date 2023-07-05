@@ -46,24 +46,43 @@ class MedicinesNotificationService(private val context: Context) {
         GlobalScope.launch {
             var list = Repositories.medicinesRepository.getAllMedicineList()
             for (medicine in list) {
+                var timeString1 = SimpleDateFormat("HHmm").format(medicine.timeOfNotify1)
+                var newTime1 = Calendar.getInstance()
+                newTime1.timeInMillis = System.currentTimeMillis()
+                newTime1[Calendar.HOUR_OF_DAY] = timeString1.substring(0..1).toInt()
+                newTime1[Calendar.MINUTE] = timeString1.substring(2..3).toInt()
+                newTime1[Calendar.SECOND] = 1
                 if (medicine.timeOfNotify1 != 0L)
-                    setRepetitiveNotification(medicine.timeOfNotify1, medicine.title, medicine.channelIDFirstTime)
+                    setRepetitiveNotification(newTime1.timeInMillis, "Первый приём - ${medicine.title}", medicine.channelIDFirstTime)
 
+                var timeString2 = SimpleDateFormat("HHmm").format(medicine.timeOfNotify2)
+                var newTime2 = Calendar.getInstance()
+                newTime2.timeInMillis = System.currentTimeMillis()
+                newTime2[Calendar.HOUR_OF_DAY] = timeString2.substring(0..1).toInt()
+                newTime2[Calendar.MINUTE] = timeString2.substring(2..3).toInt()
+                newTime2[Calendar.SECOND] = 1
                 if (medicine.timeOfNotify2 != 0L)
-                    setRepetitiveNotification(medicine.timeOfNotify2, medicine.title, medicine.channelIDSecondTime)
+                    setRepetitiveNotification(newTime2.timeInMillis, "Второй приём - ${medicine.title}", medicine.channelIDSecondTime)
 
+                var timeString3 = SimpleDateFormat("HHmm").format(medicine.timeOfNotify3)
+                var newTime3 = Calendar.getInstance()
+                newTime3.timeInMillis = System.currentTimeMillis()
+                newTime3[Calendar.HOUR_OF_DAY] = timeString3.substring(0..1).toInt()
+                newTime3[Calendar.MINUTE] = timeString3.substring(2..3).toInt()
+                newTime3[Calendar.SECOND] = 1
                 if (medicine.timeOfNotify3 != 0L)
-                    setRepetitiveNotification(medicine.timeOfNotify3, medicine.title, medicine.channelIDThirdTime)
+                    setRepetitiveNotification(newTime3.timeInMillis, "Третий приём - ${medicine.title}", medicine.channelIDThirdTime)
 
+                var timeString4 = SimpleDateFormat("HHmm").format(medicine.timeOfNotify4)
+                var newTime4 = Calendar.getInstance()
+                newTime4.timeInMillis = System.currentTimeMillis()
+                newTime4[Calendar.HOUR_OF_DAY] = timeString4.substring(0..1).toInt()
+                newTime4[Calendar.MINUTE] = timeString4.substring(2..3).toInt()
+                newTime4[Calendar.SECOND] = 1
                 if (medicine.timeOfNotify4 != 0L)
-                    setRepetitiveNotification(medicine.timeOfNotify4, medicine.title, medicine.channelIDFourthTime)
-
-                Log.d("Notification", "все уведомления восстановлены")
+                    setRepetitiveNotification(newTime4.timeInMillis, "Четвёртый приём - ${medicine.title}", medicine.channelIDFourthTime)
             }
         }
-
-
-
     }
 
     fun setExactAlarm(timeInMillis: Long, message : String, channelID : Int) {
@@ -106,29 +125,10 @@ class MedicinesNotificationService(private val context: Context) {
             val currentTime = Calendar.getInstance()
             if (currentTime.timeInMillis <= timeInMillis) {
                 setRepetitiveNotification(timeInMillis, message, channelID)
-            }
-            else {
+            } else {
                 setRepetitiveNotification(timeInMillis + 86400000L, message, channelID)
-                GlobalScope.launch {
-                    var time = timeInMillis + 86400000L
-                    val list = Repositories.medicinesRepository.getAllMedicineList()
-                    for (medicine in list) {
-                        if (medicine.title == message.substring((message.indexOf("-") + 2)..(message.length - 1))) {
-                            when (timeInMillis) {
-
-                                medicine.timeOfNotify1 -> {
-                                    medicine.timeOfNotify1 = time
-                                    Repositories.medicinesRepository.updateMedicine(medicine)
-                                    Log.d(
-                                        "Notification",
-                                        "setRepetitive: timeOfNotify1 было изменено на ${time}"
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
             }
+
         }
 
     }

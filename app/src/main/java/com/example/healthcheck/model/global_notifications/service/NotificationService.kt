@@ -37,6 +37,9 @@ class NotificationService (val context: Context) {
             else {
                 var newTime = timeInMillis + 86400000L
                 setRepetitiveNotification(newTime, message, channelID)
+                val settingsNotification = context?.applicationContext?.getSharedPreferences(Constants.TIME_OF_NOTIFICATION, Context.MODE_PRIVATE)
+                val editorNotification = settingsNotification?.edit()
+                editorNotification?.putLong(Constants.TIME_OF_NOTIFICATION, newTime)?.apply()
                 Log.d("Notification", "setRepetitiveAlarm: RegularNotification было создано в ${SimpleDateFormat("dd.MM HH:mm").format(newTime)}")
             }
         }
