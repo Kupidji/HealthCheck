@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -58,41 +59,41 @@ class heartFragment : Fragment() {
         var id = 0
         var date = 0L
 
-        viewModel.lastDate.observe(this@heartFragment.viewLifecycleOwner) {
-            if (it != null) {
-                date = it
-            }
-        }
-        viewModel.lastId.observe(this@heartFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
+        lifecycleScope.launch {
+            viewModel.lastDate.collect {
+                if (it != null) {
+                    date = it
+                }
             }
         }
 
-        viewModel.upperPressure.observe(this@heartFragment.viewLifecycleOwner) {
-            binding.ur1.text = it.toString()
+        lifecycleScope.launch {
+            viewModel.lastId.collect {
+                if (it != null) {
+                    id = it
+                }
+            }
         }
-        viewModel.lowerPressure.observe(this@heartFragment.viewLifecycleOwner) {
-            binding.ur2.text = it.toString()
+
+        lifecycleScope.launch {
+            viewModel.upperPressure.collect {
+                binding.ur1.text = it.toString()
+            }
         }
-        viewModel.pulse.observe(this@heartFragment.viewLifecycleOwner) {
-            binding.ur3.text = it.toString()
+
+        lifecycleScope.launch {
+            viewModel.lowerPressure.collect {
+                binding.ur2.text = it.toString()
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.pulse.collect {
+                binding.ur3.text = it.toString()
+            }
         }
 
         binding.wentBack.setOnClickListener {
-            if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty()) {
-                if (binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
-                    saveOrUpdateHeartBd()
-                }
-            }
-            if (binding.getUpPressure.text.isNotEmpty() && binding.getDownPressure.text.isNotEmpty() && binding.getPulse.text.isNotEmpty() &&
-                binding.getUpPressure.text.toString().toInt() in 30..220 && binding.getDownPressure.text.toString().toInt() in 30..220 && binding.getPulse.text.toString().toInt() in 30..220) {
-                saveHeartSettings(binding.getUpPressure.text.toString() + "/" + binding.getDownPressure.text.toString())
-            }
-           else {
-                saveHeartSettings(binding.ur1.text.toString() + "/" + binding.ur2.text.toString())
-            }
-
             var navOptions = NavOptions.Builder()
                 .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
                 .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
@@ -105,10 +106,6 @@ class heartFragment : Fragment() {
             val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
         }
-
-//        afterFocusChange(binding.getUpPressure)
-//        afterFocusChange(binding.getDownPressure)
-//        afterFocusChange(binding.getPulse)
 
         view.viewTreeObserver.addOnGlobalLayoutListener {
             val r = Rect()
@@ -170,20 +167,6 @@ class heartFragment : Fragment() {
         }
 
     }
-
-    //После изменения фокуса
-//    private fun afterFocusChange(editText: EditText) {
-//        editText.setOnFocusChangeListener { v, hasFocus ->
-//            if (!hasFocus && editText.text.isNotEmpty()) {
-//                if (editText.text.toString().toInt() !in 30..220) {
-//                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_ic, 0)
-//                }
-//                else {
-//                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-//                }
-//            }
-//        }
-//    }
 
     //Сохранение для главного экрана
     private fun saveHeartSettings(heart : String) {
@@ -279,19 +262,25 @@ class heartFragment : Fragment() {
         var id = 0
         var date = 0L
 
-        viewModel.lastDate.observe(this@heartFragment.viewLifecycleOwner) {
-            if (it != null) {
-                date = it
+
+
+        lifecycleScope.launch {
+            viewModel.lastDate.collect {
+                if (it != null) {
+                    date = it
+                }
             }
         }
-        viewModel.lastId.observe(this@heartFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
+
+        lifecycleScope.launch {
+            viewModel.lastId.collect {
+                if (it != null) {
+                    id = it
+                }
             }
         }
 
         saveOrUpdateHeartBdKeyBoard(id, date)
-
     }
 
     private fun saveOrUpdateHeartBdKeyBoard(id: Int, date : Long) {

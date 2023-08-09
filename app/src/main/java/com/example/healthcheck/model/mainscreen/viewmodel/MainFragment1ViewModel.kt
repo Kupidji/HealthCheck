@@ -7,12 +7,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
+import com.example.healthcheck.util.AppDispatchers
 import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Calendar
@@ -22,55 +27,62 @@ import java.util.concurrent.TimeUnit
 
 class MainFragment1ViewModel(application: Application) : AndroidViewModel(application) {
 
-    lateinit var settings : SharedPreferences
-    lateinit var settingsForSleep : SharedPreferences
-    lateinit var settingsForWeight : SharedPreferences
-    lateinit var settingsForCardio : SharedPreferences
+    var settings : SharedPreferences
+    var settingsForSleep : SharedPreferences
+    var settingsForWeight : SharedPreferences
+    var settingsForCardio : SharedPreferences
 
-    var daySteps = MutableLiveData<Long?>()
-    var daySleep = MutableLiveData<Long?>()
+    private val _daySteps = MutableSharedFlow<Long>()
+    val daySteps = _daySteps.asSharedFlow()
+
+    private val _daySleep = MutableSharedFlow<Long>()
+    val daySleep = _daySleep.asSharedFlow()
+
+    private val _dayWeight = MutableSharedFlow<Float>(1, 0, BufferOverflow.DROP_OLDEST)
+    val dayWeight = _dayWeight.asSharedFlow()
 
     var currentDate = Calendar.getInstance().timeInMillis
-    private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
+
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
         settingsForSleep = application.applicationContext.getSharedPreferences(Constants.SLEEP, Context.MODE_PRIVATE)
         settingsForWeight = application.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
         settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
 
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            daySteps.value = getLastDateFromDataSteps(tripletsPool)
+        viewModelScope.launch {
+            _daySteps.emit(getLastDateFromDataSteps())
         }
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            daySleep.value = getLastDateFromDataSleep(tripletsPool)
+        viewModelScope.launch {
+            _daySleep.emit(getLastDateFromDataSleep())
         }
-    }
-
-    suspend fun getLastDateFromDataSteps(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var date = currentDate
-                if (Repositories.stepsRepository.getLastDate() != null) {
-                    date = Repositories.stepsRepository.getLastDate().date
-                }
-                return@async date
-            }
-            result.await()
+        viewModelScope.launch {
+            _dayWeight.emit(settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
         }
     }
 
-    suspend fun getLastDateFromDataSleep(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.sleepRepository.getTimeOfSleepForDay()
-                var lastDate = currentDate
-                for (sleep in list) {
-                    lastDate = sleep.date
-                }
-                return@async lastDate
+    suspend fun getLastDateFromDataSteps() : Long {
+        val result = viewModelScope.async(AppDispatchers.io) {
+            var date = currentDate
+            if (Repositories.stepsRepository.getLastDate() != null) {
+                date = Repositories.stepsRepository.getLastDate().date
             }
-            result.await()
+            return@async date
         }
+
+        return result.await()
+    }
+
+    suspend fun getLastDateFromDataSleep() : Long {
+        val result = viewModelScope.async(AppDispatchers.io) {
+            var list = Repositories.sleepRepository.getTimeOfSleepForDay()
+            var lastDate = currentDate
+            for (sleep in list) {
+                lastDate = sleep.date
+            }
+            return@async lastDate
+        }
+
+        return result.await()
     }
 
 }

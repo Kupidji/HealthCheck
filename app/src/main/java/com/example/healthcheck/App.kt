@@ -9,7 +9,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.util.Constants
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -39,7 +42,8 @@ class App: Application() {
         val today = SimpleDateFormat("dd").format(Calendar.getInstance().timeInMillis)
         Log.d("Settings", "App: сравнение дат ${lastTime} и ${today}")
         if (lastTime != today) {
-            GlobalScope.launch {
+            val appScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+            appScope.launch {
                 val list = Repositories.medicinesRepository.getAllMedicineList()
                 for (medicine in list) {
                     medicine.currentDayOfCourse++

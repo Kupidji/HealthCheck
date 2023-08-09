@@ -9,12 +9,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
 import com.example.healthcheck.model.heart.entities.Heart
+import com.example.healthcheck.util.AppDispatchers
 import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.LinkedBlockingQueue
@@ -25,13 +30,21 @@ class HeartViewModel(application: Application) : AndroidViewModel(application) {
 
     var settingsForHeart : SharedPreferences
 
-    var upperPressure = MutableLiveData<Int?>()
-    var lowerPressure = MutableLiveData<Int?>()
-    var pulse = MutableLiveData<Int?>()
-    var lastId = MutableLiveData<Int?>()
-    var lastDate = MutableLiveData<Long?>()
+    private val _upperPressure = MutableSharedFlow<Int>()
+    val upperPressure = _upperPressure.asSharedFlow()
 
-    private val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
+    private val _lowerPressure = MutableSharedFlow<Int>()
+    val lowerPressure = _lowerPressure.asSharedFlow()
+
+    private val _pulse = MutableSharedFlow<Int>()
+    val pulse = _pulse.asSharedFlow()
+
+    private val _lastId = MutableSharedFlow<Int>()
+    val lastId = _lastId.asSharedFlow()
+
+    private val _lastDate = MutableSharedFlow<Long>()
+    val lastDate = _lastDate.asSharedFlow()
+
     init {
         settingsForHeart = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
 
@@ -46,76 +59,72 @@ class HeartViewModel(application: Application) : AndroidViewModel(application) {
         setCurrentDate()
     }
 
-
-    suspend fun getCardioFromDataUpPressure(sheduler : ThreadPoolExecutor): Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.heartRepository.getCardioForDay()
+    suspend fun getCardioFromDataUpPressure(): Int {
+        val result = viewModelScope.async(Dispatchers.IO) {
+            var list = Repositories.heartRepository.getCardioForDay()
+            val sumResult = withContext(Dispatchers.Default) {
                 var sum = 0
                 for (heart in list) {
                     sum = heart.pressureUp
                 }
-                return@async sum
+
+                return@withContext sum
             }
-            result.await()
+
+            return@async sumResult
         }
+
+        return result.await()
     }
 
-    suspend fun getCardioFromDataDownPressure(sheduler : ThreadPoolExecutor): Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.heartRepository.getCardioForDay()
+    suspend fun getCardioFromDataDownPressure(): Int {
+        val result = viewModelScope.async(Dispatchers.IO) {
+            var list = Repositories.heartRepository.getCardioForDay()
+            val sumResult = withContext(Dispatchers.Default) {
                 var sum = 0
                 for (heart in list) {
                     sum = heart.pressureDown
                 }
-                return@async sum
+                return@withContext sum
             }
-            result.await()
+            return@async sumResult
         }
+        return result.await()
     }
 
-    suspend fun getCardioFromDataPulse(sheduler : ThreadPoolExecutor): Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.heartRepository.getCardioForDay()
-                var sum = 0
-                for (heart in list) {
-                    sum = heart.pulse
-                }
-                return@async sum
-            }
-            result.await()
+    suspend fun getCardioFromDataPulse(): Int = viewModelScope.async(Dispatchers.Default) {
+        val list = withContext(Dispatchers.IO) {
+            return@withContext Repositories.heartRepository.getCardioForDay()
         }
-    }
+        var sum = 0
+        for (heart in list) {
+            sum = heart.pulse
+        }
+        return@async sum
+    }.await()
 
-    suspend fun getLastIdFromData(sheduler : ThreadPoolExecutor): Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.heartRepository.getCardioForDay()
-                var id = 0
-                for (heart in list) {
-                    id = heart.id
-                }
-                return@async id
-            }
-            result.await()
+    suspend fun getLastIdFromData(): Int = viewModelScope.async(Dispatchers.Default) {
+        val list = withContext(Dispatchers.IO) {
+            return@withContext Repositories.heartRepository.getCardioForDay()
         }
-    }
+        var id = 0
+        for (heart in list) {
+            id = heart.id
+        }
+        return@async id
+    }.await()
 
-    suspend fun getLastDateFromData(sheduler : ThreadPoolExecutor): Long = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.heartRepository.getCardioForDay()
-                var date = 0L
-                for (heart in list) {
-                    date = heart.date
-                }
-                return@async date
-            }
-            result.await()
+    suspend fun getLastDateFromData(): Long = viewModelScope.async(AppDispatchers.default) {
+        val list = withContext(AppDispatchers.io) {
+            return@withContext Repositories.heartRepository.getCardioForDay()
         }
-    }
+        var date = 0L
+        for (heart in list) {
+            date = heart.date
+        }
+
+        return@async date
+    }.await()
 
     fun insertHeart(heart : Heart) {
         viewModelScope.launch {
@@ -131,31 +140,31 @@ class HeartViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setCurrentUpperPressure() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            upperPressure.value = getCardioFromDataUpPressure(tripletsPool)
+            _upperPressure.emit(getCardioFromDataUpPressure())
         }
     }
 
     fun setCurrentLowerPressure() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            lowerPressure.value = getCardioFromDataDownPressure(tripletsPool)
+            _lowerPressure.emit(getCardioFromDataDownPressure())
         }
     }
 
     fun setCurrentPulse() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            pulse.value = getCardioFromDataPulse(tripletsPool)
+            _pulse.emit(getCardioFromDataPulse())
         }
     }
 
     fun setCurrentId() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            lastId.value = getLastIdFromData(tripletsPool)
+            _lastId.emit(getLastIdFromData())
         }
     }
 
     fun setCurrentDate() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            lastDate.value = getLastDateFromData(tripletsPool)
+            _lastDate.emit(getLastDateFromData())
         }
     }
 

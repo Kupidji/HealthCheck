@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -20,9 +21,9 @@ import com.example.healthcheck.model.sleep.entities.Sleep
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodel.SleepViewModel
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
-
 
 class sleepFragment : Fragment() {
 
@@ -52,31 +53,44 @@ class sleepFragment : Fragment() {
         var id = 0
         var date = 0L
 
-        viewModel.lastDate.observe(this@sleepFragment.viewLifecycleOwner) {
-            if (it != null) {
-                date = it
-            }
-        }
-        viewModel.lastId.observe(this@sleepFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
+        lifecycleScope.launch {
+            viewModel.lastDate.collect {
+                if (it != null) {
+                    date = it
+                }
             }
         }
 
-        viewModel.sleepForWeek.observe(this@sleepFragment.viewLifecycleOwner) {
-            binding.timeForWeek.setText("${it + "ч"}")
+        lifecycleScope.launch {
+            viewModel.lastId.collect {
+                if (it != null) {
+                    id = it
+                }
+            }
         }
 
-        viewModel.sleepForMonth.observe(this@sleepFragment.viewLifecycleOwner) {
-            binding.timeForMonth.setText("${it + "ч"}")
+        lifecycleScope.launch {
+            viewModel.sleepForWeek.collect {
+                binding.timeForWeek.setText("${it + "ч"}")
+            }
         }
 
-        viewModel.averageSleepForWeek.observe(this@sleepFragment.viewLifecycleOwner) {
-            binding.averageSleepWeek.setText("${it + "ч"}")
+        lifecycleScope.launch {
+            viewModel.sleepForMonth.collect {
+                binding.timeForMonth.setText("${it + "ч"}")
+            }
         }
 
-        viewModel.averageSleepForMonth.observe(this@sleepFragment.viewLifecycleOwner) {
-            binding.averageSleepMonth.setText("${it + "ч"}")
+        lifecycleScope.launch {
+            viewModel.averageSleepForWeek.collect {
+                binding.averageSleepWeek.setText("${it + "ч"}")
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.averageSleepForMonth.collect {
+                binding.averageSleepMonth.setText("${it + "ч"}")
+            }
         }
 
         binding.wentBack.setOnClickListener {

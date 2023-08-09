@@ -135,7 +135,6 @@ class mainFragment : Fragment() {
                     .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
                     .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
                     .setPopUpTo(R.id.medicinesEditFragment, true)
-                    
                     .build()
 
                 val direction = mainFragmentDirections.actionMainFragmentToMedicinesEditFragment (
@@ -215,7 +214,7 @@ class mainFragment : Fragment() {
         view.setTextColor(ContextCompat.getColor(requireContext(), R.color.textcolor_unchoosen))
     }
 
-    fun getNearestAction() {
+    private fun getNearestAction() {
         var nearestAction = Medicines(
             id = 0,
             title = "title",
@@ -262,7 +261,7 @@ class mainFragment : Fragment() {
                 isClickable = true
             }
             else {
-                binding.actions.setText(R.string.no_nearest_act)
+                binding.actions.setHint(R.string.no_nearest_act)
                 isClickable = false
             }
 

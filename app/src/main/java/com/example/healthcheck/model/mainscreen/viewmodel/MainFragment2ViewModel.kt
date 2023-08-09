@@ -4,68 +4,78 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
+import com.example.healthcheck.util.AppDispatchers
 import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.TimeZone
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
 
 class MainFragment2ViewModel(application: Application) : AndroidViewModel(application) {
 
-    lateinit var settings : SharedPreferences
-    lateinit var settingsForCardio : SharedPreferences
+    var settings : SharedPreferences
+    var settingsForCardio : SharedPreferences
 
-    var totalStepsForWeek = MutableLiveData<Int?>()
-    var averageSleep = MutableLiveData<String?>()
-    var totalWeightForWeight = MutableLiveData<Float?>()
+    private val _totalStepsForWeek = MutableSharedFlow<Int>()
+    val totalStepsForWeek = _totalStepsForWeek.asSharedFlow()
+
+    private val _averageSleep = MutableSharedFlow<String>()
+    val averageSleep = _averageSleep.asSharedFlow()
+
+    private val _totalWeightForWeight = MutableSharedFlow<Float>()
+    val totalWeightForWeight = _totalWeightForWeight.asSharedFlow()
 
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
         settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
-        val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
+
+        viewModelScope.launch {
+            _totalStepsForWeek.emit(getStepsFromDataForWeek())
         }
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            averageSleep.value = getSleepFromDataForWeekAverage(tripletsPool)
+        viewModelScope.launch {
+            _averageSleep.emit(getSleepFromDataForWeekAverage())
         }
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalWeightForWeight.value = getWeightFromDataForWeek(tripletsPool)
+        viewModelScope.launch {
+            _totalWeightForWeight.emit(getWeightFromDataForWeek())
         }
+
     }
-    suspend fun getStepsFromDataForWeek(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.stepsRepository.getStepsForWeek()
+
+    suspend fun getStepsFromDataForWeek() : Int {
+        var result = viewModelScope.async(AppDispatchers.io) {
+            var list = Repositories.stepsRepository.getStepsForWeek()
+
+            var sumResult = withContext(AppDispatchers.default) {
                 var sum = 0
+
                 for (steps in list) {
                     sum += steps
                 }
+
                 if (list.size != 0) {
                     sum /= list.size
                 }
-                return@async sum
+                return@withContext sum
             }
 
-            result.await()
+            return@async sumResult
         }
+
+        return result.await()
     }
 
-    suspend fun getSleepFromDataForWeekAverage(sheduler : ThreadPoolExecutor) : String = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.sleepRepository.getTimeOfSleepForWeek()
+    suspend fun getSleepFromDataForWeekAverage() : String {
+        var result = viewModelScope.async(AppDispatchers.io) {
+            var list = Repositories.sleepRepository.getTimeOfSleepForWeek()
+
+            var stringResult = withContext(AppDispatchers.default) {
                 var sum = 0L
                 var GMT = getGMT()
                 var listGMT = GMT.split(":")
@@ -78,27 +88,34 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
                 var string = SimpleDateFormat("HH:mm").format(sum).toString()
                 var listt = string.split(":")
                 string = (listt[0].toInt()-listGMT[0].toInt()).toString() + ":" + listt[1]
-                return@async string
+                return@withContext string
             }
-            result.await()
+
+            return@async stringResult
         }
+
+        return result.await()
     }
 
-    suspend fun getWeightFromDataForWeek(sheduler : ThreadPoolExecutor) : Float = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.weightRepository.getWeightForWeek()
+    suspend fun getWeightFromDataForWeek() : Float {
+        var result = viewModelScope.async(AppDispatchers.io) {
+            var list = Repositories.weightRepository.getWeightForWeek()
+
+            var sumResult = withContext(AppDispatchers.default) {
                 var sum = 0F
+
                 for (steps in list) {
                     sum += steps
                 }
+
                 if (list.isNotEmpty()){
                     sum /= list.size
                 }
-                return@async sum
+                return@withContext sum
             }
-            result.await()
+            return@async sumResult
         }
+        return result.await()
     }
 
     fun getGMT() : String {

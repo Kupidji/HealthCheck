@@ -11,28 +11,33 @@ import com.example.healthcheck.model.steps.entities.Steps
 import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
 
 class StepsViewModel(application: Application) : AndroidViewModel(application)  {
 
     var settings : SharedPreferences
     var settingsWeight : SharedPreferences
 
-    var totalStepsForWeek = MutableLiveData<Int?>()
-    var totalStepsForMonth = MutableLiveData<Int?>()
-    var totalStepsForDay = MutableLiveData<Int>()
-    var currentGoal = MutableLiveData<Int>()
-    var id = MutableLiveData<Int?>()
-    var day = MutableLiveData<Long?>()
+    private val _totalStepsForDay = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
+    val totalStepsForDay = _totalStepsForDay.asSharedFlow()
 
-    private var tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
+    private val _totalStepsForWeek = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
+    val totalStepsForWeek = _totalStepsForWeek.asSharedFlow()
+
+    private val _totalStepsForMonth = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
+    val totalStepsForMonth = _totalStepsForMonth.asSharedFlow()
+
+    private val _currentGoal = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
+    val currentGoal = _currentGoal.asSharedFlow()
+
+    private val _id = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
+    val id = _id.asSharedFlow()
+
+    private val _day = MutableSharedFlow<Long>(1, 0, BufferOverflow.DROP_OLDEST)
+    val day = _day.asSharedFlow()
 
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
@@ -47,60 +52,44 @@ class StepsViewModel(application: Application) : AndroidViewModel(application)  
 
     }
 
-    suspend fun getStepsFromDataForWeek(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.stepsRepository.getStepsForWeek()
-                var sum = 0
-                for (steps in list) {
-                    sum += steps
-                }
-                return@async sum
-            }
+    suspend fun getStepsFromDataForWeek() : Int {
+        val list = Repositories.stepsRepository.getStepsForWeek()
+        var result = 0
 
-            result.await()
+        for (steps in list) {
+            result += steps
         }
+
+        return result
     }
 
-    suspend fun getStepsFromDataForMonth(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.stepsRepository.getStepsForMonth()
-                var sum = 0
-                for (steps in list) {
-                    sum += steps
-                }
-                return@async sum
-            }
+    suspend fun getStepsFromDataForMonth() : Int {
+        val list = Repositories.stepsRepository.getStepsForMonth()
+        var result = 0
 
-            result.await()
+        for (steps in list) {
+            result += steps
         }
+
+        return result
     }
 
-    suspend fun getLastDateFromData(sheduler : ThreadPoolExecutor) : Long = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var date = 0L
-                if (Repositories.stepsRepository.getLastDate() != null) {
-                    date = Repositories.stepsRepository.getLastDate().date
-                }
-                return@async date
-            }
-            result.await()
+    suspend fun getLastDateFromData() : Long {
+        var result = 0L
+        if (Repositories.stepsRepository.getLastDate() != null) {
+            result = Repositories.stepsRepository.getLastDate().date
         }
+
+        return result
     }
 
-     suspend fun getLastIdFromData(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
-         withContext(sheduler.asCoroutineDispatcher()) {
-             var result = async {
-                 var id = 0
-                 if (Repositories.stepsRepository.getLastDate() != null) {
-                     id = Repositories.stepsRepository.getLastDate().id
-                 }
-                 return@async id
-             }
-             result.await()
-         }
+    suspend fun getLastIdFromData() : Int {
+        var result = 0
+        if (Repositories.stepsRepository.getLastDate() != null) {
+            result = Repositories.stepsRepository.getLastDate().id
+        }
+
+        return result
     }
 
     fun insertSteps(ourSteps : Steps) {
@@ -116,34 +105,39 @@ class StepsViewModel(application: Application) : AndroidViewModel(application)  
     }
 
     fun setCurrentTarget(res : Int) {
-        currentGoal.value = res
+        viewModelScope.launch {
+            _currentGoal.emit(res)
+        }
     }
 
     fun setCurrentStepsForDay(res : Int) {
-        totalStepsForDay.value = res
+        viewModelScope.launch {
+            _totalStepsForDay.emit(res)
+        }
+
     }
 
     fun setCurrentStepsForWeek() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalStepsForWeek.value = getStepsFromDataForWeek(tripletsPool)
+            _totalStepsForWeek.emit(getStepsFromDataForWeek())
         }
     }
 
     fun setCurrentStepsForMonth() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)
+            _totalStepsForMonth.emit(getStepsFromDataForMonth())
         }
     }
 
     fun setCurrentId() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            id.value = getLastIdFromData(tripletsPool)
+            _id.emit(getLastIdFromData())
         }
     }
 
     fun setCurrentDate() {
         viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            day.value = getLastDateFromData(tripletsPool)
+            _day.emit(getLastDateFromData())
         }
     }
 

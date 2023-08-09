@@ -4,104 +4,118 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.healthcheck.model.Repositories
+import com.example.healthcheck.util.AppDispatchers
 import com.example.healthcheck.util.Constants
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.TimeZone
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
 
 class MainFragment3ViewModel(application: Application) : AndroidViewModel(application) {
 
-    lateinit var settings : SharedPreferences
-    lateinit var settingsForCardio : SharedPreferences
+    var settings : SharedPreferences
+    var settingsForCardio : SharedPreferences
 
-    var totalStepsForMonth = MutableLiveData<Int?>()
-    var averageSleepMonth = MutableLiveData<String?>()
-    var totalWeightForMonth = MutableLiveData<Float?>()
+    private val _totalStepsForMonth = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
+    val totalStepsForMonth = _totalStepsForMonth.asSharedFlow()
+
+    private val _averageSleepMonth = MutableSharedFlow<String>(1, 0, BufferOverflow.DROP_OLDEST)
+    val averageSleepMonth = _averageSleepMonth.asSharedFlow()
+
+    private val _totalWeightForMonth = MutableSharedFlow<Float>(1, 0, BufferOverflow.DROP_OLDEST)
+    val totalWeightForMonth = _totalWeightForMonth.asSharedFlow()
 
     init {
         settings = application.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
         settingsForCardio = application.applicationContext.getSharedPreferences(Constants.CARDIO, Context.MODE_PRIVATE)
-        val tripletsPool = ThreadPoolExecutor(3, 3, 5L, TimeUnit.SECONDS, LinkedBlockingQueue())
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalStepsForMonth.value = getStepsFromDataForMonth(tripletsPool)
+        viewModelScope.launch {
+            _totalStepsForMonth.emit(getStepsFromDataForMonth())
         }
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            averageSleepMonth.value = getSleepFromDataForMonthAverage(tripletsPool)
+        viewModelScope.launch {
+            _averageSleepMonth.emit(getSleepFromDataForMonthAverage())
         }
-        viewModelScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT) {
-            totalWeightForMonth.value = getWeightFromDataForMonth(tripletsPool)
+        viewModelScope.launch {
+            _totalWeightForMonth.emit(getWeightFromDataForMonth())
         }
     }
-    suspend fun getStepsFromDataForMonth(sheduler : ThreadPoolExecutor) : Int = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.stepsRepository.getStepsForMonth()
-                var sum = 0
-                for (steps in list) {
-                    sum += steps
-                }
-                if (list.size != 0){
-                    sum /= list.size
-                }
-                return@async sum
+    suspend fun getStepsFromDataForMonth() : Int {
+        val result = viewModelScope.async(AppDispatchers.default) {
+            var list = withContext(AppDispatchers.io) {
+                var listOfSteps = Repositories.stepsRepository.getStepsForMonth()
+                return@withContext listOfSteps
+            }
+            var sum = 0
+
+            for (steps in list) {
+                sum += steps
             }
 
-            result.await()
-        }
-    }
-
-    suspend fun getSleepFromDataForMonthAverage(sheduler : ThreadPoolExecutor) : String = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.sleepRepository.getTimeOfSleepForMonth()
-                var sum = 0L
-                var GMT = getGMT()
-                var listGMT = GMT.split(":")
-                for (sleep in list) {
-                    sum += sleep.timeOfSleep
-                }
-                if (list.size != 0){
-                    sum /= list.size
-                }
-                var string = SimpleDateFormat("HH:mm").format(sum).toString()
-                var listt = string.split(":")
-                string = (listt[0].toInt()-listGMT[0].toInt()).toString() + ":" + listt[1]
-                return@async string
+            if (list.size != 0){
+                sum /= list.size
             }
-            result.await()
+
+            return@async sum
         }
+
+        return result.await()
     }
 
-    suspend fun getWeightFromDataForMonth(sheduler : ThreadPoolExecutor) : Float = coroutineScope {
-        withContext(sheduler.asCoroutineDispatcher()) {
-            var result = async {
-                var list = Repositories.weightRepository.getWeightForMonth()
-                var sum = 0F
-                for (steps in list) {
-                    sum += steps
-                }
-                if (list.isNotEmpty()){
-                    sum /= list.size
-                }
-                return@async sum
+    suspend fun getSleepFromDataForMonthAverage() : String {
+        var result = viewModelScope.async(AppDispatchers.default) {
+            var list = withContext(AppDispatchers.io) {
+                var listOfSleepTime = Repositories.sleepRepository.getTimeOfSleepForMonth()
+                return@withContext listOfSleepTime
             }
-            result.await()
+            var sum = 0L
+            var GMT = getGMT()
+            var listGMT = GMT.split(":")
+            for (sleep in list) {
+                sum += sleep.timeOfSleep
+            }
+            if (list.size != 0){
+                sum /= list.size
+            }
+            var string = SimpleDateFormat("HH:mm").format(sum).toString()
+            var listt = string.split(":")
+            string = (listt[0].toInt()-listGMT[0].toInt()).toString() + ":" + listt[1]
+
+            return@async string
         }
+
+        return result.await()
     }
 
-    fun getGMT() : String {
+    suspend fun getWeightFromDataForMonth() : Float {
+        var result = viewModelScope.async(AppDispatchers.default) {
+            var list = withContext(AppDispatchers.io) {
+                var listOfWeight = Repositories.weightRepository.getWeightForMonth()
+                return@withContext listOfWeight
+            }
+            var sum = 0F
+
+            for (steps in list) {
+                sum += steps
+            }
+
+            if (list.isNotEmpty()){
+                sum /= list.size
+            }
+
+            return@async sum
+        }
+
+        return  result.await()
+    }
+
+    private fun getGMT() : String {
         val tz = TimeZone.getDefault()
         val gmt1 = TimeZone.getTimeZone(tz.id).getDisplayName(false, TimeZone.SHORT)
         if (gmt1.length > 3){

@@ -12,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -19,15 +20,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStepsBinding
 import com.example.healthcheck.model.steps.entities.Steps
+import com.example.healthcheck.model.steps.viewmodel.StepsViewModel
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.ButtonPress.buttonPress
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.model.steps.viewmodel.StepsViewModel
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-
 
 class StepsFragment : Fragment() {
 
@@ -64,48 +64,64 @@ class StepsFragment : Fragment() {
         changeProgressBar()
 
         //Подгрузка данных
-        viewModel.currentGoal.observe(this@StepsFragment.viewLifecycleOwner) {
-            loadData(it)
+        lifecycleScope.launch {
+            viewModel.currentGoal.collect {
+                loadData(it)
+            }
         }
 
         //Записывает количество шагов за день в EditText и обновляет калории
-        viewModel.totalStepsForDay.observe(this@StepsFragment.viewLifecycleOwner) {
-            if (it != 0) {
-                binding.getCountOfSteps.setText(it.toString())
-            }
-            binding.dayCal.text = kKAL(it).toString() + " калорий"
-        }
-
-        viewModel.day.observe(this@StepsFragment.viewLifecycleOwner) {
-            if (it != null) {
-                day = it
+        lifecycleScope.launch {
+            viewModel.totalStepsForDay.collect {
+                if (it != 0) {
+                    binding.getCountOfSteps.setText(it.toString())
+                }
+                binding.dayCal.text = kKAL(it).toString() + " калорий"
             }
         }
 
-        viewModel.id.observe(this@StepsFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
+        lifecycleScope.launch {
+            viewModel.day.collect {
+                if (it != null) {
+                    day = it
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.id.collect {
+                if (it != null) {
+                    id = it
+                }
             }
         }
 
         //Каждый день обновляет поле шагов
-        viewModel.day.observe(this@StepsFragment.viewLifecycleOwner) {
-            if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
-                binding.getCountOfSteps.setText("")
-                saveDataForCountOfStepsOfDay(0)
-                viewModel.setCurrentStepsForDay(0)
+        lifecycleScope.launch {
+            viewModel.day.collect {
+                if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
+                    binding.getCountOfSteps.setText("")
+                    saveDataForCountOfStepsOfDay(0)
+                    viewModel.setCurrentStepsForDay(0)
+                }
             }
         }
 
         //Калории за неделю
-        viewModel.totalStepsForWeek.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.weekCal.text = it?.let { it1 -> kKAL(it1).toString() } + " калорий"
+        lifecycleScope.launch {
+            viewModel.totalStepsForWeek.collect {
+                binding.weekCal.text = kKAL(it).toString() + " калорий"
+            }
         }
 
+
         //Калории за месяц
-        viewModel.totalStepsForMonth.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.monthCal.text = it?.let { it1 -> kKAL(it1).toString() } + " калорий"
+        lifecycleScope.launch {
+            viewModel.totalStepsForMonth.collect{
+                binding.monthCal.text = kKAL(it).toString() + " калорий"
+            }
         }
+
 
         binding.wentBack.setOnClickListener {
             if (binding.getCountOfSteps.text.isNotEmpty()) {
@@ -133,15 +149,20 @@ class StepsFragment : Fragment() {
             }
         }
         binding.customTarget.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus && binding.customTarget.text.isNotEmpty()) {
-                saveAfterKeyboardClosedOrLostFocusForTarget()
-            }
-            else if(!hasFocus && binding.customTarget.text.isEmpty() && viewModel.currentGoal.value != 5000 && viewModel.currentGoal.value != 10000 && viewModel.currentGoal.value != 15000) {
-                viewModel.setCurrentTarget(10000)
-                saveDataForTarget(10000)
-                loadData(10000)
-                changeProgressBar()
-                changeMaxOfProgressBar()
+
+            lifecycleScope.launch {
+                viewModel.currentGoal.collect { value ->
+                    if (!hasFocus && binding.customTarget.text.isNotEmpty()) {
+                        saveAfterKeyboardClosedOrLostFocusForTarget()
+                    }
+                    else if(!hasFocus && binding.customTarget.text.isEmpty() && value != 5000 && value != 10000 && value != 15000) {
+                        viewModel.setCurrentTarget(10000)
+                        saveDataForTarget(10000)
+                        loadData(10000)
+                        changeProgressBar()
+                        changeMaxOfProgressBar()
+                    }
+                }
             }
         }
 
@@ -162,17 +183,22 @@ class StepsFragment : Fragment() {
                 if (binding.getCountOfSteps.text.isNotEmpty() && binding.getCountOfSteps.isFocused) {
                     saveAfterKeyboardClosedOrLostFocusForSteps(id, day)
                 }
-                if (binding.customTarget.text.isNotEmpty() && binding.customTarget.isFocused) {
-                    saveAfterKeyboardClosedOrLostFocusForTarget()
-                }
-                else if(binding.customTarget.isFocused && binding.customTarget.text.isEmpty() && viewModel.currentGoal.value != 5000 && viewModel.currentGoal.value != 10000 && viewModel.currentGoal.value != 15000) {
-                    viewModel.setCurrentTarget(10000)
-                    saveDataForTarget(10000)
-                    loadData(10000)
-                    changeProgressBar()
-                    changeMaxOfProgressBar()
-                }
 
+                lifecycleScope.launch {
+                    viewModel.currentGoal.collect { value ->
+                        if (binding.customTarget.text.isNotEmpty() && binding.customTarget.isFocused) {
+                            saveAfterKeyboardClosedOrLostFocusForTarget()
+                        }
+                        else if(binding.customTarget.isFocused && binding.customTarget.text.isEmpty() && value != 5000 && value != 10000 && value != 15000) {
+                            viewModel.setCurrentTarget(10000)
+                            saveDataForTarget(10000)
+                            loadData(10000)
+                            changeProgressBar()
+                            changeMaxOfProgressBar()
+                        }
+                    }
+
+                }
             }
             else {
                 binding.getCountOfSteps.isCursorVisible = true
@@ -379,32 +405,35 @@ class StepsFragment : Fragment() {
 
     //Меняет прогресс progressBar для месяца и недели
     private fun changeProgressBar() {
-
-        viewModel.totalStepsForWeek.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.countOfStepsForWeekText.setText("${it}")
-            if (it != null) {
-                animateProgressBar(binding.stepsDiagram, it)
-                //binding.stepsDiagram.progress = it
-            }
-        }
-        viewModel.totalStepsForMonth.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.countOfStepsForMonthText.setText("${it}")
-            if (it != null) {
-                animateProgressBar(binding.stepsDiagram1, it)
-                //binding.stepsDiagram1.progress = it
+        lifecycleScope.launch {
+            viewModel.totalStepsForWeek.collect {
+                binding.countOfStepsForWeekText.setText("${it}")
+                if (it != null) {
+                    animateProgressBar(binding.stepsDiagram, it)
+                    //binding.stepsDiagram.progress = it
+                }
             }
         }
 
+        lifecycleScope.launch {
+            viewModel.totalStepsForMonth.collect {
+                binding.countOfStepsForMonthText.setText("${it}")
+                if (it != null) {
+                    animateProgressBar(binding.stepsDiagram1, it)
+                    //binding.stepsDiagram1.progress = it
+                }
+            }
+        }
     }
 
     //Меняет максимально значение progressBars за неделю и месяц
     private fun changeMaxOfProgressBar() {
-
-        viewModel.currentGoal.observe(this@StepsFragment.viewLifecycleOwner) {
-            binding.stepsDiagram.max = it*7
-            binding.stepsDiagram1.max = it*30
+        lifecycleScope.launch {
+            viewModel.currentGoal.collect {
+                binding.stepsDiagram.max = it*7
+                binding.stepsDiagram1.max = it*30
+            }
         }
-
     }
 
     //Загружает цель -> меняет кнопки и поле кастомной цели(если имеется)
@@ -439,15 +468,19 @@ class StepsFragment : Fragment() {
         var id = 0
         var day = 0L
 
-        viewModel.day.observe(this@StepsFragment.viewLifecycleOwner) {
-            if (it != null) {
-                day = it
+        lifecycleScope.launch {
+            viewModel.day.collect {
+                if (it != null) {
+                    day = it
+                }
             }
         }
 
-        viewModel.id.observe(this@StepsFragment.viewLifecycleOwner) {
-            if (it != null) {
-                id = it
+        lifecycleScope.launch {
+            viewModel.id.collect {
+                if (it != null) {
+                    id = it
+                }
             }
         }
 

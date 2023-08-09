@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -15,6 +16,7 @@ import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.model.mainscreen.viewmodel.MainFragment2ViewModel
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 class mainFragment2 : Fragment() {
@@ -49,9 +51,13 @@ class mainFragment2 : Fragment() {
 
         //Заполняет цифры внутри progressBar
         showDigits()
+        showAndUpdateStepsProgressBar()
+        showAndUpdateWeightProgressBar()
 
-        viewModel.averageSleep.observe(this@mainFragment2.viewLifecycleOwner) {
-            binding.sleepHours.text = it + "ч"
+        lifecycleScope.launch {
+            viewModel.averageSleep.collect {
+                binding.sleepHours.text = it + "ч"
+            }
         }
 
         binding.daylyCardio.text = viewModel.settingsForCardio.getString(Constants.PRESSURE, "0/0")
@@ -86,42 +92,40 @@ class mainFragment2 : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        showAndUpdateStepsProgressBar()
-        showAndUpdateWeightProgressBar()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.progressBarSteps.progress = 0
-        binding.progressBarWeight.progress = 0
-    }
-
     private fun showAndUpdateStepsProgressBar() {
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000) * 7
-        viewModel.totalStepsForWeek.observe(this@mainFragment2.viewLifecycleOwner) {
-            if (it != null) {
-                animateProgressBar(binding.progressBarSteps, it)
+        lifecycleScope.launch {
+            viewModel.totalStepsForWeek.collect {
+                if (it != null) {
+                    animateProgressBar(binding.progressBarSteps, it)
+                }
             }
         }
     }
 
     private fun showAndUpdateWeightProgressBar() {
         binding.progressBarWeight.max = 120
-        viewModel.totalWeightForWeight.observe(this@mainFragment2.viewLifecycleOwner) {
-            if (it != null) {
-                animateProgressBar(binding.progressBarWeight, it.toInt())
+        lifecycleScope.launch {
+            viewModel.totalWeightForWeight.collect {
+                if (it != null) {
+                    animateProgressBar(binding.progressBarWeight, it.toInt())
+                }
             }
         }
+
     }
 
     private fun showDigits() {
-        viewModel.totalStepsForWeek.observe(this@mainFragment2.viewLifecycleOwner) {
-            binding.main2CountOfStepsWeek.setText("${it}")
+        lifecycleScope.launch {
+            viewModel.totalStepsForWeek.collect {
+                binding.main2CountOfStepsWeek.setText("${it}")
+            }
         }
-        viewModel.totalWeightForWeight.observe(this@mainFragment2.viewLifecycleOwner) {
-            binding.weekWeightText.text = String.format(Locale.US, "%.1f", it)
+
+        lifecycleScope.launch {
+            viewModel.totalWeightForWeight.collect {
+                binding.weekWeightText.text = String.format(Locale.US, "%.1f", it)
+            }
         }
     }
 

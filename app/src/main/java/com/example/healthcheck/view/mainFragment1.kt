@@ -6,15 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.model.mainscreen.viewmodel.MainFragment1ViewModel
 import com.example.healthcheck.databinding.FragmentMain1Binding
+import com.example.healthcheck.util.AppDispatchers
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -40,8 +45,6 @@ class mainFragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currentDate = Calendar.getInstance().timeInMillis
-
         val navigation = findNavController()
 
         var navOptions = NavOptions.Builder()
@@ -52,6 +55,9 @@ class mainFragment1 : Fragment() {
             .build()
 
         showDigits()
+        showAndUpdateStepsProgressBar()
+        showAndUpdateWeightProgressBar()
+        showAndUpdateSleep()
 
         binding.stepsBox.setOnClickListener {
             //навигация и анимации
@@ -83,48 +89,39 @@ class mainFragment1 : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        showAndUpdateStepsProgressBar()
-        showAndUpdateWeightProgressBar()
-        showAndUpdateSleep()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.progressBarSteps.progress = 0
-        binding.progressBarWeight.progress = 0
-    }
-
     private fun showAndUpdateStepsProgressBar() {
         var currentDate = Calendar.getInstance().timeInMillis
 
         binding.progressBarSteps.max = viewModel.settings.getInt(Constants.TARGET, 10000)
-        viewModel.daySteps.observe(this@mainFragment1.viewLifecycleOwner) {
-            if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
-                binding.main1CountOfStepsDay.text = "0"
-                binding.progressBarSteps.progress = 0
-            }
-            else {
-                animateProgressBar(binding.progressBarSteps, viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0))
+        lifecycleScope.launch {
+            viewModel.daySteps.collect {
+                if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
+                    binding.main1CountOfStepsDay.text = "0"
+                    binding.progressBarSteps.progress = 0
+                }
+                else {
+                    animateProgressBar(binding.progressBarSteps, viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0))
+                }
             }
         }
+
     }
 
     private fun showAndUpdateSleep() {
         var currentDate = Calendar.getInstance().timeInMillis
 
-        viewModel.daySleep.observe(this@mainFragment1.viewLifecycleOwner) {
-
-            if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
-                binding.sleepHoursDay.setText("0:00")
-                val editorForSleep = viewModel.settingsForSleep.edit()
-                editorForSleep?.putLong(Constants.TIME_SLEEP, 0L)?.apply()
+        lifecycleScope.launch {
+            viewModel.daySleep.collect {
+                if ((SimpleDateFormat("dd").format(it)) != (SimpleDateFormat("dd").format(currentDate))) {
+                    binding.sleepHoursDay.setText("0:00")
+                    val editorForSleep = viewModel.settingsForSleep.edit()
+                    editorForSleep?.putLong(Constants.TIME_SLEEP, 0L)?.apply()
+                }
+                val sleepy = forGmt()
+                binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
             }
-            val sleepy = forGmt()
-            binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
         }
+
     }
 
     private fun forGmt() : String {
@@ -134,19 +131,32 @@ class mainFragment1 : Fragment() {
     }
 
     private fun showAndUpdateWeightProgressBar() {
-        animateProgressBar(binding.progressBarWeight, viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F).toInt())
+        lifecycleScope.launch {
+            viewModel.dayWeight.collect {
+                animateProgressBar(
+                    binding.progressBarWeight,
+                    it.toInt()
+                )
+            }
+        }
         binding.progressBarWeight.max = 120
     }
 
     private fun showDigits() {
         binding.main1CountOfStepsDay.text = viewModel.settings.getInt(Constants.STEPS_PER_DAY, 0).toString()
-        binding.weightCountText.text = String.format(Locale.US,"%.1f",viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
+        lifecycleScope.launch {
+            viewModel.dayWeight.collect {
+                binding.weightCountText.text = String.format(Locale.US,"%.1f", it)
+            }
+        }
+        //binding.weightCountText.text = String.format(Locale.US,"%.1f",viewModel.settingsForWeight.getFloat(Constants.WEIGHT_FOR_DAY, 0F))
+
         val sleepy = forGmt()
         binding.sleepHoursDay.text = sleepy.split(":")[0].toInt().toString() + ":" + sleepy.split(":")[1] + "ч"
         binding.daylyCardio.text = viewModel.settingsForCardio.getString(Constants.PRESSURE, "0/0")
     }
 
-    fun getGMT() : String {
+    private fun getGMT() : String {
         val tz = TimeZone.getDefault()
         val gmt1 = TimeZone.getTimeZone(tz.id).getDisplayName(false, TimeZone.SHORT)
         if (gmt1.length > 3){
