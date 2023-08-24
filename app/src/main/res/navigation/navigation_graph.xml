@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/startFragment">
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.healthcheck.view.StartFragment"
+        android:name="com.example.healthcheck.ui.start.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/stepsFragment"
-        android:name="com.example.healthcheck.view.StepsFragment"
+        android:name="com.example.healthcheck.ui.StepsFragment"
         android:label="fragment_steps"
         tools:layout="@layout/fragment_steps" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.healthcheck.view.mainFragment"
+        android:name="com.example.healthcheck.ui.main.mainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/sleepFragment"
-        android:name="com.example.healthcheck.view.sleepFragment"
+        android:name="com.example.healthcheck.ui.sleepFragment"
         android:label="fragment_sleep"
         tools:layout="@layout/fragment_sleep" >
         <action
@@ -119,7 +119,7 @@
     </fragment>
     <fragment
         android:id="@+id/heartFragment"
-        android:name="com.example.healthcheck.view.heartFragment"
+        android:name="com.example.healthcheck.ui.heartFragment"
         android:label="fragment_heart"
         tools:layout="@layout/fragment_heart" >
         <action
@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/weightFragment"
-        android:name="com.example.healthcheck.view.weightFragment"
+        android:name="com.example.healthcheck.ui.weightFragment"
         android:label="fragment_weight"
         tools:layout="@layout/fragment_weight" >
         <action
@@ -147,7 +147,7 @@
     </fragment>
     <fragment
         android:id="@+id/medicinesFragment"
-        android:name="com.example.healthcheck.view.medicinesFragment"
+        android:name="com.example.healthcheck.ui.medicine.medicinesFragment"
         android:label="fragment_medicines"
         tools:layout="@layout/fragment_medicines" >
         <action
@@ -175,7 +175,7 @@
     </fragment>
     <fragment
         android:id="@+id/nutritionFragment"
-        android:name="com.example.healthcheck.view.nutritionFragment"
+        android:name="com.example.healthcheck.ui.nutritionFragment"
         android:label="fragment_nutrition"
         tools:layout="@layout/fragment_nutrition" >
         <action
@@ -189,7 +189,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.healthcheck.view.profileFragment"
+        android:name="com.example.healthcheck.ui.profileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -203,7 +203,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.healthcheck.view.settingsFragment"
+        android:name="com.example.healthcheck.ui.settingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -224,7 +224,7 @@
     </fragment>
     <fragment
         android:id="@+id/addMedicinesFragment"
-        android:name="com.example.healthcheck.view.addMedicinesFragment"
+        android:name="com.example.healthcheck.ui.medicine.addMedicinesFragment"
         android:label="fragment_add_medicines"
         tools:layout="@layout/fragment_add_medicines" >
         <action
@@ -238,22 +238,22 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment_1"
-        android:name="com.example.healthcheck.view.StartFragment1"
+        android:name="com.example.healthcheck.ui.start.StartFragment1"
         android:label="fragment_start_1"
         tools:layout="@layout/fragment_start_1" />
     <fragment
         android:id="@+id/startFragment_2"
-        android:name="com.example.healthcheck.view.StartFragment2"
+        android:name="com.example.healthcheck.ui.start.StartFragment2"
         android:label="fragment_start_2"
         tools:layout="@layout/fragment_start_2" />
     <fragment
         android:id="@+id/startFragment_3"
-        android:name="com.example.healthcheck.view.StartFragment3"
+        android:name="com.example.healthcheck.ui.start.StartFragment3"
         android:label="fragment_start_3"
         tools:layout="@layout/fragment_start_3" />
     <fragment
         android:id="@+id/medicinesEditFragment"
-        android:name="com.example.healthcheck.view.MedicinesEditFragment"
+        android:name="com.example.healthcheck.ui.medicine.MedicinesEditFragment"
         android:label="fragment_medicines_edit"
         tools:layout="@layout/fragment_medicines_edit" >
         <action
@@ -312,7 +312,7 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment4"
-        android:name="com.example.healthcheck.view.StartFragment4"
+        android:name="com.example.healthcheck.ui.start.StartFragment4"
         android:label="fragment_start_4"
         tools:layout="@layout/fragment_start_4" >
         <action
@@ -325,7 +325,7 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment5"
-        android:name="com.example.healthcheck.view.StartFragment5"
+        android:name="com.example.healthcheck.ui.start.StartFragment5"
         android:label="fragment_start_5"
         tools:layout="@layout/fragment_start_5" >
         <action
@@ -338,7 +338,7 @@
     </fragment>
     <fragment
         android:id="@+id/editMedicineFragment"
-        android:name="com.example.healthcheck.view.editMedicineFragment"
+        android:name="com.example.healthcheck.ui.medicine.editMedicineFragment"
         android:label="fragment_edit_medicine"
         tools:layout="@layout/fragment_edit_medicine" >
         <argument android:name="id"
@@ -392,7 +392,7 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment6"
-        android:name="com.example.healthcheck.view.StartFragment6"
+        android:name="com.example.healthcheck.ui.start.StartFragment6"
         android:label="fragment_start_6"
         tools:layout="@layout/fragment_start_6" >
         <action
