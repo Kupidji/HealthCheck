@@ -6,10 +6,11 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.util.Log
-import androidx.appcompat.app.AppCompatDelegate
-import com.example.healthcheck.model.Repositories
+import com.example.data.Repositories
 import com.example.healthcheck.util.Constants
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -18,12 +19,6 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        //тема приложения
-        val settingsTheme = applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
-        if (settingsTheme.contains(Constants.CHOOSEN_THEME)) {
-            AppCompatDelegate.setDefaultNightMode(settingsTheme.getInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES))
-        }
 
         //инициализация бд
         Log.d("Database", "База данных инициализирована")
@@ -39,7 +34,8 @@ class App: Application() {
         val today = SimpleDateFormat("dd").format(Calendar.getInstance().timeInMillis)
         Log.d("Settings", "App: сравнение дат ${lastTime} и ${today}")
         if (lastTime != today) {
-            GlobalScope.launch {
+            val appScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+            appScope.launch {
                 val list = Repositories.medicinesRepository.getAllMedicineList()
                 for (medicine in list) {
                     medicine.currentDayOfCourse++
@@ -76,7 +72,7 @@ class App: Application() {
                 Constants.REGULAR,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            channel.description = "Напоминание о вводе данных за день"
+            channel2.description = "Напоминание о вводе данных за день"
 
             val manager2 = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager2.createNotificationChannel(channel2)

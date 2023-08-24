@@ -14,9 +14,9 @@
     <string name="input_quetion">За чем бы вы хотели следить?</string>
     <string name="go">Поехали!</string>
     <string name="nearest_act">Ближайшее действие</string>
-    <string name="_day">день</string>
-    <string name="_week">неделя</string>
-    <string name="_month">месяц</string>
+    <string name="_day">День</string>
+    <string name="_week">Неделя</string>
+    <string name="_month">Месяц</string>
     <string name="steps">Шаги</string>
     <string name="sleep">Сон</string>
     <string name="cardio">Кардио</string>
@@ -105,4 +105,5 @@
     <string name="input_name">Введите имя</string>
     <string name="input_age">Введите возраст</string>
     <string name="input_height">Введите рост</string>
+    <string name="kkal">калорий</string>
 </resources>

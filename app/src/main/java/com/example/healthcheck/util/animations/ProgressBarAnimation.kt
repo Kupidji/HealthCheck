@@ -5,12 +5,11 @@ import android.os.Handler
 import android.widget.ProgressBar
 import androidx.core.os.HandlerCompat
 
-
 object ProgressBarAnimation {
 
     fun animateProgressBar(progressBar: ProgressBar, maxValue : Int) {
-        val progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, maxValue)
-        progressAnimator.setDuration(1000)
+        val progressAnimator = ObjectAnimator.ofInt(progressBar, "progress",0, maxValue)
+        progressAnimator.duration = 700
         progressAnimator.start()
     }
 

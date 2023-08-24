@@ -87,4 +87,7 @@ object Constants {
     const val PULSE = "PULSE"
 
     ////////////////////
+
+    //новые константы
+
 }

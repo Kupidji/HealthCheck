@@ -4,7 +4,7 @@ import android.view.View
 
 object ButtonPress {
 
-    fun buttonPress(view : View) {
+    fun buttonPressAnimation(view : View) {
         view.animate()
             .setDuration(75)
             .scaleX(0.95f)

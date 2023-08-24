@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.weightFragment"
+    tools:context=".ui.weightFragment"
     android:background="@drawable/background"
     >
 
@@ -390,7 +390,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/neckneck"
+                    android:id="@+id/getNeck"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/neckBox"
@@ -455,7 +455,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/waistwaist"
+                    android:id="@+id/getWaist"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/waistBox"
@@ -519,7 +519,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/forearmforearm"
+                    android:id="@+id/getForearm"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/forearmBox"
@@ -583,7 +583,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/wristwrist"
+                    android:id="@+id/getWrist"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/wristBox"
@@ -647,7 +647,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/hipships"
+                    android:id="@+id/getHips"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/hipsBox"
@@ -711,7 +711,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/hiphip1"
+                    android:id="@+id/getHip1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/hipBox"
@@ -775,7 +775,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/hiphip2"
+                    android:id="@+id/getHip2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/Hip2Box"
@@ -839,7 +839,7 @@
 
                 <EditText
                     style="@style/hint1"
-                    android:id="@+id/shinshin"
+                    android:id="@+id/getShin"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="@id/shinBox"

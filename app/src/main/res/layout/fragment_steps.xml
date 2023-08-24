@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.StartFragment"
+    tools:context=".ui.start.StartFragment"
     android:background="@drawable/background"
     >
 
@@ -57,14 +57,64 @@
                 android:text="@string/steps"
                 />
 
+            <TextView
+                style="@style/zagalovok1"
+                android:id="@+id/measurements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main"
+                app:layout_constraintTop_toBottomOf="@id/wentBack"
+                android:layout_marginTop="10dp"
+                android:text="@string/measurements"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/measurements_box"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/margin_main"
+                app:layout_constraintTop_toBottomOf="@id/measurements"
+                app:layout_constraintEnd_toEndOf="@id/margin_main2"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/steps_today"
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:src="@drawable/box"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <EditText
+                    style="@style/hint1"
+                    android:id="@+id/getCountOfSteps"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/steps_today"
+                    app:layout_constraintTop_toTopOf="@id/steps_today"
+                    app:layout_constraintBottom_toBottomOf="@id/steps_today"
+                    app:layout_constraintEnd_toEndOf="@id/steps_today"
+                    android:hint="@string/input_steps"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/steppy1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
-                app:layout_constraintTop_toBottomOf="@id/wentBack"
+                app:layout_constraintTop_toBottomOf="@id/measurements_box"
                 app:layout_constraintEnd_toStartOf="@id/steppy2"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="5dp"
                 >
 
@@ -102,7 +152,7 @@
 
                 <ProgressBar
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:id="@+id/stepsDiagram"
+                    android:id="@+id/stepsDiagramForWeek"
                     android:layout_width="105dp"
                     android:layout_height="105dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -122,10 +172,10 @@
                     android:id="@+id/countOfStepsForWeekText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/stepsDiagram"
-                    app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
-                    app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+                    app:layout_constraintStart_toStartOf="@id/stepsDiagramForWeek"
+                    app:layout_constraintEnd_toEndOf="@id/stepsDiagramForWeek"
+                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForWeek"
+                    app:layout_constraintTop_toTopOf="@id/stepsDiagramForWeek"
                     android:text="0"
                     android:layout_marginBottom="15dp"
                     />
@@ -134,10 +184,10 @@
                     style="@style/diagramsTextStyle"
                     android:layout_width="40dp"
                     android:layout_height="36dp"
-                    app:layout_constraintStart_toStartOf="@id/stepsDiagram"
-                    app:layout_constraintEnd_toEndOf="@id/stepsDiagram"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagram"
-                    app:layout_constraintTop_toTopOf="@id/stepsDiagram"
+                    app:layout_constraintStart_toStartOf="@id/stepsDiagramForWeek"
+                    app:layout_constraintEnd_toEndOf="@id/stepsDiagramForWeek"
+                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForWeek"
+                    app:layout_constraintTop_toTopOf="@id/stepsDiagramForWeek"
                     android:layout_marginTop="38dp"
                     android:gravity="center"
                     android:text="@string/total_steps"
@@ -150,9 +200,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                app:layout_constraintTop_toBottomOf="@id/wentBack"
+                app:layout_constraintTop_toTopOf="@id/steppy1"
+                app:layout_constraintBottom_toBottomOf="@id/steppy1"
                 app:layout_constraintStart_toEndOf="@id/steppy1"
-                android:layout_marginTop="30dp"
                 android:layout_marginStart="5dp"
                 >
 
@@ -190,7 +240,7 @@
 
                 <ProgressBar
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:id="@+id/stepsDiagram1"
+                    android:id="@+id/stepsDiagramForMonth"
                     android:layout_width="105dp"
                     android:layout_height="105dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -210,10 +260,10 @@
                     android:id="@+id/countOfStepsForMonthText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/stepsDiagram1"
-                    app:layout_constraintEnd_toEndOf="@id/stepsDiagram1"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagram1"
-                    app:layout_constraintTop_toTopOf="@id/stepsDiagram1"
+                    app:layout_constraintStart_toStartOf="@id/stepsDiagramForMonth"
+                    app:layout_constraintEnd_toEndOf="@id/stepsDiagramForMonth"
+                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForMonth"
+                    app:layout_constraintTop_toTopOf="@id/stepsDiagramForMonth"
                     android:text="0"
                     android:layout_marginBottom="15dp"
                     />
@@ -222,10 +272,10 @@
                     style="@style/diagramsTextStyle"
                     android:layout_width="40dp"
                     android:layout_height="36dp"
-                    app:layout_constraintStart_toStartOf="@id/stepsDiagram1"
-                    app:layout_constraintEnd_toEndOf="@id/stepsDiagram1"
-                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagram1"
-                    app:layout_constraintTop_toTopOf="@id/stepsDiagram1"
+                    app:layout_constraintStart_toStartOf="@id/stepsDiagramForMonth"
+                    app:layout_constraintEnd_toEndOf="@id/stepsDiagramForMonth"
+                    app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForMonth"
+                    app:layout_constraintTop_toTopOf="@id/stepsDiagramForMonth"
                     android:layout_marginTop="38dp"
                     android:gravity="center"
                     android:text="@string/total_steps"
@@ -235,60 +285,10 @@
 
             <TextView
                 style="@style/zagalovok1"
-                android:id="@+id/measurements"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main"
-                app:layout_constraintTop_toBottomOf="@id/steppy1"
-                android:layout_marginTop="10dp"
-                android:text="@string/measurements"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/measurements_box"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main"
-                app:layout_constraintTop_toBottomOf="@id/measurements"
-                app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="10dp">
-
-                <ImageView
-                    android:id="@+id/steps_today"
-                    android:layout_width="match_parent"
-                    android:layout_height="66dp"
-                    android:src="@drawable/box"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/getCountOfSteps"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/steps_today"
-                    app:layout_constraintTop_toTopOf="@id/steps_today"
-                    app:layout_constraintBottom_toBottomOf="@id/steps_today"
-                    app:layout_constraintEnd_toEndOf="@id/steps_today"
-                    android:hint="@string/input_steps"
-                    android:background="@android:color/transparent"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:inputType="number"
-                    android:imeOptions="actionDone"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                style="@style/zagalovok1"
                 android:id="@+id/selectTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/measurements_box"
+                app:layout_constraintTop_toBottomOf="@id/steppy1"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 android:layout_marginTop="10dp"
                 android:text="@string/select_target"
@@ -435,8 +435,8 @@
                     app:layout_constraintEnd_toEndOf="@id/target"
                     android:hint="@string/input_target"
                     android:background="@android:color/transparent"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     />
