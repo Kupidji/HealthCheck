@@ -38,8 +38,8 @@
     <string name="total_sleeptime">Общее время сна</string>
     <string name="measurements">Измерения</string>
     <string name="input_pressure">Введите ваше давление</string>
-    <string name="up_pressure">верхнее</string>
-    <string name="down_pressure">нижнее</string>
+    <string name="up_pressure">Верхнее</string>
+    <string name="down_pressure">Нижнее</string>
     <string name="input_pulse">Введите ваш пульс</string>
     <string name="beats_per_minute">уд в мин</string>
     <string name="comp_with_norm">Ваши показатели в сравнении нормой</string>
@@ -106,4 +106,13 @@
     <string name="input_age">Введите возраст</string>
     <string name="input_height">Введите рост</string>
     <string name="kkal">калорий</string>
+    <string name="lastNote">Последние записи</string>
+    <string name="notNoteYet">Пока нет записей</string>
+    <string name="history">Журнал</string>
+    <string name="dateAndTime">Дата и время</string>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="ChooseTimeAndDate">Введите дату и время</string>
+    <string name="emptyString">Пустое поле</string>
+    <string name="wrongValue">Неверное значение</string>
 </resources>

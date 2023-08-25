@@ -130,6 +130,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_heartFragment_to_addHeartItemFragment"
+            app:destination="@id/addHeartItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/weightFragment"
@@ -403,5 +406,14 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addHeartItemFragment"
+        android:name="com.example.healthcheck.ui.AddHeartItemFragment"
+        android:label="fragment_add_heart_item"
+        tools:layout="@layout/fragment_add_heart_item" >
+        <action
+            android:id="@+id/action_addHeartItemFragment_to_heartFragment"
+            app:destination="@id/heartFragment" />
     </fragment>
 </navigation>

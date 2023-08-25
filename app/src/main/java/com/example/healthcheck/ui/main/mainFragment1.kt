@@ -15,11 +15,8 @@ import com.example.domain.AppDispatchers
 import com.example.healthcheck.databinding.FragmentMain1Binding
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.MainFragment1ViewModel
+import com.example.healthcheck.viewmodels.main.MainFragment1ViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 
 class mainFragment1 : Fragment() {

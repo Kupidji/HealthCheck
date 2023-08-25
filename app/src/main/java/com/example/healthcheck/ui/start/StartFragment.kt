@@ -16,8 +16,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStartBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.StartViewModel
-import com.example.healthcheck.viewmodels.ViewPagerAdapter
+import com.example.healthcheck.viewmodels.start.StartViewModel
+import com.example.healthcheck.viewmodels.main.ViewPagerAdapter
 
 class StartFragment : Fragment() {
 

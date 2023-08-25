@@ -15,7 +15,7 @@ import com.example.domain.models.Medicines
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesEditBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.MedicinesEditViewModel
+import com.example.healthcheck.viewmodels.medicine.MedicinesEditViewModel
 import java.text.SimpleDateFormat
 
 class MedicinesEditFragment : Fragment() {

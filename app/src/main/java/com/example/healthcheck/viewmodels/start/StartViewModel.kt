@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodels
+package com.example.healthcheck.viewmodels.start
 
 import androidx.lifecycle.ViewModel
 import com.example.healthcheck.ui.start.StartFragment1

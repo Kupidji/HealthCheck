@@ -13,7 +13,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.healthcheck.databinding.FragmentStart4Binding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.StartFragment4ViewModel
+import com.example.healthcheck.viewmodels.start.StartFragment4ViewModel
 
 
 class StartFragment4 : Fragment() {
