@@ -10,4 +10,10 @@ interface HeartRepository {
 
     suspend fun updateCardio(heart: Heart)
 
+    suspend fun deleteCardio(heart: Heart)
+
+    suspend fun getListCardioForLastNote() : List<Heart>
+
+    suspend fun getListCardioForHistory() : List<Heart>
+
 }

@@ -18,7 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.models.Medicines
 import com.example.healthcheck.R
-import com.example.healthcheck.viewmodels.EditMedicineViewModel
+import com.example.healthcheck.viewmodels.medicine.EditMedicineViewModel
 import com.example.healthcheck.databinding.FragmentEditMedicineBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import java.text.SimpleDateFormat

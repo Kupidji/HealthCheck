@@ -20,8 +20,8 @@ import com.example.domain.models.Medicines
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.MainViewModel
-import com.example.healthcheck.viewmodels.ViewPagerAdapter
+import com.example.healthcheck.viewmodels.main.MainViewModel
+import com.example.healthcheck.viewmodels.main.ViewPagerAdapter
 import kotlinx.coroutines.launch
 
 class mainFragment : Fragment() {

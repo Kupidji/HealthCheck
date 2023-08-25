@@ -1,6 +1,5 @@
-package com.example.healthcheck.viewmodels
+package com.example.healthcheck.viewmodels.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
@@ -43,8 +42,9 @@ class MainFragment1ViewModel : ViewModel() {
             //TODO заменить аргумент repository на useCase
             //TODO Сделать чтобы за день отображались данные в том случае, если данные за сегодня были введены,
             //иначе выводить заглушки.
-
-            val lastDate = SimpleDateFormat("dd.MM").format(Repositories.stepsRepository.getLastDate().date)
+            val lastDate = withContext(AppDispatchers.io) {
+                return@withContext SimpleDateFormat("dd.MM").format(Repositories.stepsRepository.getLastDate().date)
+            }
             val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
             if (lastDate != currentDate) {
                 _daySteps.emit(0)
@@ -52,7 +52,6 @@ class MainFragment1ViewModel : ViewModel() {
             else {
                 _daySteps.emit(getCountOfStepsForDayFromDb.execute())
             }
-
 
         }
 
@@ -84,7 +83,6 @@ class MainFragment1ViewModel : ViewModel() {
             else {
                 _dayWeight.emit(getWeightForDayFromDb.execute())
             }
-
 
         }
 

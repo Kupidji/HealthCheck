@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodels
+package com.example.healthcheck.viewmodels.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

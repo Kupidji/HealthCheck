@@ -16,7 +16,7 @@ import com.example.domain.AppDispatchers
 import com.example.healthcheck.databinding.FragmentMain3Binding
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.MainFragment3ViewModel
+import com.example.healthcheck.viewmodels.main.MainFragment3ViewModel
 import kotlinx.coroutines.launch
 import java.util.Locale
 

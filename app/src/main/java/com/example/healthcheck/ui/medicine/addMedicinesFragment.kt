@@ -20,7 +20,7 @@ import com.example.healthcheck.databinding.FragmentAddMedicinesBinding
 import com.example.healthcheck.models.MedicineParams
 import com.example.healthcheck.util.animations.ButtonPress.buttonPressAnimation
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.AddMedicinesViewModel
+import com.example.healthcheck.viewmodels.medicine.AddMedicinesViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 

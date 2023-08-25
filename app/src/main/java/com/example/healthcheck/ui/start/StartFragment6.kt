@@ -19,7 +19,7 @@ import com.example.healthcheck.databinding.FragmentStart6Binding
 import com.example.healthcheck.notifications.service.NotificationService
 import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.StartFragment6ViewModel
+import com.example.healthcheck.viewmodels.start.StartFragment6ViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 

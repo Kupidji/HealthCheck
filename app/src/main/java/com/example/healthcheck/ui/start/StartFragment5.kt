@@ -8,17 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.example.domain.models.Weight
 import com.example.healthcheck.databinding.FragmentStart5Binding
-import com.example.healthcheck.util.Constants
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.StartFragment5ViewModel
-import java.util.Calendar
+import com.example.healthcheck.viewmodels.start.StartFragment5ViewModel
 
 
 class StartFragment5 : Fragment() {

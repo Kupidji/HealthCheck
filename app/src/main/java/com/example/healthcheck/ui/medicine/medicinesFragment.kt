@@ -18,9 +18,9 @@ import com.example.domain.models.Medicines
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.MedicinesActionListener
-import com.example.healthcheck.viewmodels.MedicinesRecyclerViewAdapter
-import com.example.healthcheck.viewmodels.MedicinesViewModel
+import com.example.healthcheck.viewmodels.medicine.MedicinesActionListener
+import com.example.healthcheck.viewmodels.medicine.MedicinesRecyclerViewAdapter
+import com.example.healthcheck.viewmodels.medicine.MedicinesViewModel
 import kotlinx.coroutines.launch
 
 class medicinesFragment : Fragment() {

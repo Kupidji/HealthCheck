@@ -24,4 +24,20 @@ class RoomHeartRepository(
         heartDao.updateCardio(forUpdate(heart))
     }
 
+    override suspend fun deleteCardio(heart: Heart) {
+        heartDao.deleteCardio(fromHeart(heart))
+    }
+
+    override suspend fun getListCardioForLastNote(): List<Heart> {
+        return heartDao.getCadrioForLastNote().map { heart ->
+            heart.toHeart()
+        }
+    }
+
+    override suspend fun getListCardioForHistory(): List<Heart> {
+        return heartDao.getCadrioForHistory().map { heart ->
+            heart.toHeart()
+        }
+    }
+
 }
