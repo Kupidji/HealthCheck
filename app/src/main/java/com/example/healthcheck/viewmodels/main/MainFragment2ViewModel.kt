@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.usecase.GetAverageOfSleepForWeek
+import com.example.domain.usecase.GetHeartForWeekFromDb
 import com.example.domain.usecase.steps.GetAverageOfStepsForWeekFromDb
 import com.example.domain.usecase.GetWeightForWeekFromDb
 import com.example.domain.usecase.steps.GetStepsTarget
@@ -25,6 +26,9 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
 
     private val _totalWeightForWeek = MutableSharedFlow<Float>(1, 0, BufferOverflow.DROP_OLDEST)
     val totalWeightForWeek = _totalWeightForWeek.asSharedFlow()
+
+    private val _weekHeart = MutableSharedFlow<String>(1, 0, BufferOverflow.DROP_OLDEST)
+    val weekHeart = _weekHeart.asSharedFlow()
 
     private val _stepsTarget = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
     val stepsTarget = _stepsTarget.asSharedFlow()
@@ -47,6 +51,11 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
         viewModelScope.launch {
             val getWeightForWeekFromDb = GetWeightForWeekFromDb(repository = Repositories.weightRepository)
             _totalWeightForWeek.emit(getWeightForWeekFromDb.execute())
+        }
+
+        viewModelScope.launch {
+            val getHeartForWeekFromDb = GetHeartForWeekFromDb(repository = Repositories.heartRepository)
+            _weekHeart.emit(getHeartForWeekFromDb.execute())
         }
 
         viewModelScope.launch(AppDispatchers.main) {

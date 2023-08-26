@@ -177,7 +177,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForWeek"
                     app:layout_constraintTop_toTopOf="@id/stepsDiagramForWeek"
                     android:text="0"
-                    android:layout_marginBottom="15dp"
+                    app:layout_constraintVertical_bias="0.42"
                     />
 
                 <TextView
@@ -188,7 +188,7 @@
                     app:layout_constraintEnd_toEndOf="@id/stepsDiagramForWeek"
                     app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForWeek"
                     app:layout_constraintTop_toTopOf="@id/stepsDiagramForWeek"
-                    android:layout_marginTop="38dp"
+                    app:layout_constraintVertical_bias="0.75"
                     android:gravity="center"
                     android:text="@string/total_steps"
                     />
@@ -265,7 +265,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForMonth"
                     app:layout_constraintTop_toTopOf="@id/stepsDiagramForMonth"
                     android:text="0"
-                    android:layout_marginBottom="15dp"
+                    app:layout_constraintVertical_bias="0.42"
                     />
 
                 <TextView
@@ -276,7 +276,7 @@
                     app:layout_constraintEnd_toEndOf="@id/stepsDiagramForMonth"
                     app:layout_constraintBottom_toBottomOf="@id/stepsDiagramForMonth"
                     app:layout_constraintTop_toTopOf="@id/stepsDiagramForMonth"
-                    android:layout_marginTop="38dp"
+                    app:layout_constraintVertical_bias="0.75"
                     android:gravity="center"
                     android:text="@string/total_steps"
                     />

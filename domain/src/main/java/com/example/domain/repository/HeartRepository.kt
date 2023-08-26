@@ -6,7 +6,11 @@ interface HeartRepository {
 
     suspend fun insertCardio(heart : Heart)
 
-    fun getCardioForDay() : List<Heart>
+    suspend fun getCardioForDay() : Heart
+
+    suspend fun getCardioForWeek() : List<Heart>
+
+    suspend fun getCardioForMonth() : List<Heart>
 
     suspend fun updateCardio(heart: Heart)
 

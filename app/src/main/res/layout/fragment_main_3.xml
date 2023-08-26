@@ -76,7 +76,7 @@
             app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
             app:layout_constraintTop_toTopOf="@id/progressBarSteps"
             android:text="\?"
-            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintVertical_bias="0.38"
             />
 
         <TextView
@@ -87,8 +87,21 @@
             app:layout_constraintEnd_toEndOf="@id/progressBarSteps"
             app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
             app:layout_constraintTop_toTopOf="@id/progressBarSteps"
-            app:layout_constraintVertical_bias="0.65"
+            app:layout_constraintVertical_bias="0.58"
             android:text="@string/of_steps"
+            />
+
+        <TextView
+            style="@style/diagramsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/progressBarSteps"
+            app:layout_constraintEnd_toEndOf="@id/progressBarSteps"
+            app:layout_constraintBottom_toBottomOf="@id/progressBarSteps"
+            app:layout_constraintTop_toTopOf="@id/progressBarSteps"
+            app:layout_constraintVertical_bias="0.75"
+            android:text="@string/average"
+            android:gravity="center_horizontal"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -185,6 +198,7 @@
             />
 
         <ImageView
+            android:id="@+id/heartIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -196,14 +210,43 @@
 
         <TextView
             style="@style/zagalovok1"
-            android:id="@+id/daylyCardio"
+            android:id="@+id/upPressureText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/cardioTitle"
             app:layout_constraintTop_toTopOf="@id/cardioTitle"
             app:layout_constraintBottom_toBottomOf="@id/kardioBox"
+            app:layout_constraintEnd_toStartOf="@id/downPressureText"
             app:layout_constraintVertical_bias="0.65"
-            android:text="0/0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:text="\ ?"
+            android:drawableBottom="@drawable/arrow_up_24x24"
+            />
+
+        <TextView
+            style="@style/zagalovok1"
+            android:id="@+id/downPressureText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/upPressureText"
+            app:layout_constraintTop_toTopOf="@id/upPressureText"
+            app:layout_constraintBottom_toBottomOf="@id/upPressureText"
+            app:layout_constraintEnd_toStartOf="@id/pulseText"
+            android:text="\ ?"
+            android:drawableBottom="@drawable/arrow_down_24x24"
+            />
+
+        <TextView
+            style="@style/zagalovok1"
+            android:id="@+id/pulseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/downPressureText"
+            app:layout_constraintTop_toTopOf="@id/downPressureText"
+            app:layout_constraintBottom_toBottomOf="@id/downPressureText"
+            app:layout_constraintEnd_toStartOf="@id/heartIcon"
+            android:text="\ ?"
+            android:drawableBottom="@drawable/pulse_24x24"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -278,7 +321,7 @@
             app:layout_constraintBottom_toBottomOf="@id/progressBarWeight"
             app:layout_constraintTop_toTopOf="@id/progressBarWeight"
             android:text="\?"
-            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintVertical_bias="0.3"
             />
 
         <TextView
@@ -289,8 +332,20 @@
             app:layout_constraintEnd_toEndOf="@id/progressBarWeight"
             app:layout_constraintBottom_toBottomOf="@id/progressBarWeight"
             app:layout_constraintTop_toTopOf="@id/progressBarWeight"
-            app:layout_constraintVertical_bias="0.65"
+            app:layout_constraintVertical_bias="0.55"
             android:text="@string/kg"
+            />
+
+        <TextView
+            style="@style/diagramsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/progressBarWeight"
+            app:layout_constraintEnd_toEndOf="@id/progressBarWeight"
+            app:layout_constraintBottom_toBottomOf="@id/progressBarWeight"
+            app:layout_constraintTop_toTopOf="@id/progressBarWeight"
+            app:layout_constraintVertical_bias="0.75"
+            android:text="@string/average"
             />
 
 

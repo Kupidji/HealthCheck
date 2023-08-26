@@ -61,18 +61,18 @@ class medicinesFragment : Fragment() {
             binding.recyclerViewMedicines.adapter = adapter
             viewModel.listOfMedicines.collect { list ->
                 adapter.medicinesList = list
-            }
-        }
-
-        lifecycleScope.launch(AppDispatchers.main) {
-            viewModel.countOfMedicines.collect { size ->
-                if (size == 0) {
+                if (list.isEmpty()) {
                     binding.nothingThere.visibility = View.VISIBLE
                 }
                 else {
                     binding.nothingThere.visibility = View.GONE
                 }
             }
+        }
+
+        binding.nothingThere.setOnClickListener {
+            val direction = medicinesFragmentDirections.actionMedicinesFragmentToAddMedicinesFragment()
+            navigation.navigate(direction, navOptions)
         }
 
         adapter = MedicinesRecyclerViewAdapter(object : MedicinesActionListener {
@@ -123,8 +123,7 @@ class medicinesFragment : Fragment() {
 
         binding.addNewMedicines.setOnClickListener {
             //навигация и анимации
-            val direction =
-                medicinesFragmentDirections.actionMedicinesFragmentToAddMedicinesFragment()
+            val direction = medicinesFragmentDirections.actionMedicinesFragmentToAddMedicinesFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.addNewMedicines, navigation, direction, navOptions, navigate)
         }

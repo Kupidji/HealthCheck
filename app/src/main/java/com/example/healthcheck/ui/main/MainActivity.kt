@@ -117,17 +117,6 @@ class MainActivity : AppCompatActivity() {
             /*    до сюда     */
         }
 
-        //Мониторит, который сегодня день, пока обнуляет время в экране сон
-        lifecycleScope.launch(AppDispatchers.main) {
-            val checkCurrentDay = CheckCurrentDay(
-                settingsRepository = Repositories.settingsStorage,
-                stepsRepository = Repositories.stepsRepository,
-                sleepStorageRepository = Repositories.sleepStorage,
-                weightRepository = Repositories.weightRepository,
-            )
-            checkCurrentDay.execute()
-        }
-
         //Запрос на уведомления
         lifecycleScope.launch(AppDispatchers.main) {
             val navController = (binding.fragmentContainerView.getFragment<NavHostFragment>())

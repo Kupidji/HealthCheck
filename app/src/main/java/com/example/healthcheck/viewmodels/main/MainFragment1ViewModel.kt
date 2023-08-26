@@ -5,11 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
 import com.example.domain.AppDispatchers
+import com.example.domain.usecase.GetHeartForDayFromDb
 import com.example.domain.usecase.GetHoursOfSleepForDayFromDb
 import com.example.domain.usecase.GetWeightForDayFromDb
 import com.example.domain.usecase.steps.GetCountOfStepsForDayFromDb
 import com.example.domain.usecase.steps.GetStepsTarget
 import com.example.domain.usecase.weight.GetWeightTarget
+import com.example.healthcheck.App
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -28,6 +30,9 @@ class MainFragment1ViewModel : ViewModel() {
 
     private val _dayWeight = MutableSharedFlow<Float>(1, 0, BufferOverflow.DROP_OLDEST)
     val dayWeight = _dayWeight.asSharedFlow()
+
+    private val _dayHeart = MutableSharedFlow<String>(1, 0, BufferOverflow.DROP_OLDEST)
+    val dayHeart = _dayHeart.asSharedFlow()
 
     private val _stepsTarget = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
     val stepsTarget = _stepsTarget.asSharedFlow()
@@ -76,7 +81,7 @@ class MainFragment1ViewModel : ViewModel() {
             }
             val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
             if (lastDate != currentDate) {
-                _dayWeight.emit(0F)
+                _daySleep.emit("")
             }
             else {
                 _daySleep.emit(getHoursOfSleepForDayFromDb.execute())
@@ -101,6 +106,26 @@ class MainFragment1ViewModel : ViewModel() {
             }
             else {
                 _dayWeight.emit(getWeightForDayFromDb.execute())
+            }
+
+        }
+
+        viewModelScope.launch(AppDispatchers.main) {
+            val getHeartForDayFromDb = GetHeartForDayFromDb(repository = Repositories.heartRepository)
+            val lastDate = withContext(AppDispatchers.io) {
+                try {
+                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.heartRepository.getCardioForDay().date)
+                }
+                catch (e : NullPointerException) {
+                    Log.d("Exceptions", ": ${e.localizedMessage}")
+                }
+            }
+            val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
+            if (lastDate != currentDate) {
+                _dayHeart.emit("")
+            }
+            else {
+                _dayHeart.emit(getHeartForDayFromDb.execute())
             }
 
         }

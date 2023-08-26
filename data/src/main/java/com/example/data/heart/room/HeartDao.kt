@@ -14,16 +14,18 @@ interface HeartDao {
     suspend fun insertCardio(heartDbEntity: HeartDbEntity)
 
     @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 1")
-    fun getCardioForDay() : List<HeartDbEntity>
+    fun getCardioForDay() : HeartDbEntity
+    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 7")
+    suspend fun getCadrioForWeek() : List<HeartDbEntity>
+
+    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 30")
+    suspend fun getCadrioForMonth() : List<HeartDbEntity>
 
     @Update
     suspend fun updateCardio(heartDbEntity: HeartDbEntity)
 
     @Delete
     suspend fun deleteCardio(heartDbEntity: HeartDbEntity)
-
-    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 8")
-    suspend fun getCadrioForLastNote() : List<HeartDbEntity>
 
     @Query("SELECT * FROM heart")
     suspend fun getCadrioForHistory() : List<HeartDbEntity>

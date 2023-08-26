@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.usecase.GetAverageOfSleepForMonth
+import com.example.domain.usecase.GetHeartForMonthFromDb
 import com.example.domain.usecase.sleep.GetHoursOfSleepForMonthFromDb
 import com.example.domain.usecase.GetWeightForMonthFromDb
 import com.example.domain.usecase.steps.GetAverageOfStepsForMonthFromDb
@@ -24,6 +25,9 @@ class MainFragment3ViewModel : ViewModel() {
 
     private val _totalWeightForMonth = MutableSharedFlow<Float>(1, 0, BufferOverflow.DROP_OLDEST)
     val totalWeightForMonth = _totalWeightForMonth.asSharedFlow()
+
+    private val _monthHeart = MutableSharedFlow<String>(1, 0, BufferOverflow.DROP_OLDEST)
+    val monthHeart = _monthHeart.asSharedFlow()
 
     private val _stepsTarget = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
     val stepsTarget = _stepsTarget.asSharedFlow()
@@ -45,6 +49,11 @@ class MainFragment3ViewModel : ViewModel() {
         viewModelScope.launch(AppDispatchers.main) {
             val getWeightForMonthFromDb = GetWeightForMonthFromDb(repository = Repositories.weightRepository)
             _totalWeightForMonth.emit(getWeightForMonthFromDb.execute())
+        }
+
+        viewModelScope.launch(AppDispatchers.main) {
+            val getHeartForMonthFromDb = GetHeartForMonthFromDb(repository = Repositories.heartRepository)
+            _monthHeart.emit(getHeartForMonthFromDb.execute())
         }
 
         viewModelScope.launch(AppDispatchers.main) {

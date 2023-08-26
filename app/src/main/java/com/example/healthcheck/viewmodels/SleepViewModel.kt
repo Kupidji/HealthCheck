@@ -1,6 +1,5 @@
 package com.example.healthcheck.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
@@ -23,7 +22,9 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Math.abs
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class SleepViewModel : ViewModel() {
 
@@ -58,6 +59,16 @@ class SleepViewModel : ViewModel() {
         }
 
         viewModelScope.launch(AppDispatchers.main) {
+            val currentDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(Calendar.getInstance().timeInMillis)
+            val lastDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(getLastDateFromData())
+            if (currentDate != lastDate) {
+                //обнуляет время подсчета сна на экране
+                val setGoToSleepTime = SetGoToSleepTime(repository = Repositories.sleepStorage)
+                setGoToSleepTime.execute(time = 0L)
+                val setWakeUpTime = SetWakeUpTime(repository = Repositories.sleepStorage)
+                setWakeUpTime.execute(time = 0L)
+            }
+
             val getGoToSleepTime = GetGoToSleepTime(repository = Repositories.sleepStorage)
             val goToSleepTime = getGoToSleepTime.execute()
             val getWakeUpTime = GetWakeUpTime(repository = Repositories.sleepStorage)

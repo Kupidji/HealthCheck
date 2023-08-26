@@ -14,10 +14,20 @@ class RoomHeartRepository(
         heartDao.insertCardio(fromHeart(heart))
     }
 
-    override fun getCardioForDay() : List<Heart> {
-        return heartDao.getCardioForDay().map { heart ->
+    override suspend fun getCardioForWeek(): List<Heart> {
+        return heartDao.getCadrioForWeek().map { heart ->
             heart.toHeart()
         }
+    }
+
+    override suspend fun getCardioForMonth(): List<Heart> {
+        return heartDao.getCadrioForMonth().map { heart ->
+            heart.toHeart()
+        }
+    }
+
+    override suspend fun getCardioForDay() : Heart {
+        return heartDao.getCardioForDay().toHeart()
     }
 
     override suspend fun updateCardio(heart: Heart) {
@@ -29,7 +39,7 @@ class RoomHeartRepository(
     }
 
     override suspend fun getListCardioForLastNote(): List<Heart> {
-        return heartDao.getCadrioForLastNote().map { heart ->
+        return heartDao.getCadrioForWeek().map { heart ->
             heart.toHeart()
         }
     }

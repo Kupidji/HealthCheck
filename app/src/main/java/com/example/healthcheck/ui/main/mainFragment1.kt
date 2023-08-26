@@ -86,7 +86,34 @@ class mainFragment1 : Fragment() {
 
         lifecycleScope.launch {
             viewModel.daySleep.collect { time ->
-                binding.sleepHoursDay.text = "${time}ч"
+                if (time != "") {
+                    binding.sleepHoursDay.text = "${time}ч"
+                }
+                else {
+                    binding.sleepHoursDay.text = "?ч"
+                }
+
+            }
+        }
+
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.dayHeart.collect { string ->
+                var ourString = string
+                val upPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(upPressure.length + 1)
+                val downPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(downPressure.length + 1)
+                val pulse = ourString
+                if (upPressure.isNotEmpty()) {
+                    binding.upPressureText.text = upPressure
+                }
+                if (downPressure.isNotEmpty()) {
+                    binding.downPressureText.text = downPressure
+                }
+                if (pulse.isNotEmpty()) {
+                    binding.pulseText.text = pulse
+                }
+
             }
         }
 

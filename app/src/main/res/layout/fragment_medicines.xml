@@ -46,19 +46,6 @@
         android:text="@string/preparations"
         />
 
-    <TextView
-        style="@style/zagalovok2"
-        android:id="@+id/nothingThere"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/addMedicines"
-        android:textColor="@color/textcolor_white"
-        />
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -88,6 +75,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/nothingThere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/addMedicines"
+        android:textColor="@color/textcolor_white"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"

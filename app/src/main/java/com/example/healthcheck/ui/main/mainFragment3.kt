@@ -82,6 +82,26 @@ class mainFragment3 : Fragment() {
             }
         }
 
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.monthHeart.collect { string ->
+                var ourString = string
+                val upPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(upPressure.length + 1)
+                val downPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(downPressure.length + 1)
+                val pulse = ourString
+                if (upPressure.isNotEmpty()) {
+                    binding.upPressureText.text = upPressure
+                }
+                if (downPressure.isNotEmpty()) {
+                    binding.downPressureText.text = downPressure
+                }
+                if (pulse.isNotEmpty()) {
+                    binding.pulseText.text = pulse
+                }
+            }
+        }
+
         binding.stepsBox.setOnClickListener {
             //навигация и анимации
             val direction = mainFragmentDirections.actionMainFragmentToStepsFragment()
