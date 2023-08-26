@@ -1,5 +1,6 @@
 package com.example.healthcheck.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
@@ -93,21 +94,30 @@ class SleepViewModel : ViewModel() {
     }
 
     suspend fun getLastIdFromData() : Int = viewModelScope.async(AppDispatchers.default) {
-        val sleep = withContext(AppDispatchers.io) {
-            return@withContext Repositories.sleepRepository.getLastDate()
+        try {
+            val sleep = withContext(AppDispatchers.io) {
+                return@withContext Repositories.sleepRepository.getLastDate()
+            }
+            var lastId = sleep.id
+            return@async lastId
         }
-        var lastId = sleep.id
-
-        return@async lastId
+        catch (e : NullPointerException) {
+            return@async 0
+        }
     }.await()
 
     suspend fun getLastDateFromData() : Long = viewModelScope.async(AppDispatchers.default) {
-        val sleep = withContext(AppDispatchers.io) {
-            return@withContext Repositories.sleepRepository.getLastDate()
-        }
-        var lastDate = sleep.date
+        try {
+            val sleep = withContext(AppDispatchers.io) {
+                return@withContext Repositories.sleepRepository.getLastDate()
+            }
+            var lastDate = sleep.date
 
-        return@async lastDate
+            return@async lastDate
+        }
+        catch (e : NullPointerException) {
+            return@async 0L
+        }
     }.await()
 
     fun insertSleep(goToSleepTime : Long, wakeUpTime : Long) {

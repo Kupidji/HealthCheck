@@ -9,17 +9,26 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.example.data.AGE
+import com.example.data.CHOOSEN_THEME
 import com.example.data.FIRST_LAUNCH
+import com.example.data.GENDER
+import com.example.data.HEALTHY_EAT_VISIBILITY
+import com.example.data.HEIGHT
+import com.example.data.NAME
+import com.example.data.PROFILE
 import com.example.data.Repositories
 import com.example.data.SETTINGS
 import com.example.domain.AppDispatchers
 import com.example.domain.usecase.settings.CheckCurrentDay
+import com.example.domain.usecase.settings.GetApplicationTheme
 import com.example.domain.usecase.start.GetFirstLaunchCompleted
 import com.google.android.material.R
 import com.example.healthcheck.databinding.ActivityMainBinding
@@ -51,24 +60,61 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //тема приложения
-        val settingsTheme = applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
-        if (settingsTheme.contains(Constants.CHOOSEN_THEME)) {
-            AppCompatDelegate.setDefaultNightMode(settingsTheme.getInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES))
+        lifecycleScope.launch(AppDispatchers.main) {
+            val getApplicationTheme = GetApplicationTheme(repository = Repositories.settingsStorage)
+            AppCompatDelegate.setDefaultNightMode(getApplicationTheme.execute())
         }
 
+//        //тема приложения
+//        val settingsTheme = applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
+//        if (settingsTheme.contains(Constants.CHOOSEN_THEME)) {
+//            AppCompatDelegate.setDefaultNightMode(settingsTheme.getInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES))
+//        }
+
+
         //TODO убрать в некст обновлении
-        val settings = this.applicationContext.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
-        val settings2 = this.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).edit()
-        val oldValue = settings.getBoolean(Constants.IS_FIRST_TIME, true)
-        if (!oldValue) {
-            settings2.putBoolean(FIRST_LAUNCH, oldValue).apply()
+        /*   отсюда    */
+        val UPDATE = "1.3 UPDATE"
+        //первый запуск
+        val oldSettingsFirstTime = this.applicationContext.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
+        val newSettingsFirstTime = this.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).edit()
+        val oldValueFirstTime = oldSettingsFirstTime.getBoolean(Constants.IS_FIRST_TIME, true)
+        if (!oldValueFirstTime) {
+            newSettingsFirstTime.putBoolean(FIRST_LAUNCH, oldValueFirstTime).apply()
+        }
+
+        val updateCheck = this.applicationContext.getSharedPreferences(UPDATE,Context.MODE_PRIVATE)
+        if (updateCheck.getBoolean(UPDATE, true) && !oldValueFirstTime) {
+            updateCheck.edit().putBoolean(UPDATE, false).apply()
+
+            //Профиль(имя, возраст, рост, пол)
+            val oldSettingsStart = this.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
+            val oldSettingsName = oldSettingsStart.getString(Constants.FIO, "")
+            val oldSettingsAge = oldSettingsStart.getInt(Constants.AGE, 10)
+            val oldSettingsHeight = oldSettingsStart.getFloat(Constants.HEIGHT_START, 100F)
+            val oldSettingsGender = oldSettingsStart.getBoolean(Constants.GENDER, true)
+
+            val newSettingsProfile = this.applicationContext.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit()
+            newSettingsProfile.putString(NAME, oldSettingsName).apply()
+            newSettingsProfile.putInt(AGE, oldSettingsAge).apply()
+            newSettingsProfile.putFloat(HEIGHT, oldSettingsHeight).apply()
+            newSettingsProfile.putBoolean(GENDER, oldSettingsGender).apply()
+            //настройки(тема и видимость экрана с едой)
+            val oldSettingsHealthyEat
+                    = this.applicationContext.getSharedPreferences(Constants.HEALTHY_EAT_VISIBILITY, Context.MODE_PRIVATE).getBoolean(Constants.HEALTHY_EAT_VISIBILITY, true)
+            val oldSettingsAppTheme
+                    = this.applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE).getInt(CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            val newSettingsSettings = this.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).edit()
+            newSettingsSettings.putBoolean(HEALTHY_EAT_VISIBILITY, oldSettingsHealthyEat).apply()
+            newSettingsSettings.putInt(CHOOSEN_THEME, oldSettingsAppTheme).apply()
+            Log.d("Database", "onCreate: Инициализировал все старые константы")
+            /*    до сюда     */
         }
 
         //Мониторит, который сегодня день, пока обнуляет время в экране сон
@@ -90,20 +136,18 @@ class MainActivity : AppCompatActivity() {
             val getFirstLaunchCompleted = GetFirstLaunchCompleted(repository = Repositories.settingsStorage)
             val status = getFirstLaunchCompleted.execute()
 
-            if (settings.getBoolean(Constants.IS_FIRST_TIME, true) || status) {
+            if (status) {
 
                 if (Build.VERSION.SDK_INT >= 33) {
                     notificationPermissionLauncher.launch(POST_NOTIFICATIONS)
                 } else {
                     hasNotificationPermissionGranted = true
                 }
+
                 //Для восстановления уведомлений
                 showSettingDialog2()
             }
-            else {
-                navController.graph.setStartDestination(com.example.healthcheck.R.id.mainFragment)
-                navController.navigate(com.example.healthcheck.R.id.mainFragment)
-            }
+
         }
 
     }

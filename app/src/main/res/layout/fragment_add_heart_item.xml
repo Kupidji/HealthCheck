@@ -96,6 +96,7 @@
                 android:hint="@string/up_pressure"
                 android:gravity="center_vertical"
                 android:padding="15dp"
+                android:inputType="number"
                 />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -124,6 +125,7 @@
                     android:hint="@string/down_pressure"
                     android:gravity="center_vertical"
                     android:padding="15dp"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -151,6 +153,7 @@
                     android:hint="@string/pulse"
                     android:gravity="center_vertical"
                     android:padding="15dp"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,13 +59,13 @@ class mainFragment : Fragment() {
         val viewPagerAdapter = ViewPagerAdapter(this, viewModel.fragList)
         binding.viewPager.adapter = viewPagerAdapter
 
-//        lifecycleScope.launch(AppDispatchers.main) {
-//            viewModel.isFirstLaunch.collect { status ->
-//                if (status) {
-//                    navigation.navigate(R.id.startFragment)
-//                }
-//            }
-//        }
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.isFirstLaunch.collect { status ->
+                if (status) {
+                    navigation.navigate(R.id.startFragment)
+                }
+            }
+        }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.nearestAction.collect { action ->

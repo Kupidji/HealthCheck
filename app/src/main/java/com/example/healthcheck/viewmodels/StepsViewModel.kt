@@ -89,21 +89,21 @@ class StepsViewModel : ViewModel() {
     }
 
     private suspend fun getLastDateFromData() : Long {
-        var result = 0L
-        if (Repositories.stepsRepository.getLastDate() != null) {
-            result = Repositories.stepsRepository.getLastDate().date
+        return try {
+            Repositories.stepsRepository.getLastDate().date
+        }
+        catch (e : NullPointerException) {
+            0L
         }
 
-        return result
     }
 
     private suspend fun getLastIdFromData() : Int {
-        var result = 0
-        if (Repositories.stepsRepository.getLastDate() != null) {
-            result = Repositories.stepsRepository.getLastDate().id
+        return try {
+            Repositories.stepsRepository.getLastDate().id
+        } catch (e : NullPointerException) {
+            0
         }
-
-        return result
     }
 
     fun insertSteps(steps : Int) {

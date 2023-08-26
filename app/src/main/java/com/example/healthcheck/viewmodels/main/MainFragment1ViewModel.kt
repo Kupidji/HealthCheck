@@ -1,5 +1,6 @@
 package com.example.healthcheck.viewmodels.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
@@ -43,7 +44,13 @@ class MainFragment1ViewModel : ViewModel() {
             //TODO Сделать чтобы за день отображались данные в том случае, если данные за сегодня были введены,
             //иначе выводить заглушки.
             val lastDate = withContext(AppDispatchers.io) {
-                return@withContext SimpleDateFormat("dd.MM").format(Repositories.stepsRepository.getLastDate().date)
+                try {
+                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.stepsRepository.getLastDate().date)
+                }
+                catch (e : NullPointerException) {
+                    Log.d("Exceptions", ": ${e.localizedMessage}")
+                }
+
             }
             val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
             if (lastDate != currentDate) {
@@ -59,7 +66,13 @@ class MainFragment1ViewModel : ViewModel() {
             val getHoursOfSleepForDayFromDb = GetHoursOfSleepForDayFromDb(repository = Repositories.sleepRepository)
             //TODO переписать эту часть кода
             val lastDate = withContext(AppDispatchers.io) {
-                return@withContext SimpleDateFormat("dd.MM").format(Repositories.sleepRepository.getLastDate().date)
+                try {
+                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.sleepRepository.getLastDate().date)
+                }
+                catch (e : NullPointerException) {
+                    Log.d("Exceptions", ": ${e.localizedMessage}")
+                }
+
             }
             val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
             if (lastDate != currentDate) {
@@ -74,7 +87,13 @@ class MainFragment1ViewModel : ViewModel() {
         viewModelScope.launch(AppDispatchers.main) {
             val getWeightForDayFromDb = GetWeightForDayFromDb(repository = Repositories.weightRepository)
             val lastDate = withContext(AppDispatchers.io) {
-                return@withContext SimpleDateFormat("dd.MM").format(Repositories.weightRepository.getWeightForDay().date)
+                try {
+                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.weightRepository.getWeightForDay().date)
+                }
+                catch (e : NullPointerException) {
+                    Log.d("Exceptions", ": ${e.localizedMessage}")
+                }
+
             }
             val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
             if (lastDate != currentDate) {

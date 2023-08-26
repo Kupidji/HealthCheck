@@ -12,7 +12,13 @@ class GetAverageOfStepsForWeekFromDb(private val repository : StepsRepository) {
         }
         val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = repository)
         val totalCountOfStepsForWeek = getCountOfStepsForWeekFromDb.execute()
-        return@withContext totalCountOfStepsForWeek / sizeListOfSteps
+        if (sizeListOfSteps != 0) {
+            return@withContext totalCountOfStepsForWeek / sizeListOfSteps
+        }
+        else {
+            return@withContext 0
+        }
+
     }
 
 }

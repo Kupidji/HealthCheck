@@ -11,7 +11,12 @@ class GetAverageOfStepsForMonthFromDb(private val repository : StepsRepository) 
             return@withContext repository.getStepsForMonth().size
         }
         val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = repository)
-        return@withContext getCountOfStepsForMonthFromDb.execute() / sizeListOfSteps
+        if (sizeListOfSteps != 0) {
+            return@withContext getCountOfStepsForMonthFromDb.execute() / sizeListOfSteps
+        }
+        else {
+            return@withContext 0
+        }
     }
 
 }
