@@ -115,7 +115,7 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintEnd_toStartOf="@id/weightLayoutMonth"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 >
 
@@ -214,7 +214,7 @@
                 app:layout_constraintStart_toEndOf="@id/weightLayoutWeek"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 >
 

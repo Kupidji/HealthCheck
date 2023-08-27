@@ -27,12 +27,11 @@ import com.example.data.PROFILE
 import com.example.data.Repositories
 import com.example.data.SETTINGS
 import com.example.domain.AppDispatchers
-import com.example.domain.usecase.settings.CheckCurrentDay
 import com.example.domain.usecase.settings.GetApplicationTheme
 import com.example.domain.usecase.start.GetFirstLaunchCompleted
-import com.google.android.material.R
 import com.example.healthcheck.databinding.ActivityMainBinding
 import com.example.healthcheck.util.Constants
+import com.google.android.material.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
@@ -90,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val updateCheck = this.applicationContext.getSharedPreferences(UPDATE,Context.MODE_PRIVATE)
-        if (updateCheck.getBoolean(UPDATE, true) && !oldValueFirstTime) {
+        if (updateCheck.getBoolean(UPDATE, true) && oldValueFirstTime) {
             updateCheck.edit().putBoolean(UPDATE, false).apply()
 
             //Профиль(имя, возраст, рост, пол)
@@ -101,17 +100,28 @@ class MainActivity : AppCompatActivity() {
             val oldSettingsGender = oldSettingsStart.getBoolean(Constants.GENDER, true)
 
             val newSettingsProfile = this.applicationContext.getSharedPreferences(PROFILE, Context.MODE_PRIVATE).edit()
-            newSettingsProfile.putString(NAME, oldSettingsName).apply()
-            newSettingsProfile.putInt(AGE, oldSettingsAge).apply()
-            newSettingsProfile.putFloat(HEIGHT, oldSettingsHeight).apply()
-            newSettingsProfile.putBoolean(GENDER, oldSettingsGender).apply()
+            if (oldSettingsName != "") {
+                newSettingsProfile.putString(NAME, oldSettingsName).apply()
+            }
+            if (oldSettingsAge != 10) {
+                newSettingsProfile.putInt(AGE, oldSettingsAge).apply()
+            }
+            if (oldSettingsHeight != 100F) {
+                newSettingsProfile.putFloat(HEIGHT, oldSettingsHeight).apply()
+            }
+            if (oldSettingsGender != true) {
+                newSettingsProfile.putBoolean(GENDER, oldSettingsGender).apply()
+            }
+
             //настройки(тема и видимость экрана с едой)
             val oldSettingsHealthyEat
                     = this.applicationContext.getSharedPreferences(Constants.HEALTHY_EAT_VISIBILITY, Context.MODE_PRIVATE).getBoolean(Constants.HEALTHY_EAT_VISIBILITY, true)
             val oldSettingsAppTheme
                     = this.applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE).getInt(CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             val newSettingsSettings = this.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).edit()
-            newSettingsSettings.putBoolean(HEALTHY_EAT_VISIBILITY, oldSettingsHealthyEat).apply()
+            if (oldSettingsHealthyEat != true) {
+                newSettingsSettings.putBoolean(HEALTHY_EAT_VISIBILITY, oldSettingsHealthyEat).apply()
+            }
             newSettingsSettings.putInt(CHOOSEN_THEME, oldSettingsAppTheme).apply()
             Log.d("Database", "onCreate: Инициализировал все старые константы")
             /*    до сюда     */

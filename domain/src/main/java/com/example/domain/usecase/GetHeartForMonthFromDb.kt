@@ -20,9 +20,11 @@ class GetHeartForMonthFromDb(private val repository: HeartRepository) {
             sumOfPulse += heart.pulse
         }
 
-        sumOfUpPressure /= list.size
-        sumOfDownPressure /= list.size
-        sumOfPulse /= list.size
+        if (list.isNotEmpty()) {
+            sumOfUpPressure /= list.size
+            sumOfDownPressure /= list.size
+            sumOfPulse /= list.size
+        }
 
         return@withContext "${sumOfUpPressure}/${sumOfDownPressure}/${sumOfPulse}"
     }
