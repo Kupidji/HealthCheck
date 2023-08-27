@@ -14,6 +14,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.databinding.FragmentMain3Binding
+import com.example.healthcheck.util.animations.DigitsAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsIntAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainFragment3ViewModel
@@ -51,7 +54,7 @@ class mainFragment3 : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalStepsForMonth.collect { steps ->
-                binding.main3CountOfStepsMonth.text = "$steps"
+                digitsIntAnimation(binding.main3CountOfStepsMonth, steps)
                 showAndUpdateProgressBar(progressBar = binding.progressBarSteps, progress = steps)
             }
         }
@@ -71,7 +74,7 @@ class mainFragment3 : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForMonth.collect { weight ->
-                binding.textWeightMonth.text = String.format(Locale.US, "%.1f", weight)
+                digitsFloatAnimation(binding.textWeightMonth, weight)
                 showAndUpdateProgressBar(progressBar = binding.progressBarWeight, progress = weight.toInt())
             }
         }

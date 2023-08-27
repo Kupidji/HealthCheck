@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentWeightBinding
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.WeightViewModel
@@ -77,7 +78,7 @@ class weightFragment : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForDay.collect { weight ->
                 if (weight != 0F) {
-                    binding.getWeight.setText(String.format(Locale.US,"%.1f", weight))
+                    digitsFloatAnimation(binding.getWeight, weight)
                 }
                 else {
                     binding.getWeight.setText("")
@@ -88,14 +89,14 @@ class weightFragment : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForWeek.collect { weight ->
-                binding.weekDiagramText.text = String.format(Locale.US,"%.1f", weight)
+                digitsFloatAnimation(binding.weekDiagramText, weight)
                 changeProgressBar(progressBar = binding.progressBarWeightWeek, weight = weight)
             }
         }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForMonth.collect { weight ->
-                binding.monthDiagramText.text = String.format(Locale.US,"%.1f", weight)
+                digitsFloatAnimation(binding.monthDiagramText, weight)
                 changeProgressBar(progressBar = binding.progressBarWeightMonth, weight = weight)
             }
         }
@@ -150,13 +151,13 @@ class weightFragment : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.contentOfFat.collect { value ->
-                binding.percentMass.text = String.format(Locale.US,"%.1f", value) + "%"
+                digitsFloatAnimation(binding.percentMass, value, symbol = "%")
             }
         }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.bodyMassIndex.collect { value ->
-                binding.massIndex.text = String.format(Locale.US,"%.1f", value)
+                digitsFloatAnimation(binding.massIndex, value)
             }
         }
 

@@ -13,6 +13,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.databinding.FragmentMain1Binding
+import com.example.healthcheck.util.animations.DigitsAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsIntAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainFragment1ViewModel
@@ -57,7 +60,7 @@ class mainFragment1 : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.daySteps.collect { steps ->
                 if (steps != 0) {
-                    binding.main1CountOfStepsDay.text = steps.toString()
+                    digitsIntAnimation(binding.main1CountOfStepsDay, steps)
                 }
                 else {
                     binding.main1CountOfStepsDay.text = "?"
@@ -69,7 +72,8 @@ class mainFragment1 : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.dayWeight.collect { weight ->
                 if (weight != 0F) {
-                    binding.weightCountText.text = String.format(Locale.US,"%.1f", weight)
+                    digitsFloatAnimation(binding.weightCountText, weight)
+                    //binding.weightCountText.text = String.format(Locale.US,"%.1f", weight)
                 }
                 else {
                     binding.weightCountText.text = "?"

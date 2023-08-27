@@ -21,6 +21,7 @@ import com.example.domain.AppDispatchers
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStepsBinding
 import com.example.healthcheck.util.animations.ButtonPress.buttonPressAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsIntAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.StepsViewModel
@@ -76,7 +77,7 @@ class StepsFragment : Fragment() {
         //Прогресс у progressbar, количество шагов для недели, рассчитываются калории
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalStepsForWeek.collect { countOfSteps ->
-                binding.countOfStepsForWeekText.text = "$countOfSteps"
+                digitsIntAnimation(binding.countOfStepsForWeekText, countOfSteps)
                 _countOfStepsWeek = countOfSteps
                 changeProgressBarSteps(progressBar = binding.stepsDiagramForWeek, countOfSteps = countOfSteps)
                 viewModel.getKkalForWeek(steps =  countOfSteps)
@@ -86,7 +87,7 @@ class StepsFragment : Fragment() {
         //Прогресс у progressbar, количество шагов для месяца, рассчитываются калории
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalStepsForMonth.collect { countOfSteps ->
-                binding.countOfStepsForMonthText.text = "$countOfSteps"
+                digitsIntAnimation(binding.countOfStepsForMonthText, countOfSteps)
                 _countOfStepsMonth = countOfSteps
                 changeProgressBarSteps(progressBar = binding.stepsDiagramForMonth, countOfSteps = countOfSteps)
                 viewModel.getKkalForMonth(steps = countOfSteps)
@@ -97,7 +98,7 @@ class StepsFragment : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalStepsForDay.collect { countOfSteps ->
                 if (countOfSteps != 0) {
-                    binding.getCountOfSteps.setText("$countOfSteps")
+                    digitsIntAnimation(binding.getCountOfSteps, countOfSteps)
                 }
                 else {
                     binding.getCountOfSteps.setText("")

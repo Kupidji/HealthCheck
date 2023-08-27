@@ -76,12 +76,13 @@ class MainActivity : AppCompatActivity() {
 //            AppCompatDelegate.setDefaultNightMode(settingsTheme.getInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES))
 //        }
 
-
         //TODO убрать в некст обновлении
         /*   отсюда    */
         val UPDATE = "1.3 UPDATE"
         //первый запуск
         val oldSettingsFirstTime = this.applicationContext.getSharedPreferences(Constants.IS_FIRST_TIME, Context.MODE_PRIVATE)
+        val isUpdate = oldSettingsFirstTime.contains(Constants.IS_FIRST_TIME)
+
         val newSettingsFirstTime = this.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).edit()
         val oldValueFirstTime = oldSettingsFirstTime.getBoolean(Constants.IS_FIRST_TIME, true)
         if (!oldValueFirstTime) {
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val updateCheck = this.applicationContext.getSharedPreferences(UPDATE,Context.MODE_PRIVATE)
-        if (updateCheck.getBoolean(UPDATE, true) && oldValueFirstTime) {
+        if (updateCheck.getBoolean(UPDATE, true) && isUpdate) {
             updateCheck.edit().putBoolean(UPDATE, false).apply()
 
             //Профиль(имя, возраст, рост, пол)

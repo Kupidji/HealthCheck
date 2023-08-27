@@ -119,7 +119,7 @@ class StepsViewModel : ViewModel() {
             )
             _id.emit(getLastIdFromData())
             _day.emit(getLastDateFromData())
-            _totalStepsForDay.emit(steps)
+            //_totalStepsForDay.emit(steps)
 
             val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
             _totalStepsForWeek.emit(getCountOfStepsForWeekFromDb.execute())
@@ -142,7 +142,7 @@ class StepsViewModel : ViewModel() {
                 )
             )
 
-            _totalStepsForDay.emit(steps)
+            //_totalStepsForDay.emit(steps)
 
             val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
             _totalStepsForWeek.emit(getCountOfStepsForWeekFromDb.execute())
