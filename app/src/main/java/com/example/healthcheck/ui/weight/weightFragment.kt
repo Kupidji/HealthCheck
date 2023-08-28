@@ -1,4 +1,4 @@
-package com.example.healthcheck.ui
+package com.example.healthcheck.ui.weight
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -21,7 +21,7 @@ import com.example.healthcheck.databinding.FragmentWeightBinding
 import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.WeightViewModel
+import com.example.healthcheck.viewmodels.weight.WeightViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -78,7 +78,7 @@ class weightFragment : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForDay.collect { weight ->
                 if (weight != 0F) {
-                    digitsFloatAnimation(binding.getWeight, weight)
+                    binding.getWeight.setText(String.format(Locale.US,"%.1f", weight))
                 }
                 else {
                     binding.getWeight.setText("")
@@ -280,6 +280,20 @@ class weightFragment : Fragment() {
             val direction = weightFragmentDirections.actionWeightFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
+        }
+
+        binding.historyBtn.setOnClickListener {
+            //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.weightHistory, true)
+                .build()
+            val direction = weightFragmentDirections.actionWeightFragmentToWeightHistory()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.historyBtn, navigation, direction, navOptions, navigate)
         }
 
     }

@@ -1,7 +1,7 @@
 package com.example.domain.repository
 
 import com.example.domain.models.Steps
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.Flow
 
 
 interface StepsRepository {
@@ -10,12 +10,14 @@ interface StepsRepository {
 
     suspend fun updateCountOfSteps(steps: Steps)
 
-    suspend fun getStepsForDay() : Int
+    fun getStepsForDay() : Flow<Int>
 
-    suspend fun getStepsForWeek() : List<Int>
+    fun getStepsForWeek() : Flow<List<Int>>
 
-    suspend fun getStepsForMonth() : List<Int>
+    fun getStepsForMonth() : Flow<List<Int>>
 
-    suspend fun getLastDate() : Steps
+    fun getListForHistory() : Flow<List<Steps>>
+
+    fun getLastStepsEntity() : Flow<Steps>
 
 }

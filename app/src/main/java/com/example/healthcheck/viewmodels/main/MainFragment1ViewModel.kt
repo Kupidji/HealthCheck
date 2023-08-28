@@ -9,12 +9,14 @@ import com.example.domain.usecase.GetHeartForDayFromDb
 import com.example.domain.usecase.GetHoursOfSleepForDayFromDb
 import com.example.domain.usecase.GetWeightForDayFromDb
 import com.example.domain.usecase.steps.GetCountOfStepsForDayFromDb
+import com.example.domain.usecase.steps.GetLastStepsIdAndDate
 import com.example.domain.usecase.steps.GetStepsTarget
 import com.example.domain.usecase.weight.GetWeightTarget
 import com.example.healthcheck.App
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -42,29 +44,21 @@ class MainFragment1ViewModel : ViewModel() {
 
     init {
         viewModelScope.launch(AppDispatchers.main) {
-            val getCountOfStepsForDayFromDb = GetCountOfStepsForDayFromDb(repository = Repositories.stepsRepository)
-            //_daySteps.emit(getCountOfStepsForDayFromDb.execute())
+            val getLastStepsIdAndDate = GetLastStepsIdAndDate(repository = Repositories.stepsRepository)
+            getLastStepsIdAndDate.execute().collect { stepsEntity ->
+                val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
+                val lastDate = SimpleDateFormat("dd.MM").format(stepsEntity.date)
+                if (lastDate == currentDate) {
+                    val getCountOfStepsForDayFromDb = GetCountOfStepsForDayFromDb(repository = Repositories.stepsRepository)
+                    getCountOfStepsForDayFromDb.execute().collect { countOfSteps ->
+                        _daySteps.emit(countOfSteps)
+                    }
 
-            //TODO заменить аргумент repository на useCase
-            //TODO Сделать чтобы за день отображались данные в том случае, если данные за сегодня были введены,
-            //иначе выводить заглушки.
-            val lastDate = withContext(AppDispatchers.io) {
-                try {
-                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.stepsRepository.getLastDate().date)
                 }
-                catch (e : NullPointerException) {
-                    Log.d("Exceptions", ": ${e.localizedMessage}")
+                else {
+                    _daySteps.emit(0)
                 }
-
             }
-            val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
-            if (lastDate != currentDate) {
-                _daySteps.emit(0)
-            }
-            else {
-                _daySteps.emit(getCountOfStepsForDayFromDb.execute())
-            }
-
         }
 
         viewModelScope.launch(AppDispatchers.main) {

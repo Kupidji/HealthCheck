@@ -15,4 +15,6 @@ interface WeightRepository {
 
     suspend fun getWeightForMonth() : List<Float>
 
+    suspend fun getListForHistory() : List<Weight>
+
 }

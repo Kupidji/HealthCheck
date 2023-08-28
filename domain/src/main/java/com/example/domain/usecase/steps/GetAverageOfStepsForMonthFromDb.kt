@@ -2,21 +2,29 @@ package com.example.domain.usecase.steps
 
 import com.example.domain.AppDispatchers
 import com.example.domain.repository.StepsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
 class GetAverageOfStepsForMonthFromDb(private val repository : StepsRepository) {
 
-    suspend fun execute() : Int = withContext(AppDispatchers.default) {
-        val sizeListOfSteps = withContext(AppDispatchers.io) {
-            return@withContext repository.getStepsForMonth().size
+    fun execute() : Flow<Int>  = flow<Int> {
+        val listSize = withContext(AppDispatchers.io) {
+            return@withContext repository.getStepsForMonth()
         }
-        val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = repository)
-        if (sizeListOfSteps != 0) {
-            return@withContext getCountOfStepsForMonthFromDb.execute() / sizeListOfSteps
+
+        listSize.collect { list ->
+            val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = repository)
+            getCountOfStepsForMonthFromDb.execute().collect { countOfSteps ->
+                if (list.isNotEmpty()) {
+                    emit(countOfSteps / list.size)
+                }
+                else {
+                    emit(0)
+                }
+            }
         }
-        else {
-            return@withContext 0
-        }
-    }
+    }.flowOn(AppDispatchers.default)
 
 }

@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodels
+package com.example.healthcheck.viewmodels.weight
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

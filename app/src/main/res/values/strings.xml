@@ -116,4 +116,8 @@
     <string name="ChooseTimeAndDate">Введите дату и время</string>
     <string name="emptyString">Пустое поле</string>
     <string name="wrongValue">Неверное значение</string>
+    <string name="editHistory">Редактирование записи</string>
+    <string name="historyUpdated">Запись обновлена</string>
+    <string name="oldValue">Предыдущее значение - </string>
+    <string name="inputNewValue">Введите новое значение</string>
 </resources>

@@ -14,6 +14,7 @@ import com.example.domain.usecase.weight.GetWeightTarget
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainFragment2ViewModel(application: Application) : AndroidViewModel(application) {
@@ -40,7 +41,9 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
     init {
         viewModelScope.launch {
             val getAverageOfStepsForWeekFromDb = GetAverageOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForWeek.emit(getAverageOfStepsForWeekFromDb.execute())
+            getAverageOfStepsForWeekFromDb.execute().collect { average ->
+                _totalStepsForWeek.emit(average)
+            }
         }
 
         viewModelScope.launch {

@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.data.steps.room.entities.StepsDbEntity
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StepsDao {
@@ -14,16 +14,19 @@ interface StepsDao {
     suspend fun insertCountOfSteps(stepsDbEntity: StepsDbEntity)
 
     @Query("SELECT * FROM steps order by id desc limit 1")
-    suspend fun getStepsForDay() : StepsDbEntity
+    fun getStepsForDay() : Flow<StepsDbEntity>
 
     @Query("SELECT * FROM steps order by id desc limit 7")
-    suspend fun getStepsForWeek() : List<StepsDbEntity>
+    fun getStepsForWeek() : Flow<List<StepsDbEntity>>
 
     @Query("SELECT * FROM steps order by id desc limit 30")
-    suspend fun getStepsForMonth() : List<StepsDbEntity>
+    fun getStepsForMonth() : Flow<List<StepsDbEntity>>
+
+    @Query("SELECT * FROM steps")
+    fun getListForHistory() : Flow<List<StepsDbEntity>>
 
     @Query("SELECT * FROM steps order by id desc limit 1")
-    suspend fun getLastDate() : StepsDbEntity
+    fun getLastStepsEntity() : Flow<StepsDbEntity>
 
     @Update
     suspend fun updateCountOfSteps(stepsDbEntity : StepsDbEntity)

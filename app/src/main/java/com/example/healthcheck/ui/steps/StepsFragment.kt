@@ -1,4 +1,4 @@
-package com.example.healthcheck.ui
+package com.example.healthcheck.ui.steps
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +23,7 @@ import com.example.healthcheck.util.animations.ButtonPress.buttonPressAnimation
 import com.example.healthcheck.util.animations.DigitsAnimation.digitsIntAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.StepsViewModel
+import com.example.healthcheck.viewmodels.steps.StepsViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -74,6 +73,21 @@ class StepsFragment : Fragment() {
             }
         }
 
+        //Шаги за день. Восстанавливается значение в editText, рассчитываются калории
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.totalStepsForDay.collect { countOfSteps ->
+                if (countOfSteps != 0) {
+                    binding.getCountOfSteps.setText("$countOfSteps")
+                }
+                else {
+                    binding.getCountOfSteps.setText("")
+                }
+
+                viewModel.getKkalForDay(countOfSteps)
+                _totalStepsForDay = countOfSteps
+            }
+        }
+
         //Прогресс у progressbar, количество шагов для недели, рассчитываются калории
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalStepsForWeek.collect { countOfSteps ->
@@ -91,21 +105,6 @@ class StepsFragment : Fragment() {
                 _countOfStepsMonth = countOfSteps
                 changeProgressBarSteps(progressBar = binding.stepsDiagramForMonth, countOfSteps = countOfSteps)
                 viewModel.getKkalForMonth(steps = countOfSteps)
-            }
-        }
-
-        //Шаги за день. Восстанавливается значение в editText, рассчитываются калории
-        lifecycleScope.launch(AppDispatchers.main) {
-            viewModel.totalStepsForDay.collect { countOfSteps ->
-                if (countOfSteps != 0) {
-                    digitsIntAnimation(binding.getCountOfSteps, countOfSteps)
-                }
-                else {
-                    binding.getCountOfSteps.setText("")
-                }
-
-                viewModel.getKkalForDay(countOfSteps)
-                _totalStepsForDay = countOfSteps
             }
         }
 
@@ -236,6 +235,20 @@ class StepsFragment : Fragment() {
             val direction = StepsFragmentDirections.actionStepsFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
+        }
+
+        binding.historyBtn.setOnClickListener {
+            //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.sleepHistory, true)
+                .build()
+            val direction = StepsFragmentDirections.actionStepsFragmentToStepsHistory()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.historyBtn, navigation, direction, navOptions, navigate)
         }
 
     }

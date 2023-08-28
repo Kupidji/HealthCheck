@@ -24,4 +24,7 @@ interface SleepDao {
     @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 30")
     fun getTimeOfSleepForMonth() : List<SleepDbEntity>
 
+    @Query("SELECT * FROM Sleep")
+    fun getSleepListForHistory() : List<SleepDbEntity>
+
 }

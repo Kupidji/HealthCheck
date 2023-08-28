@@ -1,4 +1,4 @@
-package com.example.healthcheck.ui
+package com.example.healthcheck.ui.heart
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -11,7 +11,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.R
@@ -19,7 +18,6 @@ import com.example.healthcheck.databinding.FragmentHeartBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.heart.HeartRecyclerViewAdapter
 import com.example.healthcheck.viewmodels.heart.HeartViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class heartFragment : Fragment() {
@@ -47,7 +45,6 @@ class heartFragment : Fragment() {
         val navigation = findNavController()
 
         val layoutManager = LinearLayoutManager(this.requireContext())
-
         adapter = HeartRecyclerViewAdapter()
 
         lifecycleScope.launch(AppDispatchers.main) {
@@ -64,13 +61,26 @@ class heartFragment : Fragment() {
             }
         }
 
+        binding.historyBtn.setOnClickListener {
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.heartHistory, true)
+                .build()
+            val direction = heartFragmentDirections.actionHeartFragmentToHeartHistory()
+            val navigate = { nav: NavController, d: NavDirections, n: NavOptions -> nav.navigate(d, n) }
+            buttonChangeScreenAnimation(binding.historyBtn, navigation, direction, navOptions, navigate)
+        }
+
         binding.nothingThere.setOnClickListener {
             var navOptions = NavOptions.Builder()
                 .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
                 .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
                 .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
                 .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-                .setPopUpTo(R.id.addHeartItemFragment , true)
+                .setPopUpTo(R.id.addHeartItemFragment, true)
                 .build()
             val direction = heartFragmentDirections.actionHeartFragmentToAddHeartItemFragment()
             navigation.navigate(direction, navOptions)

@@ -13,14 +13,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.databinding.FragmentMain1Binding
-import com.example.healthcheck.util.animations.DigitsAnimation
 import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
 import com.example.healthcheck.util.animations.DigitsAnimation.digitsIntAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainFragment1ViewModel
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class mainFragment1 : Fragment() {
 

@@ -41,6 +41,12 @@ class RoomSleepRepository(
         return list
     }
 
+    override suspend fun getListForHistory(): List<Sleep> {
+        return sleepDao.getSleepListForHistory().map { sleepDbEntity ->
+            toSleep(sleepDbEntity)
+        }
+    }
+
     override suspend fun getLastDate(): Sleep {
         val sleep = sleepDao.getTimeOfSleepForDay()
         return Sleep (

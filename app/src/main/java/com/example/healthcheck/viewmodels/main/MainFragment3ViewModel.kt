@@ -13,7 +13,10 @@ import com.example.domain.usecase.steps.GetStepsTarget
 import com.example.domain.usecase.weight.GetWeightTarget
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 class MainFragment3ViewModel : ViewModel() {
@@ -38,7 +41,9 @@ class MainFragment3ViewModel : ViewModel() {
     init {
         viewModelScope.launch(AppDispatchers.main) {
             val getAverageOfStepsForMonthFromDb = GetAverageOfStepsForMonthFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForMonth.emit(getAverageOfStepsForMonthFromDb.execute())
+            getAverageOfStepsForMonthFromDb.execute().collect { average ->
+                _totalStepsForMonth.emit(average)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {

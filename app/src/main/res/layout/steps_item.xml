@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    tools:background="@color/black"
+    android:paddingBottom="2dp">
+
+    <ImageView
+        android:id="@+id/itemBox"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/box"
+        />
+
+    <TextView
+        style="@style/zagalovok2"
+        android:id="@+id/stepsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="15dp"
+        android:text="\?"
+        />
+
+    <TextView
+        style="@style/hint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/stepsText"
+        app:layout_constraintTop_toTopOf="@id/stepsText"
+        app:layout_constraintBottom_toBottomOf="@id/stepsText"
+        android:layout_marginStart="5dp"
+        android:hint="@string/of_steps"
+        app:layout_constraintVertical_bias="1"
+        />
+
+    <TextView
+        style="@style/hint1"
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/itemBox"
+        app:layout_constraintTop_toTopOf="@id/itemBox"
+        app:layout_constraintBottom_toBottomOf="@id/itemBox"
+        android:hint="\?/\?/\?"
+        android:layout_marginEnd="15dp"
+        app:drawableLeftCompat="@drawable/cloak"
+        android:drawablePadding="5dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

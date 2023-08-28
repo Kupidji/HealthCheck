@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/stepsFragment"
-        android:name="com.example.healthcheck.ui.StepsFragment"
+        android:name="com.example.healthcheck.ui.steps.StepsFragment"
         android:label="fragment_steps"
         tools:layout="@layout/fragment_steps" >
         <action
@@ -31,6 +31,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_stepsFragment_to_stepsHistory"
+            app:destination="@id/stepsHistory" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -105,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/sleepFragment"
-        android:name="com.example.healthcheck.ui.sleepFragment"
+        android:name="com.example.healthcheck.ui.sleep.sleepFragment"
         android:label="fragment_sleep"
         tools:layout="@layout/fragment_sleep" >
         <action
@@ -116,10 +119,13 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_sleepFragment_to_sleepHistory"
+            app:destination="@id/sleepHistory" />
     </fragment>
     <fragment
         android:id="@+id/heartFragment"
-        android:name="com.example.healthcheck.ui.heartFragment"
+        android:name="com.example.healthcheck.ui.heart.heartFragment"
         android:label="fragment_heart"
         tools:layout="@layout/fragment_heart" >
         <action
@@ -133,10 +139,13 @@
         <action
             android:id="@+id/action_heartFragment_to_addHeartItemFragment"
             app:destination="@id/addHeartItemFragment" />
+        <action
+            android:id="@+id/action_heartFragment_to_heartHistory"
+            app:destination="@id/heartHistory" />
     </fragment>
     <fragment
         android:id="@+id/weightFragment"
-        android:name="com.example.healthcheck.ui.weightFragment"
+        android:name="com.example.healthcheck.ui.weight.weightFragment"
         android:label="fragment_weight"
         tools:layout="@layout/fragment_weight" >
         <action
@@ -147,6 +156,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_weightFragment_to_weightHistory"
+            app:destination="@id/weightHistory" />
     </fragment>
     <fragment
         android:id="@+id/medicinesFragment"
@@ -409,11 +421,47 @@
     </fragment>
     <fragment
         android:id="@+id/addHeartItemFragment"
-        android:name="com.example.healthcheck.ui.AddHeartItemFragment"
+        android:name="com.example.healthcheck.ui.heart.AddHeartItemFragment"
         android:label="fragment_add_heart_item"
         tools:layout="@layout/fragment_add_heart_item" >
         <action
             android:id="@+id/action_addHeartItemFragment_to_heartFragment"
             app:destination="@id/heartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepsHistory"
+        android:name="com.example.healthcheck.ui.steps.StepsHistory"
+        android:label="fragment_steps_history"
+        tools:layout="@layout/fragment_steps_history" >
+        <action
+            android:id="@+id/action_stepsHistory_to_stepsFragment"
+            app:destination="@id/stepsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepHistory"
+        android:name="com.example.healthcheck.ui.sleep.SleepHistory"
+        android:label="fragment_sleep_history"
+        tools:layout="@layout/fragment_sleep_history" >
+        <action
+            android:id="@+id/action_sleepHistory_to_sleepFragment"
+            app:destination="@id/sleepFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/heartHistory"
+        android:name="com.example.healthcheck.ui.heart.HeartHistory"
+        android:label="fragment_heart_history"
+        tools:layout="@layout/fragment_heart_history" >
+        <action
+            android:id="@+id/action_heartHistory_to_heartFragment"
+            app:destination="@id/heartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weightHistory"
+        android:name="com.example.healthcheck.ui.weight.WeightHistory"
+        android:label="fragment_weight_history"
+        tools:layout="@layout/fragment_weight_history" >
+        <action
+            android:id="@+id/action_weightHistory_to_weightFragment"
+            app:destination="@id/weightFragment" />
     </fragment>
 </navigation>

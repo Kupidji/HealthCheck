@@ -45,6 +45,16 @@ class RoomWeightRepository(
         return list
     }
 
+    override suspend fun getListForHistory() : List<Weight> {
+        return weightDao.getListForHistory().map { weightDbEntity ->
+            Weight(
+                id = weightDbEntity.id,
+                weight = weightDbEntity.weight,
+                date = weightDbEntity.date
+            )
+        }
+    }
+
     private fun toWeightForDb(weight: Weight) : WeightForDb {
         return WeightForDb (
             id = weight.id,

@@ -57,6 +57,16 @@
                 android:text="@string/steps"
                 />
 
+            <ImageButton
+                android:id="@+id/historyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/margin_main2"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/history_56x56"
+                />
+
             <TextView
                 style="@style/zagalovok1"
                 android:id="@+id/measurements"
