@@ -24,6 +24,7 @@
     <string name="preparations">Лекарства</string>
     <string name="healthy_eat">Здоровое питание</string>
     <string name="of_steps">шагов</string>
+    <string name="average_steps">шагов среднее</string>
     <string name="kg">кг</string>
     <string name="total_steps">шагов всего</string>
     <string name="week">Неделя</string>
@@ -115,4 +116,8 @@
     <string name="ChooseTimeAndDate">Введите дату и время</string>
     <string name="emptyString">Пустое поле</string>
     <string name="wrongValue">Неверное значение</string>
+    <string name="editHistory">Редактирование записи</string>
+    <string name="historyUpdated">Запись обновлена</string>
+    <string name="oldValue">Предыдущее значение - </string>
+    <string name="inputNewValue">Введите новое значение</string>
 </resources>

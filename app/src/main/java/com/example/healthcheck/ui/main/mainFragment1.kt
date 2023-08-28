@@ -13,11 +13,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.databinding.FragmentMain1Binding
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsIntAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainFragment1ViewModel
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class mainFragment1 : Fragment() {
 
@@ -57,7 +58,7 @@ class mainFragment1 : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.daySteps.collect { steps ->
                 if (steps != 0) {
-                    binding.main1CountOfStepsDay.text = steps.toString()
+                    digitsIntAnimation(binding.main1CountOfStepsDay, steps)
                 }
                 else {
                     binding.main1CountOfStepsDay.text = "?"
@@ -69,7 +70,8 @@ class mainFragment1 : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.dayWeight.collect { weight ->
                 if (weight != 0F) {
-                    binding.weightCountText.text = String.format(Locale.US,"%.1f", weight)
+                    digitsFloatAnimation(binding.weightCountText, weight)
+                    //binding.weightCountText.text = String.format(Locale.US,"%.1f", weight)
                 }
                 else {
                     binding.weightCountText.text = "?"
@@ -86,7 +88,34 @@ class mainFragment1 : Fragment() {
 
         lifecycleScope.launch {
             viewModel.daySleep.collect { time ->
-                binding.sleepHoursDay.text = "${time}ч"
+                if (time != "") {
+                    binding.sleepHoursDay.text = "${time}ч"
+                }
+                else {
+                    binding.sleepHoursDay.text = "?ч"
+                }
+
+            }
+        }
+
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.dayHeart.collect { string ->
+                var ourString = string
+                val upPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(upPressure.length + 1)
+                val downPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(downPressure.length + 1)
+                val pulse = ourString
+                if (upPressure.isNotEmpty()) {
+                    binding.upPressureText.text = upPressure
+                }
+                if (downPressure.isNotEmpty()) {
+                    binding.downPressureText.text = downPressure
+                }
+                if (pulse.isNotEmpty()) {
+                    binding.pulseText.text = pulse
+                }
+
             }
         }
 

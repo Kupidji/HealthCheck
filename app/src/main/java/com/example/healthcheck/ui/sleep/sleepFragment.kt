@@ -1,4 +1,4 @@
-package com.example.healthcheck.ui
+package com.example.healthcheck.ui.sleep
 
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -18,9 +17,8 @@ import com.example.domain.AppDispatchers
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSleepBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.SleepViewModel
+import com.example.healthcheck.viewmodels.sleep.SleepViewModel
 import kotlinx.coroutines.launch
-import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -123,6 +121,20 @@ class sleepFragment : Fragment() {
             val direction = sleepFragmentDirections.actionSleepFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
+        }
+
+        binding.historyBtn.setOnClickListener {
+            //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.sleepHistory, true)
+                .build()
+            val direction = sleepFragmentDirections.actionSleepFragmentToSleepHistory()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.historyBtn, navigation, direction, navOptions, navigate)
         }
 
     }

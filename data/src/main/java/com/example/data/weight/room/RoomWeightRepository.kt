@@ -5,6 +5,8 @@ import com.example.data.weight.room.entities.WeightDbEntity.Companion.forUpdateW
 import com.example.data.weight.room.entities.WeightDbEntity.Companion.fromWeight
 import com.example.domain.models.Weight
 import com.example.domain.repository.WeightRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 class RoomWeightRepository(
@@ -18,31 +20,49 @@ class RoomWeightRepository(
         weightDao.updateWeight(forUpdateWeight(weight = toWeightForDb(weight)))
     }
 
-    override suspend fun getWeightForDay(): Weight {
-        val weight = weightDao.getLastWeight()
-        return Weight(
-            weight.id,
-            weight.weight,
-            weight.date,
-        )
+    override fun getWeightForDay(): Flow<Float> {
+        return weightDao.getLastWeight().map { weightDbEntity ->
+            weightDbEntity.weight
+        }
+
     }
 
-    override suspend fun getWeightForWeek(): List<Float> {
-        var list = mutableListOf<Float>()
-        var new = weightDao.getWeightForWeek().map { Weight ->
-            Weight.toWeightForDb()
-            list.add(Weight.weight)
+    override fun getWeightForWeek(): Flow<List<Float>> {
+        return weightDao.getWeightForWeek().map { list ->
+            list.map { weightDbEntity ->
+                weightDbEntity.weight
+            }
         }
-        return list
     }
 
-    override suspend fun getWeightForMonth(): List<Float> {
-        var list = mutableListOf<Float>()
-        var new = weightDao.getWeightForMonth().map { Weight ->
-            Weight.toWeightForDb()
-            list.add(Weight.weight)
+    override fun getWeightForMonth(): Flow<List<Float>> {
+        return weightDao.getWeightForMonth().map { list ->
+            list.map { weightDbEntity ->
+                weightDbEntity.weight
+            }
         }
-        return list
+    }
+
+    override fun getWeightLastIdAndDate(): Flow<Weight> {
+        return weightDao.getLastWeight().map { weightDbEntity ->
+            Weight (
+                id = weightDbEntity.id,
+                weight = weightDbEntity.weight,
+                date = weightDbEntity.date
+            )
+        }
+    }
+
+    override fun getListForHistory() : Flow<List<Weight>> {
+        return weightDao.getListForHistory().map { list ->
+            list.map { weightDbEntity ->
+                Weight(
+                    id = weightDbEntity.id,
+                    weight = weightDbEntity.weight,
+                    date = weightDbEntity.date
+                )
+            }
+        }
     }
 
     private fun toWeightForDb(weight: Weight) : WeightForDb {

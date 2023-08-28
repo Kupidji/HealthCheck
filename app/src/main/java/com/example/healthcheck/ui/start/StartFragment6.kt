@@ -55,8 +55,8 @@ class StartFragment6 : Fragment() {
 
         binding.next.setOnClickListener {
             viewModel.setHeight(binding.numberPicker2.value.toString().toFloat())
-            viewModel.insertSteps()
-            viewModel.insertHoursOfSleep()
+//            viewModel.insertSteps()
+//            viewModel.insertHoursOfSleep()
             viewModel.setFirstLaunchCompleted()
 
             //TODO убрать в некст обновлении

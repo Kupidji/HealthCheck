@@ -1,11 +1,16 @@
-package com.example.healthcheck.ui
+package com.example.healthcheck.ui.heart
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -23,6 +28,7 @@ import com.example.healthcheck.viewmodels.heart.AddHeartItemViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
 
 class AddHeartItemFragment : Fragment() {
 
@@ -48,6 +54,100 @@ class AddHeartItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navigation = findNavController()
+
+        binding.upPressureBox.showKeyboard()
+        binding.upPressureBox.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                try {
+                    if (s.toString().startsWith("1") || s.toString().startsWith("2")) {
+                        if (s.toString().length == 3) {
+                            binding.downPressureBox.showKeyboard()
+                        }
+                    }
+                    else {
+                        if (s.toString().length == 2) {
+                            binding.downPressureBox.showKeyboard()
+                        }
+                    }
+                }
+                catch (e : StringIndexOutOfBoundsException) {
+
+                }
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.downPressureBox.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                try {
+                    if (s.toString().startsWith("1") || s.toString().startsWith("2")) {
+                        if (s.toString().length == 3) {
+                            binding.pulseBox.showKeyboard()
+                        }
+                    }
+                    else {
+                        if (s.toString().length == 2) {
+                            binding.pulseBox.showKeyboard()
+                        }
+                    }
+                }
+                catch (e : StringIndexOutOfBoundsException) {
+
+                }
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().isEmpty()) {
+                    binding.upPressureBox.showKeyboard()
+                }
+            }
+
+        })
+
+        binding.pulseBox.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                try {
+                    if (s.toString().startsWith("1") || s.toString().startsWith("2")) {
+                        if (s.toString().length == 3) {
+                            binding.pulseBox.hideKeyboard()
+                        }
+                    }
+                    else {
+                        if (s.toString().length == 2) {
+                            binding.pulseBox.hideKeyboard()
+                        }
+                    }
+                }
+                catch (e : StringIndexOutOfBoundsException) {
+
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().isEmpty()) {
+                    binding.downPressureBox.showKeyboard()
+                }
+            }
+
+        })
 
         binding.dateAndTimeText.text = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault()).format(_date)
 
@@ -115,14 +215,14 @@ class AddHeartItemFragment : Fragment() {
             return false
         }
 
-        when (value) {
+        return when (value) {
             in 30..230 -> {
-                return true
+                true
             }
 
             else -> {
                 editText.error = context?.getString(R.string.wrongValue)
-                return false
+                false
             }
         }
 
@@ -157,6 +257,22 @@ class AddHeartItemFragment : Fragment() {
                 this.get(Calendar.DAY_OF_MONTH)
             ).show()
 
+        }
+    }
+
+    private fun EditText.showKeyboard() {
+        if (requestFocus()) {
+            (activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
+                .showSoftInput(this, SHOW_IMPLICIT)
+            setSelection(text.length)
+        }
+    }
+
+    private fun EditText.hideKeyboard() {
+        if (requestFocus()) {
+            (activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(this.windowToken, 0)
+            setSelection(text.length)
         }
     }
 

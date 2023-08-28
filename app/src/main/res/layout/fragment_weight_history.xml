@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    tools:context=".ui.steps.StepsHistory">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_main2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp"
+        />
+
+    <ImageButton
+        android:id="@+id/wentBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/arrow_left"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        style="@style/zagalovok1"
+        android:id="@+id/settingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintEnd_toEndOf="@id/margin_main2"
+        app:layout_constraintTop_toTopOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="@id/wentBack"
+        android:text="@string/history"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/margin_main"
+        app:layout_constraintEnd_toEndOf="@id/margin_main2"
+        app:layout_constraintTop_toBottomOf="@id/wentBack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        >
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/recyclerCardView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:clipToPadding="false"
+            app:cardCornerRadius="15dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/weight_item"
+            android:id="@+id/weightHistoryRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/recyclerCardView"
+            app:layout_constraintEnd_toEndOf="@id/recyclerCardView"
+            app:layout_constraintTop_toTopOf="@id/recyclerCardView"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerCardView"
+            app:layout_constraintVertical_bias="0"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            />
+
+        <TextView
+            style="@style/zagalovok2"
+            android:id="@+id/nothingThere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/notNoteYet"
+            android:visibility="gone"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.weightFragment"
+    tools:context=".ui.weight.weightFragment"
     android:background="@drawable/background"
     >
 
@@ -55,6 +55,16 @@
                 app:layout_constraintTop_toTopOf="@id/wentBack"
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/weight"
+                />
+
+            <ImageButton
+                android:id="@+id/historyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/margin_main2"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/history_56x56"
                 />
 
             <TextView
@@ -115,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintEnd_toStartOf="@id/weightLayoutMonth"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 >
 
@@ -214,7 +224,7 @@
                 app:layout_constraintStart_toEndOf="@id/weightLayoutWeek"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/inputWeightBox"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 >
 

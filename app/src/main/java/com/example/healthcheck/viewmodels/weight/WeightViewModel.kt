@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodels
+package com.example.healthcheck.viewmodels.weight
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +12,7 @@ import com.example.domain.usecase.weight.CalculateBodyMassIndex
 import com.example.domain.usecase.weight.CalculateContentOfFatCommonMethod
 import com.example.domain.usecase.weight.GetForearm
 import com.example.domain.usecase.weight.GetHips
+import com.example.domain.usecase.weight.GetLastWeightIdAndDate
 import com.example.domain.usecase.weight.GetLeftHip
 import com.example.domain.usecase.weight.GetNeck
 import com.example.domain.usecase.weight.GetRightHip
@@ -32,7 +33,6 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -83,38 +83,45 @@ class WeightViewModel : ViewModel() {
     private val _contentOfFat = MutableSharedFlow<Float>(1, 0, BufferOverflow.DROP_OLDEST)
     val contentOfFat = _contentOfFat.asSharedFlow()
 
-    private var currentDate = Calendar.getInstance().timeInMillis
-
     init {
         viewModelScope.launch(AppDispatchers.main) {
-            val getWeightForDayFromDb = GetWeightForDayFromDb(repository = Repositories.weightRepository)
-            val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
-            val lastDate = SimpleDateFormat("dd.MM").format(getLastDateFromDataWeight())
-            if (lastDate == currentDate) {
-                _totalWeightForDay.emit(getWeightForDayFromDb.execute())
-            }
-            else {
-                _totalWeightForDay.emit(0F)
+            val getLastWeightIdAndDate = GetLastWeightIdAndDate(repository = Repositories.weightRepository)
+            getLastWeightIdAndDate.execute().collect { date ->
+                val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
+                val lastDate = SimpleDateFormat("dd.MM").format(date.date)
+                if (lastDate == currentDate) {
+                    val getWeightForDayFromDb = GetWeightForDayFromDb(repository = Repositories.weightRepository)
+                    getWeightForDayFromDb.execute().collect { weight ->
+                        _totalWeightForDay.emit(weight)
+                    }
+                }
+                else {
+                    _totalWeightForDay.emit(0F)
+                }
             }
 
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val getWeightForWeekFromDb = GetWeightForWeekFromDb(repository = Repositories.weightRepository)
-            _totalWeightForWeek.emit(getWeightForWeekFromDb.execute())
+            getWeightForWeekFromDb.execute().collect { weight ->
+                _totalWeightForWeek.emit(weight)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val getWeightForMonthFromDb = GetWeightForMonthFromDb(repository = Repositories.weightRepository)
-            _totalWeightForMonth.emit(getWeightForMonthFromDb.execute())
+            getWeightForMonthFromDb.execute().collect { weight ->
+                _totalWeightForMonth.emit(weight)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
-            _id.emit(getLastIdFromDataWeight())
-        }
-
-        viewModelScope.launch(AppDispatchers.main) {
-            _date.emit(getLastDateFromDataWeight())
+            val getLastWeightIdAndDate = GetLastWeightIdAndDate(repository = Repositories.weightRepository)
+            getLastWeightIdAndDate.execute().collect { idAndDate ->
+                _id.emit(idAndDate.id)
+                _date.emit(idAndDate.date)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
@@ -159,34 +166,18 @@ class WeightViewModel : ViewModel() {
 
         viewModelScope.launch(AppDispatchers.main) {
             val calculateBodyMassIndex = CalculateBodyMassIndex(repositoryProfile = Repositories.profileStorage ,repositoryWeight = Repositories.weightRepository)
-            _bodyMassIndex.emit(calculateBodyMassIndex.execute())
+            calculateBodyMassIndex.execute().collect { mass ->
+                _bodyMassIndex.emit(mass)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val calculateContentOfFatCommonMethod = CalculateContentOfFatCommonMethod(repositoryProfile = Repositories.profileStorage ,repositoryWeight = Repositories.weightRepository)
-            _contentOfFat.emit(calculateContentOfFatCommonMethod.execute())
-        }
-
-    }
-
-    suspend fun getLastDateFromDataWeight() : Long = withContext(AppDispatchers.main) {
-        var date = currentDate
-        withContext(AppDispatchers.io) {
-            if (Repositories.weightRepository.getWeightForDay() != null) {
-                date = Repositories.weightRepository.getWeightForDay().date
+            calculateContentOfFatCommonMethod.execute().collect { contentOfFat ->
+                _contentOfFat.emit(contentOfFat)
             }
         }
-        return@withContext date
-    }
 
-    suspend fun getLastIdFromDataWeight() : Int = withContext(AppDispatchers.main) {
-        var id = 0
-        withContext(AppDispatchers.main) {
-            if (Repositories.weightRepository.getWeightForDay().id != null) {
-                id = Repositories.weightRepository.getWeightForDay().id
-            }
-        }
-        return@withContext id
     }
 
     fun insertWeight(weight: Float) {
@@ -198,22 +189,6 @@ class WeightViewModel : ViewModel() {
                     date = Calendar.getInstance().timeInMillis
                 )
             )
-            _id.emit(getLastIdFromDataWeight())
-            _date.emit(getLastDateFromDataWeight())
-            _totalWeightForDay.emit(weight)
-
-            val getWeightForWeekFromDb = GetWeightForWeekFromDb(repository = Repositories.weightRepository)
-            _totalWeightForWeek.emit(getWeightForWeekFromDb.execute())
-
-            val getWeightForMonthFromDb = GetWeightForMonthFromDb(repository = Repositories.weightRepository)
-            _totalWeightForMonth.emit(getWeightForMonthFromDb.execute())
-
-            val calculateBodyMassIndex = CalculateBodyMassIndex(repositoryProfile = Repositories.profileStorage ,repositoryWeight = Repositories.weightRepository)
-            _bodyMassIndex.emit(calculateBodyMassIndex.execute())
-
-            val calculateContentOfFatCommonMethod = CalculateContentOfFatCommonMethod(repositoryProfile = Repositories.profileStorage ,repositoryWeight = Repositories.weightRepository)
-            _contentOfFat.emit(calculateContentOfFatCommonMethod.execute())
-
         }
     }
 
@@ -226,20 +201,6 @@ class WeightViewModel : ViewModel() {
                     date = Calendar.getInstance().timeInMillis
                 )
             )
-            _totalWeightForDay.emit(weight)
-
-            val getWeightForWeekFromDb = GetWeightForWeekFromDb(repository = Repositories.weightRepository)
-            _totalWeightForWeek.emit(getWeightForWeekFromDb.execute())
-
-            val getWeightForMonthFromDb = GetWeightForMonthFromDb(repository = Repositories.weightRepository)
-            _totalWeightForMonth.emit(getWeightForMonthFromDb.execute())
-
-            val calculateBodyMassIndex = CalculateBodyMassIndex(repositoryProfile = Repositories.profileStorage ,repositoryWeight = Repositories.weightRepository)
-            _bodyMassIndex.emit(calculateBodyMassIndex.execute())
-
-            val calculateContentOfFatCommonMethod = CalculateContentOfFatCommonMethod(repositoryProfile = Repositories.profileStorage ,repositoryWeight = Repositories.weightRepository)
-            _contentOfFat.emit(calculateContentOfFatCommonMethod.execute())
-
         }
     }
 

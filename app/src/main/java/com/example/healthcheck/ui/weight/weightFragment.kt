@@ -1,4 +1,4 @@
-package com.example.healthcheck.ui
+package com.example.healthcheck.ui.weight
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -18,9 +18,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentWeightBinding
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
-import com.example.healthcheck.viewmodels.WeightViewModel
+import com.example.healthcheck.viewmodels.weight.WeightViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -88,14 +89,14 @@ class weightFragment : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForWeek.collect { weight ->
-                binding.weekDiagramText.text = String.format(Locale.US,"%.1f", weight)
+                digitsFloatAnimation(binding.weekDiagramText, weight)
                 changeProgressBar(progressBar = binding.progressBarWeightWeek, weight = weight)
             }
         }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForMonth.collect { weight ->
-                binding.monthDiagramText.text = String.format(Locale.US,"%.1f", weight)
+                digitsFloatAnimation(binding.monthDiagramText, weight)
                 changeProgressBar(progressBar = binding.progressBarWeightMonth, weight = weight)
             }
         }
@@ -150,13 +151,13 @@ class weightFragment : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.contentOfFat.collect { value ->
-                binding.percentMass.text = String.format(Locale.US,"%.1f", value) + "%"
+                digitsFloatAnimation(binding.percentMass, value, symbol = "%")
             }
         }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.bodyMassIndex.collect { value ->
-                binding.massIndex.text = String.format(Locale.US,"%.1f", value)
+                digitsFloatAnimation(binding.massIndex, value)
             }
         }
 
@@ -279,6 +280,20 @@ class weightFragment : Fragment() {
             val direction = weightFragmentDirections.actionWeightFragmentToMainFragment()
             val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
             buttonChangeScreenAnimation(binding.wentBack, navigation, direction, navOptions, navigate)
+        }
+
+        binding.historyBtn.setOnClickListener {
+            //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.weightHistory, true)
+                .build()
+            val direction = weightFragmentDirections.actionWeightFragmentToWeightHistory()
+            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+            buttonChangeScreenAnimation(binding.historyBtn, navigation, direction, navOptions, navigate)
         }
 
     }

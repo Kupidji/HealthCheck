@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodels
+package com.example.healthcheck.viewmodels.steps
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,13 +9,17 @@ import com.example.domain.usecase.steps.GetCountOfStepsForDayFromDb
 import com.example.domain.usecase.steps.GetCountOfStepsForMonthFromDb
 import com.example.domain.usecase.steps.GetCountOfStepsForWeekFromDb
 import com.example.domain.usecase.steps.GetKkal
+import com.example.domain.usecase.steps.GetLastStepsIdAndDate
 import com.example.domain.usecase.steps.GetStepsTarget
 import com.example.domain.usecase.steps.InsertSteps
 import com.example.domain.usecase.steps.SetStepsTarget
 import com.example.domain.usecase.steps.UpdateSteps
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -50,27 +54,38 @@ class StepsViewModel : ViewModel() {
     val kkalForMonth = _kkalForMonth.asSharedFlow()
 
     init {
+        //инициализация шагов за сегодня. Если дата последней записи совпадает с сегодняшней датой, то выводится последняя
+        //запись, иначе заглушка
         viewModelScope.launch {
-            val getCountOfStepsForDayFromDb = GetCountOfStepsForDayFromDb(repository = Repositories.stepsRepository)
-            val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
-            val lastDate = SimpleDateFormat("dd.MM").format(getLastDateFromData())
-            if (lastDate == currentDate) {
-                _totalStepsForDay.emit(getCountOfStepsForDayFromDb.execute())
-            }
-            else {
-                _totalStepsForDay.emit(0)
+            val getLastStepsIdAndDate = GetLastStepsIdAndDate(repository = Repositories.stepsRepository)
+            getLastStepsIdAndDate.execute().collect { stepsEntity ->
+                val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
+                val lastDate = SimpleDateFormat("dd.MM").format(stepsEntity.date)
+                if (lastDate == currentDate) {
+                    val getCountOfStepsForDayFromDb = GetCountOfStepsForDayFromDb(repository = Repositories.stepsRepository)
+                    getCountOfStepsForDayFromDb.execute().collect { countOfSteps ->
+                        _totalStepsForDay.emit(countOfSteps)
+                    }
+                }
+                else {
+                    _totalStepsForDay.emit(0)
+                }
             }
 
         }
 
         viewModelScope.launch {
             val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForWeek.emit(getCountOfStepsForWeekFromDb.execute())
+            getCountOfStepsForWeekFromDb.execute().collect { countOfSteps ->
+                _totalStepsForWeek.emit(countOfSteps)
+            }
         }
 
         viewModelScope.launch {
             val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForMonth.emit(getCountOfStepsForMonthFromDb.execute())
+            getCountOfStepsForMonthFromDb.execute().collect { countOfSteps ->
+                _totalStepsForMonth.emit(countOfSteps)
+            }
         }
 
         viewModelScope.launch {
@@ -79,32 +94,22 @@ class StepsViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            _id.emit(getLastIdFromData())
+            val getLastStepsIdAndDate = GetLastStepsIdAndDate(repository = Repositories.stepsRepository)
+            getLastStepsIdAndDate.execute().collect { stepsEntity ->
+                _id.emit(stepsEntity.id)
+            }
+
         }
 
         viewModelScope.launch {
-            _day.emit(getLastDateFromData())
+            val getLastStepsIdAndDate = GetLastStepsIdAndDate(repository = Repositories.stepsRepository)
+            getLastStepsIdAndDate.execute().collect { stepsEntity ->
+                _day.emit(stepsEntity.date)
+            }
         }
 
     }
 
-    private suspend fun getLastDateFromData() : Long {
-        var result = 0L
-        if (Repositories.stepsRepository.getLastDate() != null) {
-            result = Repositories.stepsRepository.getLastDate().date
-        }
-
-        return result
-    }
-
-    private suspend fun getLastIdFromData() : Int {
-        var result = 0
-        if (Repositories.stepsRepository.getLastDate() != null) {
-            result = Repositories.stepsRepository.getLastDate().id
-        }
-
-        return result
-    }
 
     fun insertSteps(steps : Int) {
         viewModelScope.launch {
@@ -117,15 +122,15 @@ class StepsViewModel : ViewModel() {
                     date = currentDate,
                 )
             )
-            _id.emit(getLastIdFromData())
-            _day.emit(getLastDateFromData())
-            _totalStepsForDay.emit(steps)
+//            _id.emit(getLastIdFromData())
+//            _day.emit(getLastDateFromData())
+           // _totalStepsForDay.emit(steps)
 
-            val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForWeek.emit(getCountOfStepsForWeekFromDb.execute())
+//            val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
+//            _totalStepsForWeek.emit(getCountOfStepsForWeekFromDb.execute())
 
-            val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForMonth.emit(getCountOfStepsForMonthFromDb.execute())
+//            val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = Repositories.stepsRepository)
+//            _totalStepsForMonth.emit(getCountOfStepsForMonthFromDb.execute())
 
         }
     }
@@ -141,14 +146,13 @@ class StepsViewModel : ViewModel() {
                     date = currentDate,
                 )
             )
+           // _totalStepsForDay.emit(steps)
 
-            _totalStepsForDay.emit(steps)
+//            val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
+//            _totalStepsForWeek.emit(getCountOfStepsForWeekFromDb.execute())
 
-            val getCountOfStepsForWeekFromDb = GetCountOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForWeek.emit(getCountOfStepsForWeekFromDb.execute())
-
-            val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForMonth.emit(getCountOfStepsForMonthFromDb.execute())
+//            val getCountOfStepsForMonthFromDb = GetCountOfStepsForMonthFromDb(repository = Repositories.stepsRepository)
+//            _totalStepsForMonth.emit(getCountOfStepsForMonthFromDb.execute())
 
         }
     }

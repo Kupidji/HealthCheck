@@ -9,6 +9,7 @@ import com.example.domain.usecase.heart.GetListOfHeartForLastNote
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HeartViewModel : ViewModel() {
@@ -34,7 +35,9 @@ class HeartViewModel : ViewModel() {
     init {
         viewModelScope.launch(AppDispatchers.main) {
             val getListOfHeartForLastNote = GetListOfHeartForLastNote(repository = Repositories.heartRepository)
-            _listOfHeart.emit(getListOfHeartForLastNote.execute())
+            getListOfHeartForLastNote.execute().collect { list ->
+                _listOfHeart.emit(list)
+            }
         }
 
     }

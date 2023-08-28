@@ -48,16 +48,16 @@ class StartFragment5 : Fragment() {
         val navigation = findNavController()
 
         val numberPicker0: NumberPicker = binding.numberPicker0
-        numberPicker0.setMaxValue(99)
-        numberPicker0.setMinValue(10)
+        numberPicker0.maxValue = 99
+        numberPicker0.minValue = 10
         numberPicker0.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        numberPicker0.setWrapSelectorWheel(false)
+        numberPicker0.wrapSelectorWheel = false
 
         val numberPicker1: NumberPicker = binding.numberPicker1
-        numberPicker1.setMaxValue(200)
-        numberPicker1.setMinValue(20)
+        numberPicker1.maxValue = 200
+        numberPicker1.minValue = 20
         numberPicker1.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        numberPicker1.setWrapSelectorWheel(false)
+        numberPicker1.wrapSelectorWheel = false
 
         binding.next.setOnClickListener {
             viewModel.setAge(binding.numberPicker0.value.toString().toInt())

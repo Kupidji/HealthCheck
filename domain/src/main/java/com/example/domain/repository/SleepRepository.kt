@@ -14,6 +14,8 @@ interface SleepRepository {
 
     suspend fun getTimeOfSleepForMonth() : List<Long>
 
+    suspend fun getListForHistory() : List<Sleep>
+
     suspend fun getLastDate() : Sleep
 
 }

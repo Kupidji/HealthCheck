@@ -1,4 +1,4 @@
-package com.example.healthcheck.viewmodels
+package com.example.healthcheck.viewmodels.sleep
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,7 +22,9 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Math.abs
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class SleepViewModel : ViewModel() {
 
@@ -57,6 +59,16 @@ class SleepViewModel : ViewModel() {
         }
 
         viewModelScope.launch(AppDispatchers.main) {
+            val currentDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(Calendar.getInstance().timeInMillis)
+            val lastDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(getLastDateFromData())
+            if (currentDate != lastDate) {
+                //обнуляет время подсчета сна на экране
+                val setGoToSleepTime = SetGoToSleepTime(repository = Repositories.sleepStorage)
+                setGoToSleepTime.execute(time = 0L)
+                val setWakeUpTime = SetWakeUpTime(repository = Repositories.sleepStorage)
+                setWakeUpTime.execute(time = 0L)
+            }
+
             val getGoToSleepTime = GetGoToSleepTime(repository = Repositories.sleepStorage)
             val goToSleepTime = getGoToSleepTime.execute()
             val getWakeUpTime = GetWakeUpTime(repository = Repositories.sleepStorage)
@@ -93,21 +105,30 @@ class SleepViewModel : ViewModel() {
     }
 
     suspend fun getLastIdFromData() : Int = viewModelScope.async(AppDispatchers.default) {
-        val sleep = withContext(AppDispatchers.io) {
-            return@withContext Repositories.sleepRepository.getLastDate()
+        try {
+            val sleep = withContext(AppDispatchers.io) {
+                return@withContext Repositories.sleepRepository.getLastDate()
+            }
+            var lastId = sleep.id
+            return@async lastId
         }
-        var lastId = sleep.id
-
-        return@async lastId
+        catch (e : NullPointerException) {
+            return@async 0
+        }
     }.await()
 
     suspend fun getLastDateFromData() : Long = viewModelScope.async(AppDispatchers.default) {
-        val sleep = withContext(AppDispatchers.io) {
-            return@withContext Repositories.sleepRepository.getLastDate()
-        }
-        var lastDate = sleep.date
+        try {
+            val sleep = withContext(AppDispatchers.io) {
+                return@withContext Repositories.sleepRepository.getLastDate()
+            }
+            var lastDate = sleep.date
 
-        return@async lastDate
+            return@async lastDate
+        }
+        catch (e : NullPointerException) {
+            return@async 0L
+        }
     }.await()
 
     fun insertSleep(goToSleepTime : Long, wakeUpTime : Long) {

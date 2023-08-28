@@ -18,7 +18,7 @@ class GetAverageOfSleepForMonth(private val repository: SleepRepository) {
             totalTime += sleep
         }
 
-        if (list.size != 0){
+        if (list.isNotEmpty()){
             totalTime /= list.size
         }
 

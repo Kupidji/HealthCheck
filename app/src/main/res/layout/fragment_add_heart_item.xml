@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.AddHeartItemFragment"
+    tools:context=".ui.heart.AddHeartItemFragment"
     android:background="@drawable/background">
 
     <ScrollView
@@ -96,6 +96,7 @@
                 android:hint="@string/up_pressure"
                 android:gravity="center_vertical"
                 android:padding="15dp"
+                android:inputType="number"
                 />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -124,6 +125,7 @@
                     android:hint="@string/down_pressure"
                     android:gravity="center_vertical"
                     android:padding="15dp"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -151,6 +153,7 @@
                     android:hint="@string/pulse"
                     android:gravity="center_vertical"
                     android:padding="15dp"
+                    android:inputType="number"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

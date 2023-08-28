@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.usecase.GetAverageOfSleepForWeek
+import com.example.domain.usecase.GetHeartForWeekFromDb
 import com.example.domain.usecase.steps.GetAverageOfStepsForWeekFromDb
 import com.example.domain.usecase.GetWeightForWeekFromDb
 import com.example.domain.usecase.steps.GetStepsTarget
@@ -13,6 +14,7 @@ import com.example.domain.usecase.weight.GetWeightTarget
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainFragment2ViewModel(application: Application) : AndroidViewModel(application) {
@@ -26,6 +28,9 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
     private val _totalWeightForWeek = MutableSharedFlow<Float>(1, 0, BufferOverflow.DROP_OLDEST)
     val totalWeightForWeek = _totalWeightForWeek.asSharedFlow()
 
+    private val _weekHeart = MutableSharedFlow<String>(1, 0, BufferOverflow.DROP_OLDEST)
+    val weekHeart = _weekHeart.asSharedFlow()
+
     private val _stepsTarget = MutableSharedFlow<Int>(1, 0, BufferOverflow.DROP_OLDEST)
     val stepsTarget = _stepsTarget.asSharedFlow()
 
@@ -36,7 +41,9 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
     init {
         viewModelScope.launch {
             val getAverageOfStepsForWeekFromDb = GetAverageOfStepsForWeekFromDb(repository = Repositories.stepsRepository)
-            _totalStepsForWeek.emit(getAverageOfStepsForWeekFromDb.execute())
+            getAverageOfStepsForWeekFromDb.execute().collect { average ->
+                _totalStepsForWeek.emit(average)
+            }
         }
 
         viewModelScope.launch {
@@ -46,7 +53,16 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
 
         viewModelScope.launch {
             val getWeightForWeekFromDb = GetWeightForWeekFromDb(repository = Repositories.weightRepository)
-            _totalWeightForWeek.emit(getWeightForWeekFromDb.execute())
+            getWeightForWeekFromDb.execute().collect { weight ->
+                _totalWeightForWeek.emit(weight)
+            }
+        }
+
+        viewModelScope.launch {
+            val getHeartForWeekFromDb = GetHeartForWeekFromDb(repository = Repositories.heartRepository)
+            getHeartForWeekFromDb.execute().collect { heart ->
+                _weekHeart.emit(heart)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {

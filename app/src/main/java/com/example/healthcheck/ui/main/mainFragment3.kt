@@ -14,6 +14,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.databinding.FragmentMain3Binding
+import com.example.healthcheck.util.animations.DigitsAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsFloatAnimation
+import com.example.healthcheck.util.animations.DigitsAnimation.digitsIntAnimation
 import com.example.healthcheck.util.animations.ProgressBarAnimation.animateProgressBar
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainFragment3ViewModel
@@ -51,14 +54,14 @@ class mainFragment3 : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalStepsForMonth.collect { steps ->
-                binding.main3CountOfStepsMonth.text = "$steps"
+                digitsIntAnimation(binding.main3CountOfStepsMonth, steps)
                 showAndUpdateProgressBar(progressBar = binding.progressBarSteps, progress = steps)
             }
         }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.stepsTarget.collect { target ->
-                binding.progressBarSteps.max = target * 30
+                binding.progressBarSteps.max = target
             }
         }
 
@@ -71,7 +74,7 @@ class mainFragment3 : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.totalWeightForMonth.collect { weight ->
-                binding.textWeightMonth.text = String.format(Locale.US, "%.1f", weight)
+                digitsFloatAnimation(binding.textWeightMonth, weight)
                 showAndUpdateProgressBar(progressBar = binding.progressBarWeight, progress = weight.toInt())
             }
         }
@@ -79,6 +82,26 @@ class mainFragment3 : Fragment() {
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.weightTarget.collect { target ->
                 binding.progressBarWeight.max = target.toInt()
+            }
+        }
+
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.monthHeart.collect { string ->
+                var ourString = string
+                val upPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(upPressure.length + 1)
+                val downPressure = ourString.substringBefore("/")
+                ourString = ourString.drop(downPressure.length + 1)
+                val pulse = ourString
+                if (upPressure.isNotEmpty()) {
+                    binding.upPressureText.text = upPressure
+                }
+                if (downPressure.isNotEmpty()) {
+                    binding.downPressureText.text = downPressure
+                }
+                if (pulse.isNotEmpty()) {
+                    binding.pulseText.text = pulse
+                }
             }
         }
 

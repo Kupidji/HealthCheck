@@ -117,14 +117,14 @@
                 style="@style/zagalovok3"
                 android:id="@+id/todayText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintTop_toBottomOf="@id/nearestActBox"
                 android:text="@string/_day"
                 android:gravity="center"
                 android:textColor="@color/textcolor_choosen"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
                 />
 
             <ImageView
@@ -145,13 +145,13 @@
                 style="@style/zagalovok3"
                 android:id="@+id/weekText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 app:layout_constraintStart_toEndOf="@id/todayText"
                 app:layout_constraintTop_toBottomOf="@id/nearestActBox"
                 android:text="@string/_week"
                 android:gravity="center"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="27dp"
+                android:layout_marginTop="2dp"
                 />
 
             <ImageView
@@ -172,13 +172,13 @@
                 style="@style/zagalovok3"
                 android:id="@+id/monthText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 app:layout_constraintStart_toEndOf="@id/weekText"
                 app:layout_constraintTop_toBottomOf="@id/nearestActBox"
                 android:text="@string/_month"
                 android:gravity="center"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="2dp"
                 />
 
             <androidx.viewpager2.widget.ViewPager2
@@ -188,7 +188,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/todayText"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="2dp"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout

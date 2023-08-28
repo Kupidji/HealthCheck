@@ -46,11 +46,7 @@ class CheckCurrentDay(
 //                )
 //            )
 
-            //обнуляет время подсчета сна на экране
-            val setGoToSleepTime = SetGoToSleepTime(repository = sleepStorageRepository)
-            setGoToSleepTime.execute(time = 0L)
-            val setWakeUpTime = SetWakeUpTime(repository = sleepStorageRepository)
-            setWakeUpTime.execute(time = 0L)
+
 
         }
 
