@@ -9,6 +9,7 @@ import com.example.domain.usecase.heart.GetListOfHeartForHistory
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HeartHistoryViewModel : ViewModel() {
@@ -19,7 +20,9 @@ class HeartHistoryViewModel : ViewModel() {
     init {
         viewModelScope.launch(AppDispatchers.main) {
             val getListOfHeartForHistory = GetListOfHeartForHistory(repository = Repositories.heartRepository)
-            _historyHeartList.emit(getListOfHeartForHistory.execute())
+            getListOfHeartForHistory.execute().collect { list ->
+                _historyHeartList.emit(list)
+            }
         }
 
     }

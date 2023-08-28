@@ -53,12 +53,16 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
 
         viewModelScope.launch {
             val getWeightForWeekFromDb = GetWeightForWeekFromDb(repository = Repositories.weightRepository)
-            _totalWeightForWeek.emit(getWeightForWeekFromDb.execute())
+            getWeightForWeekFromDb.execute().collect { weight ->
+                _totalWeightForWeek.emit(weight)
+            }
         }
 
         viewModelScope.launch {
             val getHeartForWeekFromDb = GetHeartForWeekFromDb(repository = Repositories.heartRepository)
-            _weekHeart.emit(getHeartForWeekFromDb.execute())
+            getHeartForWeekFromDb.execute().collect { heart ->
+                _weekHeart.emit(heart)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {

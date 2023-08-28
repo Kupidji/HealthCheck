@@ -8,9 +8,11 @@ import com.example.domain.AppDispatchers
 import com.example.domain.usecase.GetHeartForDayFromDb
 import com.example.domain.usecase.GetHoursOfSleepForDayFromDb
 import com.example.domain.usecase.GetWeightForDayFromDb
+import com.example.domain.usecase.heart.GetLastHeartIdAndDate
 import com.example.domain.usecase.steps.GetCountOfStepsForDayFromDb
 import com.example.domain.usecase.steps.GetLastStepsIdAndDate
 import com.example.domain.usecase.steps.GetStepsTarget
+import com.example.domain.usecase.weight.GetLastWeightIdAndDate
 import com.example.domain.usecase.weight.GetWeightTarget
 import com.example.healthcheck.App
 import kotlinx.coroutines.channels.BufferOverflow
@@ -84,42 +86,36 @@ class MainFragment1ViewModel : ViewModel() {
         }
 
         viewModelScope.launch(AppDispatchers.main) {
-            val getWeightForDayFromDb = GetWeightForDayFromDb(repository = Repositories.weightRepository)
-            val lastDate = withContext(AppDispatchers.io) {
-                try {
-                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.weightRepository.getWeightForDay().date)
+            val getLastWeightIdAndDate = GetLastWeightIdAndDate(repository = Repositories.weightRepository)
+            getLastWeightIdAndDate.execute().collect { date ->
+                val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
+                val lastDate = SimpleDateFormat("dd.MM").format(date.date)
+                if (lastDate == currentDate) {
+                    val getWeightForDayFromDb = GetWeightForDayFromDb(repository = Repositories.weightRepository)
+                    getWeightForDayFromDb.execute().collect { weight ->
+                        _dayWeight.emit(weight)
+                    }
                 }
-                catch (e : NullPointerException) {
-                    Log.d("Exceptions", ": ${e.localizedMessage}")
+                else {
+                    _dayWeight.emit(0F)
                 }
-
             }
-            val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
-            if (lastDate != currentDate) {
-                _dayWeight.emit(0F)
-            }
-            else {
-                _dayWeight.emit(getWeightForDayFromDb.execute())
-            }
-
         }
 
         viewModelScope.launch(AppDispatchers.main) {
-            val getHeartForDayFromDb = GetHeartForDayFromDb(repository = Repositories.heartRepository)
-            val lastDate = withContext(AppDispatchers.io) {
-                try {
-                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.heartRepository.getCardioForDay().date)
+            val getLastHeartIdAndDate = GetLastHeartIdAndDate(repository = Repositories.heartRepository)
+            getLastHeartIdAndDate.execute().collect { date ->
+                val lastDate = SimpleDateFormat("dd.MM").format(date.date)
+                val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
+                if (lastDate != currentDate) {
+                    _dayHeart.emit("")
                 }
-                catch (e : NullPointerException) {
-                    Log.d("Exceptions", ": ${e.localizedMessage}")
+                else {
+                    val getHeartForDayFromDb = GetHeartForDayFromDb(repository = Repositories.heartRepository)
+                    getHeartForDayFromDb.execute().collect { heart ->
+                        _dayHeart.emit(heart)
+                    }
                 }
-            }
-            val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
-            if (lastDate != currentDate) {
-                _dayHeart.emit("")
-            }
-            else {
-                _dayHeart.emit(getHeartForDayFromDb.execute())
             }
 
         }

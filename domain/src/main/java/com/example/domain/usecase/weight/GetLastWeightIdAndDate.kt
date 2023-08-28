@@ -6,10 +6,10 @@ import com.example.domain.repository.WeightRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class GetWeightListForHistory(private val repository: WeightRepository) {
+class GetLastWeightIdAndDate(private val repository: WeightRepository) {
 
-    suspend fun execute() : Flow<List<Weight>> = withContext(AppDispatchers.io) {
-        return@withContext repository.getListForHistory()
+    suspend fun execute() : Flow<Weight> = withContext(AppDispatchers.io) {
+        return@withContext repository.getWeightLastIdAndDate()
     }
 
 }

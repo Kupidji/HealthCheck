@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.data.heart.room.entities.HeartDbEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HeartDao {
@@ -13,21 +14,22 @@ interface HeartDao {
     @Insert
     suspend fun insertCardio(heartDbEntity: HeartDbEntity)
 
-    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 1")
-    fun getCardioForDay() : HeartDbEntity
-    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 7")
-    suspend fun getCadrioForWeek() : List<HeartDbEntity>
-
-    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 30")
-    suspend fun getCadrioForMonth() : List<HeartDbEntity>
-
     @Update
     suspend fun updateCardio(heartDbEntity: HeartDbEntity)
 
     @Delete
     suspend fun deleteCardio(heartDbEntity: HeartDbEntity)
 
+    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 1")
+    fun getCardioForDay() : Flow<HeartDbEntity>
+
+    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 7")
+    fun getCadrioForWeek() : Flow<List<HeartDbEntity>>
+
+    @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 30")
+    fun getCadrioForMonth() : Flow<List<HeartDbEntity>>
+
     @Query("SELECT * FROM heart")
-    suspend fun getCadrioForHistory() : List<HeartDbEntity>
+    fun getCadrioForHistory() : Flow<List<HeartDbEntity>>
 
 }

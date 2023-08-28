@@ -9,6 +9,7 @@ import com.example.domain.usecase.weight.GetWeightListForHistory
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class WeightHistoryViewModel : ViewModel() {
@@ -19,7 +20,9 @@ class WeightHistoryViewModel : ViewModel() {
     init {
         viewModelScope.launch(AppDispatchers.main) {
             val getWeightListForHistory = GetWeightListForHistory(repository = Repositories.weightRepository)
-            _weightListHistory.emit(getWeightListForHistory.execute())
+            getWeightListForHistory.execute().collect { list ->
+                _weightListHistory.emit(list)
+            }
         }
     }
 

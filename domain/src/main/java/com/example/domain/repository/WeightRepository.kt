@@ -1,6 +1,7 @@
 package com.example.domain.repository
 
 import com.example.domain.models.Weight
+import kotlinx.coroutines.flow.Flow
 
 
 interface WeightRepository {
@@ -9,12 +10,14 @@ interface WeightRepository {
 
     suspend fun updateWeight(weight: Weight)
 
-    suspend fun getWeightForDay() : Weight
+    fun getWeightForDay() : Flow<Float>
 
-    suspend fun getWeightForWeek() : List<Float>
+    fun getWeightForWeek() : Flow<List<Float>>
 
-    suspend fun getWeightForMonth() : List<Float>
+    fun getWeightForMonth() : Flow<List<Float>>
 
-    suspend fun getListForHistory() : List<Weight>
+    fun getWeightLastIdAndDate() : Flow<Weight>
+
+    fun getListForHistory() : Flow<List<Weight>>
 
 }

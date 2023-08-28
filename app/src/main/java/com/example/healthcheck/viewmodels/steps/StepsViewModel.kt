@@ -66,7 +66,6 @@ class StepsViewModel : ViewModel() {
                     getCountOfStepsForDayFromDb.execute().collect { countOfSteps ->
                         _totalStepsForDay.emit(countOfSteps)
                     }
-
                 }
                 else {
                     _totalStepsForDay.emit(0)

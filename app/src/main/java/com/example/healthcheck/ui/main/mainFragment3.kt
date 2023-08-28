@@ -61,7 +61,7 @@ class mainFragment3 : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.stepsTarget.collect { target ->
-                binding.progressBarSteps.max = target * 30
+                binding.progressBarSteps.max = target
             }
         }
 

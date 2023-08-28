@@ -53,12 +53,16 @@ class MainFragment3ViewModel : ViewModel() {
 
         viewModelScope.launch(AppDispatchers.main) {
             val getWeightForMonthFromDb = GetWeightForMonthFromDb(repository = Repositories.weightRepository)
-            _totalWeightForMonth.emit(getWeightForMonthFromDb.execute())
+            getWeightForMonthFromDb.execute().collect { weight ->
+                _totalWeightForMonth.emit(weight)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val getHeartForMonthFromDb = GetHeartForMonthFromDb(repository = Repositories.heartRepository)
-            _monthHeart.emit(getHeartForMonthFromDb.execute())
+            getHeartForMonthFromDb.execute().collect { heart ->
+                _monthHeart.emit(heart)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {

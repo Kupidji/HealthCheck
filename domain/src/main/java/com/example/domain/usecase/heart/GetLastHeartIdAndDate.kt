@@ -6,10 +6,10 @@ import com.example.domain.repository.HeartRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class GetListOfHeartForLastNote(private val repository : HeartRepository) {
+class GetLastHeartIdAndDate(private val repository: HeartRepository) {
 
-    suspend fun execute() : Flow<List<Heart>> = withContext(AppDispatchers.io) {
-        return@withContext repository.getListCardioForLastNote()
+    suspend fun execute() : Flow<Heart> = withContext(AppDispatchers.io) {
+        return@withContext repository.getCardioForDay()
     }
 
 }
