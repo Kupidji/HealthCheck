@@ -11,7 +11,7 @@ interface HeartRepository {
 
     suspend fun deleteCardio(heart: Heart)
 
-    fun getCardioForDay() : Flow<Heart>
+    fun getCardioForDay() : Flow<List<Heart>>
 
     fun getCardioForWeek() : Flow<List<Heart>>
 

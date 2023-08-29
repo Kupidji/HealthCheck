@@ -21,15 +21,29 @@ class RoomSleepRepository(
         sleepDao.updateTimeOfSleep(updateSleep(toSleepForDb(sleep)))
     }
 
-    override fun getLastIdAndDate(): Flow<Sleep> {
-        return sleepDao.getTimeOfSleepForDay().map { sleepDbEntity ->
-            toSleep(sleepDbEntity)
+    override fun getLastIdAndDate(): Flow<List<Sleep>> {
+        return sleepDao.getTimeOfSleepForDay().map { list ->
+            if (list.isNotEmpty()) {
+                list.map { sleepDbEntity ->
+                    toSleep(sleepDbEntity)
+                }
+            }
+            else {
+                listOf(Sleep(0,0,0))
+            }
         }
     }
 
-    override fun getTimeOfSleepForDay(): Flow<Long> {
-        return sleepDao.getTimeOfSleepForDay().map { sleepDbEntity ->
-            sleepDbEntity.timeOfSleep
+    override fun getTimeOfSleepForDay(): Flow<List<Long>> {
+        return sleepDao.getTimeOfSleepForDay().map { list ->
+            if (list.isNotEmpty()) {
+                list.map { sleepDbEntity ->
+                    sleepDbEntity.timeOfSleep
+                }
+            }
+            else {
+                listOf(0L)
+            }
         }
     }
 

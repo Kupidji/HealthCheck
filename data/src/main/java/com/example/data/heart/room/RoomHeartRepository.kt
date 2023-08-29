@@ -5,8 +5,8 @@ import com.example.data.heart.room.entities.HeartDbEntity.Companion.fromHeart
 import com.example.domain.models.Heart
 import com.example.domain.repository.HeartRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-
 
 class RoomHeartRepository(
     val heartDao: HeartDao
@@ -29,7 +29,6 @@ class RoomHeartRepository(
             list.map { heart ->
                 heart.toHeart()
             }
-
         }
     }
 
@@ -41,9 +40,16 @@ class RoomHeartRepository(
         }
     }
 
-    override fun getCardioForDay() : Flow<Heart> {
-        return heartDao.getCardioForDay().map { heart ->
-            heart.toHeart()
+    override fun getCardioForDay() : Flow<List<Heart>> {
+        return heartDao.getCardioForDay().map { list ->
+            if (list.isNotEmpty()) {
+                list.map { heartDbEntity ->
+                    heartDbEntity.toHeart()
+                }
+            }
+            else {
+                listOf(Heart(0,0,0,0,0))
+            }
         }
     }
 

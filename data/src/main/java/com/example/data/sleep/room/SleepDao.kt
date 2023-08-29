@@ -17,7 +17,7 @@ interface SleepDao {
     suspend fun updateTimeOfSleep(sleepDbEntity: SleepDbEntity)
 
     @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 1")
-    fun getTimeOfSleepForDay() : Flow<SleepDbEntity>
+    fun getTimeOfSleepForDay() : Flow<List<SleepDbEntity>>
 
     @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 7")
     fun getTimeOfSleepForWeek() : Flow<List<SleepDbEntity>>

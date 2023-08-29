@@ -10,7 +10,7 @@ interface StepsRepository {
 
     suspend fun updateCountOfSteps(steps: Steps)
 
-    fun getStepsForDay() : Flow<Int>
+    fun getStepsForDay() : Flow<List<Int>>
 
     fun getStepsForWeek() : Flow<List<Int>>
 
@@ -18,6 +18,6 @@ interface StepsRepository {
 
     fun getListForHistory() : Flow<List<Steps>>
 
-    fun getLastStepsEntity() : Flow<Steps>
+    fun getLastStepsEntity() : Flow<List<Steps>>
 
 }

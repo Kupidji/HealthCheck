@@ -1,6 +1,7 @@
 package com.example.domain.usecase
 
 import com.example.domain.AppDispatchers
+import com.example.domain.models.Heart
 import com.example.domain.repository.HeartRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,9 +14,14 @@ class GetHeartForDayFromDb(private val repository: HeartRepository) {
             repository.getCardioForDay()
         }
 
-        return@withContext heartFlow.map { heart ->
-            "${heart.pressureUp}/${heart.pressureDown}/${heart.pulse}"
+        return@withContext heartFlow.map { list ->
+            var ourHeart = Heart(0,0,0,0,0)
+            for (heart in list) {
+                ourHeart = heart
+            }
+            "${ourHeart.pressureUp}/${ourHeart.pressureDown}/${ourHeart.pulse}"
         }
+
     }
 
 }

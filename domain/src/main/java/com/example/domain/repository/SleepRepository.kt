@@ -9,7 +9,7 @@ interface SleepRepository {
 
     suspend fun updateTimeOfSleep(sleep: Sleep)
 
-    fun getTimeOfSleepForDay() : Flow<Long>
+    fun getTimeOfSleepForDay() : Flow<List<Long>>
 
     fun getTimeOfSleepForWeek() : Flow<List<Long>>
 
@@ -17,6 +17,6 @@ interface SleepRepository {
 
     fun getListForHistory() : Flow<List<Sleep>>
 
-    fun getLastIdAndDate() : Flow<Sleep>
+    fun getLastIdAndDate() : Flow<List<Sleep>>
 
 }

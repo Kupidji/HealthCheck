@@ -18,7 +18,7 @@ interface WeightDao {
     suspend fun updateWeight(weightDbEntity: WeightDbEntity)
 
     @Query("SELECT * FROM weight order by id desc limit 1")
-    fun getLastWeight() : Flow<WeightDbEntity>
+    fun getLastWeight() : Flow<List<WeightDbEntity>>
 
     @Query("SELECT * FROM weight ORDER BY id deSC LIMIT 7")
     fun getWeightForWeek() : Flow<List<WeightDbEntity>>
