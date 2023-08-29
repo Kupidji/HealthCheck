@@ -1,6 +1,7 @@
 package com.example.domain.repository
 
 import com.example.domain.models.Sleep
+import kotlinx.coroutines.flow.Flow
 
 interface SleepRepository {
 
@@ -8,14 +9,14 @@ interface SleepRepository {
 
     suspend fun updateTimeOfSleep(sleep: Sleep)
 
-    suspend fun getTimeOfSleepForDay() : Long
+    fun getTimeOfSleepForDay() : Flow<Long>
 
-    suspend fun getTimeOfSleepForWeek() : List<Long>
+    fun getTimeOfSleepForWeek() : Flow<List<Long>>
 
-    suspend fun getTimeOfSleepForMonth() : List<Long>
+    fun getTimeOfSleepForMonth() : Flow<List<Long>>
 
-    suspend fun getListForHistory() : List<Sleep>
+    fun getListForHistory() : Flow<List<Sleep>>
 
-    suspend fun getLastDate() : Sleep
+    fun getLastIdAndDate() : Flow<Sleep>
 
 }

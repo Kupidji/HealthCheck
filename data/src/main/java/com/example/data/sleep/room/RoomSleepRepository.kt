@@ -6,6 +6,8 @@ import com.example.data.sleep.room.entities.SleepDbEntity
 import com.example.data.sleep.room.entities.SleepDbEntity.Companion.fromSleep
 import com.example.data.sleep.room.entities.SleepDbEntity.Companion.updateSleep
 import com.example.domain.models.Sleep
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class RoomSleepRepository(
     val sleepDao: SleepDao
@@ -19,41 +21,40 @@ class RoomSleepRepository(
         sleepDao.updateTimeOfSleep(updateSleep(toSleepForDb(sleep)))
     }
 
-    override suspend fun getTimeOfSleepForWeek() : List<Long> {
-        var list = mutableListOf<Long>()
-        sleepDao.getTimeOfSleepForWeek().map { sleepDbEntity ->
-            toSleep(sleepDbEntity)
-            list.add(sleepDbEntity.timeOfSleep)
-        }
-        return list
-    }
-
-    override suspend fun getTimeOfSleepForDay(): Long {
-        return sleepDao.getTimeOfSleepForDay().timeOfSleep
-    }
-
-    override suspend fun getTimeOfSleepForMonth(): List<Long> {
-        var list = mutableListOf<Long>()
-        sleepDao.getTimeOfSleepForMonth().map { sleepDbEntity ->
-            toSleep(sleepDbEntity)
-            list.add(sleepDbEntity.timeOfSleep)
-        }
-        return list
-    }
-
-    override suspend fun getListForHistory(): List<Sleep> {
-        return sleepDao.getSleepListForHistory().map { sleepDbEntity ->
+    override fun getLastIdAndDate(): Flow<Sleep> {
+        return sleepDao.getTimeOfSleepForDay().map { sleepDbEntity ->
             toSleep(sleepDbEntity)
         }
     }
 
-    override suspend fun getLastDate(): Sleep {
-        val sleep = sleepDao.getTimeOfSleepForDay()
-        return Sleep (
-            id = sleep.id,
-            timeOfSleep =  sleep.timeOfSleep,
-            date = sleep.date
-        )
+    override fun getTimeOfSleepForDay(): Flow<Long> {
+        return sleepDao.getTimeOfSleepForDay().map { sleepDbEntity ->
+            sleepDbEntity.timeOfSleep
+        }
+    }
+
+    override fun getTimeOfSleepForWeek() : Flow<List<Long>> {
+        return sleepDao.getTimeOfSleepForWeek().map { list ->
+            list.map { sleepDbEntity ->
+                sleepDbEntity.timeOfSleep
+            }
+        }
+    }
+
+    override fun getTimeOfSleepForMonth(): Flow<List<Long>> {
+        return sleepDao.getTimeOfSleepForMonth().map { list ->
+            list.map { sleepDbEntity ->
+                sleepDbEntity.timeOfSleep
+            }
+        }
+    }
+
+    override fun getListForHistory(): Flow<List<Sleep>> {
+        return sleepDao.getSleepListForHistory().map { list ->
+            list.map { sleepDbEntity ->
+                toSleep(sleepDbEntity)
+            }
+        }
     }
 
     private fun toSleepForDb(sleep : Sleep) : SleepForDb {

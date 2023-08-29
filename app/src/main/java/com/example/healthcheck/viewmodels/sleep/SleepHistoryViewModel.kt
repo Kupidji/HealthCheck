@@ -19,7 +19,9 @@ class SleepHistoryViewModel : ViewModel() {
     init {
         viewModelScope.launch(AppDispatchers.main) {
             val getSleepListForHistory = GetSleepListForHistory(repository = Repositories.sleepRepository)
-            _sleepListHistory.emit(getSleepListForHistory.execute())
+            getSleepListForHistory.execute().collect { list ->
+                _sleepListHistory.emit(list)
+            }
         }
     }
 

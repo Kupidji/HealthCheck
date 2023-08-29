@@ -48,7 +48,9 @@ class MainFragment3ViewModel : ViewModel() {
 
         viewModelScope.launch(AppDispatchers.main) {
             val getAverageOfSleepForMonth = GetAverageOfSleepForMonth(repository = Repositories.sleepRepository)
-            _averageSleepMonth.emit(getAverageOfSleepForMonth.execute())
+            getAverageOfSleepForMonth.execute().collect { time ->
+                _averageSleepMonth.emit(time)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
