@@ -20,9 +20,17 @@ class RoomWeightRepository(
         weightDao.updateWeight(forUpdateWeight(weight = toWeightForDb(weight)))
     }
 
-    override fun getWeightForDay(): Flow<Float> {
-        return weightDao.getLastWeight().map { weightDbEntity ->
-            weightDbEntity.weight
+    override fun getWeightForDay(): Flow<List<Float>> {
+        return weightDao.getLastWeight().map { list ->
+            if (list.isNotEmpty()) {
+                list.map { weightDbEntity ->
+                    weightDbEntity.weight
+                }
+            }
+            else {
+                listOf(0F)
+            }
+
         }
 
     }
@@ -43,13 +51,21 @@ class RoomWeightRepository(
         }
     }
 
-    override fun getWeightLastIdAndDate(): Flow<Weight> {
-        return weightDao.getLastWeight().map { weightDbEntity ->
-            Weight (
-                id = weightDbEntity.id,
-                weight = weightDbEntity.weight,
-                date = weightDbEntity.date
-            )
+    override fun getWeightLastIdAndDate(): Flow<List<Weight>> {
+        return weightDao.getLastWeight().map { list ->
+            if (list.isNotEmpty()) {
+                list.map { weightDbEntity ->
+                    Weight (
+                        id = weightDbEntity.id,
+                        weight = weightDbEntity.weight,
+                        date = weightDbEntity.date
+                    )
+                }
+            }
+            else {
+                listOf(Weight(0,0F,0))
+            }
+
         }
     }
 

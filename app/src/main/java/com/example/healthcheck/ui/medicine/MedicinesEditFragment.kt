@@ -1,5 +1,6 @@
 package com.example.healthcheck.ui.medicine
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,10 @@ import androidx.navigation.fragment.navArgs
 import com.example.domain.models.Medicines
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMedicinesEditBinding
+import com.example.healthcheck.util.animations.ButtonPress.buttonPressAnimation
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.medicine.MedicinesEditViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 
 class MedicinesEditFragment : Fragment() {
@@ -78,37 +81,8 @@ class MedicinesEditFragment : Fragment() {
         }
 
         binding.finishCourseBtn.setOnClickListener {
-            var medicine = Medicines(
-                args.id,
-                args.title,
-                args.dateOfStart,
-                args.totalDuractionOfCourse,
-                args.totalDuractionOfCourse,
-                args.firstTimeNotification,
-                args.firstTimeChannelID,
-                args.secondTimeNotification,
-                args.secondTimeChannelID,
-                args.thirdTimeNotification,
-                args.thirdTimeChannelID,
-                args.fourthTimeNotification,
-                args.fourthTimeChannelID,
-                args.totalMissed,
-            )
-            viewModel.deleteMedicine(medicine)
-            viewModel.deleteNotification(medicine)
-
-            //навигация и анимации
-            var navOptions = NavOptions.Builder()
-                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-                .setPopUpTo(R.id.medicinesFragment, true)
-                .build()
-            val direction =
-                MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
-            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
-            buttonChangeScreenAnimation(binding.finishCourseBtn, navigation, direction, navOptions, navigate)
+            buttonPressAnimation(binding.finishCourseBtn)
+            confirmFinishDialog()
         }
 
         binding.editBtn.setOnClickListener {
@@ -141,5 +115,57 @@ class MedicinesEditFragment : Fragment() {
         }
 
     }
+
+    private fun confirmFinishDialog() {
+        val dialog = MaterialAlertDialogBuilder(this.requireContext(), com.google.android.material.R.style.MaterialAlertDialog_Material3)
+            .setTitle(this.context?.getString(R.string.deliting))
+            .setMessage(this.context?.getString(R.string.areUSure))
+            .setPositiveButton(this.context?.getString(R.string.yes), null)
+            .setNegativeButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
+
+        val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveBtn.setOnClickListener {
+            var medicine = Medicines(
+                args.id,
+                args.title,
+                args.dateOfStart,
+                args.totalDuractionOfCourse,
+                args.totalDuractionOfCourse,
+                args.firstTimeNotification,
+                args.firstTimeChannelID,
+                args.secondTimeNotification,
+                args.secondTimeChannelID,
+                args.thirdTimeNotification,
+                args.thirdTimeChannelID,
+                args.fourthTimeNotification,
+                args.fourthTimeChannelID,
+                args.totalMissed,
+            )
+            viewModel.deleteMedicine(medicine)
+            viewModel.deleteNotification(medicine)
+            dialog.dismiss()
+
+            //навигация и анимации
+            var navOptions = NavOptions.Builder()
+                .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+                .setPopUpTo(R.id.medicinesFragment, true)
+                .build()
+            val navigation = findNavController()
+            val direction =
+                MedicinesEditFragmentDirections.actionMedicinesEditFragmentToMedicinesFragment()
+            navigation.navigate(direction, navOptions)
+        }
+
+
+
+    }
+
+
+
 
 }

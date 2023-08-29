@@ -130,9 +130,6 @@ class MainActivity : AppCompatActivity() {
 
         //Запрос на уведомления
         lifecycleScope.launch(AppDispatchers.main) {
-            val navController = (binding.fragmentContainerView.getFragment<NavHostFragment>())
-                .findNavController()
-
             val getFirstLaunchCompleted = GetFirstLaunchCompleted(repository = Repositories.settingsStorage)
             val status = getFirstLaunchCompleted.execute()
 
@@ -173,7 +170,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Разрешить") { _, _ ->
                 try {
                     val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                    intent.data = Uri.parse("package:" + this.getPackageName())
+                    intent.data = Uri.parse("package:" + this.packageName)
                     this.startActivity(intent)
                 } catch (e: ActivityNotFoundException) {
                     val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)

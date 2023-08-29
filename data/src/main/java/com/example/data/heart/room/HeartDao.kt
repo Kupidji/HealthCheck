@@ -21,7 +21,7 @@ interface HeartDao {
     suspend fun deleteCardio(heartDbEntity: HeartDbEntity)
 
     @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 1")
-    fun getCardioForDay() : Flow<HeartDbEntity>
+    fun getCardioForDay() : Flow<List<HeartDbEntity>>
 
     @Query("SELECT * FROM heart ORDER BY id DESC LIMIT 7")
     fun getCadrioForWeek() : Flow<List<HeartDbEntity>>

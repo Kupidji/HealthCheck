@@ -10,13 +10,13 @@ interface WeightRepository {
 
     suspend fun updateWeight(weight: Weight)
 
-    fun getWeightForDay() : Flow<Float>
+    fun getWeightForDay() : Flow<List<Float>>
 
     fun getWeightForWeek() : Flow<List<Float>>
 
     fun getWeightForMonth() : Flow<List<Float>>
 
-    fun getWeightLastIdAndDate() : Flow<Weight>
+    fun getWeightLastIdAndDate() : Flow<List<Weight>>
 
     fun getListForHistory() : Flow<List<Weight>>
 

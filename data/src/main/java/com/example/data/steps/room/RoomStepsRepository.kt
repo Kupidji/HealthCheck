@@ -24,9 +24,17 @@ class RoomStepsRepository(
         stepsDao.updateCountOfSteps(forUpdate(toStepsForDb(steps)))
     }
 
-    override fun getStepsForDay(): Flow<Int> {
-        return stepsDao.getStepsForDay().map { steps ->
-            steps.toSteps().countOfSteps
+    override fun getStepsForDay(): Flow<List<Int>> {
+        return stepsDao.getStepsForDay().map { list ->
+            if (list.isNotEmpty()) {
+                list.map { steps ->
+                    steps.toSteps().countOfSteps
+                }
+            }
+            else {
+                listOf(0)
+            }
+
         }
     }
 
@@ -61,13 +69,20 @@ class RoomStepsRepository(
 
     }
 
-    override fun getLastStepsEntity(): Flow<Steps> {
-        return stepsDao.getLastStepsEntity().map { stepsDbEntity ->
-            Steps (
-                id = stepsDbEntity.id,
-                countOfSteps = stepsDbEntity.countOfSteps,
-                date = stepsDbEntity.date
-            )
+    override fun getLastStepsEntity(): Flow<List<Steps>> {
+        return stepsDao.getLastStepsEntity().map { list ->
+            if (list.isNotEmpty()) {
+                list.map { stepsDbEntity ->
+                    Steps (
+                        id = stepsDbEntity.id,
+                        countOfSteps = stepsDbEntity.countOfSteps,
+                        date = stepsDbEntity.date
+                    )
+                }
+            }
+            else {
+                listOf(Steps(0,0,0))
+            }
         }
     }
 
