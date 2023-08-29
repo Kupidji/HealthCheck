@@ -6,10 +6,10 @@ import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.models.Weight
 import com.example.domain.usecase.weight.GetWeightListForHistory
+import com.example.domain.usecase.weight.UpdateWeight
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class WeightHistoryViewModel : ViewModel() {
@@ -23,6 +23,18 @@ class WeightHistoryViewModel : ViewModel() {
             getWeightListForHistory.execute().collect { list ->
                 _weightListHistory.emit(list)
             }
+        }
+    }
+
+    fun updateWeight(weight : Weight, value : Float) {
+        viewModelScope.launch {
+            val updateWeight = UpdateWeight(repository = Repositories.weightRepository)
+            val ourWeight = Weight (
+                id = weight.id,
+                weight = value,
+                date = weight.date
+            )
+            updateWeight.execute(ourWeight)
         }
     }
 

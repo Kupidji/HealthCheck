@@ -132,18 +132,14 @@ class StepsFragment : Fragment() {
         //Для обновления данных шагов за день
         lifecycleScope.launch {
             viewModel.day.collect {
-                if (it != null) {
-                    _day = it
-                }
+                _day = it
             }
         }
 
         //Для обновления данных шагов за день
         lifecycleScope.launch {
             viewModel.id.collect {
-                if (it != null) {
-                    _id = it
-                }
+                _id = it
             }
         }
 
