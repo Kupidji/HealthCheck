@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.data.sleep.room.entities.SleepDbEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SleepDao {
@@ -16,15 +17,15 @@ interface SleepDao {
     suspend fun updateTimeOfSleep(sleepDbEntity: SleepDbEntity)
 
     @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 1")
-    fun getTimeOfSleepForDay() : SleepDbEntity
+    fun getTimeOfSleepForDay() : Flow<SleepDbEntity>
 
     @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 7")
-    fun getTimeOfSleepForWeek() : List<SleepDbEntity>
+    fun getTimeOfSleepForWeek() : Flow<List<SleepDbEntity>>
 
     @Query("SELECT * FROM Sleep ORDER BY id DESC LIMIT 30")
-    fun getTimeOfSleepForMonth() : List<SleepDbEntity>
+    fun getTimeOfSleepForMonth() : Flow<List<SleepDbEntity>>
 
     @Query("SELECT * FROM Sleep")
-    fun getSleepListForHistory() : List<SleepDbEntity>
+    fun getSleepListForHistory() : Flow<List<SleepDbEntity>>
 
 }

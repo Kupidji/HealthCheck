@@ -6,10 +6,10 @@ import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.models.Heart
 import com.example.domain.usecase.heart.GetListOfHeartForHistory
+import com.example.domain.usecase.heart.UpdateHeart
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HeartHistoryViewModel : ViewModel() {
@@ -25,6 +25,20 @@ class HeartHistoryViewModel : ViewModel() {
             }
         }
 
+    }
+
+    fun updateHeart(heart: Heart, upPressure : Int, downPressure : Int, pulse : Int) {
+        viewModelScope.launch {
+            val updateHeart = UpdateHeart(repository = Repositories.heartRepository)
+            val ourHeart = Heart (
+                id = heart.id,
+                pressureUp = upPressure,
+                pressureDown = downPressure,
+                pulse = pulse,
+                date = heart.date
+            )
+            updateHeart.execute(ourHeart)
+        }
     }
 
 }

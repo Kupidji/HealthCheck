@@ -1,5 +1,6 @@
 package com.example.healthcheck.ui.steps
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.AppDispatchers
 import com.example.domain.models.Steps
 import com.example.healthcheck.R
-import com.example.healthcheck.databinding.DialogEditHistoryBinding
+import com.example.healthcheck.databinding.DialogEditStepsHistoryBinding
 import com.example.healthcheck.databinding.FragmentStepsHistoryBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.steps.StepsActionListener
@@ -90,35 +91,48 @@ class StepsHistory : Fragment() {
 
     private fun showAlertDialog(steps: Steps) {
         val inflater = this.layoutInflater
-        val dialogBinding = DialogEditHistoryBinding.inflate(inflater)
+        val dialogBinding = DialogEditStepsHistoryBinding.inflate(inflater)
         val dialogView = dialogBinding.root
         val layout = dialogBinding.textInputLayout
-        dialogBinding.textInputLayout.hint = this.context?.getString(R.string.inputNewValue)
         dialogBinding.oldValueText.text = "${this.context?.getString(R.string.oldValue)} ${steps.countOfSteps}"
 
-        MaterialAlertDialogBuilder(this.requireContext(), com.google.android.material.R.style.MaterialAlertDialog_Material3)
+        val dialog = MaterialAlertDialogBuilder(this.requireContext(), com.google.android.material.R.style.MaterialAlertDialog_Material3)
             .setView(dialogView)
             .setTitle(this.context?.getString(R.string.editHistory))
-            .setPositiveButton(this.context?.getString(R.string.save)) { dialog, DialogInterface ->
-                val enteredText = dialogBinding.editText.text.toString()
-                if (enteredText.isNotEmpty()) {
-                    if (enteredText.toInt() in 0..265000) {
-                        viewModel.updateSteps(steps = steps, enteredText.toInt())
-                        dialog.dismiss()
-                        Toast.makeText(this.requireContext(), this.context?.getString(R.string.historyUpdated), Toast.LENGTH_SHORT).show()
-                    }
-                    else {
-                        layout.error = this.context?.getString(R.string.wrongValue)
-                    }
-                }
-                else {
-                    layout.error = this.context?.getString(R.string.emptyString)
-                }
+            .setPositiveButton(this.context?.getString(R.string.save), null)
+            .setNegativeButton("Отмена", null)
+            .show()
 
+        val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveButton.setOnClickListener {
+            val enteredText = dialogBinding.editText.text.toString()
+            var status = true
+
+            if (enteredText.isNotEmpty()) {
+                if (enteredText.toInt() in 0..265000) {
+                    viewModel.updateSteps(steps = steps, enteredText.toInt())
+                    Toast.makeText(
+                        this.requireContext(),
+                        this.context?.getString(R.string.historyUpdated),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    status = false
+                } else {
+                    layout.error = this.context?.getString(R.string.wrongValue)
+                }
+            } else {
+                layout.error = this.context?.getString(R.string.emptyString)
             }
-            .setNegativeButton("Отмена") { dialog, _ ->
-                //dialog.cancel()
-            }.show()
+
+            if (!status) {
+                dialog.dismiss()
+            }
+        }
+
+        val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+        negativeButton.setOnClickListener {
+            dialog.dismiss()
+        }
 
     }
 

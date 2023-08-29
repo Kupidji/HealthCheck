@@ -48,7 +48,9 @@ class MainFragment2ViewModel(application: Application) : AndroidViewModel(applic
 
         viewModelScope.launch {
             val getAverageOfSleepForWeek = GetAverageOfSleepForWeek(repository = Repositories.sleepRepository)
-            _averageSleep.emit(getAverageOfSleepForWeek.execute())
+            getAverageOfSleepForWeek.execute().collect { time ->
+                _averageSleep.emit(time)
+            }
         }
 
         viewModelScope.launch {

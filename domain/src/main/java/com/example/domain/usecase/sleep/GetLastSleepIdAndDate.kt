@@ -6,10 +6,10 @@ import com.example.domain.repository.SleepRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class GetSleepListForHistory(private val repository: SleepRepository) {
+class GetLastSleepIdAndDate(private val repository: SleepRepository) {
 
-    suspend fun execute() : Flow<List<Sleep>> = withContext(AppDispatchers.io) {
-        return@withContext repository.getListForHistory()
+    suspend fun execute() : Flow<Sleep> = withContext(AppDispatchers.io) {
+        return@withContext repository.getLastIdAndDate()
     }
 
 }

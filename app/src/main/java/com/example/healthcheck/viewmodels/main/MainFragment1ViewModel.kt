@@ -9,6 +9,7 @@ import com.example.domain.usecase.GetHeartForDayFromDb
 import com.example.domain.usecase.GetHoursOfSleepForDayFromDb
 import com.example.domain.usecase.GetWeightForDayFromDb
 import com.example.domain.usecase.heart.GetLastHeartIdAndDate
+import com.example.domain.usecase.sleep.GetLastSleepIdAndDate
 import com.example.domain.usecase.steps.GetCountOfStepsForDayFromDb
 import com.example.domain.usecase.steps.GetLastStepsIdAndDate
 import com.example.domain.usecase.steps.GetStepsTarget
@@ -47,15 +48,15 @@ class MainFragment1ViewModel : ViewModel() {
     init {
         viewModelScope.launch(AppDispatchers.main) {
             val getLastStepsIdAndDate = GetLastStepsIdAndDate(repository = Repositories.stepsRepository)
-            getLastStepsIdAndDate.execute().collect { stepsEntity ->
+            getLastStepsIdAndDate.execute().collect { date ->
                 val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
-                val lastDate = SimpleDateFormat("dd.MM").format(stepsEntity.date)
+                val lastDate = SimpleDateFormat("dd.MM").format(date.date)
+
                 if (lastDate == currentDate) {
                     val getCountOfStepsForDayFromDb = GetCountOfStepsForDayFromDb(repository = Repositories.stepsRepository)
                     getCountOfStepsForDayFromDb.execute().collect { countOfSteps ->
                         _daySteps.emit(countOfSteps)
                     }
-
                 }
                 else {
                     _daySteps.emit(0)
@@ -64,25 +65,21 @@ class MainFragment1ViewModel : ViewModel() {
         }
 
         viewModelScope.launch(AppDispatchers.main) {
-            val getHoursOfSleepForDayFromDb = GetHoursOfSleepForDayFromDb(repository = Repositories.sleepRepository)
-            //TODO переписать эту часть кода
-            val lastDate = withContext(AppDispatchers.io) {
-                try {
-                    return@withContext SimpleDateFormat("dd.MM").format(Repositories.sleepRepository.getLastDate().date)
-                }
-                catch (e : NullPointerException) {
-                    Log.d("Exceptions", ": ${e.localizedMessage}")
-                }
+            val getLastSleepIdAndDate = GetLastSleepIdAndDate(repository = Repositories.sleepRepository)
+            getLastSleepIdAndDate.execute().collect { date ->
+                val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
+                val lastDate = SimpleDateFormat("dd.MM").format(date.date)
 
+                if (lastDate != currentDate) {
+                    _daySleep.emit("")
+                }
+                else {
+                    val getHoursOfSleepForDayFromDb = GetHoursOfSleepForDayFromDb(repository = Repositories.sleepRepository)
+                    getHoursOfSleepForDayFromDb.execute().collect { time ->
+                        _daySleep.emit(time)
+                    }
+                }
             }
-            val currentDate = SimpleDateFormat("dd.MM").format(Calendar.getInstance().timeInMillis)
-            if (lastDate != currentDate) {
-                _daySleep.emit("")
-            }
-            else {
-                _daySleep.emit(getHoursOfSleepForDayFromDb.execute())
-            }
-
         }
 
         viewModelScope.launch(AppDispatchers.main) {

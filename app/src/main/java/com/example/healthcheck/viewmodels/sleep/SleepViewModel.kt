@@ -10,17 +10,16 @@ import com.example.domain.usecase.GetAverageOfSleepForWeek
 import com.example.domain.usecase.sleep.GetGoToSleepTime
 import com.example.domain.usecase.sleep.GetHoursOfSleepForMonthFromDb
 import com.example.domain.usecase.sleep.GetHoursOfSleepForWeekFromDb
+import com.example.domain.usecase.sleep.GetLastSleepIdAndDate
 import com.example.domain.usecase.sleep.GetWakeUpTime
 import com.example.domain.usecase.sleep.InsertSleep
 import com.example.domain.usecase.sleep.SetGoToSleepTime
 import com.example.domain.usecase.sleep.SetWakeUpTime
 import com.example.domain.usecase.sleep.UpdateSleep
-import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -51,85 +50,69 @@ class SleepViewModel : ViewModel() {
 
     init {
         viewModelScope.launch(AppDispatchers.main) {
-            _id.emit(getLastIdFromData())
+            val getLastSleepIdAndDate = GetLastSleepIdAndDate(repository = Repositories.sleepRepository)
+            getLastSleepIdAndDate.execute().collect { idAndDate ->
+                _id.emit(idAndDate.id)
+                _date.emit(idAndDate.date)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
-            _date.emit(getLastDateFromData())
-        }
+            _date.collect { date ->
+                val currentDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(Calendar.getInstance().timeInMillis)
+                val lastDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(date)
+                if (lastDate != currentDate) {
+                    //обнуляет время подсчета сна на экране
+                    val setGoToSleepTime = SetGoToSleepTime(repository = Repositories.sleepStorage)
+                    setGoToSleepTime.execute(time = 0L)
+                    val setWakeUpTime = SetWakeUpTime(repository = Repositories.sleepStorage)
+                    setWakeUpTime.execute(time = 0L)
+                }
+                else {
+                    val getGoToSleepTime = GetGoToSleepTime(repository = Repositories.sleepStorage)
+                    val goToSleepTime = getGoToSleepTime.execute()
+                    val getWakeUpTime = GetWakeUpTime(repository = Repositories.sleepStorage)
+                    val wakeUpTime = getWakeUpTime.execute()
 
-        viewModelScope.launch(AppDispatchers.main) {
-            val currentDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(Calendar.getInstance().timeInMillis)
-            val lastDate = SimpleDateFormat("dd.MM", Locale.getDefault()).format(getLastDateFromData())
-            if (currentDate != lastDate) {
-                //обнуляет время подсчета сна на экране
-                val setGoToSleepTime = SetGoToSleepTime(repository = Repositories.sleepStorage)
-                setGoToSleepTime.execute(time = 0L)
-                val setWakeUpTime = SetWakeUpTime(repository = Repositories.sleepStorage)
-                setWakeUpTime.execute(time = 0L)
-            }
-
-            val getGoToSleepTime = GetGoToSleepTime(repository = Repositories.sleepStorage)
-            val goToSleepTime = getGoToSleepTime.execute()
-            val getWakeUpTime = GetWakeUpTime(repository = Repositories.sleepStorage)
-            val wakeUpTime = getWakeUpTime.execute()
-
-            if ((goToSleepTime != 0L && wakeUpTime != 0L) && (goToSleepTime != wakeUpTime)) {
-                _sleepForDay.emit(showDiffBetweenTimes(time1 = goToSleepTime, time2 = wakeUpTime))
-            }
-            else {
-                _sleepForDay.emit("")
+                    if ((goToSleepTime != 0L && wakeUpTime != 0L) && (goToSleepTime != wakeUpTime)) {
+                        _sleepForDay.emit(showDiffBetweenTimes(time1 = goToSleepTime, time2 = wakeUpTime))
+                    }
+                    else {
+                        _sleepForDay.emit("")
+                    }
+                }
             }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val getHoursOfSleepForWeekFromDb = GetHoursOfSleepForWeekFromDb(repository = Repositories.sleepRepository)
-            _sleepForWeek.emit(getHoursOfSleepForWeekFromDb.execute())
+            getHoursOfSleepForWeekFromDb.execute().collect { time ->
+                _sleepForWeek.emit(time)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val getHoursOfSleepForMonthFromDb = GetHoursOfSleepForMonthFromDb(repository = Repositories.sleepRepository)
-            _sleepForMonth.emit(getHoursOfSleepForMonthFromDb.execute())
+            getHoursOfSleepForMonthFromDb.execute().collect { time ->
+                _sleepForMonth.emit(time)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val getAverageOfSleepForWeek = GetAverageOfSleepForWeek(repository = Repositories.sleepRepository)
-            _averageSleepForWeek.emit(getAverageOfSleepForWeek.execute())
+            getAverageOfSleepForWeek.execute().collect { time ->
+                _averageSleepForWeek.emit(time)
+            }
         }
 
         viewModelScope.launch(AppDispatchers.main) {
             val getAverageOfSleepForMonth = GetAverageOfSleepForMonth(repository = Repositories.sleepRepository)
-            _averageSleepForMonth.emit(getAverageOfSleepForMonth.execute())
+            getAverageOfSleepForMonth.execute().collect { time ->
+                _averageSleepForMonth.emit(time)
+            }
         }
 
     }
-
-    suspend fun getLastIdFromData() : Int = viewModelScope.async(AppDispatchers.default) {
-        try {
-            val sleep = withContext(AppDispatchers.io) {
-                return@withContext Repositories.sleepRepository.getLastDate()
-            }
-            var lastId = sleep.id
-            return@async lastId
-        }
-        catch (e : NullPointerException) {
-            return@async 0
-        }
-    }.await()
-
-    suspend fun getLastDateFromData() : Long = viewModelScope.async(AppDispatchers.default) {
-        try {
-            val sleep = withContext(AppDispatchers.io) {
-                return@withContext Repositories.sleepRepository.getLastDate()
-            }
-            var lastDate = sleep.date
-
-            return@async lastDate
-        }
-        catch (e : NullPointerException) {
-            return@async 0L
-        }
-    }.await()
 
     fun insertSleep(goToSleepTime : Long, wakeUpTime : Long) {
         viewModelScope.launch {
@@ -143,17 +126,6 @@ class SleepViewModel : ViewModel() {
                     date = currentDate
                 )
             )
-            val getHoursOfSleepForWeekFromDb = GetHoursOfSleepForWeekFromDb(repository = Repositories.sleepRepository)
-            _sleepForWeek.emit(getHoursOfSleepForWeekFromDb.execute())
-
-            val getHoursOfSleepForMonthFromDb = GetHoursOfSleepForMonthFromDb(repository = Repositories.sleepRepository)
-            _sleepForMonth.emit(getHoursOfSleepForMonthFromDb.execute())
-
-            val getAverageOfSleepForWeek = GetAverageOfSleepForWeek(repository = Repositories.sleepRepository)
-            _averageSleepForWeek.emit(getAverageOfSleepForWeek.execute())
-
-            val getAverageOfSleepForMonth = GetAverageOfSleepForMonth(repository = Repositories.sleepRepository)
-            _averageSleepForMonth.emit(getAverageOfSleepForMonth.execute())
         }
     }
 
@@ -169,17 +141,6 @@ class SleepViewModel : ViewModel() {
                     date = currentDate
                 )
             )
-            val getHoursOfSleepForWeekFromDb = GetHoursOfSleepForWeekFromDb(repository = Repositories.sleepRepository)
-            _sleepForWeek.emit(getHoursOfSleepForWeekFromDb.execute())
-
-            val getHoursOfSleepForMonthFromDb = GetHoursOfSleepForMonthFromDb(repository = Repositories.sleepRepository)
-            _sleepForMonth.emit(getHoursOfSleepForMonthFromDb.execute())
-
-            val getAverageOfSleepForWeek = GetAverageOfSleepForWeek(repository = Repositories.sleepRepository)
-            _averageSleepForWeek.emit(getAverageOfSleepForWeek.execute())
-
-            val getAverageOfSleepForMonth = GetAverageOfSleepForMonth(repository = Repositories.sleepRepository)
-            _averageSleepForMonth.emit(getAverageOfSleepForMonth.execute())
         }
     }
 

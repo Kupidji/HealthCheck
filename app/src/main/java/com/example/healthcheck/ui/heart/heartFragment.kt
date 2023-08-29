@@ -13,9 +13,11 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.AppDispatchers
+import com.example.domain.models.Heart
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentHeartBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
+import com.example.healthcheck.viewmodels.heart.HeartActionListener
 import com.example.healthcheck.viewmodels.heart.HeartRecyclerViewAdapter
 import com.example.healthcheck.viewmodels.heart.HeartViewModel
 import kotlinx.coroutines.launch
@@ -45,7 +47,12 @@ class heartFragment : Fragment() {
         val navigation = findNavController()
 
         val layoutManager = LinearLayoutManager(this.requireContext())
-        adapter = HeartRecyclerViewAdapter()
+        adapter = HeartRecyclerViewAdapter(object : HeartActionListener{
+            override fun onBoxClickAction(heart: Heart) {
+
+            }
+
+        })
 
         lifecycleScope.launch(AppDispatchers.main) {
             binding.heartRecyclerView.layoutManager = layoutManager

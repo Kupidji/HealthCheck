@@ -6,6 +6,7 @@ import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.models.Sleep
 import com.example.domain.usecase.sleep.GetSleepListForHistory
+import com.example.domain.usecase.sleep.UpdateSleep
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -19,7 +20,21 @@ class SleepHistoryViewModel : ViewModel() {
     init {
         viewModelScope.launch(AppDispatchers.main) {
             val getSleepListForHistory = GetSleepListForHistory(repository = Repositories.sleepRepository)
-            _sleepListHistory.emit(getSleepListForHistory.execute())
+            getSleepListForHistory.execute().collect { list ->
+                _sleepListHistory.emit(list)
+            }
+        }
+    }
+
+    fun updateSleep(sleep : Sleep, value : Long) {
+        viewModelScope.launch {
+            val updateSleep = UpdateSleep(repository = Repositories.sleepRepository)
+            val ourSleep = Sleep(
+                id = sleep.id,
+                timeOfSleep = value,
+                date = sleep.date
+            )
+            updateSleep.execute(ourSleep)
         }
     }
 
