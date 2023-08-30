@@ -129,4 +129,11 @@ class MainFragment1ViewModel : ViewModel() {
 
     }
 
+    fun updateStepsTarget() {
+        viewModelScope.launch(AppDispatchers.main) {
+            val getStepsTarget = GetStepsTarget(repository = Repositories.stepsStorage)
+            _stepsTarget.emit(getStepsTarget.execute())
+        }
+    }
+
 }

@@ -149,6 +149,13 @@ class mainFragment1 : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            viewModel.updateStepsTarget()
+        }
+    }
+
     private fun showAndUpdateStepsProgressBar(progress : Int) {
         animateProgressBar(
             binding.progressBarSteps,

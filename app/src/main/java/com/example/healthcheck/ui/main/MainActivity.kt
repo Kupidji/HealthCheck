@@ -30,6 +30,8 @@ import com.example.domain.AppDispatchers
 import com.example.domain.usecase.settings.GetApplicationTheme
 import com.example.domain.usecase.start.GetFirstLaunchCompleted
 import com.example.healthcheck.databinding.ActivityMainBinding
+import com.example.healthcheck.notifications.service.MedicinesNotificationService
+import com.example.healthcheck.notifications.service.NotificationService
 import com.example.healthcheck.util.Constants
 import com.google.android.material.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -92,6 +94,12 @@ class MainActivity : AppCompatActivity() {
         val updateCheck = this.applicationContext.getSharedPreferences(UPDATE,Context.MODE_PRIVATE)
         if (updateCheck.getBoolean(UPDATE, true) && isUpdate) {
             updateCheck.edit().putBoolean(UPDATE, false).apply()
+
+            //восстановление уведомлений
+            val medicinesNotificationService = MedicinesNotificationService(context = this.applicationContext)
+            medicinesNotificationService.repairNotifications()
+            val notificationService = NotificationService(context = this.applicationContext)
+            notificationService.repairNotifications()
 
             //Профиль(имя, возраст, рост, пол)
             val oldSettingsStart = this.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)

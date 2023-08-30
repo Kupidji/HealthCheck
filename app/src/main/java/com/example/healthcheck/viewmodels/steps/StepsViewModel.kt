@@ -175,21 +175,27 @@ class StepsViewModel : ViewModel() {
     fun getKkalForDay(steps : Int)  {
         viewModelScope.launch(AppDispatchers.main) {
             val getKkal = GetKkal(repository = Repositories.weightRepository)
-            _kkalForDay.emit(getKkal.execute(steps = steps))
+            getKkal.execute(steps = steps).collect { kkal ->
+                _kkalForDay.emit(kkal)
+            }
         }
     }
 
     fun getKkalForWeek(steps : Int) {
         viewModelScope.launch(AppDispatchers.main) {
             val getKkal = GetKkal(repository = Repositories.weightRepository)
-            _kkalForWeek.emit(getKkal.execute(steps = steps))
+            getKkal.execute(steps = steps).collect { kkal ->
+                _kkalForWeek.emit(kkal)
+            }
         }
     }
 
     fun getKkalForMonth(steps : Int) {
         viewModelScope.launch(AppDispatchers.main) {
             val getKkal = GetKkal(repository = Repositories.weightRepository)
-            _kkalForMonth.emit(getKkal.execute(steps = steps))
+            getKkal.execute(steps = steps).collect { kkal ->
+                _kkalForMonth.emit(kkal)
+            }
         }
     }
 
