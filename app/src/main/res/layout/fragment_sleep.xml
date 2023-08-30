@@ -109,7 +109,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/sleep1"
                     app:layout_constraintStart_toStartOf="@id/sleep1"
                     android:paddingStart="10dp"
-                    android:hint="@string/start_sleep"
+                    android:hint="@string/input_fields"
                     android:gravity="center_vertical"
                     android:background="@android:color/transparent"
                     />

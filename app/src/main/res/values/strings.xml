@@ -123,4 +123,7 @@
     <string name="deliting">Удаление</string>
     <string name="areUSure">Вы действительно хотите удалить курс?</string>
     <string name="yes">Да</string>
+    <string name="timeOfNotification">Время уведомления</string>
+    <string name="chooseDate">Выберите дату</string>
+    <string name="chooseTime">Выберите время</string>
 </resources>

@@ -25,6 +25,9 @@ import com.example.healthcheck.models.HeartItemParams
 import com.example.healthcheck.util.animations.ButtonPress.buttonPressAnimation
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.heart.AddHeartItemViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -152,7 +155,7 @@ class AddHeartItemFragment : Fragment() {
         binding.dateAndTimeText.text = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault()).format(_date)
 
         binding.dateAndTimeBoxLayout.setOnClickListener {
-            setAlarm(textView = binding.dateAndTimeText) { callback ->
+            showTimePicker(textView = binding.dateAndTimeText) { callback ->
                 _date = callback
             }
         }
@@ -257,6 +260,41 @@ class AddHeartItemFragment : Fragment() {
                 this.get(Calendar.DAY_OF_MONTH)
             ).show()
 
+        }
+    }
+
+    private fun showTimePicker(textView: TextView, callback: (Long) -> Unit) {
+        Calendar.getInstance().apply {
+            this.set(Calendar.SECOND, 0)
+            this.set(Calendar.MILLISECOND, 0)
+
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText(this@AddHeartItemFragment.requireContext().getString(R.string.chooseDate))
+                .setSelection(this.timeInMillis)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener { selectedDate ->
+                this.timeInMillis = selectedDate
+
+                val timePicker = MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_24H)
+                    .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                    .setHour(this.get(Calendar.HOUR_OF_DAY))
+                    .setMinute(this.get(Calendar.MINUTE))
+                    .setTitleText(this@AddHeartItemFragment.requireContext().getString(R.string.chooseTime))
+                    .build()
+
+                timePicker.addOnPositiveButtonClickListener {
+                    this.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                    this.set(Calendar.MINUTE, timePicker.minute)
+                    callback(this.timeInMillis)
+                    textView.text = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault()).format(this.time)
+                }
+
+                timePicker.show(requireActivity().supportFragmentManager, "timePicker")
+            }
+
+            datePicker.show(requireActivity().supportFragmentManager, "datePicker")
         }
     }
 

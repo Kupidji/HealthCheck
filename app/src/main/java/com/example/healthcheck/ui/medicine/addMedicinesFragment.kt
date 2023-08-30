@@ -21,6 +21,8 @@ import com.example.healthcheck.models.MedicineParams
 import com.example.healthcheck.util.animations.ButtonPress.buttonPressAnimation
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.medicine.AddMedicinesViewModel
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -52,7 +54,7 @@ class addMedicinesFragment : Fragment() {
         val navigation = findNavController()
 
         binding.getFirstTime.setOnClickListener {
-            setAlarm(binding.getFirstTime) { callback ->
+            setTimePicker(binding.getFirstTime) { callback ->
                 firstTime = callback
                 onGetTime(binding.getFirstTime)
             }
@@ -64,7 +66,7 @@ class addMedicinesFragment : Fragment() {
         }
 
         binding.getSecondTime.setOnClickListener {
-            setAlarm(binding.getSecondTime) { callback ->
+            setTimePicker(binding.getSecondTime) { callback ->
                 secondTime = callback
                 onGetTime(binding.getSecondTime)
             }
@@ -76,7 +78,7 @@ class addMedicinesFragment : Fragment() {
         }
 
         binding.getThirdTime.setOnClickListener {
-            setAlarm(binding.getThirdTime) { callback ->
+            setTimePicker(binding.getThirdTime) { callback ->
                 thirdTime = callback
                 onGetTime(binding.getThirdTime)
             }
@@ -88,7 +90,7 @@ class addMedicinesFragment : Fragment() {
         }
 
         binding.getFourthTime.setOnClickListener {
-            setAlarm(binding.getFourthTime) { callback ->
+            setTimePicker(binding.getFourthTime) { callback ->
                 fourthTime = callback
                 onGetTime(binding.getFourthTime)
             }
@@ -275,23 +277,27 @@ class addMedicinesFragment : Fragment() {
             }
     }
 
-    private fun setAlarm(textView: TextView, callback: (Long) -> Unit) {
+    private fun setTimePicker(textView: TextView, callback: (Long) -> Unit) {
         Calendar.getInstance().apply {
             this.set(Calendar.SECOND, 0)
             this.set(Calendar.MILLISECOND, 0)
-            TimePickerDialog(
-                this@addMedicinesFragment.context,
-                0,
-                { _, hour, minute ->
-                    this.set(Calendar.HOUR_OF_DAY, hour)
-                    this.set(Calendar.MINUTE, minute)
-                    callback(this.timeInMillis)
-                    textView.text = SimpleDateFormat("HH:mm").format(this.time)
-                },
-                this.get(Calendar.HOUR_OF_DAY),
-                this.get(Calendar.MINUTE),
-                true
-            ).show()
+
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(this.get(Calendar.HOUR_OF_DAY))
+                .setMinute(this.get(Calendar.MINUTE))
+                .setTitleText(this@addMedicinesFragment.context?.getString(R.string.timeOfNotification))
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .build()
+
+            timePicker.addOnPositiveButtonClickListener {
+                this.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                this.set(Calendar.MINUTE, timePicker.minute)
+                callback(this.timeInMillis)
+                textView.text = SimpleDateFormat("HH:mm").format(this.time)
+            }
+
+            timePicker.show(requireActivity().supportFragmentManager, "timePicker")
         }
     }
 

@@ -21,6 +21,8 @@ import com.example.healthcheck.R
 import com.example.healthcheck.viewmodels.medicine.EditMedicineViewModel
 import com.example.healthcheck.databinding.FragmentEditMedicineBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -90,7 +92,7 @@ class editMedicineFragment : Fragment() {
         }
 
         binding.getFirstTime.setOnClickListener {
-            setAlarm(binding.getFirstTime) { callback ->
+            setTimePicker(binding.getFirstTime) { callback ->
                 firstTime = callback
                 onGetTime(binding.getFirstTime)
             }
@@ -101,7 +103,7 @@ class editMedicineFragment : Fragment() {
         }
 
         binding.getSecondTime.setOnClickListener {
-            setAlarm(binding.getSecondTime) { callback ->
+            setTimePicker(binding.getSecondTime) { callback ->
                 secondTime = callback
                 onGetTime(binding.getSecondTime)
             }
@@ -112,7 +114,7 @@ class editMedicineFragment : Fragment() {
         }
 
         binding.getThirdTime.setOnClickListener {
-            setAlarm(binding.getThirdTime) { callback ->
+            setTimePicker(binding.getThirdTime) { callback ->
                 thirdTime = callback
                 onGetTime(binding.getThirdTime)
             }
@@ -123,7 +125,7 @@ class editMedicineFragment : Fragment() {
         }
 
         binding.getFourthTime.setOnClickListener {
-            setAlarm(binding.getFourthTime) { callback ->
+            setTimePicker(binding.getFourthTime) { callback ->
                 fourthTime = callback
                 onGetTime(binding.getFourthTime)
             }
@@ -397,23 +399,27 @@ class editMedicineFragment : Fragment() {
             }
     }
 
-    private fun setAlarm(textView: TextView, callback: (Long) -> Unit) {
+    private fun setTimePicker(textView: TextView, callback: (Long) -> Unit) {
         Calendar.getInstance().apply {
             this.set(Calendar.SECOND, 0)
             this.set(Calendar.MILLISECOND, 0)
-            TimePickerDialog(
-                this@editMedicineFragment.context,
-                0,
-                { _, hour, minute ->
-                    this.set(Calendar.HOUR_OF_DAY, hour)
-                    this.set(Calendar.MINUTE, minute)
-                    callback(this.timeInMillis)
-                    textView.text = SimpleDateFormat("HH:mm").format(this.time)
-                },
-                this.get(Calendar.HOUR_OF_DAY),
-                this.get(Calendar.MINUTE),
-                true
-            ).show()
+
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(this.get(Calendar.HOUR_OF_DAY))
+                .setMinute(this.get(Calendar.MINUTE))
+                .setTitleText(this@editMedicineFragment.context?.getString(R.string.timeOfNotification))
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .build()
+
+            timePicker.addOnPositiveButtonClickListener {
+                this.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                this.set(Calendar.MINUTE, timePicker.minute)
+                callback(this.timeInMillis)
+                textView.text = SimpleDateFormat("HH:mm").format(this.time)
+            }
+
+            timePicker.show(requireActivity().supportFragmentManager, "timePicker")
         }
     }
 

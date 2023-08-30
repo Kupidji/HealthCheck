@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,8 @@ import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSleepBinding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.sleep.SleepViewModel
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -98,10 +101,12 @@ class sleepFragment : Fragment() {
         }
 
         binding.sleep1.setOnClickListener {
-            setAlarm { callback ->
+            val timeMode1 = this.requireContext().getString(R.string.start_sleep)
+            val timeMode2 = this.requireContext().getString(R.string.wakeup)
+            setTimePicker(timeMode = timeMode1) { callback ->
                 _goesToBedTime = callback
                 viewModel.setGoToSleepTime(time = callback)
-                setAlarm { callback2 ->
+                setTimePicker(timeMode = timeMode2) { callback2 ->
                     _wakeUpTime = callback2
                     viewModel.setWakeUpTime(time = callback2)
                     saveSleep(_id, _date)
@@ -145,22 +150,26 @@ class sleepFragment : Fragment() {
         }
     }
 
-    private fun setAlarm(callback: (Long) -> Unit) {
+    private fun setTimePicker(timeMode : String, callback: (Long) -> Unit) {
         Calendar.getInstance().apply {
             this.set(Calendar.SECOND, 0)
             this.set(Calendar.MILLISECOND, 0)
-            TimePickerDialog(
-                this@sleepFragment.context,
-                0,
-                { _, hour, minute ->
-                    this.set(Calendar.HOUR_OF_DAY, hour)
-                    this.set(Calendar.MINUTE, minute)
-                    callback(this.timeInMillis)
-                },
-                this.get(Calendar.HOUR_OF_DAY),
-                this.get(Calendar.MINUTE),
-                true
-            ).show()
+
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(this.get(Calendar.HOUR_OF_DAY))
+                .setMinute(this.get(Calendar.MINUTE))
+                .setTitleText(timeMode)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .build()
+
+            timePicker.addOnPositiveButtonClickListener {
+                this.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                this.set(Calendar.MINUTE, timePicker.minute)
+                callback(this.timeInMillis)
+            }
+
+            timePicker.show(requireActivity().supportFragmentManager, "timePicker")
         }
     }
 
