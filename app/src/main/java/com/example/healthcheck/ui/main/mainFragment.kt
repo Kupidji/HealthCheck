@@ -1,11 +1,14 @@
 package com.example.healthcheck.ui.main
 
+import com.example.healthcheck.notifications.receiver.DateChangedBroadcastReceiver
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,10 +22,12 @@ import com.example.domain.AppDispatchers
 import com.example.domain.models.Medicines
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
+
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainViewModel
 import com.example.healthcheck.viewmodels.main.ViewPagerAdapter
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class mainFragment : Fragment() {
 
@@ -76,7 +81,13 @@ class mainFragment : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.nearestTime.collect { action ->
-                binding.actions.text = action
+                if (action != "") {
+                    binding.actions.text = action
+                }
+                else {
+                    binding.actions.text = this@mainFragment.context?.getString(R.string.no_nearest_act)
+                }
+
             }
         }
 
@@ -170,6 +181,17 @@ class mainFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var curDate = Calendar.getInstance()
+        object : DateChangedBroadcastReceiver() {
+            override fun onTimeChanged(previousDate: Calendar, newDate: Calendar) {
+                curDate = newDate.clone() as Calendar
+                viewModel.updateNearestAction()
+            }
+        }.registerOnResume(activity as AppCompatActivity, curDate, this@mainFragment.parentFragment)
     }
 
     private fun movePagesViewPager(position : Int) {

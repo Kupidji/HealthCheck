@@ -121,6 +121,6 @@
     <string name="oldValue">Предыдущее значение - </string>
     <string name="inputNewValue">Введите новое значение</string>
     <string name="deliting">Удаление</string>
-    <string name="areUSure">Вы действительно хотитие удалить запись?</string>
+    <string name="areUSure">Вы действительно хотите удалить курс?</string>
     <string name="yes">Да</string>
 </resources>
