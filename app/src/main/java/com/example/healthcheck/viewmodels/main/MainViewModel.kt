@@ -41,9 +41,8 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(AppDispatchers.main) {
             val getNearestAction = GetNearestAction(repository = Repositories.medicinesRepository)
             getNearestAction.execute()
-
-            _nearestAction.emit(getNearestAction._nearestAction)
-            _nearestTime.emit(getNearestAction._nearestTime)
+            _nearestTime.emit(getNearestAction.nearestActionText)
+            _nearestAction.emit(getNearestAction.nearestAction)
         }
 
         viewModelScope.launch(AppDispatchers.main) {
@@ -56,6 +55,15 @@ class MainViewModel : ViewModel() {
             _isFirstLaunch.emit(getFirstLaunchCompleted.execute())
         }
 
+    }
+
+    fun updateNearestAction() {
+        viewModelScope.launch(AppDispatchers.main) {
+            val getNearestAction = GetNearestAction(repository = Repositories.medicinesRepository)
+            getNearestAction.execute()
+            _nearestTime.emit(getNearestAction.nearestActionText)
+            _nearestAction.emit(getNearestAction.nearestAction)
+        }
     }
 
 }

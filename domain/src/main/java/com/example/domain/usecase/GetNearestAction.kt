@@ -4,18 +4,22 @@ import com.example.domain.AppDispatchers
 import com.example.domain.models.Medicines
 import com.example.domain.repository.MedicinesRepository
 import kotlinx.coroutines.withContext
-import java.lang.Math.abs
+import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.TimeZone
+import java.util.Locale
 
 class GetNearestAction(private val repository : MedicinesRepository) {
 
-    lateinit var _nearestAction : Medicines
-    var _nearestTime = ""
+    lateinit var nearestAction : Medicines
+    var nearestActionText = ""
 
-    suspend fun execute() = withContext(AppDispatchers.default) {
-        var nearestAction = Medicines(
+    suspend fun execute() = withContext(AppDispatchers.default){
+        val listOfMedicines = withContext(AppDispatchers.io) {
+            return@withContext repository.getAllMedicineList()
+        }
+
+        var nearestActionTrue = Medicines(
             id = 0,
             title = "",
             dateStart = 0,
@@ -31,63 +35,91 @@ class GetNearestAction(private val repository : MedicinesRepository) {
             channelIDFourthTime = 0,
             totalMissed = 0,
         )
+        var tempDiffTimeTrue = 86400000L
+        var tempNearestNotificationTrue = 0L
 
-        var currentTime = Calendar.getInstance().timeInMillis
-        var tempMin = currentTime
-        var tempNearestTime = 0L
+        var nearestActionFalse = Medicines(
+            id = 0,
+            title = "",
+            dateStart = 0,
+            durationOfCourse = 0,
+            currentDayOfCourse = 0,
+            timeOfNotify1 = 0,
+            channelIDFirstTime = 0,
+            timeOfNotify2 = 0,
+            channelIDSecondTime = 0,
+            timeOfNotify3 = 0,
+            channelIDThirdTime = 0,
+            timeOfNotify4 = 0,
+            channelIDFourthTime = 0,
+            totalMissed = 0,
+        )
+        var tempDiffTimeFalse = 86400000L
+        var tempNearestNotificationFalse = 0L
 
-        val list = withContext(AppDispatchers.io) {
-            return@withContext repository.getAllMedicineList()
-        }
-
-        for (medicine in list) {
-            var listOfNotifications = listOf(
+        for (medicine in listOfMedicines) {
+            var listOfNotifications = listOf (
                 medicine.timeOfNotify1,
                 medicine.timeOfNotify2,
                 medicine.timeOfNotify3,
                 medicine.timeOfNotify4,
             )
-
-            for (action in listOfNotifications) {
-                var tempTime = abs(currentTime - action)
-                if (tempTime < tempMin) {
-                    tempMin = tempTime
-                    tempNearestTime = action
-                    nearestAction = medicine
-                    nearestAction.title = medicine.title
+            val currentTimeTrue = Calendar.getInstance().timeInMillis
+            var currentTimeFalse = 0L
+            for (notification in listOfNotifications) {
+                if (notification != 0L) {
+                    //Если текущее время меньше чем действие -> действие будущее, иначе прошедшее
+                    if (currentTimeTrue - notification < 0) {
+                        val notificationDiffTime = notification - currentTimeTrue
+                        if (notificationDiffTime < tempDiffTimeTrue) {
+                            tempDiffTimeTrue = notificationDiffTime
+                            tempNearestNotificationTrue = notification
+                            nearestActionTrue = medicine
+                        }
+                    }
+                    else {
+                        currentTimeFalse = getFakeCurrentTime(currentTimeTrue, notification)
+                        if (currentTimeFalse - notification < 0) {
+                            val notificationDiffTime = notification - currentTimeFalse
+                            if (notificationDiffTime < tempDiffTimeFalse) {
+                                tempDiffTimeFalse = notificationDiffTime
+                                tempNearestNotificationFalse = notification
+                                nearestActionFalse = medicine
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        _nearestAction = nearestAction
-        if (nearestAction.title != "") {
-            _nearestTime = nearestAction.title + " - " + SimpleDateFormat("HH:mm").format(tempNearestTime)+", через "+ forGmt(calculateTime(currentTime, tempNearestTime))
+        if (nearestActionTrue.title != "") {
+            nearestAction = nearestActionTrue
+            nearestActionText = nearestActionTrue.title + " - " + SimpleDateFormat("HH:mm", Locale.getDefault()).format(tempNearestNotificationTrue)+", через " + showTime(tempDiffTimeTrue)
+        }
+        else {
+            nearestAction = nearestActionFalse
+            if (nearestActionFalse.title != "") {
+                nearestActionText = nearestActionFalse.title + " - " + SimpleDateFormat("HH:mm", Locale.getDefault()).format(tempNearestNotificationFalse)+", через " + showTime(tempDiffTimeFalse)
+            }
         }
 
     }
 
-    private fun getGMT() : String {
-        val tz = TimeZone.getDefault()
-        val gmt1 = TimeZone.getTimeZone(tz.id).getDisplayName(false, TimeZone.SHORT)
-        return if (gmt1.length > 3){
-            gmt1.slice(4..8)
-        } else{
-            "00:00"
+    private fun getFakeCurrentTime(curTime : Long, actionTime : Long) : Long {
+        var result = curTime
+        val diffBetweenCurDateAndActionDate : Int = ((curTime - actionTime).toFloat()/86400000F).toBigDecimal().setScale(0, RoundingMode.UP).toInt()
+        if ((curTime - actionTime) > 0) {
+            result -= (86400000 * diffBetweenCurDateAndActionDate)
         }
+        return result
     }
 
-    private fun forGmt(long: Long) : String {
-        val GMT = getGMT()
-        val listGMT = GMT.split(":")
-        return SimpleDateFormat("HH:mm").format(long - listGMT[0].toInt() * 3600000)
-    }
-
-    private fun calculateTime(time1 : Long, time2 : Long) : Long {
-        return if (time1 - time2 <= 0) {
-            time2 - time1
-        } else {
-            time2 + 86400000 - time1
-        }
+    private fun showTime(totalTime : Long) : String {
+        val hours = Math.abs((totalTime) / 1000 / 60 / 60).toString()
+        var minutes = Math.abs((totalTime) / 1000 / 60 % 60).toString()
+        if (minutes.length % 2 != 0)
+            minutes = "0$minutes"
+        return "$hours:$minutes"
     }
 
 }
