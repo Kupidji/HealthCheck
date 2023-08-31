@@ -126,4 +126,5 @@
     <string name="timeOfNotification">Время уведомления</string>
     <string name="chooseDate">Выберите дату</string>
     <string name="chooseTime">Выберите время</string>
+    <string name="mandatoryValue">Обязательное поле</string>
 </resources>

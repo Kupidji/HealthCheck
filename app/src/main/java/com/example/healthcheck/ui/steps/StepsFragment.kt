@@ -145,7 +145,7 @@ class StepsFragment : Fragment() {
 
         //Если фокус уйдет
         binding.getCountOfSteps.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && binding.getCountOfSteps.text.isNotEmpty()) {
+            if (!hasFocus && binding.getCountOfSteps.text.toString().isNotEmpty()) {
                 saveAfterKeyboardClosedOrLostFocusForSteps()
             }
         }
@@ -153,10 +153,10 @@ class StepsFragment : Fragment() {
         binding.customTarget.setOnFocusChangeListener { _, hasFocus ->
             lifecycleScope.launch {
                 viewModel.currentTarget.collect { value ->
-                    if (!hasFocus && binding.customTarget.text.isNotEmpty()) {
+                    if (!hasFocus && binding.customTarget.text.toString().isNotEmpty()) {
                         saveAfterKeyboardClosedOrLostFocusForTarget()
                     }
-                    else if(!hasFocus && binding.customTarget.text.isEmpty() && value != 5000 && value != 10000 && value != 15000) {
+                    else if(!hasFocus && binding.customTarget.text.toString().isEmpty() && value != 5000 && value != 10000 && value != 15000) {
                         viewModel.setTarget(10000)
                     }
                 }
@@ -172,30 +172,26 @@ class StepsFragment : Fragment() {
             view.getWindowVisibleDisplayFrame(r)
             var heightDiff = view.rootView.height - r.height()
 
-
             //Если клавиатура убрана
             if (heightDiff < 0.2 * view.rootView.height) {
-                binding.getCountOfSteps.isCursorVisible = false
-                binding.customTarget.isCursorVisible = false
+                binding.getCountOfSteps.clearFocus()
+                binding.customTarget.clearFocus()
 
                 if (!keyboardStatus) {
                     keyboardStatus = true
-                    if (binding.getCountOfSteps.text.isNotEmpty() && binding.getCountOfSteps.isFocused) {
+                    if (binding.getCountOfSteps.text.toString().isNotEmpty() && binding.getCountOfSteps.isFocused) {
                         saveAfterKeyboardClosedOrLostFocusForSteps()
                     }
 
-                    if (binding.customTarget.text.isNotEmpty() && binding.customTarget.isFocused) {
+                    if (binding.customTarget.text.toString().isNotEmpty() && binding.customTarget.isFocused) {
                         saveAfterKeyboardClosedOrLostFocusForTarget()
                     }
-                    else if (binding.customTarget.isFocused && binding.customTarget.text.isEmpty() && _currentTarget != 5000 && _currentTarget != 10000 && _currentTarget != 15000) {
+                    else if (binding.customTarget.isFocused && binding.customTarget.text.toString().isEmpty() && _currentTarget != 5000 && _currentTarget != 10000 && _currentTarget != 15000) {
                         viewModel.setTarget(10000)
                     }
                 }
-
             }
             else {
-                binding.getCountOfSteps.isCursorVisible = true
-                binding.customTarget.isCursorVisible = true
                 keyboardStatus = false
             }
 
@@ -256,17 +252,11 @@ class StepsFragment : Fragment() {
                 //Сохраняет или обновляет базу данных
                 saveOrUpdateStepBdKeyBoard()
                 binding.getCountOfSteps.setSelection(binding.getCountOfSteps.text.toString().length)
-
+                binding.textInputLayout.error = null
             }
-            binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         }
         else {
-            binding.getCountOfSteps.setCompoundDrawablesWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.error_ic,
-                0
-            )
+            binding.textInputLayout.error = this.requireContext().getString(R.string.wrongValue)
         }
     }
 
@@ -276,13 +266,12 @@ class StepsFragment : Fragment() {
             if (binding.customTarget.text.toString().toInt() != _currentTarget) {
                 //Сохраняет цель
                 viewModel.setTarget(target = binding.customTarget.text.toString().toInt())
-
                 binding.customTarget.setSelection(binding.customTarget.text.toString().length)
+                binding.textInputLayout2.error = null
             }
-            binding.customTarget.setCompoundDrawablesWithIntrinsicBounds(0, 0,0, 0)
         }
         else {
-            binding.customTarget.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.error_ic, 0)
+            binding.textInputLayout2.error = this.requireContext().getString(R.string.wrongValue)
         }
 
     }
@@ -377,12 +366,12 @@ class StepsFragment : Fragment() {
     private fun saveOrUpdateStepBdKeyBoard() {
         var currentDate = Calendar.getInstance().timeInMillis
         if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(_day)) {
-            if (binding.getCountOfSteps.text.isNotEmpty()) {
+            if (binding.getCountOfSteps.text.toString().isNotEmpty()) {
                 viewModel.insertSteps(steps = binding.getCountOfSteps.text.toString().toInt())
             }
         }
         else {
-            if (binding.getCountOfSteps.text.isNotEmpty()) { //Если новая дата совпадает со старой -> update
+            if (binding.getCountOfSteps.text.toString().isNotEmpty()) { //Если новая дата совпадает со старой -> update
                 viewModel.updateSteps(id = _id, steps = binding.getCountOfSteps.text.toString().toInt())
             }
         }

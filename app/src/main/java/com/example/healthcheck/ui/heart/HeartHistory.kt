@@ -67,7 +67,7 @@ class HeartHistory : Fragment() {
             binding.heartHistoryRecyclerView.layoutManager = layoutManager
             binding.heartHistoryRecyclerView.adapter = adapter
             viewModel.historyHeartList.collect { list ->
-                adapter.cardioList = list
+                adapter.cardioList = list.reversed()
                 if (list.isEmpty()) {
                     binding.nothingThere.visibility = View.VISIBLE
                 }

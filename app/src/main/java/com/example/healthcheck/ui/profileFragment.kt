@@ -99,17 +99,20 @@ class profileFragment : Fragment() {
         }
 
         binding.confirm.setOnClickListener {
-            if (binding.nameText.text.isNotEmpty() && binding.ageText.text.isNotEmpty() && binding.heightText.text.isNotEmpty()) {
+            if (binding.nameText.text.toString().isNotEmpty() && binding.ageText.text.toString().isNotEmpty() && binding.heightText.text.toString().isNotEmpty()) {
                 if (binding.nameText.text.toString() != _name) {
                     viewModel.setUserName(name = binding.nameText.text.toString())
+                    binding.textInputLayout.error = null
                 }
 
                 if (binding.ageText.text.toString().toInt() != _age) {
                     viewModel.setAge(age = binding.ageText.text.toString().toInt())
+                    binding.textInputLayout2.error = null
                 }
 
                 if (binding.heightText.text.toString().toFloat() != _height) {
                     viewModel.setHeight(height = binding.heightText.text.toString().toFloat())
+                    binding.textInputLayout3.error = null
                 }
 
                 viewModel.setGender(gender = _gender)
@@ -127,16 +130,16 @@ class profileFragment : Fragment() {
                 buttonChangeScreenAnimation(binding.confirm, navigation, direction, navOptions, navigate)
             }
             else {
-                if(binding.nameText.text.isEmpty()) {
-                    binding.nameText.error = "Обязательно поле"
+                if(binding.nameText.text.toString().isEmpty()) {
+                    binding.textInputLayout.error = this.requireContext().getString(R.string.mandatoryValue)
                 }
 
-                if(binding.ageText.text.isEmpty()) {
-                    binding.ageText.error = "Обязательно поле"
+                if(binding.ageText.text.toString().isEmpty()) {
+                    binding.textInputLayout2.error = this.requireContext().getString(R.string.mandatoryValue)
                 }
 
-                if(binding.heightText.text.isEmpty()) {
-                    binding.heightText.error = "Обязательно поле"
+                if(binding.heightText.text.toString().isEmpty()) {
+                    binding.textInputLayout3.error = this.requireContext().getString(R.string.mandatoryValue)
                 }
             }
         }

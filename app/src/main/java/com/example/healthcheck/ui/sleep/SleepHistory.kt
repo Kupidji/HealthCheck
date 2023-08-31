@@ -66,7 +66,7 @@ class SleepHistory : Fragment() {
             binding.sleepHistoryRecyclerView.adapter = adapter
             binding.sleepHistoryRecyclerView.layoutManager = layoutManager
             viewModel.sleepListHistory.collect { list ->
-                adapter.list = list
+                adapter.list = list.reversed()
                 if (list.isEmpty()) {
                     binding.nothingThere.visibility = View.VISIBLE
                 }

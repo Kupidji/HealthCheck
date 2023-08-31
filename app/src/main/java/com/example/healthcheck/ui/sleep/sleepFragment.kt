@@ -1,12 +1,10 @@
 package com.example.healthcheck.ui.sleep
 
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.domain.AppDispatchers
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentSleepBinding
+import com.example.healthcheck.util.HideKeyBoard.hideKeyboard
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.sleep.SleepViewModel
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -72,7 +71,7 @@ class sleepFragment : Fragment() {
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.sleepForDay.collect { time ->
-                binding.getGoesToBedTime.text = time
+                binding.getGoesToBedTime.setText(time)
             }
         }
 
@@ -100,7 +99,25 @@ class sleepFragment : Fragment() {
             }
         }
 
-        binding.sleep1.setOnClickListener {
+        binding.getGoesToBedTime.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.getGoesToBedTime.hideKeyboard(activity = this.activity)
+                val timeMode1 = this.requireContext().getString(R.string.start_sleep)
+                val timeMode2 = this.requireContext().getString(R.string.wakeup)
+                setTimePicker(timeMode = timeMode1) { callback ->
+                    _goesToBedTime = callback
+                    viewModel.setGoToSleepTime(time = callback)
+                    setTimePicker(timeMode = timeMode2) { callback2 ->
+                        _wakeUpTime = callback2
+                        viewModel.setWakeUpTime(time = callback2)
+                        saveSleep(_id, _date)
+                    }
+                }
+            }
+        }
+
+        binding.getGoesToBedTime.setOnClickListener {
+            binding.getGoesToBedTime.hideKeyboard(activity = this.activity)
             val timeMode1 = this.requireContext().getString(R.string.start_sleep)
             val timeMode2 = this.requireContext().getString(R.string.wakeup)
             setTimePicker(timeMode = timeMode1) { callback ->

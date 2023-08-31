@@ -1,7 +1,5 @@
 package com.example.healthcheck.ui.heart
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
@@ -152,10 +150,10 @@ class AddHeartItemFragment : Fragment() {
 
         })
 
-        binding.dateAndTimeText.text = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault()).format(_date)
+        binding.dateAndTimeBox.setText(SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault()).format(_date))
 
         binding.dateAndTimeBoxLayout.setOnClickListener {
-            showTimePicker(textView = binding.dateAndTimeText) { callback ->
+            showTimePicker(textView = binding.dateAndTimeBox) { callback ->
                 _date = callback
             }
         }
@@ -229,38 +227,6 @@ class AddHeartItemFragment : Fragment() {
             }
         }
 
-    }
-
-    private fun setAlarm(textView: TextView, callback: (Long) -> Unit) {
-        Calendar.getInstance().apply {
-            this.set(Calendar.SECOND, 0)
-            this.set(Calendar.MILLISECOND, 0)
-            DatePickerDialog(
-                this@AddHeartItemFragment.requireContext(),
-                { _, year, month, dayOfMonth ->
-                    this.set(Calendar.YEAR, year)
-                    this.set(Calendar.MONTH, month)
-                    this.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    TimePickerDialog(
-                        this@AddHeartItemFragment.context,
-                        0,
-                        { _, hour, minute ->
-                            this.set(Calendar.HOUR_OF_DAY, hour)
-                            this.set(Calendar.MINUTE, minute)
-                            callback(this.timeInMillis)
-                            textView.text = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale.getDefault()).format(this.time)
-                        },
-                        this.get(Calendar.HOUR_OF_DAY),
-                        this.get(Calendar.MINUTE),
-                        true
-                    ).show()
-                },
-                this.get(Calendar.YEAR),
-                this.get(Calendar.MONTH),
-                this.get(Calendar.DAY_OF_MONTH)
-            ).show()
-
-        }
     }
 
     private fun showTimePicker(textView: TextView, callback: (Long) -> Unit) {

@@ -64,152 +64,116 @@
                 app:layout_constraintBottom_toBottomOf="@id/wentBack"
                 android:text="@string/profile"
                 />
-            
-            <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toTopOf="@id/nameBox"
-                app:layout_constraintBottom_toBottomOf="@id/nameBox"
-                android:text="@string/name"
-                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nameBox"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toEndOf="@id/margin_main3"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/profileText"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="15dp">
 
-                <ImageView
-                    android:id="@+id/nameImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="77dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/nameText"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/nameImage"
-                    app:layout_constraintTop_toTopOf="@id/nameImage"
-                    app:layout_constraintBottom_toBottomOf="@id/nameImage"
-                    app:layout_constraintEnd_toEndOf="@id/nameImage"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="@id/nameBox"
+                    app:layout_constraintTop_toTopOf="@id/nameBox"
+                    app:layout_constraintEnd_toEndOf="@id/nameBox"
+                    app:errorEnabled="true"
                     android:hint="@string/input_name"
-                    android:background="@android:color/transparent"
-                    android:inputType="textCapSentences"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    />
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                        android:inputType="textCapSentences"
+                        android:imeOptions="actionDone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toTopOf="@id/ageBox"
-                app:layout_constraintBottom_toBottomOf="@id/ageBox"
-                android:text="@string/age"
-                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ageBox"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/margin_main3"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/nameBox"
                 android:layout_marginTop="10dp">
 
-                <ImageView
-                    android:id="@+id/ageImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="77dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/ageText"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout2"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/ageImage"
-                    app:layout_constraintTop_toTopOf="@id/ageImage"
-                    app:layout_constraintBottom_toBottomOf="@id/ageImage"
-                    app:layout_constraintEnd_toEndOf="@id/ageImage"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="@id/ageBox"
+                    app:layout_constraintTop_toTopOf="@id/ageBox"
+                    app:layout_constraintEnd_toEndOf="@id/ageBox"
+                    app:errorEnabled="true"
                     android:hint="@string/input_age"
-                    android:inputType="number"
-                    android:background="@android:color/transparent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    />
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ageText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout2"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout2"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout2"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout2"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/height"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toTopOf="@id/heightBox"
-                app:layout_constraintBottom_toBottomOf="@id/heightBox"
-                android:text="@string/height"
-                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/heightBox"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/margin_main3"
+                app:layout_constraintStart_toStartOf="@id/margin_main1"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/ageBox"
                 android:layout_marginTop="10dp"
                 >
 
-                <ImageView
-                    android:id="@+id/heightImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="77dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/heightText"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout3"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/heightImage"
-                    app:layout_constraintTop_toTopOf="@id/heightImage"
-                    app:layout_constraintBottom_toBottomOf="@id/heightImage"
-                    app:layout_constraintEnd_toEndOf="@id/heightImage"
+                    android:layout_height="77dp"
+                    app:layout_constraintStart_toStartOf="@id/heightBox"
+                    app:layout_constraintTop_toTopOf="@id/heightBox"
+                    app:layout_constraintEnd_toEndOf="@id/heightBox"
+                    app:errorEnabled="true"
                     android:hint="@string/input_height"
-                    android:inputType="number"
-                    android:background="@android:color/transparent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    />
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/heightText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout3"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout3"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout3"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout3"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
