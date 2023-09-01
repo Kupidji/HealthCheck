@@ -1,6 +1,5 @@
 package com.example.healthcheck.viewmodels.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repositories
@@ -15,13 +14,10 @@ import com.example.domain.usecase.steps.GetLastStepsIdAndDate
 import com.example.domain.usecase.steps.GetStepsTarget
 import com.example.domain.usecase.weight.GetLastWeightIdAndDate
 import com.example.domain.usecase.weight.GetWeightTarget
-import com.example.healthcheck.App
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 

@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStart5Binding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.start.StartFragment5ViewModel
@@ -52,20 +53,31 @@ class StartFragment5 : Fragment() {
         numberPicker0.minValue = 10
         numberPicker0.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         numberPicker0.wrapSelectorWheel = false
+        binding.ageText.setText(numberPicker0.value.toString())
 
-        val numberPicker1: NumberPicker = binding.numberPicker1
-        numberPicker1.maxValue = 200
-        numberPicker1.minValue = 20
-        numberPicker1.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        numberPicker1.wrapSelectorWheel = false
+        numberPicker0.setOnValueChangedListener { picker, oldVal, newVal ->
+            binding.ageText.setText(newVal.toString())
+        }
 
         binding.next.setOnClickListener {
-            viewModel.setAge(binding.numberPicker0.value.toString().toInt())
-            viewModel.insertWeight(binding.numberPicker1.value.toString().toFloat())
+            if (binding.ageText.text.toString().isNotEmpty()) {
+                if (binding.ageText.text.toString().toInt() in 10..100) {
+                    binding.textInputLayout2.error = null
+                    viewModel.setAge(binding.ageText.text.toString().toInt())
 
-            val direction = StartFragment5Directions.actionStartFragment5ToStartFragment6()
-            val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
-            buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
+                    val direction = StartFragment5Directions.actionStartFragment5ToStartFragment6()
+                    val navigate = { nav : NavController, d : NavDirections, n : NavOptions -> nav.navigate(d, n)}
+                    buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
+                }
+                else {
+                    binding.textInputLayout2.error = this.requireContext().getString(R.string.wrongValue)
+                }
+
+            }
+            else {
+                binding.textInputLayout2.error = this.requireContext().getString(R.string.mandatoryValue)
+            }
+
         }
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {

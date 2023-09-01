@@ -105,14 +105,23 @@ class profileFragment : Fragment() {
                     binding.textInputLayout.error = null
                 }
 
-                if (binding.ageText.text.toString().toInt() != _age) {
-                    viewModel.setAge(age = binding.ageText.text.toString().toInt())
+                if (binding.ageText.text.toString().toInt() in 10..100) {
                     binding.textInputLayout2.error = null
+                    if (binding.ageText.text.toString().toInt() != _age) {
+                        viewModel.setAge(age = binding.ageText.text.toString().toInt())
+                    }
+                }
+                else {
+                    binding.textInputLayout2.error = this.requireContext().getString(R.string.wrongValue)
                 }
 
-                if (binding.heightText.text.toString().toFloat() != _height) {
-                    viewModel.setHeight(height = binding.heightText.text.toString().toFloat())
-                    binding.textInputLayout3.error = null
+                if (binding.heightText.text.toString().toFloat() in 100.0..300.0) {
+                    if (binding.heightText.text.toString().toFloat() != _height) {
+                        viewModel.setHeight(height = binding.heightText.text.toString().toFloat())
+                    }
+                }
+                else {
+                    binding.textInputLayout3.error = this.requireContext().getString(R.string.wrongValue)
                 }
 
                 viewModel.setGender(gender = _gender)

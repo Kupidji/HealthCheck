@@ -7,14 +7,13 @@ import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.usecase.GetAverageOfSleepForWeek
 import com.example.domain.usecase.GetHeartForWeekFromDb
-import com.example.domain.usecase.steps.GetAverageOfStepsForWeekFromDb
 import com.example.domain.usecase.GetWeightForWeekFromDb
+import com.example.domain.usecase.steps.GetAverageOfStepsForWeekFromDb
 import com.example.domain.usecase.steps.GetStepsTarget
 import com.example.domain.usecase.weight.GetWeightTarget
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainFragment2ViewModel(application: Application) : AndroidViewModel(application) {

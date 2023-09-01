@@ -1,5 +1,6 @@
 package com.example.healthcheck.ui.main
 
+import android.content.Context
 import com.example.healthcheck.notifications.receiver.DateChangedBroadcastReceiver
 import android.os.Bundle
 import android.util.Log
@@ -40,20 +41,32 @@ class mainFragment : Fragment() {
     private lateinit var _nearestActMedicine : Medicines
     private var isClickable = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val navigation = findNavController()
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.isFirstLaunch.collect { status ->
+                if (status) {
+                    navigation.navigate(R.id.startFragment)
+                }
+            }
+        }
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val navigation = findNavController()
-
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
             .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
@@ -63,14 +76,6 @@ class mainFragment : Fragment() {
 
         val viewPagerAdapter = ViewPagerAdapter(this, viewModel.fragList)
         binding.viewPager.adapter = viewPagerAdapter
-
-        lifecycleScope.launch(AppDispatchers.main) {
-            viewModel.isFirstLaunch.collect { status ->
-                if (status) {
-                    navigation.navigate(R.id.startFragment)
-                }
-            }
-        }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.nearestAction.collect { action ->

@@ -6,17 +6,13 @@ import com.example.data.Repositories
 import com.example.domain.AppDispatchers
 import com.example.domain.usecase.GetAverageOfSleepForMonth
 import com.example.domain.usecase.GetHeartForMonthFromDb
-import com.example.domain.usecase.sleep.GetHoursOfSleepForMonthFromDb
 import com.example.domain.usecase.GetWeightForMonthFromDb
 import com.example.domain.usecase.steps.GetAverageOfStepsForMonthFromDb
 import com.example.domain.usecase.steps.GetStepsTarget
 import com.example.domain.usecase.weight.GetWeightTarget
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 class MainFragment3ViewModel : ViewModel() {
