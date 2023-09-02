@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -88,33 +89,31 @@
                 android:layout_marginTop="10dp"
                 >
 
-                <ImageView
-                    android:id="@+id/weightImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="66dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/box"
-                    />
-
-                <EditText
-                    style="@style/hint1"
-                    android:id="@+id/getWeight"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/weightImage"
-                    app:layout_constraintEnd_toEndOf="@id/weightImage"
-                    app:layout_constraintTop_toTopOf="@id/weightImage"
-                    app:layout_constraintBottom_toBottomOf="@id/weightImage"
+                    android:layout_height="66dp"
+                    app:layout_constraintStart_toStartOf="@id/inputWeightBox"
+                    app:layout_constraintTop_toTopOf="@id/inputWeightBox"
+                    app:layout_constraintEnd_toEndOf="@id/inputWeightBox"
+                    app:errorEnabled="true"
                     android:hint="@string/input_weight"
-                    android:background="@android:color/transparent"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionDone"
-                    />
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                        android:inputType="numberDecimal"
+                        android:imeOptions="actionDone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

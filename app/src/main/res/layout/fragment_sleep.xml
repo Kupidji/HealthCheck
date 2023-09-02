@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -88,31 +89,31 @@
                 android:layout_marginEnd="5dp"
                 >
 
-                <ImageView
-                    android:id="@+id/sleep1"
-                    android:layout_width="match_parent"
-                    android:layout_height="66dp"
-                    android:src="@drawable/box"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
-                <TextView
-                    style="@style/hint1"
-                    android:id="@+id/getGoesToBedTime"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintTop_toTopOf="@id/sleep1"
-                    app:layout_constraintEnd_toEndOf="@id/sleep1"
-                    app:layout_constraintBottom_toBottomOf="@id/sleep1"
-                    app:layout_constraintStart_toStartOf="@id/sleep1"
-                    android:paddingStart="10dp"
-                    android:hint="@string/start_sleep"
-                    android:gravity="center_vertical"
-                    android:background="@android:color/transparent"
-                    />
+                    android:layout_height="66dp"
+                    app:layout_constraintStart_toStartOf="@id/sleep1_box"
+                    app:layout_constraintTop_toTopOf="@id/sleep1_box"
+                    app:layout_constraintEnd_toEndOf="@id/sleep1_box"
+                    app:errorEnabled="true"
+                    android:hint="@string/input_fields"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getGoesToBedTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                        android:inputType="time"
+                        android:imeOptions="actionDone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

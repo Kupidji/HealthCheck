@@ -11,10 +11,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentStart4Binding
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.start.StartFragment4ViewModel
-
 
 class StartFragment4 : Fragment() {
 
@@ -53,7 +53,7 @@ class StartFragment4 : Fragment() {
         }
 
         binding.next.setOnClickListener {
-            if (binding.getName.text.isNotEmpty() && binding.radioGender.checkedRadioButtonId != -1) {
+            if (binding.getName.text.toString().isNotEmpty() && binding.radioGender.checkedRadioButtonId != -1) {
                 viewModel.setName(binding.getName.text.toString())
                 viewModel.setGender(gender)
 
@@ -62,7 +62,7 @@ class StartFragment4 : Fragment() {
                 buttonChangeScreenAnimation(binding.next, navigation, direction, navOptions, navigate)
             }
             else {
-                binding.getName.error = "Поле пустое"
+                binding.textInputLayout.error = this.requireContext().getString(R.string.emptyString)
             }
         }
 

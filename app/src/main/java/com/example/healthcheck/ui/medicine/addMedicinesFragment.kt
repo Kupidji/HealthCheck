@@ -1,11 +1,12 @@
 package com.example.healthcheck.ui.medicine
 
-import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +22,9 @@ import com.example.healthcheck.models.MedicineParams
 import com.example.healthcheck.util.animations.ButtonPress.buttonPressAnimation
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.medicine.AddMedicinesViewModel
+import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -51,51 +55,94 @@ class addMedicinesFragment : Fragment() {
 
         val navigation = findNavController()
 
+        binding.getFirstTime.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.getFirstTime.hideKeyboard()
+                setTimePicker(binding.getFirstTime) { callback ->
+                    firstTime = callback
+                    onGetTime(binding.getFirstTime)
+                }
+            }
+        }
+
         binding.getFirstTime.setOnClickListener {
-            setAlarm(binding.getFirstTime) { callback ->
+            binding.getFirstTime.hideKeyboard()
+            setTimePicker(binding.getFirstTime) { callback ->
                 firstTime = callback
                 onGetTime(binding.getFirstTime)
             }
 
         }
 
-        binding.deleteFirstTime.setOnClickListener {
-            onDeleteTime(binding.deleteFirstTime)
+        binding.textInputLayout2.setEndIconOnClickListener {
+            onClearTextClick(binding.textInputLayout2)
+        }
+
+        binding.getSecondTime.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.getSecondTime.hideKeyboard()
+                setTimePicker(binding.getSecondTime) { callback ->
+                    secondTime = callback
+                    onGetTime(binding.getSecondTime)
+                }
+            }
         }
 
         binding.getSecondTime.setOnClickListener {
-            setAlarm(binding.getSecondTime) { callback ->
+            binding.getSecondTime.hideKeyboard()
+            setTimePicker(binding.getSecondTime) { callback ->
                 secondTime = callback
                 onGetTime(binding.getSecondTime)
             }
 
         }
 
-        binding.deleteSecondTime.setOnClickListener {
-            onDeleteTime(binding.deleteSecondTime)
+        binding.textInputLayout3.setEndIconOnClickListener {
+            onClearTextClick(binding.textInputLayout3)
+        }
+
+        binding.getThirdTime.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.getThirdTime.hideKeyboard()
+                setTimePicker(binding.getThirdTime) { callback ->
+                    thirdTime = callback
+                    onGetTime(binding.getThirdTime)
+                }
+            }
         }
 
         binding.getThirdTime.setOnClickListener {
-            setAlarm(binding.getThirdTime) { callback ->
+            binding.getThirdTime.hideKeyboard()
+            setTimePicker(binding.getThirdTime) { callback ->
                 thirdTime = callback
                 onGetTime(binding.getThirdTime)
             }
-
         }
 
-        binding.deleteThirdTime.setOnClickListener {
-            onDeleteTime(binding.deleteThirdTime)
+        binding.textInputLayout4.setEndIconOnClickListener {
+            onClearTextClick(binding.textInputLayout4)
+        }
+
+        binding.getFourthTime.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.getFourthTime.hideKeyboard()
+                setTimePicker(binding.getFourthTime) { callback ->
+                    fourthTime = callback
+                    onGetTime(binding.getFourthTime)
+                }
+            }
         }
 
         binding.getFourthTime.setOnClickListener {
-            setAlarm(binding.getFourthTime) { callback ->
+            binding.getFourthTime.hideKeyboard()
+            setTimePicker(binding.getFourthTime) { callback ->
                 fourthTime = callback
                 onGetTime(binding.getFourthTime)
             }
         }
 
-        binding.deleteFourthTime.setOnClickListener {
-            onDeleteTime(binding.deleteFourthTime)
+        binding.textInputLayout5.setEndIconOnClickListener {
+            onClearTextClick(binding.textInputLayout5)
         }
 
         binding.wentBack.setOnClickListener {
@@ -114,9 +161,10 @@ class addMedicinesFragment : Fragment() {
         }
 
         binding.saveMedicine.setOnClickListener {
-            if (binding.getTitle.text.isNotEmpty()) {
+            if (binding.getTitle.text.toString().isNotEmpty()) {
+                binding.textInputLayout.error = null
                 var durationOfCourse = 0
-                if (binding.getCountOfDays.text.isNotEmpty()) {
+                if (binding.getCountOfDays.text.toString().isNotEmpty()) {
                     durationOfCourse = binding.getCountOfDays.text.toString().toInt()
                 }
 
@@ -146,7 +194,7 @@ class addMedicinesFragment : Fragment() {
             }
             else {
                 buttonPressAnimation(binding.saveMedicineLayout)
-                binding.getTitle.error = "Обязательное поле"
+                binding.textInputLayout.error = this.requireContext().getString(R.string.mandatoryValue)
             }
 
         }
@@ -158,106 +206,94 @@ class addMedicinesFragment : Fragment() {
 
             binding.getFirstTime -> {
                 addAnimation(binding.secondTimeBox)
-                binding.deleteFirstTime.visibility = View.VISIBLE
             }
 
             binding.getSecondTime -> {
                 addAnimation(binding.thirdTimeBox)
-                binding.deleteSecondTime.visibility = View.VISIBLE
             }
 
             binding.getThirdTime -> {
                 addAnimation(binding.fourthTimeBox)
-                binding.deleteThirdTime.visibility = View.VISIBLE
-            }
-
-            binding.getFourthTime -> {
-                binding.deleteFourthTime.visibility = View.VISIBLE
             }
 
         }
     }
 
-    private fun onDeleteTime(imageView: ImageView) {
+    private fun onClearTextClick(view : TextInputLayout) {
 
-        when (imageView) {
-            binding.deleteFirstTime -> {
-                binding.getFirstTime.text = ""
+        when (view) {
+
+            binding.textInputLayout2 -> {
+                binding.textInputLayout2.editText?.text?.clear()
                 firstTime = 0L
-                binding.deleteFirstTime.visibility = View.GONE
 
-                if (binding.getSecondTime.text.isEmpty()) {
+                if (binding.getSecondTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.secondTimeBox)
                 }
-                if (binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
+                if (binding.getSecondTime.text.toString().isEmpty() && binding.getThirdTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.secondTimeBox)
                     deleteAnimation(binding.thirdTimeBox)
                 }
-                if (binding.getSecondTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
+                if (binding.getSecondTime.text.toString().isEmpty() && binding.getThirdTime.text.toString().isEmpty() && binding.getFourthTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.secondTimeBox)
                     deleteAnimation(binding.thirdTimeBox)
                     deleteAnimation(binding.fourthTimeBox)
                 }
-
-
             }
 
-            binding.deleteSecondTime -> {
-                binding.getSecondTime.text = ""
+            binding.textInputLayout3 -> {
+                binding.textInputLayout3.editText?.text?.clear()
                 secondTime = 0L
-                binding.deleteSecondTime.visibility = View.GONE
 
-                if (binding.getThirdTime.text.isEmpty()) {
+                if (binding.getThirdTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.thirdTimeBox)
                 }
-                if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
+                if (binding.getFirstTime.text.toString().isEmpty() && binding.getThirdTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.secondTimeBox)
                     deleteAnimation(binding.thirdTimeBox)
                 }
-                if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
+                if (binding.getFirstTime.text.toString().isEmpty() && binding.getThirdTime.text.toString().isEmpty() && binding.getFourthTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.secondTimeBox)
                     deleteAnimation(binding.thirdTimeBox)
                     deleteAnimation(binding.fourthTimeBox)
                 }
-
             }
 
-            binding.deleteThirdTime -> {
-                binding.getThirdTime.text = ""
+            binding.textInputLayout4 -> {
+                binding.textInputLayout4.editText?.text?.clear()
                 thirdTime = 0L
-                binding.deleteThirdTime.visibility = View.GONE
 
-                if (binding.getFourthTime.text.isEmpty()) {
+                if (binding.getFourthTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.fourthTimeBox)
                 }
-                if (binding.getSecondTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
+                if (binding.getSecondTime.text.toString().isEmpty() && binding.getFourthTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.thirdTimeBox)
                     deleteAnimation(binding.fourthTimeBox)
                 }
-                if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty() && binding.getFourthTime.text.isEmpty()) {
+                if (binding.getFirstTime.text.toString().isEmpty() && binding.getThirdTime.text.toString().isEmpty() && binding.getFourthTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.secondTimeBox)
                     deleteAnimation(binding.thirdTimeBox)
                     deleteAnimation(binding.fourthTimeBox)
                 }
-
             }
 
-            binding.deleteFourthTime -> {
-                binding.getFourthTime.text = ""
+            binding.textInputLayout5 -> {
+                binding.textInputLayout5.editText?.text?.clear()
                 fourthTime = 0L
-                binding.deleteFourthTime.visibility = View.GONE
 
-                if (binding.getFirstTime.text.isEmpty() && binding.getThirdTime.text.isEmpty()) {
+                if (binding.getFirstTime.text.toString().isEmpty() && binding.getThirdTime.text.toString().isEmpty()) {
                     deleteAnimation(binding.secondTimeBox)
                     deleteAnimation(binding.thirdTimeBox)
                 }
             }
 
         }
+
     }
 
     private fun addAnimation(view: ConstraintLayout) {
         view.visibility = View.VISIBLE
+        view.alpha = 0F
         view.animate()
             .setDuration(300L)
             .scaleX(1F)
@@ -275,23 +311,35 @@ class addMedicinesFragment : Fragment() {
             }
     }
 
-    private fun setAlarm(textView: TextView, callback: (Long) -> Unit) {
+    private fun setTimePicker(textView: TextView, callback: (Long) -> Unit) {
         Calendar.getInstance().apply {
             this.set(Calendar.SECOND, 0)
             this.set(Calendar.MILLISECOND, 0)
-            TimePickerDialog(
-                this@addMedicinesFragment.context,
-                0,
-                { _, hour, minute ->
-                    this.set(Calendar.HOUR_OF_DAY, hour)
-                    this.set(Calendar.MINUTE, minute)
-                    callback(this.timeInMillis)
-                    textView.text = SimpleDateFormat("HH:mm").format(this.time)
-                },
-                this.get(Calendar.HOUR_OF_DAY),
-                this.get(Calendar.MINUTE),
-                true
-            ).show()
+
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(this.get(Calendar.HOUR_OF_DAY))
+                .setMinute(this.get(Calendar.MINUTE))
+                .setTitleText(this@addMedicinesFragment.context?.getString(R.string.timeOfNotification))
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .build()
+
+            timePicker.addOnPositiveButtonClickListener {
+                this.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                this.set(Calendar.MINUTE, timePicker.minute)
+                callback(this.timeInMillis)
+                textView.text = SimpleDateFormat("HH:mm").format(this.time)
+            }
+
+            timePicker.show(requireActivity().supportFragmentManager, "timePicker")
+        }
+    }
+
+    private fun EditText.hideKeyboard() {
+        if (requestFocus()) {
+            (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(this.windowToken, 0)
+            setSelection(text.length)
         }
     }
 

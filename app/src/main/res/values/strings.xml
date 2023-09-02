@@ -26,10 +26,11 @@
     <string name="of_steps">шагов</string>
     <string name="average_steps">шагов среднее</string>
     <string name="kg">кг</string>
+    <string name="select_target">Цель на день</string>
     <string name="total_steps">шагов всего</string>
     <string name="week">Неделя</string>
     <string name="month">Месяц</string>
-    <string name="select_target">Выберите цель</string>
+    <string name="select_everyday_target">Введите ежедневную цель</string>
     <string name="input_target">Введите свою цель</string>
     <string name="calories_burned">Сожжено калорий</string>
     <string name="calories">калорий</string>
@@ -123,4 +124,9 @@
     <string name="deliting">Удаление</string>
     <string name="areUSure">Вы действительно хотите удалить курс?</string>
     <string name="yes">Да</string>
+    <string name="timeOfNotification">Время уведомления</string>
+    <string name="chooseDate">Выберите дату</string>
+    <string name="chooseTime">Выберите время</string>
+    <string name="mandatoryValue">Обязательное поле</string>
+    <string name="or">Или</string>
 </resources>

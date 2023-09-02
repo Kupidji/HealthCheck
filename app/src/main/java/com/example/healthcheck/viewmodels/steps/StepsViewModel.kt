@@ -16,10 +16,7 @@ import com.example.domain.usecase.steps.SetStepsTarget
 import com.example.domain.usecase.steps.UpdateSteps
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -175,21 +172,27 @@ class StepsViewModel : ViewModel() {
     fun getKkalForDay(steps : Int)  {
         viewModelScope.launch(AppDispatchers.main) {
             val getKkal = GetKkal(repository = Repositories.weightRepository)
-            _kkalForDay.emit(getKkal.execute(steps = steps))
+            getKkal.execute(steps = steps).collect { kkal ->
+                _kkalForDay.emit(kkal)
+            }
         }
     }
 
     fun getKkalForWeek(steps : Int) {
         viewModelScope.launch(AppDispatchers.main) {
             val getKkal = GetKkal(repository = Repositories.weightRepository)
-            _kkalForWeek.emit(getKkal.execute(steps = steps))
+            getKkal.execute(steps = steps).collect { kkal ->
+                _kkalForWeek.emit(kkal)
+            }
         }
     }
 
     fun getKkalForMonth(steps : Int) {
         viewModelScope.launch(AppDispatchers.main) {
             val getKkal = GetKkal(repository = Repositories.weightRepository)
-            _kkalForMonth.emit(getKkal.execute(steps = steps))
+            getKkal.execute(steps = steps).collect { kkal ->
+                _kkalForMonth.emit(kkal)
+            }
         }
     }
 

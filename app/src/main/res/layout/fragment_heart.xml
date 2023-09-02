@@ -87,6 +87,8 @@
                 app:layout_constraintStart_toStartOf="@id/margin_main"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
                 app:layout_constraintTop_toBottomOf="@id/lastNoteTitle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0"
                 android:layout_marginTop="10dp"
                 >
 
@@ -98,25 +100,28 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:clipToPadding="true"
-                    app:cardCornerRadius="15dp"
-                    />
+                    android:clipToPadding="false"
+                    app:cardCornerRadius="10dp"
+                    >
 
-                <androidx.recyclerview.widget.RecyclerView
-                    tools:listitem="@layout/heart_item"
-                    android:id="@+id/heartRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/recyclerCardView"
-                    app:layout_constraintEnd_toEndOf="@id/recyclerCardView"
-                    app:layout_constraintTop_toTopOf="@id/recyclerCardView"
-                    app:layout_constraintBottom_toBottomOf="@id/recyclerCardView"
-                    app:layout_constraintVertical_bias="0"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    />
+                    <androidx.recyclerview.widget.RecyclerView
+                        tools:listitem="@layout/heart_item"
+                        android:id="@+id/heartRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/recyclerCardView"
+                        app:layout_constraintEnd_toEndOf="@id/recyclerCardView"
+                        app:layout_constraintTop_toTopOf="@id/recyclerCardView"
+                        app:layout_constraintBottom_toBottomOf="@id/recyclerCardView"
+                        android:clipToPadding="false"
+                        android:padding="2dp"
+                        android:layout_marginTop="2dp"
+                        android:overScrollMode="never"
+                        />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
 
                 <TextView
                     style="@style/zagalovok2"

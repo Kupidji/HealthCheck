@@ -1,39 +1,52 @@
 package com.example.healthcheck.ui.main
 
 import android.Manifest.permission.POST_NOTIFICATIONS
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.data.AGE
+import com.example.data.AUTOSTART_IS_AVAIBLE
 import com.example.data.CHOOSEN_THEME
 import com.example.data.FIRST_LAUNCH
+import com.example.data.FOREARM
 import com.example.data.GENDER
 import com.example.data.HEALTHY_EAT_VISIBILITY
 import com.example.data.HEIGHT
+import com.example.data.HIPS
+import com.example.data.HIP_1
+import com.example.data.HIP_2
 import com.example.data.NAME
+import com.example.data.NECK
 import com.example.data.PROFILE
 import com.example.data.Repositories
 import com.example.data.SETTINGS
+import com.example.data.SHIN
+import com.example.data.STEPS
+import com.example.data.STEPS_TARGET
+import com.example.data.WAIST
+import com.example.data.WEIGHT
+import com.example.data.WRIST
 import com.example.domain.AppDispatchers
-import com.example.domain.usecase.settings.GetApplicationTheme
-import com.example.domain.usecase.start.GetFirstLaunchCompleted
 import com.example.healthcheck.databinding.ActivityMainBinding
+import com.example.healthcheck.notifications.service.MedicinesNotificationService
+import com.example.healthcheck.notifications.service.NotificationService
 import com.example.healthcheck.util.Constants
 import com.google.android.material.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.judemanutd.autostarter.AutoStartPermissionHelper
 import kotlinx.coroutines.launch
+import java.math.RoundingMode
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 ////////██╗░░██╗███████╗░█████╗░██╗░░░░░████████╗██╗░░██╗////////░█████╗░██╗░░██╗███████╗░█████╗░██╗░░██╗
 ////////██║░░██║██╔════╝██╔══██╗██║░░░░░╚══██╔══╝██║░░██║////////██╔══██╗██║░░██║██╔════╝██╔══██╗██║░██╔╝
@@ -59,22 +72,56 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    lateinit var settingAutoStart : SharedPreferences
+    private var getAutoStart = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //тема приложения
-        lifecycleScope.launch(AppDispatchers.main) {
-            val getApplicationTheme = GetApplicationTheme(repository = Repositories.settingsStorage)
-            AppCompatDelegate.setDefaultNightMode(getApplicationTheme.execute())
+        //Запрос на уведомления
+        if (Build.VERSION.SDK_INT >= 33) {
+            notificationPermissionLauncher.launch(POST_NOTIFICATIONS)
+        } else {
+            hasNotificationPermissionGranted = true
+        }
+        //Для восстановления уведомлений
+
+        settingAutoStart = applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)
+        getAutoStart = settingAutoStart.getBoolean(AUTOSTART_IS_AVAIBLE, false)
+        if (!getAutoStart) {
+            if (AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this.applicationContext, onlyIfSupported = true)) {
+                showSettingDialog2()
+            }
         }
 
-//        //тема приложения
-//        val settingsTheme = applicationContext.getSharedPreferences(Constants.CHOOSEN_THEME, Context.MODE_PRIVATE)
-//        if (settingsTheme.contains(Constants.CHOOSEN_THEME)) {
-//            AppCompatDelegate.setDefaultNightMode(settingsTheme.getInt(Constants.CHOOSEN_THEME, AppCompatDelegate.MODE_NIGHT_YES))
-//        }
+
+        //Инициализирование дней в таблетках
+        lifecycleScope.launch(AppDispatchers.io) {
+            val settings = applicationContext.getSharedPreferences(Constants.LAST_UPDATE_DATE, Context.MODE_PRIVATE)
+            val lastTimeFromSettings = settings.getLong(Constants.LAST_UPDATE_DATE, Calendar.getInstance().timeInMillis)
+            val lastTime = SimpleDateFormat("dd.MM").format(lastTimeFromSettings)
+            val calendar = Calendar.getInstance().timeInMillis
+            val today = SimpleDateFormat("dd.MM").format(calendar)
+            Log.d("test", "onCreate: ${lastTime} и ${today}")
+            if (lastTime != today) {
+                val list = Repositories.medicinesRepository.getAllMedicineList()
+                for (medicine in list) {
+                    medicine.currentDayOfCourse = getDiffDaysBetweenActions(curTime = calendar, actionTime = medicine.dateStart)
+                    Log.d("test", "onCreate: ${medicine.currentDayOfCourse}")
+                    Repositories.medicinesRepository.updateMedicine(medicine)
+                }
+            }
+
+            //занесение текущей даты в settings
+            val editor = settings.edit()
+            if (settings.getLong(Constants.LAST_UPDATE_DATE, 0L) != Calendar.getInstance().timeInMillis) {
+                editor?.putLong(Constants.LAST_UPDATE_DATE, Calendar.getInstance().timeInMillis)
+                Log.d("Settings", "App: значение ${settings.getLong(Constants.LAST_UPDATE_DATE, 0L)} было изменено на ${Calendar.getInstance().timeInMillis}")
+                editor?.apply()
+            }
+        }
 
         //TODO убрать в некст обновлении
         /*   отсюда    */
@@ -92,6 +139,13 @@ class MainActivity : AppCompatActivity() {
         val updateCheck = this.applicationContext.getSharedPreferences(UPDATE,Context.MODE_PRIVATE)
         if (updateCheck.getBoolean(UPDATE, true) && isUpdate) {
             updateCheck.edit().putBoolean(UPDATE, false).apply()
+
+            /** кроме этого **/
+            //восстановление уведомлений
+            val medicinesNotificationService = MedicinesNotificationService(context = this.applicationContext)
+            medicinesNotificationService.repairNotifications()
+            val notificationService = NotificationService(context = this.applicationContext)
+            notificationService.repairNotifications()
 
             //Профиль(имя, возраст, рост, пол)
             val oldSettingsStart = this.applicationContext.getSharedPreferences(Constants.START, Context.MODE_PRIVATE)
@@ -123,28 +177,55 @@ class MainActivity : AppCompatActivity() {
             if (oldSettingsHealthyEat != true) {
                 newSettingsSettings.putBoolean(HEALTHY_EAT_VISIBILITY, oldSettingsHealthyEat).apply()
             }
+
+            //измерения в весе
+            val oldSettingsWeight = this.applicationContext.getSharedPreferences(Constants.WEIGHT, Context.MODE_PRIVATE)
+            val newSettingsWeight = this.applicationContext.getSharedPreferences(WEIGHT, Context.MODE_PRIVATE).edit()
+            val oldNeck = oldSettingsWeight.getFloat(Constants.NECK, 0F)
+            if (oldNeck != 0F) {
+                newSettingsWeight.putFloat(NECK, oldNeck).apply()
+            }
+            val oldWaist = oldSettingsWeight.getFloat(Constants.WAIST, 0F)
+            if (oldWaist != 0F) {
+                newSettingsWeight.putFloat(WAIST, oldWaist).apply()
+            }
+            val oldForearm = oldSettingsWeight.getFloat(Constants.FOREARM, 0F)
+            if (oldForearm != 0F) {
+                newSettingsWeight.putFloat(FOREARM, oldForearm).apply()
+            }
+            val oldWrist = oldSettingsWeight.getFloat(Constants.WRIST, 0F)
+            if (oldWrist != 0F) {
+                newSettingsWeight.putFloat(WRIST, oldWrist).apply()
+            }
+            val oldBothHips = oldSettingsWeight.getFloat(Constants.HIPS, 0F)
+            if (oldBothHips != 0F) {
+                newSettingsWeight.putFloat(HIPS, oldBothHips).apply()
+            }
+            val oldHip1 = oldSettingsWeight.getFloat(Constants.HIP_1, 0F)
+            if (oldHip1 != 0F) {
+                newSettingsWeight.putFloat(HIP_1, oldHip1).apply()
+            }
+            val oldHip2 = oldSettingsWeight.getFloat(Constants.HIP_2, 0F)
+            if (oldHip2 != 0F) {
+                newSettingsWeight.putFloat(HIP_2, oldHip2).apply()
+            }
+            val oldShin = oldSettingsWeight.getFloat(Constants.SHIN, 0F)
+            if (oldShin != 0F) {
+                newSettingsWeight.putFloat(SHIN, oldShin).apply()
+            }
+
+            //Сохранение цели в шагах
+            val oldSettingsSteps = this.applicationContext.getSharedPreferences(Constants.STEPS, Context.MODE_PRIVATE)
+            val newSettingsSteps = this.applicationContext.getSharedPreferences(STEPS, Context.MODE_PRIVATE).edit()
+
+            val oldStepsTarget = oldSettingsSteps.getInt(Constants.TARGET, 10000)
+            if (oldStepsTarget != 10000) {
+                newSettingsSteps.putInt(STEPS_TARGET, oldStepsTarget).apply()
+            }
+
             newSettingsSettings.putInt(CHOOSEN_THEME, oldSettingsAppTheme).apply()
             Log.d("Database", "onCreate: Инициализировал все старые константы")
             /*    до сюда     */
-        }
-
-        //Запрос на уведомления
-        lifecycleScope.launch(AppDispatchers.main) {
-            val getFirstLaunchCompleted = GetFirstLaunchCompleted(repository = Repositories.settingsStorage)
-            val status = getFirstLaunchCompleted.execute()
-
-            if (status) {
-
-                if (Build.VERSION.SDK_INT >= 33) {
-                    notificationPermissionLauncher.launch(POST_NOTIFICATIONS)
-                } else {
-                    hasNotificationPermissionGranted = true
-                }
-
-                //Для восстановления уведомлений
-                showSettingDialog2()
-            }
-
         }
 
     }
@@ -166,20 +247,20 @@ class MainActivity : AppCompatActivity() {
     private fun showSettingDialog2() {
         MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog_Material3)
             .setTitle("Разрешение на автозапуск")
-            .setMessage("Наше приложение использует уведомления для напоминания о приёме лекарств, но без автозапуска они не будут работать корректно, разрешите нашему приложению запускаться автоматически")
+            .setMessage("Наше приложение использует уведомления для напоминания о приёме лекарств, но без автозапуска они не будут работать корректно. разрешите нашему приложению запускаться автоматически")
             .setPositiveButton("Разрешить") { _, _ ->
-                try {
-                    val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                    intent.data = Uri.parse("package:" + this.packageName)
-                    this.startActivity(intent)
-                } catch (e: ActivityNotFoundException) {
-                    val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
-                    this.startActivity(intent)
-                }
+
+                AutoStartPermissionHelper.getInstance().getAutoStartPermission(this@MainActivity.applicationContext, open = true, newTask = true)
+                settingAutoStart.edit().putBoolean(AUTOSTART_IS_AVAIBLE, true).apply()
             }
             .setNegativeButton("Запретить", null)
             .show()
     }
+
+    private fun getDiffDaysBetweenActions(curTime : Long, actionTime : Long) : Int {
+        return ((curTime - actionTime).toFloat()/86400000F).toBigDecimal().setScale(0, RoundingMode.UP).toInt()
+    }
+
 
 }
 

@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.start.StartFragment4"
-    android:background="@drawable/background"
-    >
+    tools:context=".ui.start.StartFragment7"
+    android:background="@drawable/background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,102 +35,97 @@
 
             <TextView
                 style="@style/zagalovok1"
-                android:id="@+id/greatings"
+                android:id="@+id/quetion_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/margin_main1"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="60dp"
-                android:text="Здравствуйте! Рады приветствовать вас в нашем приложении. Давайте познакомимся:"
-                />
-
-            <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/quetion_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/greatings"
+                app:layout_constraintEnd_toStartOf="@id/margin_main2"
                 android:layout_marginTop="30dp"
-                android:text="Как вас зовут?"
+                android:text="Выберите ваш вес"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/name_box"
+                android:id="@+id/numPick_weight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/quetion_name"
+                app:layout_constraintTop_toBottomOf="@id/quetion_weight"
                 app:layout_constraintEnd_toEndOf="@id/margin_main2"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="10dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/materialEditText"
-                    android:id="@+id/textInputLayout"
+                <ImageView
+                    android:id="@+id/numPick_box_weight"
                     android:layout_width="match_parent"
-                    android:layout_height="77dp"
-                    app:layout_constraintStart_toStartOf="@id/name_box"
-                    app:layout_constraintTop_toTopOf="@id/name_box"
-                    app:layout_constraintEnd_toEndOf="@id/name_box"
-                    app:errorEnabled="true"
-                    android:hint="@string/input_name"
-                    >
+                    android:layout_height="200dp"
+                    android:src="@drawable/box"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/getName"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintStart_toStartOf="@id/textInputLayout"
-                        app:layout_constraintTop_toTopOf="@id/textInputLayout"
-                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
-                        app:layout_constraintEnd_toEndOf="@id/textInputLayout"
-                        android:inputType="textCapSentences"
-                        android:imeOptions="actionDone"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                <NumberPicker
+                    android:id="@+id/numberPicker1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="@id/numPick_box_weight"
+                    app:layout_constraintTop_toTopOf="@id/numPick_box_weight"
+                    app:layout_constraintBottom_toBottomOf="@id/numPick_box_weight"
+                    app:layout_constraintEnd_toEndOf="@id/numPick_box_weight"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/weightEditBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/margin_main1"
+            app:layout_constraintEnd_toEndOf="@id/margin_main2"
+            app:layout_constraintTop_toBottomOf="@id/numPick_weight"
+            android:layout_marginTop="10dp"
+            >
+
             <TextView
-                style="@style/zagalovok1"
-                android:id="@+id/chooseGender"
+                style="@style/zagalovok2"
+                android:id="@+id/textOr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/margin_main1"
-                app:layout_constraintTop_toBottomOf="@id/name_box"
-                android:layout_marginTop="15dp"
-                android:text="Выберите ваш пол"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/or"
                 />
 
-            <RadioGroup
-                android:id="@+id/radioGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/chooseGender"
-                app:layout_constraintStart_toEndOf="@id/margin_main1"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/materialEditText"
+                android:id="@+id/textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="66dp"
+                app:layout_constraintStart_toStartOf="@id/weightEditBox"
+                app:layout_constraintTop_toBottomOf="@id/textOr"
+                app:layout_constraintEnd_toEndOf="@id/weightEditBox"
+                app:errorEnabled="true"
+                android:hint="@string/input_weight"
+                >
 
-                <RadioButton
-                    style="@style/zagalovok1"
-                    android:id="@+id/rb_male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="30dp"
-                    android:text="@string/he"
-                    android:checked="true"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/getWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="@id/textInputLayout"
+                    app:layout_constraintTop_toTopOf="@id/textInputLayout"
+                    app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
+                    app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
                     />
 
-                <RadioButton
-                    style="@style/zagalovok1"
-                    android:id="@+id/rb_female"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:text="@string/she" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </RadioGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

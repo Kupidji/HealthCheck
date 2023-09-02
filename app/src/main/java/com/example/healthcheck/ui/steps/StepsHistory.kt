@@ -63,7 +63,7 @@ class StepsHistory : Fragment() {
             binding.stepsHistoryRecyclerView.adapter = adapter
             binding.stepsHistoryRecyclerView.layoutManager = layoutManager
             viewModel.stepsListHistory.collect { list ->
-                adapter.list = list
+                adapter.list = list.reversed()
                 if (list.isEmpty()) {
                     binding.nothingThere.visibility = View.VISIBLE
                 }

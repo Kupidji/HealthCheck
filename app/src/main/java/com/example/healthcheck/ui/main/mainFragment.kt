@@ -1,8 +1,6 @@
 package com.example.healthcheck.ui.main
 
-import com.example.healthcheck.notifications.receiver.DateChangedBroadcastReceiver
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +20,7 @@ import com.example.domain.AppDispatchers
 import com.example.domain.models.Medicines
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
-
+import com.example.healthcheck.notifications.receiver.DateChangedBroadcastReceiver
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainViewModel
 import com.example.healthcheck.viewmodels.main.ViewPagerAdapter
@@ -46,14 +44,13 @@ class mainFragment : Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val navigation = findNavController()
-
         var navOptions = NavOptions.Builder()
             .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
             .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)

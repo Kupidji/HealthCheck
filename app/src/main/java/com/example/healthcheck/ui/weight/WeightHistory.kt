@@ -62,7 +62,7 @@ class WeightHistory : Fragment() {
             binding.weightHistoryRecyclerView.adapter = adapter
             binding.weightHistoryRecyclerView.layoutManager = layoutManager
             viewModel.weightListHistory.collect { list ->
-                adapter.list = list
+                adapter.list = list.reversed()
                 if (list.isEmpty()) {
                     binding.nothingThere.visibility = View.VISIBLE
                 }

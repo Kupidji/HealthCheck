@@ -162,7 +162,7 @@ class weightFragment : Fragment() {
         }
 
         binding.getWeight.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && binding.getWeight.text.isNotEmpty()) {
+            if (!hasFocus && binding.getWeight.text.toString().isNotEmpty()) {
                 forWeight()
             }
         }
@@ -175,10 +175,11 @@ class weightFragment : Fragment() {
 
             //Если клавиатура убрана
             if (heightDiff < 0.2 * view.rootView.height) {
+                binding.getWeight.clearFocus()
 
                 if (!keyboardStatus) {
                     keyboardStatus = true
-                    focusChange(binding.getWeight, false)
+
                     focusChange(binding.getNeck, false)
                     focusChange(binding.getWaist, false)
                     focusChange(binding.getForearm, false)
@@ -188,7 +189,7 @@ class weightFragment : Fragment() {
                     focusChange(binding.getHip2, false)
                     focusChange(binding.getShin, false)
 
-                    if (binding.getWeight.text.isNotEmpty() && binding.getWeight.isFocused) {
+                    if (binding.getWeight.text.toString().isNotEmpty() && binding.getWeight.isFocused) {
                         //Для сохранения веса
                         forWeight()
                     }
@@ -307,12 +308,12 @@ class weightFragment : Fragment() {
             if (binding.getWeight.text.toString().toFloat() != _totalWeightForDay) {
                 //Сохраняет или обновляет базу данных
                 saveOrUpdateWeightBdKeyBoard()
+                binding.getWeight.setSelection(binding.getWeight.text.toString().length)
+                binding.textInputLayout.error = null
             }
-            binding.getWeight.setSelection(binding.getWeight.text.toString().length)
-            binding.getWeight.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         }
         else {
-            binding.getWeight.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.error_ic, 0)
+            binding.textInputLayout.error = this.requireContext().getString(R.string.wrongValue)
         }
 
     }
@@ -322,12 +323,12 @@ class weightFragment : Fragment() {
         Log.d("date", "current date: $currentDate day: $_date id : $_id ")
         //Если новая дата не совпадает со старой -> insert
         if (SimpleDateFormat("dd.MM").format(currentDate) != SimpleDateFormat("dd.MM").format(_date)) {
-            if (binding.getWeight.text.isNotEmpty()) {
+            if (binding.getWeight.text.toString().isNotEmpty()) {
                 viewModel.insertWeight(weight = binding.getWeight.text.toString().toFloat())
             }
         }
         else { //Если новая дата совпадает со старой -> update
-            if (binding.getWeight.text.isNotEmpty()) {
+            if (binding.getWeight.text.toString().isNotEmpty()) {
                 viewModel.updateWeight(id = _id, weight = binding.getWeight.text.toString().toFloat())
             }
         }

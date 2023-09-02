@@ -14,8 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:overScrollMode="never"
         android:fillViewport="true">
-        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -44,17 +44,6 @@
                 android:src="@drawable/arrow_left"
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!--            <ImageButton-->
-            <!--                android:id="@+id/profile"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                android:src="@drawable/profile"-->
-            <!--                android:background="@android:color/transparent"-->
-            <!--                android:layout_marginTop="30dp"-->
-            <!--                />-->
 
             <TextView
                 android:id="@+id/settingsText"
@@ -96,39 +85,34 @@
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toBottomOf="@id/remindersText">
 
-                <TextView
-                    android:id="@+id/getFirstTime"
-                    style="@style/hint1"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout2"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
-                    android:background="@drawable/box"
-                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="@id/firstTimeBox"
+                    app:layout_constraintTop_toTopOf="@id/firstTimeBox"
+                    app:layout_constraintEnd_toEndOf="@id/firstTimeBox"
+                    app:errorEnabled="true"
                     android:hint="@string/first_rem"
-                    android:paddingStart="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:endIconMode="clear_text"
+                    >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/cloak"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getFirstTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout2"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout2"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout2"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout2"
+                        android:inputType="time"
+                        android:imeOptions="actionDone"
+                        android:drawableStart="@drawable/cloak"
+                        android:drawablePadding="5dp"
+                        />
 
-                <ImageView
-                    android:id="@+id/deleteFirstTime"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/delete"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -138,43 +122,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toBottomOf="@id/firstTimeBox">
 
-                <TextView
-                    android:id="@+id/getSecondTime"
-                    style="@style/hint1"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout3"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
-                    android:background="@drawable/box"
-                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="@id/secondTimeBox"
+                    app:layout_constraintTop_toTopOf="@id/secondTimeBox"
+                    app:layout_constraintEnd_toEndOf="@id/secondTimeBox"
+                    app:errorEnabled="true"
                     android:hint="@string/second_rem"
-                    android:paddingStart="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:endIconMode="clear_text"
+                    >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/cloak"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getSecondTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout3"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout3"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout3"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout3"
+                        android:inputType="time"
+                        android:imeOptions="actionDone"
+                        android:drawableStart="@drawable/cloak"
+                        android:drawablePadding="5dp"
+                        />
 
-                <ImageView
-                    android:id="@+id/deleteSecondTime"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/delete"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -184,43 +166,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toBottomOf="@id/secondTimeBox">
 
-                <TextView
-                    android:id="@+id/getThirdTime"
-                    style="@style/hint1"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout4"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
-                    android:background="@drawable/box"
-                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="@id/thirdTimeBox"
+                    app:layout_constraintTop_toTopOf="@id/thirdTimeBox"
+                    app:layout_constraintEnd_toEndOf="@id/thirdTimeBox"
+                    app:errorEnabled="true"
                     android:hint="@string/third_rem"
-                    android:paddingStart="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:endIconMode="clear_text"
+                    >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/cloak"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getThirdTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout4"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout4"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout4"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout4"
+                        android:inputType="time"
+                        android:imeOptions="actionDone"
+                        android:drawableStart="@drawable/cloak"
+                        android:drawablePadding="5dp"
+                        />
 
-                <ImageView
-                    android:id="@+id/deleteThirdTime"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/delete"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -230,43 +208,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@id/margin_margin_medicines2"
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toBottomOf="@id/thirdTimeBox">
 
-                <TextView
-                    android:id="@+id/getFourthTime"
-                    style="@style/hint1"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout5"
                     android:layout_width="0dp"
                     android:layout_height="77dp"
-                    android:background="@drawable/box"
-                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="@id/fourthTimeBox"
+                    app:layout_constraintTop_toTopOf="@id/fourthTimeBox"
+                    app:layout_constraintEnd_toEndOf="@id/fourthTimeBox"
+                    app:errorEnabled="true"
                     android:hint="@string/fourth_rem"
-                    android:paddingStart="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:endIconMode="clear_text"
+                    >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/cloak"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getFourthTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout5"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout5"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout5"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout5"
+                        android:inputType="time"
+                        android:imeOptions="actionDone"
+                        android:drawableStart="@drawable/cloak"
+                        android:drawablePadding="5dp"
+                        />
 
-                <ImageView
-                    android:id="@+id/deleteFourthTime"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/delete"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -289,19 +263,32 @@
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toBottomOf="@id/durationOfCourseText">
 
-                <EditText
-                    android:id="@+id/getCountOfDays"
-                    style="@style/hint1"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout6"
+                    android:layout_width="0dp"
                     android:layout_height="77dp"
-                    android:background="@drawable/box"
+                    app:layout_constraintStart_toStartOf="@id/countOfDaysBox"
+                    app:layout_constraintTop_toTopOf="@id/countOfDaysBox"
+                    app:layout_constraintEnd_toEndOf="@id/countOfDaysBox"
+                    app:errorEnabled="true"
                     android:hint="@string/input_count_of_days"
-                    android:inputType="number"
-                    android:paddingStart="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:endIconMode="clear_text"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getCountOfDays"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout6"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout6"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout6"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout6"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -314,22 +301,32 @@
                 app:layout_constraintStart_toStartOf="@id/margin_medicines"
                 app:layout_constraintTop_toBottomOf="@id/pillsText">
 
-                <EditText
-                    android:id="@+id/getTitle"
-                    style="@style/hint1"
-                    android:layout_width="match_parent"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/materialEditText"
+                    android:id="@+id/textInputLayout"
+                    android:layout_width="0dp"
                     android:layout_height="77dp"
-                    android:background="@drawable/box"
+                    app:layout_constraintStart_toStartOf="@id/titleBox"
+                    app:layout_constraintTop_toTopOf="@id/titleBox"
+                    app:layout_constraintEnd_toEndOf="@id/titleBox"
+                    app:errorEnabled="true"
                     android:hint="@string/title_of_pills"
-                    android:inputType="textCapSentences"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:imeOptions="actionDone"
-                    />
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/textInputLayout"
+                        app:layout_constraintTop_toTopOf="@id/textInputLayout"
+                        app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
+                        app:layout_constraintEnd_toEndOf="@id/textInputLayout"
+                        android:inputType="textCapSentences"
+                        android:imeOptions="actionDone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -56,6 +56,7 @@ class medicinesFragment : Fragment() {
 
         val layoutManager = GridLayoutManager(this.context, 2)
 
+
         lifecycleScope.launch(AppDispatchers.main) {
             binding.recyclerViewMedicines.layoutManager = layoutManager
             binding.recyclerViewMedicines.adapter = adapter
