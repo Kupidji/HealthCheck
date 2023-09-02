@@ -1,9 +1,6 @@
 package com.example.healthcheck.ui.main
 
-import android.content.Context
-import com.example.healthcheck.notifications.receiver.DateChangedBroadcastReceiver
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +20,7 @@ import com.example.domain.AppDispatchers
 import com.example.domain.models.Medicines
 import com.example.healthcheck.R
 import com.example.healthcheck.databinding.FragmentMainBinding
-
+import com.example.healthcheck.notifications.receiver.DateChangedBroadcastReceiver
 import com.example.healthcheck.util.animations.buttonChangeScreenAnimation.buttonChangeScreenAnimation
 import com.example.healthcheck.viewmodels.main.MainViewModel
 import com.example.healthcheck.viewmodels.main.ViewPagerAdapter
@@ -40,19 +37,6 @@ class mainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var _nearestActMedicine : Medicines
     private var isClickable = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        val navigation = findNavController()
-        lifecycleScope.launch(AppDispatchers.main) {
-            viewModel.isFirstLaunch.collect { status ->
-                if (status) {
-                    navigation.navigate(R.id.startFragment)
-                }
-            }
-        }
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +60,14 @@ class mainFragment : Fragment() {
 
         val viewPagerAdapter = ViewPagerAdapter(this, viewModel.fragList)
         binding.viewPager.adapter = viewPagerAdapter
+
+        lifecycleScope.launch(AppDispatchers.main) {
+            viewModel.isFirstLaunch.collect { status ->
+                if (status) {
+                    navigation.navigate(R.id.startFragment)
+                }
+            }
+        }
 
         lifecycleScope.launch(AppDispatchers.main) {
             viewModel.nearestAction.collect { action ->

@@ -1,13 +1,12 @@
 package com.example.healthcheck.ui.main
 
 import android.Manifest.permission.POST_NOTIFICATIONS
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.example.data.AGE
+import com.example.data.AUTOSTART_IS_AVAIBLE
 import com.example.data.CHOOSEN_THEME
 import com.example.data.FIRST_LAUNCH
 import com.example.data.FOREARM
@@ -36,13 +36,13 @@ import com.example.data.WAIST
 import com.example.data.WEIGHT
 import com.example.data.WRIST
 import com.example.domain.AppDispatchers
-import com.example.domain.usecase.start.GetFirstLaunchCompleted
 import com.example.healthcheck.databinding.ActivityMainBinding
 import com.example.healthcheck.notifications.service.MedicinesNotificationService
 import com.example.healthcheck.notifications.service.NotificationService
 import com.example.healthcheck.util.Constants
 import com.google.android.material.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.judemanutd.autostarter.AutoStartPermissionHelper
 import kotlinx.coroutines.launch
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
@@ -72,10 +72,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    lateinit var settingAutoStart : SharedPreferences
+    private var getAutoStart = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Запрос на уведомления
+        if (Build.VERSION.SDK_INT >= 33) {
+            notificationPermissionLauncher.launch(POST_NOTIFICATIONS)
+        } else {
+            hasNotificationPermissionGranted = true
+        }
+        //Для восстановления уведомлений
+
+        settingAutoStart = applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)
+        getAutoStart = settingAutoStart.getBoolean(AUTOSTART_IS_AVAIBLE, false)
+        if (!getAutoStart) {
+            if (AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this.applicationContext, onlyIfSupported = true)) {
+                showSettingDialog2()
+            }
+        }
+
 
         //Инициализирование дней в таблетках
         lifecycleScope.launch(AppDispatchers.io) {
@@ -208,25 +228,6 @@ class MainActivity : AppCompatActivity() {
             /*    до сюда     */
         }
 
-        //Запрос на уведомления
-        lifecycleScope.launch(AppDispatchers.main) {
-            val getFirstLaunchCompleted = GetFirstLaunchCompleted(repository = Repositories.settingsStorage)
-            val status = getFirstLaunchCompleted.execute()
-
-            if (status) {
-
-                if (Build.VERSION.SDK_INT >= 33) {
-                    notificationPermissionLauncher.launch(POST_NOTIFICATIONS)
-                } else {
-                    hasNotificationPermissionGranted = true
-                }
-
-                //Для восстановления уведомлений
-                showSettingDialog2()
-            }
-
-        }
-
     }
 
     //Функции для разрешения уведомлений
@@ -246,16 +247,11 @@ class MainActivity : AppCompatActivity() {
     private fun showSettingDialog2() {
         MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog_Material3)
             .setTitle("Разрешение на автозапуск")
-            .setMessage("Наше приложение использует уведомления для напоминания о приёме лекарств, но без автозапуска они не будут работать корректно, разрешите нашему приложению запускаться автоматически")
+            .setMessage("Наше приложение использует уведомления для напоминания о приёме лекарств, но без автозапуска они не будут работать корректно. разрешите нашему приложению запускаться автоматически")
             .setPositiveButton("Разрешить") { _, _ ->
-                try {
-                    val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                    intent.data = Uri.parse("package:" + this.packageName)
-                    this.startActivity(intent)
-                } catch (e: ActivityNotFoundException) {
-                    val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
-                    this.startActivity(intent)
-                }
+
+                AutoStartPermissionHelper.getInstance().getAutoStartPermission(this@MainActivity.applicationContext, open = true, newTask = true)
+                settingAutoStart.edit().putBoolean(AUTOSTART_IS_AVAIBLE, true).apply()
             }
             .setNegativeButton("Запретить", null)
             .show()

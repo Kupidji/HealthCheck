@@ -58,6 +58,9 @@ const val REGULAR_CHANNEL_ID = 1232149812
     //Первый запуск
     const val FIRST_LAUNCH = "FIRST_LAUNCH"
     const val HEALTHY_EAT_VISIBILITY = "HEALTHY_EAT_VISIBILITY"
+    //Автозапуск
+    const val AUTOSTART_IS_AVAIBLE = "AUTOSTART_IS_AVAIBLE"
+
     //тема приложения
     const val CHOOSEN_THEME = "CHOOSEN_THEME"
     const val CURRENT_DAY = "CURRENT_DAY"
